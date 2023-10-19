@@ -6,8 +6,6 @@ import * as Form from "@radix-ui/react-form";
 
 export default function ClientComponent() {
   const supabase = createClientComponentClient();
-
-  const [todos, setTodos] = useState<any[]>([]);
   const [user, setUser] = useState<any>();
 
   useEffect(() => {
@@ -20,12 +18,28 @@ export default function ClientComponent() {
     };
 
     getUser();
-  }, [supabase, setTodos]);
+  }, [supabase, setUser]);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formValue = (event.target as any).elements.content.value;
+
+    sendToAPI(formValue, user.user.id);
+  };
+
+  const sendToAPI = async (content: string, user_id: string) => {
+    const { data, error } = await supabase
+      .from("text-content")
+      .insert([{ content, user_id }])
+      .select();
+
+    console.log("data: ", data);
+  };
 
   return (
     <div>
-      <Form.Root className="w-[350px] sm:w-[500px]">
-        <Form.Field className="grid mb-[10px]" name="question">
+      <Form.Root className="w-[350px] sm:w-[500px]" onSubmit={handleSubmit}>
+        <Form.Field className="grid mb-[10px]" name="content">
           <div className="flex items-baseline justify-between">
             <Form.Label className="text-md font-medium my-2 leading-[35px] text-white">
               What you want to learn
@@ -55,12 +69,3 @@ export default function ClientComponent() {
     </div>
   );
 }
-
-// const getTodos = async () => {
-//   const { data } = await supabase.from("todos").select();
-//   if (data) {
-//     setTodos(data);
-//   }
-// };
-
-// getTodos();
