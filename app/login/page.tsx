@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import Messages from './messages'
+import Link from "next/link";
+import Messages from "./messages";
 
 export default function Login() {
   return (
@@ -21,8 +21,8 @@ export default function Login() {
           className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
         >
           <polyline points="15 18 9 12 15 6" />
-        </svg>{' '}
-        Back
+        </svg>{" "}
+        Home
       </Link>
 
       <form
@@ -30,6 +30,9 @@ export default function Login() {
         action="/auth/sign-in"
         method="post"
       >
+        <h1 className="text-5xl font-sans mb-4 flex justify-center">
+          Educator AI
+        </h1>
         <label className="text-md" htmlFor="email">
           Email
         </label>
@@ -49,17 +52,20 @@ export default function Login() {
           placeholder="••••••••"
           required
         />
-        <button className="bg-green-700 rounded px-4 py-2 text-white mb-2">
-          Sign In
+        <button
+          className="rounded px-4 py-2 text-white mb-2"
+          style={{ background: "linear-gradient(to right, #008FFF, #A436FE)" }}
+        >
+          Login
         </button>
         <button
           formAction="/auth/sign-up"
-          className="border border-gray-700 rounded px-4 py-2 text-black mb-2"
+          className="border border-gray-700 rounded px-4 py-2 text-white mb-2"
         >
           Sign Up
         </button>
         <Messages />
       </form>
     </div>
-  )
+  );
 }
