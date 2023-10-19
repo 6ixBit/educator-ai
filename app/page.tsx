@@ -5,6 +5,7 @@ import LogoutButton from "../components/LogoutButton";
 import SupabaseLogo from "../components/SupabaseLogo";
 import NextJsLogo from "../components/NextJsLogo";
 import DashboardButton from "../components/DashboardButton";
+import Navigation from "@/components/Navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -25,13 +26,6 @@ const resources = [
   },
 ];
 
-const examples = [
-  { type: "Client Components", src: "app/_examples/client-component/page.tsx" },
-  { type: "Server Components", src: "app/_examples/server-component/page.tsx" },
-  { type: "Server Actions", src: "app/_examples/server-action/page.tsx" },
-  { type: "Route Handlers", src: "app/_examples/route-handler.ts" },
-];
-
 export default async function Index() {
   const supabase = createServerComponentClient({ cookies });
 
@@ -41,7 +35,7 @@ export default async function Index() {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
+      <Navigation>
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm text-foreground">
           <DashboardButton />
           {user ? (
@@ -58,7 +52,7 @@ export default async function Index() {
             </Link>
           )}
         </div>
-      </nav>
+      </Navigation>
 
       <div className="animate-in flex flex-col gap-14 opacity-0 max-w-4xl px-3 py-16 lg:py-24 text-foreground">
         <div className="flex flex-col items-center mb-4 lg:mb-12">
@@ -73,8 +67,8 @@ export default async function Index() {
           <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center my-12">
             The fastest way to learn new <strong>Topics</strong>
           </p>
-          <div className="bg-foreground py-3 px-6 rounded-lg font-mono text-sm text-background">
-            <strong>Get started learning a new topic</strong>
+          <div className="bg-foreground py-3 px-6 rounded-lg font-mono text-lg text-background">
+            <strong>Get started </strong>
           </div>
         </div>
 
