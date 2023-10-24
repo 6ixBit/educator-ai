@@ -4,8 +4,8 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
 import * as Form from "@radix-ui/react-form";
 
-import Summary from "./summary";
-import FlashCards from "./flashcards";
+import Summary from "./components/summary";
+import FlashCards from "./components/flashcards";
 
 export default function ClientComponent() {
   const supabase = createClientComponentClient();
@@ -22,18 +22,23 @@ export default function ClientComponent() {
     getUser();
   }, [supabase, setUser]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (user === null) {
-      // TODO: Show user login modal if they aren't logged in already and return early.
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    // TODO: Show user login modal if they aren't logged in already and return early.
+    event.preventDefault();
+
+    if (!user?.user?.id) {
+      console.log("we got a freeloader here.");
+      //TODO: Prompt the user to login via the UI now.
       return;
     }
 
-    event.preventDefault();
     const formValue = (event.target as any).elements.content.value;
-
-    sendToAPI(formValue, user.user.id);
+    await sendToSupabase(formValue, user?.user?.id);
+    await sendToServer(formValue, user?.user?.id);
   };
-  const sendToAPI = async (content: string, user_id: string) => {
+
+  const sendToSupabase = async (content: string, user_id: string) => {
+    //TODO: Make it into a server action client component. No need for API for LLM network requests.
     try {
       const { data, error } = await supabase
         .from("text-content")
@@ -41,8 +46,25 @@ export default function ClientComponent() {
         .select();
 
       if (error) throw error;
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
 
-      console.log("data: ", data);
+  const sendToServer = async (content: string, user_id: string) => {
+    try {
+      const response = await fetch("/api/summary/getSummary", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ content, user_id }),
+      });
+
+      if (!response.ok) throw new Error("Network response was not ok");
+
+      const data = await response.json();
+      console.log("server response /api/summary/getsummary: ", data);
     } catch (error) {
       console.error("Error: ", error);
     }

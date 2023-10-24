@@ -5,7 +5,7 @@ interface ISummary {
 
 export default function Summary({ title, summary }: ISummary) {
   return (
-    <div className="flex flex-col items-center mt-16">
+    <div className="flex flex-col items-center mt-16 text-center">
       <h1 className="text-white font-bold mb-2 text-2xl leading-relaxed font-sans">
         {title}
       </h1>
