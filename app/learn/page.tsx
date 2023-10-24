@@ -34,7 +34,7 @@ export default function ClientComponent() {
 
     const formValue = (event.target as any).elements.content.value;
     await sendToSupabase(formValue, user?.user?.id);
-    await sendToServer(formValue, user?.user?.id);
+    await sendToServer(formValue);
   };
 
   const sendToSupabase = async (content: string, user_id: string) => {
@@ -51,14 +51,14 @@ export default function ClientComponent() {
     }
   };
 
-  const sendToServer = async (content: string, user_id: string) => {
+  const sendToServer = async (content: string) => {
     try {
       const response = await fetch("/api/summary/getSummary", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ content, user_id }),
+        body: JSON.stringify({ content }),
       });
 
       if (!response.ok) throw new Error("Network response was not ok");

@@ -7,11 +7,18 @@ export async function POST(request: Request) {
    const user = await supabase.auth.getUser()
 
    if (!user) {
-      return NextResponse.json({'status': 'failure', 'reason': 'user not logged in'})
+      return NextResponse.json({'status': 'failure', 'reason': 'user not authenticated'})
    }
 
-   const body = request.body
+   const body = await request.json()
+   const summary = summarizeText(body?.content)
 
+    return NextResponse.json({'status': 'success', user, summary})
+}
 
-    return NextResponse.json({'status': 'success', user, body})
+async function summarizeText(content: string) {
+   
+   // TODO: Send to LLM for processing.
+   return {}
+
 }
