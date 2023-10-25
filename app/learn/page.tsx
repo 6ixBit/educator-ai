@@ -4,8 +4,11 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
 import * as Form from "@radix-ui/react-form";
 
+import { sendToSupabase, sendToServer } from "./actions";
+
 import Summary from "./components/summary";
 import FlashCards from "./components/flashcards";
+import RadioGroupContainer from "@/components/RadioGroup/RadioGroupContainer";
 
 export default function ClientComponent() {
   const supabase = createClientComponentClient();
@@ -33,45 +36,12 @@ export default function ClientComponent() {
     }
 
     const formValue = (event.target as any).elements.content.value;
-    await sendToSupabase(formValue, user?.user?.id);
+    await sendToSupabase(supabase, formValue, user?.user?.id);
     await sendToServer(formValue);
   };
 
-  const sendToSupabase = async (content: string, user_id: string) => {
-    //TODO: Make it into a server action client component. No need for API for LLM network requests.
-    try {
-      const { data, error } = await supabase
-        .from("text-content")
-        .insert([{ content, user_id }])
-        .select();
-
-      if (error) throw error;
-    } catch (error) {
-      console.error("Error: ", error);
-    }
-  };
-
-  const sendToServer = async (content: string) => {
-    try {
-      const response = await fetch("/api/summary/getSummary", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ content }),
-      });
-
-      if (!response.ok) throw new Error("Network response was not ok");
-
-      const data = await response.json();
-      console.log("server response /api/summary/getsummary: ", data);
-    } catch (error) {
-      console.error("Error: ", error);
-    }
-  };
-
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center max-w-full">
       <Form.Root className="w-[350px] sm:w-[500px]" onSubmit={handleSubmit}>
         <Form.Field className="grid mb-[10px]" name="content">
           <div className="flex items-baseline justify-between">
@@ -107,6 +77,12 @@ export default function ClientComponent() {
         summary="This great battle occured on the west bank of the wall of fire, Kashtira led by AriseHeart and Tearlamenets led by resentful leader"
       />
       <FlashCards />
+      <div className="mt-12 mb-4">
+        <h1 className="text-lg font-medium text-white text-center pb-4 underline">
+          Quiz
+        </h1>
+        <RadioGroupContainer />
+      </div>
     </div>
   );
 }

@@ -13,7 +13,7 @@ export async function POST(request: Request) {
    const body = await request.json()
    const summary = summarizeText(body?.content)
 
-    return NextResponse.json({'status': 'success', user, summary})
+    return NextResponse.json({'status': 'success', user, summary: body})
 }
 
 async function summarizeText(content: string) {
