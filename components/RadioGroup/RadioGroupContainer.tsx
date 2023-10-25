@@ -3,8 +3,12 @@ import "./styles.css";
 
 export default function RadioGroupContainer({
   children,
+  handleValueChange,
+  value,
 }: {
   children?: React.ReactNode;
+  handleValueChange: (value: string) => void;
+  value: string;
 }) {
   return (
     <form>
@@ -12,6 +16,8 @@ export default function RadioGroupContainer({
         className="RadioGroupRoot"
         defaultValue="default"
         aria-label="View density"
+        onValueChange={handleValueChange}
+        value={value}
       >
         <div style={{ display: "flex", alignItems: "center" }}>
           <RadioGroup.Item className="RadioGroupItem" value="default" id="r1">
@@ -41,6 +47,7 @@ export default function RadioGroupContainer({
             Compact
           </label>
         </div>
+        {children}
       </RadioGroup.Root>
     </form>
   );

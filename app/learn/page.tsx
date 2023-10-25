@@ -13,6 +13,7 @@ import RadioGroupContainer from "@/components/RadioGroup/RadioGroupContainer";
 export default function ClientComponent() {
   const supabase = createClientComponentClient();
   const [user, setUser] = useState<any>(null);
+  const [radioGrpVal, setRadioGrpVal] = useState<any>(null);
 
   useEffect(() => {
     const getUser = async () => {
@@ -81,7 +82,16 @@ export default function ClientComponent() {
         <h1 className="text-lg font-medium text-white text-center pb-4 underline">
           Quiz
         </h1>
-        <RadioGroupContainer />
+        <RadioGroupContainer
+          handleValueChange={(value: any) => {
+            setRadioGrpVal(value);
+          }}
+          value={radioGrpVal}
+        >
+          {radioGrpVal && (
+            <h1 className="text-white">Your choice: {radioGrpVal}</h1>
+          )}
+        </RadioGroupContainer>
       </div>
     </div>
   );
