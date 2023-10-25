@@ -7,6 +7,7 @@ import Summary from "../components/summary";
 import FlashCards from "../components/flashcards";
 import RadioGroupContainer from "@/components/RadioGroup/RadioGroupContainer";
 import { useQuery } from "react-query";
+import { text } from "stream/consumers";
 
 export default function Page({ params }: { params: { id: string } }) {
   const supabase = createClientComponentClient();
@@ -45,7 +46,7 @@ export default function Page({ params }: { params: { id: string } }) {
   if (userData && textContent) {
     if (
       // @ts-ignore
-      (userData?.user?.user_id || "") !== textContent[0]?.content.id &&
+      userData?.user?.id !== textContent[0].user_id &&
       isUserAuthorized
     ) {
       setisUserAuthorized(false);
