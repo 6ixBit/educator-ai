@@ -6,7 +6,7 @@ import { useState } from "react";
 import Summary from "../components/summary";
 import FlashCards from "../components/flashcards";
 import RadioGroupContainer from "@/components/RadioGroup/RadioGroupContainer";
-import SkeletonLoader from "../components/skeletonLoader";
+import SkeletonLoader from "../components/SkeletonLoader";
 import { useQuery } from "react-query";
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -89,8 +89,8 @@ export default function Page({ params }: { params: { id: string } }) {
           </div>
         </>
       ) : (
-        <div className="mt-4">
-          <SkeletonLoader width={260} height={70} />
+        <div className="mt-4 text-white font-bold text-2xl">
+          Nope, no access for you.
         </div>
       )}
     </div>
