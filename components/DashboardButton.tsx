@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 
 export default function DashboardButton() {
@@ -6,8 +7,6 @@ export default function DashboardButton() {
     <Link
       className="py-2 px-3 flex rounded-md no-underline text-white bg-black transition-colors hover:bg-gray-700 border"
       href="/learn"
-      target="_blank"
-      rel="noreferrer"
     >
       <svg
         aria-label="Vercel logomark"

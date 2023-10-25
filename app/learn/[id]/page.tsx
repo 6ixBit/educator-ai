@@ -6,8 +6,8 @@ import { useState } from "react";
 import Summary from "../components/summary";
 import FlashCards from "../components/flashcards";
 import RadioGroupContainer from "@/components/RadioGroup/RadioGroupContainer";
+import SkeletonLoader from "../components/skeletonLoader";
 import { useQuery } from "react-query";
-import { text } from "stream/consumers";
 
 export default function Page({ params }: { params: { id: string } }) {
   const supabase = createClientComponentClient();
@@ -55,10 +55,12 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex flex-col justify-center items-center max-w-full">
-      {isUserAuthorized ? (
+      {isLoading || isLoadingTextContent ? (
+        <div className="mt-4">
+          <SkeletonLoader width={260} height={70} />
+        </div>
+      ) : isUserAuthorized ? (
         <>
-          <p className="text-white font-md">Your Learn ID: {params.id}</p>
-
           <Summary
             title="Example"
             summary={
@@ -87,13 +89,9 @@ export default function Page({ params }: { params: { id: string } }) {
           </div>
         </>
       ) : (
-        <>
-          <h1 className="text-white font-lg">Oi, stop snooping!</h1>
-
-          <p className="text-gray-800 font-md">
-            This is not your post, go to your own.
-          </p>
-        </>
+        <div className="mt-4">
+          <SkeletonLoader width={260} height={70} />
+        </div>
       )}
     </div>
   );
