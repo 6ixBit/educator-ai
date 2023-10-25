@@ -1,9 +1,13 @@
+"use client";
 import "./globals.css";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-export const metadata = {
-  title: "Educator AI",
-  description: "Learn anything you want.",
-};
+// export const metadata = {
+//   title: "Educator AI",
+//   description: "Learn anything you want.",
+// };
+
+const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,
@@ -13,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className="min-h-screen bg-background flex flex-col items-center">
-          {children}
-        </main>
+        <QueryClientProvider client={queryClient}>
+          <main className="min-h-screen bg-background flex flex-col items-center">
+            {children}
+          </main>
+        </QueryClientProvider>
       </body>
     </html>
   );

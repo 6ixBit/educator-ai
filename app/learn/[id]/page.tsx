@@ -1,65 +1,99 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Summary from "../components/summary";
 import FlashCards from "../components/flashcards";
 import RadioGroupContainer from "@/components/RadioGroup/RadioGroupContainer";
+import { useQuery } from "react-query";
 
 export default function Page({ params }: { params: { id: string } }) {
   const supabase = createClientComponentClient();
-  const [user, setUser] = useState<any>(null);
-  const [content, setContent] = useState<any>(null);
   const [radioGrpVal, setRadioGrpVal] = useState<any>(null);
+  const [isUserAuthorized, setisUserAuthorized] = useState<any>(true);
 
-  useEffect(() => {
-    const getUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      if (data) {
-        setUser(data);
-        // TODO: If userID does not match userID from post then render opaque modal on top of page.
-      }
-    };
+  const fetchUser = async () => {
+    const { data, error } = await supabase.auth.getUser();
+    if (data) {
+      return data;
+    }
 
-    const getContent = async () => {
-      const { data, error } = await supabase
-        .from("text-content")
-        .select("content")
-        .eq("id", BigInt(params.id));
+    return error;
+  };
 
-      if (error) {
-        throw error;
-      }
+  const fetchContent = async () => {
+    const { data, error } = await supabase
+      .from("text-content")
+      .select("content, user_id")
+      .eq("id", BigInt(params.id));
 
-      setContent(data);
-      console.log("Received DB data: ", content, data);
-    };
+    if (data) {
+      return data;
+    }
 
-    getContent();
-    getUser();
-  }, [supabase, setUser, setContent]);
+    return error;
+  };
+
+  const { isLoading, error, data: userData } = useQuery("userData", fetchUser);
+  const {
+    isLoading: isLoadingTextContent,
+    error: errorTextContent,
+    data: textContent,
+  } = useQuery("textContent", fetchContent);
+
+  if (userData && textContent) {
+    if (
+      // @ts-ignore
+      (userData?.user?.user_id || "") !== textContent[0]?.content.id &&
+      isUserAuthorized
+    ) {
+      setisUserAuthorized(false);
+    }
+  }
 
   return (
     <div className="flex flex-col justify-center items-center max-w-full">
-      <p className="text-white font-md">Your Learn ID: {params.id}</p>
-      <Summary title="Example" summary={content[0].content} />
-      <FlashCards />
-      <div className="mt-12 mb-4">
-        <h1 className="text-lg font-medium text-white text-center pb-4 underline">
-          Quiz
-        </h1>
-        <RadioGroupContainer
-          handleValueChange={(value: any) => {
-            setRadioGrpVal(value);
-          }}
-          value={radioGrpVal}
-        >
-          {radioGrpVal && (
-            <h1 className="text-white">Your choice: {radioGrpVal}</h1>
-          )}
-        </RadioGroupContainer>
-      </div>
+      {isUserAuthorized ? (
+        <>
+          <p className="text-white font-md">Your Learn ID: {params.id}</p>
+
+          <Summary
+            title="Example"
+            summary={
+              (textContent &&
+                Array.isArray(textContent) &&
+                textContent[0]?.content) ||
+              ""
+            }
+          />
+
+          <FlashCards />
+          <div className="mt-12 mb-4">
+            <h1 className="text-lg font-medium text-white text-center pb-4 underline">
+              Quiz
+            </h1>
+            <RadioGroupContainer
+              handleValueChange={(value: any) => {
+                setRadioGrpVal(value);
+              }}
+              value={radioGrpVal}
+            >
+              {radioGrpVal && (
+                <h1 className="text-white">Your choice: {radioGrpVal}</h1>
+              )}
+            </RadioGroupContainer>
+          </div>
+        </>
+      ) : (
+        <>
+          <h1 className="text-white font-lg">Oi, stop snooping!</h1>
+
+          <p className="text-gray-800 font-md">
+            This is not your post, go to your own.
+          </p>
+        </>
+      )}
     </div>
   );
 }
