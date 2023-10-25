@@ -6,7 +6,10 @@ export const sendToSupabase = async (supabase:any, content: string, user_id: str
         .insert([{ content, user_id }])
         .select();
 
-      if (error) throw error;
+        if (error) throw error;
+
+        return data
+
     } catch (error) {
       console.error("Error: ", error);
     }
