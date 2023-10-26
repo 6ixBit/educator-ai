@@ -18,6 +18,11 @@ export default function ClientComponent() {
     queryFn: () => fetchUser(supabase),
   });
 
+  if (errorUser) {
+    console.log("get text error: ", errorUser);
+    return;
+  }
+
   // @ts-ignore
   const userID = userData?.user?.id;
 
@@ -36,24 +41,27 @@ export default function ClientComponent() {
     return;
   }
 
-  if (!isLoading && userTextContents) {
-    console.log(userTextContents);
-  }
-
   return (
     <div className="flex flex-col justify-center items-center max-w-full">
-      <button className="box-border w-auto text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]">
+      <button
+        onClick={() => router.push("/learn/create")}
+        className="box-border w-auto text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+      >
         Add new product
       </button>
 
-      <div className="flex flex-col gap-2 w-auto mt-4 items-center">
+      <div className="flex flex-col gap-2 w-auto mt-4 items-center mb-4">
         {!isLoading &&
           !error &&
           userTextContents &&
+          // @ts-ignore
           userTextContents.map((content: any, index: number) => (
             <div
               key={index}
               className="rounded border p-4 w-10/12 overflow-auto"
+              onClick={() => {
+                router.push(`/learn/${content.id}`);
+              }}
             >
               <p className="text-white text-sm break-words">
                 {content.content}

@@ -28,6 +28,8 @@ export default function Page({ params }: { params: { id: string } }) {
     return error;
   };
 
+  // TODO: Leverage hold on query call than this.
+
   const {
     isLoading,
     error,
