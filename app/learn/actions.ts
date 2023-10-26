@@ -1,6 +1,9 @@
+
+import {SupabaseClient}from "@supabase/supabase-js";
+
 export const sendToSupabase = async (supabase:any, content: string, user_id: string) => {
-    //TODO: Make it into a server action client component. No need for API for LLM network requests.
     try {
+      // TODO: Swap out for react query
       const { data, error } = await supabase
         .from("text-content")
         .insert([{ content, user_id }])
@@ -17,6 +20,7 @@ export const sendToSupabase = async (supabase:any, content: string, user_id: str
 
 export const sendToServer = async (content: string) => {
     try {
+      // TODO: Swap out for react-query
       const response = await fetch("/api/summary/getSummary", {
         method: "POST",
         headers: {
@@ -32,4 +36,26 @@ export const sendToServer = async (content: string) => {
     } catch (error) {
       console.error("Error: ", error);
     }
+  };
+
+  export const fetchUserTextContents = async (supabase: SupabaseClient, id: string) => {
+    const { data, error } = await supabase
+      .from("text-content")
+      .select("*")
+      .eq("user_id", id);
+
+    if (data) {
+      return data;
+    }
+
+    return error;
+  };
+
+  export const fetchUser = async (supabase: SupabaseClient) => {
+    const { data, error } = await supabase.auth.getUser();
+    if (data) {
+      return data;
+    }
+
+    return error;
   };

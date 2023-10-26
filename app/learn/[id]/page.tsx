@@ -7,21 +7,13 @@ import Summary from "../components/summary";
 import FlashCards from "../components/flashcards";
 import RadioGroupContainer from "@/components/RadioGroup/RadioGroupContainer";
 import SkeletonLoader from "../components/SkeletonLoader";
+import { fetchUser } from "../actions";
 import { useQuery } from "react-query";
 
 export default function Page({ params }: { params: { id: string } }) {
   const supabase = createClientComponentClient();
   const [radioGrpVal, setRadioGrpVal] = useState<any>(null);
   const [isUserAuthorized, setisUserAuthorized] = useState<any>(true);
-
-  const fetchUser = async () => {
-    const { data, error } = await supabase.auth.getUser();
-    if (data) {
-      return data;
-    }
-
-    return error;
-  };
 
   const fetchContent = async () => {
     const { data, error } = await supabase
@@ -36,7 +28,11 @@ export default function Page({ params }: { params: { id: string } }) {
     return error;
   };
 
-  const { isLoading, error, data: userData } = useQuery("userData", fetchUser);
+  const {
+    isLoading,
+    error,
+    data: userData,
+  } = useQuery("userData", () => fetchUser(supabase));
   const {
     isLoading: isLoadingTextContent,
     error: errorTextContent,
