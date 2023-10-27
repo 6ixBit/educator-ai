@@ -10,7 +10,7 @@ export default function Summary({ title, summary }: ISummary) {
         {title}
       </h1>
 
-      <p className="text-gray-500 font-medium">{summary}</p>
+      <p className="text-gray-500 font-medium leading-loose">{summary}</p>
     </div>
   );
 }
