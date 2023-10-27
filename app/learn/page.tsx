@@ -44,7 +44,7 @@ export default function ClientComponent() {
 
   return (
     <div className="flex flex-col max-w-full sm:w-8/12 lg:w-6/12">
-      <div className="flex flex-row justify-between items-center mt-4 mb-3 mx-14 sm:mx-12 md:mx-12 lg:mx-20">
+      <div className="flex flex-row justify-between items-center mt-4 mb-3 mx-10 sm:mx-12 md:mx-12 lg:mx-20">
         <button
           onClick={() => router.push("/learn/create")}
           className="box-border w-auto text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"

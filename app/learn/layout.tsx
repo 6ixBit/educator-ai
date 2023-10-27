@@ -38,12 +38,26 @@ export default function LearnLayout({
         </div>
       </Navigation> */}
 
-      <HamburgerMenu
-        items={[
-          { name: "Home", url: "/" },
-          { name: "Items", url: "/learn" },
-        ]}
-      />
+      <div className="w-full flex justify-center space-x-10 items-center p-3 text-md text-foreground mt-2 mb-4">
+        <Link
+          href="/"
+          className="no-underline  text-gray-300 hover:text-highlight hover:underline font-semibold text-lg"
+        >
+          Home
+        </Link>
+        <Link
+          href="/learn"
+          className="no-underline text-sky-400 hover:text-highlight hover:underline font-semibold text-lg"
+        >
+          Notes
+        </Link>
+        <Link
+          href="/logout"
+          className="no-underline text-gray-300 hover:text-highlight hover:underline font-semibold text-lg"
+        >
+          Logout
+        </Link>
+      </div>
 
       {/* {isMobile ? (
         <HamburgerMenu
