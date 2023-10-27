@@ -64,7 +64,7 @@ export default function ClientComponent() {
           userTextContents.map((content: any, index: number) => (
             <div
               key={index}
-              className="rounded border p-4 w-10/12 overflow-auto"
+              className="rounded border p-4 w-10/12 overflow-auto hover:border-blue-500"
               onClick={() => {
                 router.push(`/learn/${content.id}`);
               }}
