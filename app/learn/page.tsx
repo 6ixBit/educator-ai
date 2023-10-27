@@ -4,6 +4,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { fetchUserTextContents, fetchUser } from "./actions";
 import { useQuery } from "react-query";
+import SkeletonLoader from "./components/SkeletonLoader";
 
 export default function ClientComponent() {
   const router = useRouter();
@@ -42,21 +43,27 @@ export default function ClientComponent() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center max-w-full sm:w-8/12 lg:w-6/12">
-      <div className="flex flex-row justify-between items-center gap-40 sm:gap-[525px] mt-4 mb-3">
+    <div className="flex flex-col max-w-full sm:w-8/12 lg:w-6/12">
+      <div className="flex flex-row justify-between items-center mt-4 mb-3 mx-14 sm:mx-12 md:mx-12 lg:mx-20">
         <button
           onClick={() => router.push("/learn/create")}
-          className="box-border w-auto text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px] ml-auto"
+          className="box-border w-auto text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
         >
           Create
         </button>
 
-        <div className="bg-sky-600 px-1 rounded-full  w-24 text-white  text-center">
-          {Array.isArray(userTextContents) && userTextContents?.length} items
-        </div>
+        {Array.isArray(userTextContents) && (
+          <div className="bg-sky-600 px-1 rounded-full  w-24 text-white  text-center">
+            {userTextContents.length} items
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col gap-2 w-auto mt-4 items-center mb-4">
+        {(isLoadingUser || isLoading) && (
+          <SkeletonLoader height={100} width={550} />
+        )}
+
         {!isLoading &&
           !error &&
           userTextContents &&
