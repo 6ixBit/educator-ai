@@ -1,14 +1,19 @@
+"use client";
 import Navigation from "@/components/Navigation";
 import Link from "next/link";
+import useWindowSize from "@/hooks/useWindowSize";
+import HamburgerMenu from "@/components/HamburgerMenu";
 
 export default function LearnLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { isMobile } = useWindowSize();
+
   return (
     <div className="w-full flex flex-col items-center">
-      <Navigation>
+      {/* <Navigation>
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm text-foreground">
           <Link
             href="/"
@@ -31,7 +36,23 @@ export default function LearnLayout({
             Home
           </Link>
         </div>
-      </Navigation>
+      </Navigation> */}
+
+      <HamburgerMenu
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Items", url: "/learn" },
+        ]}
+      />
+
+      {/* {isMobile ? (
+        <HamburgerMenu
+          items={[
+            { name: "Home", url: "/" },
+            { name: "Items", url: "/learn" },
+          ]}
+        />
+      ) : null} */}
 
       {children}
     </div>

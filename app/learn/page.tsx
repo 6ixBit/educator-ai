@@ -51,7 +51,7 @@ export default function ClientComponent() {
           Create
         </button>
 
-        <div className="bg-sky-300 px-1 rounded-full  w-20  text-center">
+        <div className="bg-sky-600 px-1 rounded-full  w-24 text-white  text-center">
           {Array.isArray(userTextContents) && userTextContents?.length} items
         </div>
       </div>
