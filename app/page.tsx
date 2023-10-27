@@ -36,14 +36,6 @@ export default async function Index() {
 
       <div className="animate-in flex flex-col gap-14 opacity-0 max-w-4xl px-3 py-16 lg:py-24 text-foreground">
         <div className="flex flex-col items-center mb-4 lg:mb-12">
-          {/* <div className="flex gap-8 justify-center items-center">
-            <Link href="https://supabase.com/" target="_blank">
-              <SupabaseLogo />
-            </Link>
-            <span className="border-l rotate-45 h-6" />
-            <NextJsLogo />
-          </div> */}
-
           <h1 className="text-4xl font-sans font-semibold tracking-wide">
             Educator AI
           </h1>
