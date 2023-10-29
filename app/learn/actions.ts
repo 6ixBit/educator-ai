@@ -20,7 +20,6 @@ export const sendToSupabase = async (supabase:any, content: string, user_id: str
 
 export const sendToServer = async (content: string) => {
     try {
-      // TODO: Swap out for react-query
       const response = await fetch("/api/summary/getSummary", {
         method: "POST",
         headers: {
@@ -42,7 +41,8 @@ export const sendToServer = async (content: string) => {
     const { data, error } = await supabase
       .from("text-content")
       .select("*")
-      .eq("user_id", id);
+      .eq("user_id", id)
+      .order('created_at', { ascending: false })
 
     if (data) {
       return data;

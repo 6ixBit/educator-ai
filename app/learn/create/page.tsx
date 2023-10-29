@@ -1,40 +1,37 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useEffect, useState } from "react";
+import { fetchUser } from "../actions";
 import { useRouter } from "next/navigation";
 import * as Form from "@radix-ui/react-form";
+import { useQuery } from "react-query";
 
 import { sendToSupabase, sendToServer } from "../actions";
 
 export default function ClientComponent() {
   const router = useRouter();
   const supabase = createClientComponentClient();
-  const [user, setUser] = useState<any>(null);
 
-  useEffect(() => {
-    const getUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      if (data) {
-        setUser(data);
-      }
-    };
+  const { data: user } = useQuery({
+    queryKey: "userData",
+    queryFn: () => fetchUser(supabase),
+  });
 
-    getUser();
-  }, [supabase, setUser]);
+  // @ts-ignore
+  const userID = user?.user?.id;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // TODO: Show user login modal if they aren't logged in already and return early.
     event.preventDefault();
 
-    if (!user?.user?.id) {
+    // @ts-ignore
+    if (!userID) {
       console.log("we got a freeloader here.");
-      //TODO: Prompt the user to login via the UI now.
       return;
     }
 
     const formValue = (event.target as any).elements.content.value;
-    const data = await sendToSupabase(supabase, formValue, user?.user?.id);
+    const data = await sendToSupabase(supabase, formValue, userID);
     await sendToServer(formValue);
 
     router.push(`/learn/${data[0].id}`);
