@@ -12,7 +12,7 @@ export default function LearnLayout({
   const { isMobile } = useWindowSize();
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center bg-slate-900">
       {/* <Navigation>
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm text-foreground">
           <Link
@@ -38,35 +38,26 @@ export default function LearnLayout({
         </div>
       </Navigation> */}
 
-      <div className="w-full flex justify-center space-x-10 items-center p-3 text-md text-foreground mt-2 mb-4">
+      <div className="flex justify-start space-x-5 pt-4 items-center text-md text-foreground mt-2 mb-4 w-10/12 sm:w-[510px] lg:w-5/12">
         <Link
           href="/"
-          className="no-underline  text-gray-300 hover:text-highlight hover:underline font-semibold text-lg"
+          className="no-underline  text-gray-300 hover:text-highlight hover:underline font-semibold text-sm"
         >
           Home
         </Link>
         <Link
           href="/learn"
-          className="no-underline text-sky-400 hover:text-highlight hover:underline font-semibold text-lg"
+          className="no-underline text-sky-400 hover:text-highlight hover:underline font-semibold text-sm"
         >
           Notes
         </Link>
         <Link
-          href="/logout"
-          className="no-underline text-gray-300 hover:text-highlight hover:underline font-semibold text-lg"
+          href="/learn/create"
+          className="no-underline text-gray-300 hover:text-highlight hover:underline font-semibold text-sm"
         >
           Logout
         </Link>
       </div>
-
-      {/* {isMobile ? (
-        <HamburgerMenu
-          items={[
-            { name: "Home", url: "/" },
-            { name: "Items", url: "/learn" },
-          ]}
-        />
-      ) : null} */}
 
       {children}
     </div>

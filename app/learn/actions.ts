@@ -37,6 +37,18 @@ export const sendToServer = async (content: string) => {
     }
   };
 
+  export const upsert_aiResponse = async (supabase: SupabaseClient, response: object) => {
+    const { data, error } = await supabase
+  .from('text-content')
+  .upsert({ ai_response:  response})
+  .select()
+
+  if (data && !error) {
+    return data
+  }
+    return error 
+  }
+
   export const fetchUserTextContents = async (supabase: SupabaseClient, id: string) => {
     const { data, error } = await supabase
       .from("text-content")

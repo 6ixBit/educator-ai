@@ -15,58 +15,68 @@ export default function Page({ params }: { params: { id: string } }) {
   const [radioGrpVal, setRadioGrpVal] = useState<any>(null);
   const [isUserAuthorized, setisUserAuthorized] = useState<any>(true);
 
+  const {
+    isLoading: isLoadingUser,
+    error: errorUser,
+    data: userData,
+  } = useQuery({
+    queryKey: "userData",
+    queryFn: () => fetchUser(supabase),
+  });
+
+  if (errorUser) {
+    console.log("get text error: ", errorUser);
+    return;
+  }
+
+  // @ts-ignore
+  const userID: string = userData?.user?.id;
+
   const fetchContent = async () => {
     const { data, error } = await supabase
       .from("text-content")
-      .select("content, user_id")
+      .select("content, user_id, ai_response")
       .eq("id", BigInt(params.id));
 
-    if (data) {
-      return data;
+    if (error) {
+      return error;
     }
 
-    return error;
+    console.log("fetched data: ", data[0]);
+
+    return data[0];
   };
 
-  // TODO: Leverage hold on query call than this.
-
-  const {
-    isLoading,
-    error,
-    data: userData,
-  } = useQuery("userData", () => fetchUser(supabase));
   const {
     isLoading: isLoadingTextContent,
-    error: errorTextContent,
+    error,
     data: textContent,
-  } = useQuery("textContent", fetchContent);
+  } = useQuery({
+    queryKey: "textContent",
+    queryFn: () => fetchContent(),
+    enabled: !!userID,
+  });
 
-  if (userData && textContent) {
-    if (
-      // @ts-ignore
-      userData?.user?.id !== textContent[0].user_id &&
-      isUserAuthorized
-    ) {
-      setisUserAuthorized(false);
-    }
+  if (error) {
+    console.log("GET content error: ", error);
+    return;
+  }
+
+  if (textContent && !isLoadingTextContent) {
+    console.log("text content", textContent);
   }
 
   return (
     <div className="flex flex-col justify-center items-center max-w-full">
-      {isLoading || isLoadingTextContent ? (
+      {isLoadingUser || isLoadingTextContent ? (
         <div className="mt-4">
           <SkeletonLoader width={260} height={70} />
         </div>
       ) : isUserAuthorized ? (
         <>
           <Summary
-            title="Example"
-            summary={
-              (textContent &&
-                Array.isArray(textContent) &&
-                textContent[0]?.content) ||
-              ""
-            }
+            title={textContent?.ai_response?.title || "No title"}
+            summary={textContent?.content || "No summary found."}
           />
 
           <FlashCards />

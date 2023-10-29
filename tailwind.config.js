@@ -12,6 +12,7 @@ module.exports = {
           background: 'hsl(var(--btn-background))',
           'background-hover': 'hsl(var(--btn-background-hover))',
         },
+
         'card-blue': '#1f8cff',
         'card-red': '#ce1411',
         'card-orange': '#d37a05',

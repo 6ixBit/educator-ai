@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <QueryClientProvider client={queryClient}>
-          <main className="min-h-screen bg-background flex flex-col items-center">
+          <main className="min-h-screen bg-slate-900 flex flex-col items-center">
             {children}
           </main>
         </QueryClientProvider>
