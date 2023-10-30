@@ -38,8 +38,11 @@ export default function ClientComponent() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center max-w-full">
-      <Form.Root className="w-[350px] sm:w-[500px]" onSubmit={handleSubmit}>
+    <div className="flex flex-col  justify-center items-center sm:w-8/12 lg:w-6/12">
+      <Form.Root
+        className="w-[320px] sm:w-[500px] md:w-[500px] lg:w-[685px]"
+        onSubmit={handleSubmit}
+      >
         <Form.Field className="grid mb-[10px]" name="content">
           <div className="flex items-baseline justify-between">
             <Form.Label className="text-md font-medium my-2 leading-[35px] text-white">
@@ -62,7 +65,7 @@ export default function ClientComponent() {
         </Form.Field>
         <Form.Submit asChild>
           <div className="flex justify-center">
-            <button className="box-border w-1/2 text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]">
+            <button className="box-border w-1/2 text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-full bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]">
               Start Learning
             </button>
           </div>

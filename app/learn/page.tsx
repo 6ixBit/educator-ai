@@ -8,6 +8,8 @@ import SkeletonLoader from "./components/SkeletonLoader";
 import ArrowLogo from "@/components/ArrowLogo";
 import ClampLines from "react-clamp-lines";
 import { formatDate } from "@/utility";
+import Image from "next/image";
+import EditLogo from "@/components/EditLogo";
 
 export default function ClientComponent() {
   const router = useRouter();
@@ -101,7 +103,18 @@ export default function ClientComponent() {
                 lines={5}
               />
 
-              <div className="flex flex-row justify-end mt-2">
+              <div className="flex flex-row justify-between mt-4">
+                <div className="flex gap-3">
+                  <Image
+                    src="/trash.png"
+                    width={20}
+                    height={20}
+                    alt="delete button"
+                    style={{ transition: "transform 0.2s" }}
+                    className="hover:scale-110"
+                  />
+                  <EditLogo />
+                </div>
                 <ArrowLogo />
               </div>
             </div>
