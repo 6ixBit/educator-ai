@@ -8,12 +8,14 @@ import FlashCards from "../components/flashcards";
 import RadioGroupContainer from "@/components/RadioGroup/RadioGroupContainer";
 import SkeletonLoader from "../components/SkeletonLoader";
 import { fetchUser } from "../actions";
+import useWindowSize from "@/hooks/useWindowSize";
 import { useQuery } from "react-query";
 
 export default function Page({ params }: { params: { id: string } }) {
   const supabase = createClientComponentClient();
   const [radioGrpVal, setRadioGrpVal] = useState<any>(null);
   const [isUserAuthorized, setisUserAuthorized] = useState<any>(true);
+  const { isMobile } = useWindowSize();
 
   const {
     isLoading: isLoadingUser,
@@ -41,9 +43,6 @@ export default function Page({ params }: { params: { id: string } }) {
     if (error) {
       return error;
     }
-
-    console.log("fetched data: ", data[0]);
-
     return data[0];
   };
 
@@ -58,24 +57,30 @@ export default function Page({ params }: { params: { id: string } }) {
   });
 
   if (error) {
-    console.log("GET content error: ", error);
-    return;
+    console.log("GET error: ", error);
+    throw error;
   }
 
-  if (textContent && !isLoadingTextContent) {
-    console.log("text content", textContent);
+  if (!isLoadingTextContent && textContent) {
+    // @ts-ignore
+    if (textContent.user_id !== userID) {
+      console.log("no auth");
+      setisUserAuthorized(false);
+    }
   }
 
   return (
     <div className="flex flex-col justify-center items-center max-w-full">
       {isLoadingUser || isLoadingTextContent ? (
         <div className="mt-4">
-          <SkeletonLoader width={260} height={70} />
+          <SkeletonLoader width={isMobile ? 120 : 260} height={70} />
         </div>
       ) : isUserAuthorized ? (
         <>
           <Summary
+            // @ts-ignore
             title={textContent?.ai_response?.title || "No title"}
+            // @ts-ignore
             summary={textContent?.content || "No summary found."}
           />
 

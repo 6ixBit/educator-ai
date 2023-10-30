@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-const { blackA, violet } = require('@radix-ui/colors');
 
 module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx,mdx}'],
@@ -18,6 +17,7 @@ module.exports = {
         'card-orange': '#d37a05',
         'card-pink': '#da0cda',
         'color-green': "#aee67f",
+        'off-white': '#F5F5F5'
       },
     },
   },
