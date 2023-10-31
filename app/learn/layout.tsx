@@ -36,7 +36,7 @@ export default function LearnLayout({
             pathname === "/learn/create" ? "text-sky-500" : "text-gray-600"
           } hover:text-highlight hover:scale-110 hover:text-white`}
         >
-          Create
+          Add
         </Link>
       </div>
 

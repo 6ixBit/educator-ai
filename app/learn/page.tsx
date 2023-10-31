@@ -50,15 +50,19 @@ export default function ClientComponent() {
   return (
     <div className="flex flex-col max-w-full w-9/12 sm:w-8/12 lg:w-9/12">
       <div className="flex flex-row justify-between items-center mt-4 mb-3">
-        <button
+        {/* <button
           onClick={() => router.push("/learn/create")}
-          className="box-border w-auto text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-baseline rounded-full bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+          className="box-border w-auto text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-baseline rounded-md bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
         >
+          Create
+        </button> */}
+
+        <button className="bg-cyan-500 shadow-md shadow-cyan-500/50 w-20 text-white rounded-md font-medium shadow-blackA4 h-[35px] flex items-center justify-center">
           Create
         </button>
 
         {Array.isArray(userTextContents) && (
-          <div className="font-sans w-24 text-white font-medium text-center pt-2">
+          <div className="font-sans w-20 text-white font-medium text-center p-2 bg-neutral-400 rounded-full flex items-center justify-center h-6">
             {userTextContents.length} items
           </div>
         )}
