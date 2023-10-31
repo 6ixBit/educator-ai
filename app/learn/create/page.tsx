@@ -38,9 +38,9 @@ export default function ClientComponent() {
   };
 
   return (
-    <div className="flex flex-col  justify-center items-center sm:w-8/12 lg:w-6/12">
+    <div className="flex flex-col justify-center items-center sm:justify-start sm:items-start max-w-full w-9/12 sm:w-8/12 lg:w-9/12">
       <Form.Root
-        className="w-[320px] sm:w-[500px] md:w-[500px] lg:w-[685px]"
+        className="w-full sm:w-[500px] md:w-[500px] lg:w-[685px]"
         onSubmit={handleSubmit}
       >
         <Form.Field className="grid mb-[10px]" name="content">
