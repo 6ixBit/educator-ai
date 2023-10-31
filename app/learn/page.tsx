@@ -48,8 +48,8 @@ export default function ClientComponent() {
   }
 
   return (
-    <div className="flex flex-col max-w-full sm:w-8/12 lg:w-6/12">
-      <div className="flex flex-row justify-between items-center mt-4 mb-3 mx-8 sm:mx-12 md:mx-[54px] lg:mx-[68px]">
+    <div className="flex flex-col max-w-full sm:w-8/12 lg:w-8/12">
+      <div className="flex flex-row justify-between items-center mt-4 mb-3 ">
         <button
           onClick={() => router.push("/learn/create")}
           className="box-border w-auto text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-baseline rounded-full bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
@@ -76,7 +76,7 @@ export default function ClientComponent() {
           userTextContents.map((content: any, index: number) => (
             <div
               key={index}
-              className="flex flex-col rounded border p-6 sm:p-8 w-10/12  hover:border-blue-500 bg-off-white"
+              className="flex flex-col rounded border w-full p-6 sm:p-8 hover:border-blue-500 bg-off-white"
               onClick={() => {
                 router.push(`/learn/${content.id}`);
               }}

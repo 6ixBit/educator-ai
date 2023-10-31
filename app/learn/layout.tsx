@@ -13,7 +13,7 @@ export default function LearnLayout({
 
   return (
     <div className="w-full flex flex-col items-center bg-slate-900">
-      <div className="flex justify-start space-x-5 pt-4 items-center text-md text-foreground mt-2 mb-4 w-10/12 sm:w-[510px] lg:w-5/12">
+      <div className="flex justify-start space-x-5 pt-4 items-center text-md text-foreground mt-2 mb-4 max-w-full sm:w-8/12 lg:w-8/12">
         <Link
           href="/"
           className={`no-underline font-semibold text-md transform transition-transform duration-200 ${

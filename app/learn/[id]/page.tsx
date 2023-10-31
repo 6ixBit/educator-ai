@@ -70,7 +70,7 @@ export default function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center max-w-full">
+    <div className="flex flex-col justify-center items-center max-w-full lg:w-10/12">
       {isLoadingUser || isLoadingTextContent ? (
         <div className="mt-4">
           <SkeletonLoader width={isMobile ? 120 : 260} height={70} />
