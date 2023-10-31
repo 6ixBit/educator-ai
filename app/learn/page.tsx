@@ -48,7 +48,7 @@ export default function ClientComponent() {
   }
 
   return (
-    <div className="flex flex-col max-w-full sm:w-8/12 lg:w-8/12">
+    <div className="flex flex-col max-w-full w-8/12  sm:w-8/12 lg:w-8/12">
       <div className="flex flex-row justify-between items-center mt-4 mb-3 ">
         <button
           onClick={() => router.push("/learn/create")}
