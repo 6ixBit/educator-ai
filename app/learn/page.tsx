@@ -10,8 +10,12 @@ import ClampLines from "react-clamp-lines";
 import { formatDate } from "@/utility";
 import Image from "next/image";
 import EditLogo from "@/components/EditLogo";
+import { useState } from "react";
+
+import Modal from "@/components/Modal/Modal";
 
 export default function ClientComponent() {
+  const [signInClicked, setSignInClicked] = useState(false);
   const router = useRouter();
   const supabase = createClientComponentClient();
 
@@ -48,16 +52,12 @@ export default function ClientComponent() {
   }
 
   return (
-    <div className="flex flex-col max-w-full w-9/12 sm:w-8/12 lg:w-9/12">
+    <div className="flex flex-col max-w-full w-10/12 sm:w-8/12 lg:w-10/12">
       <div className="flex flex-row justify-between items-center mt-4 mb-3">
-        {/* <button
+        <button
           onClick={() => router.push("/learn/create")}
-          className="box-border w-auto text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-baseline rounded-md bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+          className="bg-cyan-500 transform transition-transform duration-200 hover:scale-110 shadow-md shadow-cyan-500/50 w-20 text-white rounded-md font-medium shadow-blackA4 h-[35px] flex items-center justify-center"
         >
-          Create
-        </button> */}
-
-        <button className="bg-cyan-500 shadow-md shadow-cyan-500/50 w-20 text-white rounded-md font-medium shadow-blackA4 h-[35px] flex items-center justify-center">
           Create
         </button>
 
@@ -81,7 +81,8 @@ export default function ClientComponent() {
             <div
               key={index}
               className="flex flex-col rounded border w-full p-6 sm:p-8 hover:border-blue-500 bg-off-white"
-              onClick={() => {
+              onClick={(e) => {
+                if (e.target !== e.currentTarget) return;
                 router.push(`/learn/${content.id}`);
               }}
             >
@@ -109,13 +110,17 @@ export default function ClientComponent() {
 
               <div className="flex flex-row justify-between mt-4">
                 <div className="flex gap-3">
-                  <Image
-                    src="/trash.png"
-                    width={20}
-                    height={20}
-                    alt="delete button"
-                    style={{ transition: "transform 0.2s" }}
-                    className="hover:scale-110"
+                  <Modal
+                    trigger={() => (
+                      <Image
+                        src="/trash.png"
+                        width={20}
+                        height={20}
+                        alt="delete button"
+                        style={{ transition: "transform 0.2s", zIndex: 1 }}
+                        className="hover:scale-110"
+                      />
+                    )}
                   />
                   <EditLogo />
                 </div>
