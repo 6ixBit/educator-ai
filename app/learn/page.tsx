@@ -111,13 +111,30 @@ export default function ClientComponent() {
               <div className="flex flex-row justify-between mt-4">
                 <div className="flex gap-3">
                   <Modal
+                    title="Delete"
+                    description="Are you sure you want to delete this item?"
+                    actionButtons={
+                      <button
+                        style={{
+                          borderRadius: "5px",
+                          backgroundColor: "#FFCCCC",
+                          color: "#CC0000",
+                          padding: "0.3rem 0.5rem",
+                        }}
+                        onClick={() => {
+                          console.log("delete item.");
+                        }}
+                      >
+                        Delete item
+                      </button>
+                    }
                     trigger={() => (
                       <Image
                         src="/trash.png"
                         width={20}
                         height={20}
                         alt="delete button"
-                        style={{ transition: "transform 0.2s", zIndex: 1 }}
+                        style={{ transition: "transform 0.2s" }}
                         className="hover:scale-110"
                       />
                     )}
