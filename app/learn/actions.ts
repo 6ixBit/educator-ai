@@ -49,6 +49,24 @@ export const sendToServer = async (content: string) => {
     return error 
   }
 
+  export const delete_item = async (supabase: SupabaseClient, column: string, item_id: string) => {
+
+    console.log(supabase,  item_id)
+    console.log("col: ", column)
+
+const { data, error } = await supabase
+.from('text-content')
+.delete()
+.eq(column, item_id)
+
+if (error) {
+  return error
+}
+
+return data
+
+  }
+
   export const fetchUserTextContents = async (supabase: SupabaseClient, id: string) => {
     const { data, error } = await supabase
       .from("text-content")

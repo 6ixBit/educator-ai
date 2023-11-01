@@ -2,20 +2,18 @@
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import { fetchUserTextContents, fetchUser } from "./actions";
-import { useQuery } from "react-query";
+import { fetchUserTextContents, fetchUser, delete_item } from "./actions";
+import { useQuery, useMutation } from "react-query";
 import SkeletonLoader from "./components/SkeletonLoader";
 import ArrowLogo from "@/components/ArrowLogo";
 import ClampLines from "react-clamp-lines";
 import { formatDate } from "@/utility";
 import Image from "next/image";
 import EditLogo from "@/components/EditLogo";
-import { useState } from "react";
 
 import Modal from "@/components/Modal/Modal";
 
 export default function ClientComponent() {
-  const [signInClicked, setSignInClicked] = useState(false);
   const router = useRouter();
   const supabase = createClientComponentClient();
 
@@ -50,6 +48,12 @@ export default function ClientComponent() {
     console.log("get text error: ", error);
     return;
   }
+
+  const mutation = useMutation({
+    mutationFn: (item_id: string) => {
+      return delete_item(supabase, "id", item_id);
+    },
+  });
 
   return (
     <div className="flex flex-col max-w-full w-10/12 sm:w-8/12 lg:w-10/12">
@@ -115,14 +119,9 @@ export default function ClientComponent() {
                     description="Are you sure you want to delete this item?"
                     actionButtons={
                       <button
-                        style={{
-                          borderRadius: "5px",
-                          backgroundColor: "#FFCCCC",
-                          color: "#CC0000",
-                          padding: "0.3rem 0.5rem",
-                        }}
+                        className="rounded-lg bg-red-200 text-red-700 px-2 py-1"
                         onClick={() => {
-                          console.log("delete item.");
+                          mutation.mutate(content.id);
                         }}
                       >
                         Delete item
@@ -139,7 +138,7 @@ export default function ClientComponent() {
                       />
                     )}
                   />
-                  <EditLogo />
+                  {/* <EditLogo /> */}
                 </div>
                 <ArrowLogo />
               </div>

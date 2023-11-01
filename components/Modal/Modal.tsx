@@ -33,8 +33,9 @@ export default function Modal({
               justifyContent: "flex-end",
             }}
           >
-            {actionButtons}
+            <Dialog.Close asChild>{actionButtons}</Dialog.Close>
           </div>
+
           <div onClick={(e) => e.stopPropagation()}>
             <Dialog.Close asChild>
               <button className="IconButton" aria-label="Close">
