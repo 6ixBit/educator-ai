@@ -31,6 +31,7 @@ export default function ClientComponent() {
     }
 
     const formValue = (event.target as any).elements.content.value;
+    console.log("form value: ", formValue);
     const data = await sendToSupabase(supabase, formValue, userID);
     await sendToServer(formValue);
 
@@ -44,29 +45,52 @@ export default function ClientComponent() {
         onSubmit={handleSubmit}
       >
         <Form.Field className="grid mb-[10px]" name="content">
-          <div className="flex items-baseline justify-between">
-            <Form.Label className="text-md font-medium my-2 leading-[35px] text-white">
-              Enter what you want to learn
+          <div className="flex flex-row justify-between items-baseline">
+            <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
+              Title
             </Form.Label>
             <Form.Message
-              className="text-[13px] text-black opacity-[0.8]"
+              className="text-[13px] text-red-500 opacity-[0.8]"
               match="valueMissing"
             >
-              Please enter a question
+              Please enter a title
             </Form.Message>
+          </div>
+
+          <Form.Control asChild>
+            <input
+              className="box-border w-full bg-blackA2 text-black shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+              placeholder="The influence of AI in the next decade. "
+              required
+            />
+          </Form.Control>
+
+          <div className="flex items-baseline justify-between mt-4">
+            <Form.Label className="text-md font-medium my-2 leading-[35px] text-white">
+              What you want to learn
+            </Form.Label>
           </div>
           <Form.Control asChild>
             <textarea
-              className="box-border h-40 sm:h-52 text-gray-400 w-full bg-blackA2 shadow-blackA6 inline-flex appearance-none items-center justify-center rounded-[4px] p-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6 resize-none"
+              className="box-border h-40 sm:h-52 text-black w-full bg-blackA2 shadow-blackA6 inline-flex appearance-none items-center justify-center rounded-[4px] p-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6 resize-none"
               placeholder="How did the Roman empire become so dominant?"
               required
             />
           </Form.Control>
+
+          <div className="text-center">
+            <Form.Message
+              className="text-[13px] text-red-500 opacity-[0.8]"
+              match="valueMissing"
+            >
+              Please enter the content you want to learn
+            </Form.Message>
+          </div>
         </Form.Field>
         <Form.Submit asChild>
           <div className="flex justify-center">
             <button className="box-border w-1/2 text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-full bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]">
-              Start Learning
+              Submit
             </button>
           </div>
         </Form.Submit>
