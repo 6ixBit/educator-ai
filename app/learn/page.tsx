@@ -90,9 +90,9 @@ export default function ClientComponent() {
                 router.push(`/learn/${content.id}`);
               }}
             >
-              {content.ai_response.title && (
+              {content.title && (
                 <h1 className="text-sky-500 text-lg font-medium font-sans overflow-ellipsis overflow-hidden">
-                  {content.ai_response.title}
+                  {content.title}
                 </h1>
               )}
 
