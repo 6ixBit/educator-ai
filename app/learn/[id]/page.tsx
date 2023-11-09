@@ -37,7 +37,7 @@ export default function Page({ params }: { params: { id: string } }) {
   const fetchContent = async () => {
     const { data, error } = await supabase
       .from("text-content")
-      .select("content, user_id, ai_response")
+      .select("content, user_id, ai_response, title")
       .eq("id", BigInt(params.id));
 
     if (error) {
@@ -79,7 +79,7 @@ export default function Page({ params }: { params: { id: string } }) {
         <>
           <Summary
             // @ts-ignore
-            title={textContent?.ai_response?.title || "No title"}
+            title={textContent?.title || "No title"}
             // @ts-ignore
             summary={textContent?.content || "No summary found."}
           />

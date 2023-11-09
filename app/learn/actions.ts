@@ -1,12 +1,12 @@
 
 import {SupabaseClient}from "@supabase/supabase-js";
 
-export const sendToSupabase = async (supabase:any, content: string, user_id: string) => {
+export const sendToSupabase = async (supabase:any, content: string, title: string, user_id: string) => {
     try {
       // TODO: Swap out for react query
       const { data, error } = await supabase
         .from("text-content")
-        .insert([{ content, user_id }])
+        .insert([{ content, user_id,title }])
         .select();
 
         if (error) throw error;

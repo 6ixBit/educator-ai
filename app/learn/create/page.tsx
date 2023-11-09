@@ -30,10 +30,12 @@ export default function ClientComponent() {
       return;
     }
 
-    const formValue = (event.target as any).elements.content.value;
-    console.log("form value: ", formValue);
-    const data = await sendToSupabase(supabase, formValue, userID);
-    await sendToServer(formValue);
+    const formValues = (event.target as any);
+    const title = formValues[0].value
+    const body = formValues[1].value
+  
+    const data = await sendToSupabase(supabase, body, title, userID);
+    await sendToServer(body);
 
     router.push(`/learn/${data[0].id}`);
   };
@@ -59,7 +61,7 @@ export default function ClientComponent() {
 
           <Form.Control asChild>
             <input
-              className="box-border w-full bg-blackA2 text-black shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+              className="box-border w-full bg-blackA2 text-black bg-white shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
               placeholder="The influence of AI in the next decade. "
               required
             />
