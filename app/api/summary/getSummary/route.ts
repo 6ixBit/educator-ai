@@ -40,8 +40,7 @@ async function summarizeText(content: string) {
         functions: [
           {
             name: "summarize_learning_content",
-            description:
-              "Summarizes the text based on the specified preset and length, and generates a title. The 'preset' parameter can be: Blog – A more informal, conversational style. e.g: 'Today, we're going to talk about...' List – A bulleted or numbered list. e.g: '1. First point... 2. Second point...' Email-formal – A formal email style. e.g: 'Dear Sir/Madam, I am writing to inform you that...' Email-informal – A casual email style. e.g: 'Hey there, just wanted to let you know that...' Descriptive – A detailed, descriptive style. e.g: 'The sun set over the horizon, casting long shadows...'. News Article – An informative and straightforward style focusing on key details. e.g: 'In a shocking turn of events...'. Storytelling – A narrative style that includes characters, setting, and plot. e.g: 'Once upon a time, in a land far, far away...'. The 'length' parameter can be 'short' (up to 80 words), 'medium' (80-150 words), or 'long' (150+ words).",
+            description: "Summarizes the content into a viable learning format, it should be easy for the user to decipher and study the content.",
             parameters: {
               type: "object",
               properties: {
@@ -70,7 +69,7 @@ async function summarizeText(content: string) {
     };
   
    const response = await fetch(
-      "https://api.openai.com/v1/chat/completions",
+      "https://api.openai.com/v1/completions",
       requestOptions,
     );
 
