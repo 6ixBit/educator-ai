@@ -8,7 +8,12 @@ import "swiper/css/effect-flip";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-export default function FlashCards() {
+interface IFlashCards {
+  front_body: string;
+  back_body: string;
+}
+
+export default function FlashCards({ front_body, back_body }: IFlashCards) {
   return (
     <div className="mt-16">
       <p className="text-white text-lg font-bold text-center mb-2">
@@ -26,14 +31,12 @@ export default function FlashCards() {
       >
         <SwiperSlide className="text-white">
           <div className="flex flex-col gap-3 border rounded  justify-center text-center h-44 px-2 bg-card-blue">
-            <h1 className="text-lg">Kashtira</h1>
-            <h2>The kashtira clan was lead by the infamous Rise Heart</h2>
+            <h2>{front_body}</h2>
           </div>
         </SwiperSlide>
         <SwiperSlide className="text-white">
           <div className="flex flex-col gap-3 border rounded justify-center text-center h-44 bg-card-orange">
-            <h1>Tearlament</h1>
-            <h2>Tearlaments was lead by Kaleido heart</h2>
+            <h2> {back_body}</h2>
           </div>
         </SwiperSlide>
       </Swiper>

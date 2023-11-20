@@ -5,50 +5,51 @@ export default function RadioGroupContainer({
   children,
   handleValueChange,
   value,
+  question,
+  options,
 }: {
   children?: React.ReactNode;
   handleValueChange: (value: string) => void;
   value: string;
+  question: string;
+  options: string[];
 }) {
   return (
-    <form>
-      <RadioGroup.Root
-        className="RadioGroupRoot"
-        defaultValue="default"
-        aria-label="View density"
-        onValueChange={handleValueChange}
-        value={value}
-      >
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <RadioGroup.Item className="RadioGroupItem" value="default" id="r1">
-            <RadioGroup.Indicator className="RadioGroupIndicator" />
-          </RadioGroup.Item>
-          <label className="Label" htmlFor="r1">
-            Default
-          </label>
-        </div>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <RadioGroup.Item
-            className="RadioGroupItem"
-            value="comfortable"
-            id="r2"
-          >
-            <RadioGroup.Indicator className="RadioGroupIndicator" />
-          </RadioGroup.Item>
-          <label className="Label" htmlFor="r2">
-            Comfortable
-          </label>
-        </div>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <RadioGroup.Item className="RadioGroupItem" value="compact" id="r3">
-            <RadioGroup.Indicator className="RadioGroupIndicator" />
-          </RadioGroup.Item>
-          <label className="Label" htmlFor="r3">
-            Compact
-          </label>
-        </div>
-        {children}
-      </RadioGroup.Root>
-    </form>
+    <>
+      <h2 className="text-white text-left mb-3">{question}</h2>
+      <form>
+        <RadioGroup.Root
+          className="RadioGroupRoot"
+          defaultValue="default"
+          aria-label="View density"
+          onValueChange={handleValueChange}
+          value={value}
+        >
+          {options.map((option, index) => (
+            <div key={index} style={{ display: "flex", alignItems: "center" }}>
+              <RadioGroup.Item
+                className="RadioGroupItem"
+                value={option}
+                id={`r${index}`}
+              >
+                <RadioGroup.Indicator className="RadioGroupIndicator" />
+              </RadioGroup.Item>
+              <label
+                className="Label"
+                htmlFor={`r${index}`}
+                style={{
+                  maxWidth: "250px",
+                  textOverflow: "clip",
+                  whiteSpace: "normal",
+                }}
+              >
+                {option}
+              </label>
+            </div>
+          ))}
+          {children}
+        </RadioGroup.Root>
+      </form>
+    </>
   );
 }

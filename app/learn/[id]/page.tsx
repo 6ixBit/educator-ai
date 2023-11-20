@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -13,7 +14,7 @@ import { useQuery } from "react-query";
 
 export default function Page({ params }: { params: { id: string } }) {
   const supabase = createClientComponentClient();
-  const [radioGrpVal, setRadioGrpVal] = useState<any>(null);
+  const [radioGrpVal, setRadioGrpVal] = useState<any>(null); // TODO: Gross pls make into it's own component.
   const [isUserAuthorized, setisUserAuthorized] = useState<any>(true);
   const { isMobile } = useWindowSize();
 
@@ -38,7 +39,7 @@ export default function Page({ params }: { params: { id: string } }) {
     const { data, error } = await supabase
       .from("text-content")
       .select(
-        "content, user_id, title, flash_cards, case_study_scenario, summary_of_content"
+        "content, user_id, title, flash_cards, case_study_scenario, summary_of_content, case_study_questions, case_study_answers"
       )
       .eq("id", BigInt(params.id));
 
@@ -64,7 +65,7 @@ export default function Page({ params }: { params: { id: string } }) {
   }
 
   if (!isLoadingTextContent && textContent) {
-    // @ts-ignore
+    console.log("text content: ", textContent);
     if (textContent.user_id !== userID) {
       console.log("no auth");
       setisUserAuthorized(false);
@@ -86,7 +87,11 @@ export default function Page({ params }: { params: { id: string } }) {
             summary={textContent?.content || "No summary found."}
           />
 
-          <FlashCards />
+          {/* @ts-ignore */}
+          <FlashCards
+            front_body={textContent?.flash_cards[0].front}
+            back_body={textContent?.flash_cards[0].back}
+          />
 
           {/* @ts-ignore */}
           {textContent?.case_study_scenario && (
@@ -103,14 +108,19 @@ export default function Page({ params }: { params: { id: string } }) {
             <h1 className="text-lg font-medium text-white text-center pb-4">
               Quiz
             </h1>
+
             <RadioGroupContainer
+              question={textContent?.case_study_questions[0]}
+              options={textContent?.case_study_answers}
               handleValueChange={(value: any) => {
                 setRadioGrpVal(value);
               }}
               value={radioGrpVal}
             >
               {radioGrpVal && (
-                <h1 className="text-white">Your choice: {radioGrpVal}</h1>
+                <h1 className="mt-4 text-md text-lime-500">
+                  Your choice: {radioGrpVal}
+                </h1>
               )}
             </RadioGroupContainer>
           </div>
