@@ -79,7 +79,6 @@ async function summarizeText(content: string) {
   }
 
   const data = await response.json();
-  console.log("open ai resp: ", data);
 
   // Assuming the summarized text is in data.choices[0].message.content
   return data.choices[0]?.message?.content || {status: "no summary generated"};

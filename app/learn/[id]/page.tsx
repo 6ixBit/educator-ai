@@ -65,9 +65,7 @@ export default function Page({ params }: { params: { id: string } }) {
   }
 
   if (!isLoadingTextContent && textContent) {
-    console.log("text content: ", textContent);
     if (textContent.user_id !== userID) {
-      console.log("no auth");
       setisUserAuthorized(false);
     }
   }
@@ -88,10 +86,12 @@ export default function Page({ params }: { params: { id: string } }) {
           />
 
           {/* @ts-ignore */}
-          <FlashCards
-            front_body={textContent?.flash_cards[0].front}
-            back_body={textContent?.flash_cards[0].back}
-          />
+          {textContent.flash_cards && (
+            <FlashCards
+              front_body={textContent?.flash_cards[0].front}
+              back_body={textContent?.flash_cards[0].back}
+            />
+          )}
 
           {/* @ts-ignore */}
           {textContent?.case_study_scenario && (

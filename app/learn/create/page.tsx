@@ -41,7 +41,6 @@ export default function ClientComponent() {
     const data = await sendToSupabase(supabase, body, title, userID);
     const pageID = data[0].id;
     const { case_study, flash_cards, processed } = await sendToServer(body);
-    console.log("case study", case_study);
 
     update_row(
       supabase,

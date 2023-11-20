@@ -30,7 +30,6 @@ export const sendToServer = async (content: string) => {
       if (!response.ok) throw new Error("Network response was not ok");
 
       const data = await response.json();
-      console.log("server response /api/summary/getsummary: ", data);
 
       return data
     } catch (error) {
