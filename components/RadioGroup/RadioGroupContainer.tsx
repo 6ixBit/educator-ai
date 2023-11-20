@@ -38,9 +38,11 @@ export default function RadioGroupContainer({
                 className="Label"
                 htmlFor={`r${index}`}
                 style={{
-                  maxWidth: "250px",
+                  maxWidth: "260px",
                   textOverflow: "clip",
                   whiteSpace: "normal",
+                  fontSize: ".9rem",
+                  marginTop: "1rem",
                 }}
               >
                 {option}
