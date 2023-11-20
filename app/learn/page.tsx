@@ -90,7 +90,6 @@ export default function ClientComponent() {
               key={index}
               className="flex flex-col rounded border w-full p-6 sm:p-8 hover:border-blue-500 bg-off-white"
               onClick={(e) => {
-                if (e.target !== e.currentTarget) return;
                 router.push(`/learn/${content.id}`);
               }}
             >
@@ -105,10 +104,6 @@ export default function ClientComponent() {
                   {formatDate(content.created_at)}
                 </h2>
               )}
-              {/* 
-              <p className="text-gray-600 text-md font-sans break-words text-clip overflow-hidden">
-                {content.content}
-              </p> */}
 
               <ClampLines
                 text={content.content}
@@ -126,7 +121,6 @@ export default function ClientComponent() {
                         className="rounded-lg bg-red-200 text-red-700 px-2 py-1"
                         onClick={() => {
                           mutation.mutate(content.id);
-                          // TODO: Refresh cache so page has most up to date list.
                         }}
                       >
                         Delete item

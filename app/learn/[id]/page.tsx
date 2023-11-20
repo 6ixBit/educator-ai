@@ -4,8 +4,8 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 
-import Summary from "../components/summary";
-import FlashCards from "../components/flashcards";
+import Summary from "../components/Summary";
+import FlashCards from "../components/Flashcards";
 import RadioGroupContainer from "@/components/RadioGroup/RadioGroupContainer";
 import SkeletonLoader from "../components/SkeletonLoader";
 import { fetchUser } from "../actions";
@@ -65,6 +65,7 @@ export default function Page({ params }: { params: { id: string } }) {
   }
 
   if (!isLoadingTextContent && textContent) {
+    console.log("returned vals: ", textContent);
     if (textContent.user_id !== userID) {
       setisUserAuthorized(false);
     }
@@ -87,10 +88,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
           {/* @ts-ignore */}
           {textContent.flash_cards && (
-            <FlashCards
-              front_body={textContent?.flash_cards[0].front}
-              back_body={textContent?.flash_cards[0].back}
-            />
+            <FlashCards options={textContent.flash_cards} />
           )}
 
           {/* @ts-ignore */}
