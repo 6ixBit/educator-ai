@@ -1,16 +1,19 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { fetchUser } from "../actions";
+import { fetchUser, update_row } from "../actions";
 import { useRouter } from "next/navigation";
 import * as Form from "@radix-ui/react-form";
 import { useQuery } from "react-query";
+import { useState } from "react";
+import ProgressBar from "@/components/ProgressBar";
 
 import { sendToSupabase, sendToServer } from "../actions";
 
 export default function ClientComponent() {
   const router = useRouter();
   const supabase = createClientComponentClient();
+  const [loading, setLoading] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: "userData",
@@ -22,6 +25,7 @@ export default function ClientComponent() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // TODO: Show user login modal if they aren't logged in already and return early.
+    setLoading(true);
     event.preventDefault();
 
     // @ts-ignore
@@ -30,14 +34,26 @@ export default function ClientComponent() {
       return;
     }
 
-    const formValues = (event.target as any);
-    const title = formValues[0].value
-    const body = formValues[1].value
-  
-    const data = await sendToSupabase(supabase, body, title, userID);
-    await sendToServer(body);
+    const formValues = event.target as any;
+    const title = formValues[0].value;
+    const body = formValues[1].value;
 
-    router.push(`/learn/${data[0].id}`);
+    const data = await sendToSupabase(supabase, body, title, userID);
+    const pageID = data[0].id;
+    const { case_study, flash_cards, processed } = await sendToServer(body);
+
+    update_row(
+      supabase,
+      {
+        case_study_scenario: case_study.scenario,
+        summary_of_content: processed,
+        flash_cards: flash_cards.flash_cards,
+      },
+      pageID
+    );
+
+    setLoading(false);
+    router.push(`/learn/${pageID}`);
   };
 
   return (
@@ -62,8 +78,9 @@ export default function ClientComponent() {
           <Form.Control asChild>
             <input
               className="box-border w-full bg-blackA2 text-black bg-white shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-              placeholder="The influence of AI in the next decade. "
+              placeholder="The influence of AI "
               required
+              disabled={loading}
             />
           </Form.Control>
 
@@ -77,6 +94,7 @@ export default function ClientComponent() {
               className="box-border h-40 sm:h-52 text-black w-full bg-blackA2 shadow-blackA6 inline-flex appearance-none items-center justify-center rounded-[4px] p-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6 resize-none"
               placeholder="How did the Roman empire become so dominant?"
               required
+              disabled={loading}
             />
           </Form.Control>
 
@@ -91,7 +109,10 @@ export default function ClientComponent() {
         </Form.Field>
         <Form.Submit asChild>
           <div className="flex justify-center">
-            <button className="box-border w-1/2 text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-full bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]">
+            <button
+              disabled={loading}
+              className="box-border w-1/2 text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-full bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+            >
               Submit
             </button>
           </div>

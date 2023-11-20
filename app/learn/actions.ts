@@ -3,7 +3,6 @@ import {SupabaseClient}from "@supabase/supabase-js";
 
 export const sendToSupabase = async (supabase:any, content: string, title: string, user_id: string) => {
     try {
-      // TODO: Swap out for react query
       const { data, error } = await supabase
         .from("text-content")
         .insert([{ content, user_id,title }])
@@ -20,28 +19,32 @@ export const sendToSupabase = async (supabase:any, content: string, title: strin
 
 export const sendToServer = async (content: string) => {
     try {
-      const response = await fetch("/api/summary/getSummary", {
+      const response = await fetch("http://localhost:8084/api/summary", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ content }),
+        body: JSON.stringify({ education_level: 'college', text: content }),
       });
 
       if (!response.ok) throw new Error("Network response was not ok");
 
       const data = await response.json();
       console.log("server response /api/summary/getsummary: ", data);
+
+      return data
     } catch (error) {
       console.error("Error: ", error);
+      return error
     }
   };
 
-  export const upsert_aiResponse = async (supabase: SupabaseClient, response: object) => {
+  export const update_row = async (supabase: SupabaseClient, input: object, id: string) => {
     const { data, error } = await supabase
-  .from('text-content')
-  .upsert({ ai_response:  response})
-  .select()
+    .from('text-content')
+    .update(input)
+    .eq('id', id)
+    .select()
 
   if (data && !error) {
     return data
@@ -50,10 +53,6 @@ export const sendToServer = async (content: string) => {
   }
 
   export const delete_item = async (supabase: SupabaseClient, column: string, item_id: string) => {
-
-    console.log(supabase,  item_id)
-    console.log("col: ", column)
-
 const { data, error } = await supabase
 .from('text-content')
 .delete()

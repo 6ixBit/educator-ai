@@ -3,7 +3,7 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { fetchUserTextContents, fetchUser, delete_item } from "./actions";
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import SkeletonLoader from "./components/SkeletonLoader";
 import ArrowLogo from "@/components/ArrowLogo";
 import ClampLines from "react-clamp-lines";
@@ -16,6 +16,7 @@ import Modal from "@/components/Modal/Modal";
 export default function ClientComponent() {
   const router = useRouter();
   const supabase = createClientComponentClient();
+  const queryClient = useQueryClient();
 
   const {
     isLoading: isLoadingUser,
@@ -52,6 +53,9 @@ export default function ClientComponent() {
   const mutation = useMutation({
     mutationFn: (item_id: string) => {
       return delete_item(supabase, "id", item_id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries("textContents");
     },
   });
 
@@ -122,6 +126,7 @@ export default function ClientComponent() {
                         className="rounded-lg bg-red-200 text-red-700 px-2 py-1"
                         onClick={() => {
                           mutation.mutate(content.id);
+                          // TODO: Refresh cache so page has most up to date list.
                         }}
                       >
                         Delete item
