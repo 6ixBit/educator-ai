@@ -4,9 +4,9 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 
-import Summary from "../components/Summary";
 import FlashCards from "../components/Flashcards";
 import SkeletonLoader from "../components/SkeletonLoader";
+import FlashCards from "../components/Flashcards";
 import Quiz from "../components/Quiz";
 import { fetchUser } from "../actions";
 import useWindowSize from "@/hooks/useWindowSize";
