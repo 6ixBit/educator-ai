@@ -30,8 +30,8 @@ export default function FlashCards({ options }: IFlashCards) {
     <div className="mt-16 w-full">
       <h1 className="flex flex-row items-baseline text-white justify-between font-bold mb-1 text-2xl leading-relaxed">
         Study Cards{" "}
-        <h2 className="text-gray-500 text-md mb-3 font-normal">
-          {options.length} cards
+        <h2 className="text-gray-500 text-sm mb-3 font-normal">
+          {currentOption + 1} / {options.length}
         </h2>
       </h1>
 
