@@ -27,49 +27,54 @@ export default function FlashCards({ options }: IFlashCards) {
   };
 
   return (
-    <div className="mt-16">
-      <p className="text-white text-lg font-bold text-center mb-2">
-        FlashCards
-      </p>
-      <Swiper
-        modules={[EffectFlip, Pagination, Navigation]}
-        grabCursor={true}
-        pagination={true}
-        navigation={false}
-        effect={"flip"}
-        style={{ width: "20rem" }}
-        className="mySwiper"
-      >
-        <SwiperSlide className="text-white">
-          <div className="flex flex-col gap-3 border rounded  justify-center text-center h-44 px-2 bg-card-blue">
-            <h2>{options[currentOption].front}</h2>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="text-white">
-          <div className="flex flex-col gap-3 border rounded justify-center text-center h-44 bg-card-orange">
-            <h2> {options[currentOption].back}</h2>
-          </div>
-        </SwiperSlide>
-      </Swiper>
-      <div className="flex flex-row justify-between mt-4">
-        <button
-          onClick={handlePrev}
-          disabled={currentOption === 0}
-          className={`bg-red-500 text-white rounded-lg w-20 text-center h-8 ${
-            currentOption === 0 ? "opacity-50" : ""
-          }`}
+    <div className="mt-16 w-full">
+      <h1 className="flex flex-row items-baseline text-white justify-between font-bold mb-1 text-2xl leading-relaxed">
+        Study Cards{" "}
+        <h2 className="text-gray-500 text-md mb-3 font-normal">
+          {options.length} cards
+        </h2>
+      </h1>
+
+      <div className=" mx-auto">
+        <Swiper
+          modules={[EffectFlip, Pagination, Navigation]}
+          grabCursor={true}
+          pagination={true}
+          navigation={false}
+          effect={"flip"}
+          className="mySwiper"
         >
-          Previous
-        </button>
-        <button
-          onClick={handleNext}
-          disabled={currentOption === options.length - 1}
-          className={`bg-green-400 text-white rounded-lg w-20 text-center h-8 ${
-            currentOption === options.length - 1 ? "opacity-50" : ""
-          }`}
-        >
-          Next
-        </button>
+          <SwiperSlide className="text-white">
+            <div className="flex flex-col gap-3 border rounded justify-center text-center h-44 px-2 bg-card-blue">
+              <h2>{options[currentOption].front}</h2>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="text-white">
+            <div className="flex flex-col gap-3 border rounded justify-center text-center h-44 bg-card-orange">
+              <h2> {options[currentOption].back}</h2>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+        <div className="flex flex-row justify-between mt-6">
+          <button
+            onClick={handlePrev}
+            disabled={currentOption === 0}
+            className={`bg-red-500 text-white rounded-lg w-20 text-center h-8 ${
+              currentOption === 0 ? "opacity-50" : ""
+            }`}
+          >
+            Previous
+          </button>
+          <button
+            onClick={handleNext}
+            disabled={currentOption === options.length - 1}
+            className={`bg-green-400 text-white rounded-lg w-20 text-center h-8 ${
+              currentOption === options.length - 1 ? "opacity-50" : ""
+            }`}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

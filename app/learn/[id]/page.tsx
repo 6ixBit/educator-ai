@@ -12,6 +12,7 @@ import { fetchUser } from "../actions";
 import useWindowSize from "@/hooks/useWindowSize";
 import { useQuery } from "react-query";
 import CaseStudy from "../components/CaseStudy";
+import HorizontalSeparator from "@/components/HorizontalSeparator/HorizontalSeparator";
 
 export default function Page({ params }: { params: { id: string } }) {
   const supabase = createClientComponentClient();
@@ -39,9 +40,7 @@ export default function Page({ params }: { params: { id: string } }) {
   const fetchContent = async () => {
     const { data, error } = await supabase
       .from("text-content")
-      .select(
-        "content, user_id, title, flash_cards, case_study_scenario, summary_of_content, case_study_questions, case_study_answers"
-      )
+      .select("*")
       .eq("id", BigInt(params.id));
 
     if (error) {
@@ -81,24 +80,23 @@ export default function Page({ params }: { params: { id: string } }) {
       ) : isUserAuthorized ? (
         <>
           <Summary
-            // @ts-ignore
             title={textContent?.title || "No title"}
-            // @ts-ignore
+            date={textContent.created_at}
             summary={textContent?.content || "No summary found."}
           />
 
-          {/* @ts-ignore */}
-          {textContent.flash_cards && (
-            <FlashCards options={textContent.flash_cards} />
-          )}
+          <HorizontalSeparator />
 
-          {/* @ts-ignore */}
           {textContent?.case_study_scenario && (
             <CaseStudy text={textContent?.case_study_scenario} />
           )}
 
+          {textContent.flash_cards && (
+            <FlashCards options={textContent.flash_cards} />
+          )}
+
           <div className="mt-12 mb-4">
-            <h1 className="text-lg font-medium text-white text-center pb-4">
+            <h1 className="  text-white text-center pb-4 font-bold mb-2 text-xl leading-relaxed font-sans">
               Quiz
             </h1>
 
