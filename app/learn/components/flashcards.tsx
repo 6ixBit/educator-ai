@@ -37,7 +37,6 @@ export default function FlashCards({ options }: IFlashCards) {
         pagination={true}
         navigation={false}
         effect={"flip"}
-        onSlideChange={() => console.log("slide change")}
         style={{ width: "20rem" }}
         className="mySwiper"
       >

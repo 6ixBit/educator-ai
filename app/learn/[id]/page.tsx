@@ -11,6 +11,7 @@ import SkeletonLoader from "../components/SkeletonLoader";
 import { fetchUser } from "../actions";
 import useWindowSize from "@/hooks/useWindowSize";
 import { useQuery } from "react-query";
+import CaseStudy from "../components/CaseStudy";
 
 export default function Page({ params }: { params: { id: string } }) {
   const supabase = createClientComponentClient();
@@ -93,13 +94,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
           {/* @ts-ignore */}
           {textContent?.case_study_scenario && (
-            <div className="mt-12 mb-4">
-              <h1 className="text-xl font-medium text-white text-center pb-4">
-                Case Study
-              </h1>
-              {/* @ts-ignore */}
-              <p className="text-white">{textContent.case_study_scenario}</p>
-            </div>
+            <CaseStudy text={textContent?.case_study_scenario} />
           )}
 
           <div className="mt-12 mb-4">
