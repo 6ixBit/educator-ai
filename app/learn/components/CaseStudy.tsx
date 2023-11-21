@@ -16,18 +16,20 @@ export default function CaseStudy({ text }: ICaseStudy) {
 
   return (
     <div className="mt-12 mb-4">
-      <h1 className="text-white text-left pb-1 font-bold mb-0 text-2xl leading-relaxed">
-        Case Study
-      </h1>
+      <div className="flex flex-row gap-2 mb-3 justify-between">
+        <h1 className="text-white text-left pb-1 font-bold mb-0 text-2xl leading-relaxed">
+          Case Study
+        </h1>
 
-      <div className="flex flex-row gap-2 mb-3 items-baseline">
-        <h2 className="text-gray-500 font-medium text-md mb-3">
-          Your Last grade:
-        </h2>
+        <div className="text-right flex flex-row items-baseline">
+          <h2 className="text-gray-500 font-medium text-md mb-3 pr-3">
+            Your Last grade:
+          </h2>
 
-        <p className="text-sm text-green-500 rounded-full border-green-500 border-2 p-2">
-          88
-        </p>
+          <p className="text-sm text-green-500 rounded-full border-green-500 border-2 p-2">
+            88
+          </p>
+        </div>
       </div>
 
       <p className="text-slate-300 mb-2">{text}</p>

@@ -16,7 +16,7 @@ export default function RadioGroupContainer({
 }) {
   return (
     <>
-      <h2 className="text-white text-left mb-3">{question}</h2>
+      <h2 className="text-slate-200 text-left mb-8">{question}</h2>
       <form>
         <RadioGroup.Root
           className="RadioGroupRoot"
@@ -38,11 +38,11 @@ export default function RadioGroupContainer({
                 className="Label"
                 htmlFor={`r${index}`}
                 style={{
-                  maxWidth: "260px",
+                  width: "100%",
                   textOverflow: "clip",
                   whiteSpace: "normal",
                   fontSize: ".9rem",
-                  marginTop: "1rem",
+                  marginTop: "0rem",
                 }}
               >
                 {option}

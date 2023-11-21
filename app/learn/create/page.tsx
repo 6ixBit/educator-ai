@@ -99,6 +99,9 @@ export default function ClientComponent() {
               disabled={loading}
             />
           </Form.Control>
+          <p className="text-slate-300 mt-2 text-right">
+            0 / 10,000 characters
+          </p>
 
           <div className="text-center">
             <Form.Message

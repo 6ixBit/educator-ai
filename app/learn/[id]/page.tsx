@@ -6,8 +6,8 @@ import { useState } from "react";
 
 import Summary from "../components/Summary";
 import FlashCards from "../components/Flashcards";
-import RadioGroupContainer from "@/components/RadioGroup/RadioGroupContainer";
 import SkeletonLoader from "../components/SkeletonLoader";
+import Quiz from "../components/Quiz";
 import { fetchUser } from "../actions";
 import useWindowSize from "@/hooks/useWindowSize";
 import { useQuery } from "react-query";
@@ -16,7 +16,6 @@ import HorizontalSeparator from "@/components/HorizontalSeparator/HorizontalSepa
 
 export default function Page({ params }: { params: { id: string } }) {
   const supabase = createClientComponentClient();
-  const [radioGrpVal, setRadioGrpVal] = useState<any>(null); // TODO: Gross pls make into it's own component.
   const [isUserAuthorized, setisUserAuthorized] = useState<any>(true);
   const { isMobile } = useWindowSize();
 
@@ -95,26 +94,12 @@ export default function Page({ params }: { params: { id: string } }) {
             <FlashCards options={textContent.flash_cards} />
           )}
 
-          <div className="mt-12 mb-4">
-            <h1 className="  text-white text-center pb-4 font-bold mb-2 text-xl leading-relaxed font-sans">
-              Quiz
-            </h1>
-
-            <RadioGroupContainer
+          {textContent?.case_study_questions && (
+            <Quiz
               question={textContent?.case_study_questions[0]}
-              options={textContent?.case_study_answers}
-              handleValueChange={(value: any) => {
-                setRadioGrpVal(value);
-              }}
-              value={radioGrpVal}
-            >
-              {radioGrpVal && (
-                <h1 className="mt-4 text-md text-lime-500">
-                  Your choice: {radioGrpVal}
-                </h1>
-              )}
-            </RadioGroupContainer>
-          </div>
+              answers={textContent?.case_study_answers}
+            />
+          )}
         </>
       ) : (
         <div className="mt-4 text-white font-bold text-2xl">
