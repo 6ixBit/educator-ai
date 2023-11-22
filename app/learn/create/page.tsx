@@ -105,12 +105,23 @@ export default function ClientComponent() {
           <p className="text-slate-300 mt-2 text-right">
             0 / 10,000 characters
           </p>
-          <div className="mb-6">
-            <DropDownMenu
-              onValueChange={(value) => {
-                setLevel(value);
-              }}
-            />
+
+          <div className="mb-6 flex flex-col">
+            <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
+              Level
+            </Form.Label>
+
+            <div className="flex flex-row justify-between items-baseline">
+              <DropDownMenu
+                onValueChange={(value) => {
+                  setLevel(value);
+                }}
+              />
+
+              <h2 className="text-gray-500 font-medium text-sm mb-3">
+                Scale of study content
+              </h2>
+            </div>
           </div>
 
           <div className="text-center">

@@ -1,17 +1,35 @@
+"use client";
+
 import * as Form from "@radix-ui/react-form";
+import { gradeCaseStudy } from "../actions";
+import { useState } from "react";
 
 interface ICaseStudy {
-  text: string;
+  caseStudyText: string;
+  caseStudyContext: string;
 }
 
-export default function CaseStudy({ text }: ICaseStudy) {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+export default function CaseStudy({
+  caseStudyText,
+  caseStudyContext,
+}: ICaseStudy) {
+  const [grades, setGrade] = useState({ grade: 40 });
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formValues = event.target as any;
     const userAnswer = formValues[0].value;
 
-    console.log(userAnswer);
+    const response = await gradeCaseStudy(
+      caseStudyText,
+      caseStudyContext,
+      userAnswer
+    );
+
+    setGrade(response);
+
+    console.log("I wish I knew...", response);
   };
 
   return (
@@ -26,13 +44,21 @@ export default function CaseStudy({ text }: ICaseStudy) {
             Your Last grade:
           </h2>
 
-          <p className="text-sm text-green-500 rounded-full border-green-500 border-2 p-2">
-            88
+          <p
+            className={`text-sm rounded-full border-2 p-2 ${
+              grades.grade < 50
+                ? "text-red-500 border-red-500"
+                : grades.grade < 70
+                ? "text-yellow-500 border-yellow-500"
+                : "text-green-500 border-green-500"
+            }`}
+          >
+            {grades.grade}
           </p>
         </div>
       </div>
 
-      <p className="text-slate-300 mb-2">{text}</p>
+      <p className="text-slate-300 mb-2">{caseStudyText}</p>
 
       <Form.Root
         className="w-full sm:w-[500px] md:w-[500px] lg:w-[685px]"

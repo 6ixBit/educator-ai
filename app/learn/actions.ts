@@ -1,6 +1,8 @@
 
 import {SupabaseClient}from "@supabase/supabase-js";
 
+const SERVER_URL = "http://localhost:9004"
+
 export const sendToSupabase = async (supabase:any, content: string, title: string, user_id: string) => {
     try {
       const { data, error } = await supabase
@@ -17,14 +19,35 @@ export const sendToSupabase = async (supabase:any, content: string, title: strin
     }
   };
 
+export const gradeCaseStudy = async (caseStudy: string, caseStudyContext: string, userAnswer: string) => {
+  try {
+    const response = await fetch(`${SERVER_URL}/api/casestudy`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ case_study_question: caseStudy, case_study_context: caseStudyContext, user_answer: userAnswer}),
+    });
+
+    if (!response.ok) throw new Error("Network response was not ok");
+
+    const data = await response.json();
+
+    return data
+  } catch (error) {
+    console.error("Error: ", error);
+    return error
+  }
+}
+
 export const sendToServer = async (content: string) => {
     try {
-      const response = await fetch("http://localhost:9004/api/summary", {
+      const response = await fetch(`${SERVER_URL}/api/summary`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ education_level: 'college', text: content }),
+        body: JSON.stringify({ education_level: 'highSchool', text: content }),
       });
 
       if (!response.ok) throw new Error("Network response was not ok");

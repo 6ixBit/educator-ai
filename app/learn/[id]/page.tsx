@@ -88,7 +88,10 @@ export default function Page({ params }: { params: { id: string } }) {
           <HorizontalSeparator />
 
           {textContent?.case_study_scenario && (
-            <CaseStudy text={textContent?.case_study_scenario} />
+            <CaseStudy
+              caseStudyText={textContent?.case_study_scenario}
+              caseStudyContext={textContent.content}
+            />
           )}
 
           {textContent.flash_cards && (
