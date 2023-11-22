@@ -5,18 +5,15 @@ export default function RadioGroupContainer({
   children,
   handleValueChange,
   value,
-  question,
   options,
 }: {
   children?: React.ReactNode;
   handleValueChange: (value: string) => void;
   value: string;
-  question: string;
   options: string[];
 }) {
   return (
     <>
-      <h2 className="text-slate-200 text-left mb-8">{question}</h2>
       <form>
         <RadioGroup.Root
           className="RadioGroupRoot"

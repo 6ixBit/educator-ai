@@ -19,7 +19,7 @@ export const sendToSupabase = async (supabase:any, content: string, title: strin
 
 export const sendToServer = async (content: string) => {
     try {
-      const response = await fetch("http://localhost:8084/api/summary", {
+      const response = await fetch("http://localhost:9004/api/summary", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

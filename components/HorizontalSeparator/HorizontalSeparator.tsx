@@ -3,6 +3,6 @@ import "./styles.css";
 
 export default function HorizontalSeparator() {
   return (
-    <Separator.Root className="bg-white data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
+    <Separator.Root className="SeparatorRoot" style={{ margin: "15px 0" }} />
   );
 }

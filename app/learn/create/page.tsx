@@ -7,6 +7,7 @@ import * as Form from "@radix-ui/react-form";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import ProgressBar from "@/components/ProgressBar";
+import DropDownMenu from "@/components/DropdownMenu/DropdownMenu";
 
 import { sendToSupabase, sendToServer } from "../actions";
 
@@ -14,6 +15,7 @@ export default function ClientComponent() {
   const router = useRouter();
   const supabase = createClientComponentClient();
   const [loading, setLoading] = useState(false);
+  const [level, setLevel] = useState("highSchool");
 
   const { data: user } = useQuery({
     queryKey: "userData",
@@ -50,6 +52,7 @@ export default function ClientComponent() {
         case_study_answers: case_study.answers,
         summary_of_content: processed,
         flash_cards: flash_cards.flash_cards,
+        level: level,
       },
       pageID
     );
@@ -102,16 +105,24 @@ export default function ClientComponent() {
           <p className="text-slate-300 mt-2 text-right">
             0 / 10,000 characters
           </p>
+          <div className="mb-6">
+            <DropDownMenu
+              onValueChange={(value) => {
+                setLevel(value);
+              }}
+            />
+          </div>
 
           <div className="text-center">
             <Form.Message
               className="text-[13px] text-red-500 opacity-[0.8]"
               match="valueMissing"
             >
-              Please enter the content you want to learn
+              Please enter some content...
             </Form.Message>
           </div>
         </Form.Field>
+
         <Form.Submit asChild>
           <div className="flex justify-center">
             <button

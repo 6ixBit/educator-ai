@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import FlashCards from "../components/Flashcards";
 import SkeletonLoader from "../components/SkeletonLoader";
+import Summary from "../components/Summary";
 
 import Quiz from "../components/Quiz";
 import { fetchUser } from "../actions";

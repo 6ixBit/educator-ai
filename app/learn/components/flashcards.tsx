@@ -28,12 +28,15 @@ export default function FlashCards({ options }: IFlashCards) {
 
   return (
     <div className="mt-16 w-full">
-      <h1 className="flex flex-row items-baseline text-white justify-between font-bold mb-3 text-2xl leading-relaxed">
-        Study Cards{" "}
+      <div className="flex flex-row items-baseline justify-between">
+        <h1 className=" text-white  font-bold mb-3 text-2xl leading-relaxed">
+          Study Cards{" "}
+        </h1>
+
         <h2 className="text-gray-500 text-sm mb-3 font-normal">
           {currentOption + 1} / {options.length}
         </h2>
-      </h1>
+      </div>
 
       <div className=" mx-auto">
         <Swiper
