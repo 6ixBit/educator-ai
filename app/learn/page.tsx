@@ -2,21 +2,15 @@
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import { fetchUserTextContents, fetchUser, delete_item } from "./actions";
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import { fetchUserTextContents, fetchUser } from "./actions";
+import { useQuery } from "react-query";
 import SkeletonLoader from "./components/SkeletonLoader";
-import ArrowLogo from "@/components/ArrowLogo";
-import ClampLines from "react-clamp-lines";
-import { formatDate } from "@/utility";
-import Image from "next/image";
-import EditLogo from "@/components/EditLogo";
 
-import Modal from "@/components/Modal/Modal";
+import CardList from "./components/CardList";
 
 export default function ClientComponent() {
   const router = useRouter();
   const supabase = createClientComponentClient();
-  const queryClient = useQueryClient();
 
   const {
     isLoading: isLoadingUser,
@@ -50,15 +44,6 @@ export default function ClientComponent() {
     return;
   }
 
-  const mutation = useMutation({
-    mutationFn: (item_id: string) => {
-      return delete_item(supabase, "id", item_id);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries("textContents");
-    },
-  });
-
   return (
     <div className="flex flex-col max-w-full w-10/12 sm:w-8/12 lg:w-10/12">
       <div className="flex flex-row justify-between items-center mt-4 mb-3">
@@ -81,68 +66,10 @@ export default function ClientComponent() {
           <SkeletonLoader height={100} width={320} />
         )}
 
-        {!isLoading &&
-          !error &&
-          userTextContents &&
+        {!isLoading && !error && userTextContents && (
           // @ts-ignore
-          userTextContents.map((content: any, index: number) => (
-            <div
-              key={index}
-              className="flex flex-col rounded border w-full p-6 sm:p-8 hover:border-blue-500 bg-off-white"
-              onClick={(e) => {
-                router.push(`/learn/${content.id}`);
-              }}
-            >
-              {content.title && (
-                <h1 className="text-sky-500 text-lg font-medium font-sans overflow-ellipsis overflow-hidden">
-                  {content.title}
-                </h1>
-              )}
-
-              {content.created_at && (
-                <h2 className="text-gray-500 font-medium text-sm mb-3">
-                  {formatDate(content.created_at)}
-                </h2>
-              )}
-
-              <ClampLines
-                text={content.content}
-                id="really-unique-id"
-                lines={5}
-              />
-
-              <div className="flex flex-row justify-between mt-4">
-                <div className="flex gap-3">
-                  <Modal
-                    title="Delete"
-                    description="Are you sure you want to delete this item?"
-                    actionButtons={
-                      <button
-                        className="rounded-lg bg-red-200 text-red-700 px-2 py-1"
-                        onClick={() => {
-                          mutation.mutate(content.id);
-                        }}
-                      >
-                        Delete item
-                      </button>
-                    }
-                    trigger={() => (
-                      <Image
-                        src="/trash.png"
-                        width={20}
-                        height={20}
-                        alt="delete button"
-                        style={{ transition: "transform 0.2s" }}
-                        className="hover:scale-110"
-                      />
-                    )}
-                  />
-                  {/* <EditLogo /> */}
-                </div>
-                <ArrowLogo />
-              </div>
-            </div>
-          ))}
+          <CardList userTextContents={userTextContents} supabase={supabase} />
+        )}
       </div>
     </div>
   );
