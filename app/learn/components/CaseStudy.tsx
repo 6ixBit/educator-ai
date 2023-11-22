@@ -13,7 +13,12 @@ export default function CaseStudy({
   caseStudyText,
   caseStudyContext,
 }: ICaseStudy) {
-  const [grades, setGrade] = useState({ grade: 40 });
+  const [grades, setGrade] = useState({
+    grade: 40,
+    understanding: 2,
+    accuracy: 4,
+    knowledge: 1,
+  });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -82,9 +87,55 @@ export default function CaseStudy({
             </Form.Message>
           </div>
         </Form.Field>
+
+        <div className="flex flex-col sm:flex-row gap-2 justify-between">
+          <div className="flex flex-col">
+            <p
+              className={`text-sm  text-center py-2 px-4 flex items-center justify-center ${
+                grades.understanding < 3
+                  ? "text-red-500 border-red-500"
+                  : grades.understanding < 7
+                  ? "text-yellow-500 border-yellow-500"
+                  : "text-green-500 border-green-500"
+              }`}
+            >
+              {grades.understanding}
+            </p>
+            <p className="text-white">Understanding</p>
+          </div>
+          <div className="flex flex-col">
+            <p
+              className={`text-sm text-center py-2 px-4 flex items-center justify-center ${
+                grades.accuracy < 3
+                  ? "text-red-500 border-red-500"
+                  : grades.accuracy < 7
+                  ? "text-yellow-500 border-yellow-500"
+                  : "text-green-500 border-green-500"
+              }`}
+            >
+              {grades.accuracy}
+            </p>
+            <p className="text-white">Accuracy</p>
+          </div>
+          <div className="flex flex-col">
+            <p
+              className={`text-sm text-center py-2 px-4 flex items-center justify-center ${
+                grades.knowledge < 3
+                  ? "text-red-500 border-red-500"
+                  : grades.knowledge < 7
+                  ? "text-yellow-500 border-yellow-500"
+                  : "text-green-500 border-green-500"
+              }`}
+            >
+              {grades.knowledge}
+            </p>
+            <p className="text-white">Knowledge</p>
+          </div>
+        </div>
+
         <Form.Submit asChild>
           <div className="flex justify-center">
-            <button className="box-border w-1/4 text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-full bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]">
+            <button className="box-border mt-6 w-1/4 text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-full bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none">
               Grade me
             </button>
           </div>
