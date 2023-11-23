@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { fetchUserTextContents, fetchUser } from "./actions";
 import { useQuery } from "react-query";
 import SkeletonLoader from "./components/SkeletonLoader";
-import * as Form from "@radix-ui/react-form";
-
+import { useState } from "react";
+import SearchHeader from "./components/SearchHeader";
 import CardList from "./components/CardList";
 
 export default function ClientComponent() {
@@ -45,10 +45,21 @@ export default function ClientComponent() {
     return;
   }
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const handleSearch = (value: string) => {
+    setSearchTerm(value);
+  };
+
+  const filteredUserTextContents = userTextContents?.filter(
+    (content) =>
+      content.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      content.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="flex flex-col max-w-full w-10/12 sm:w-8/12 lg:w-10/12">
       <div className="my-3">
-        <SearchHeader />
+        <SearchHeader handleSearch={handleSearch} />
       </div>
 
       <div className="flex flex-row justify-between items-center mt-8 mb-3">
@@ -61,7 +72,7 @@ export default function ClientComponent() {
 
         {Array.isArray(userTextContents) && (
           <div className="font-sans w-20 text-slate-300  text-center p-2 flex items-center justify-center h-6">
-            {userTextContents.length} items
+            {filteredUserTextContents.length} items
           </div>
         )}
       </div>
@@ -71,48 +82,14 @@ export default function ClientComponent() {
           <SkeletonLoader height={100} width={320} />
         )}
 
-        {!isLoading && !error && userTextContents && (
+        {!isLoading && !error && filteredUserTextContents && (
           // @ts-ignore
-          <CardList userTextContents={userTextContents} supabase={supabase} />
+          <CardList
+            userTextContents={filteredUserTextContents}
+            supabase={supabase}
+          />
         )}
       </div>
     </div>
   );
 }
-const SearchHeader = () => {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
-  };
-
-  return (
-    <div className="flex flex-col gap-2 items-center">
-      <h1 className="text-3xl font-bold mb-2 text-slate-300">
-        What will you{" "}
-        <span
-          style={{
-            background: "linear-gradient(to right, #1BFFFF, #ED1E79)",
-            WebkitBackgroundClip: "text",
-            color: "transparent",
-          }}
-        >
-          Learn
-        </span>{" "}
-        today?
-      </h1>
-      <Form.Root>
-        <Form.Field name="content">
-          <div className="rounded-full border w-60">
-            <Form.Control asChild>
-              <input
-                type="text"
-                className="border rounded-md py-2 px-4 flex-grow text-left text-white"
-                placeholder="Search..."
-                onChange={handleChange}
-              />
-            </Form.Control>
-          </div>
-        </Form.Field>
-      </Form.Root>
-    </div>
-  );
-};

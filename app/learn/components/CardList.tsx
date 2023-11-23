@@ -10,7 +10,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import useWindowSize from "@/hooks/useWindowSize";
 
 interface ICardList {
-  userTextContents: [{}];
+  userTextContents: any;
   supabase: SupabaseClient;
 }
 
