@@ -2,7 +2,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { delete_item } from "../actions";
 import { useMutation, useQueryClient } from "react-query";
-import ClampLines from "react-clamp-lines";
 import Modal from "@/components/Modal/Modal";
 import { formatDate } from "@/utility";
 import ArrowLogo from "@/components/ArrowLogo";
@@ -18,7 +17,7 @@ interface ICardList {
 export default function CardList({ userTextContents, supabase }: ICardList) {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { isMobile, isDesktop } = useWindowSize();
+  const { isMobile } = useWindowSize();
 
   const mutation = useMutation({
     mutationFn: (item_id: string) => {
@@ -52,25 +51,12 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
                 {formatDate(content.created_at)}
               </h2>
             )}
-            {/* <div className="h-20 overflow-hidden mb-3">
-              <ClampLines
-                text={content.content}
-                id="really-unique-id"
-                lines={3}
-                ellipsis="..."
-                className="custom-class"
-                innerElement="p"
-              />
-            </div> */}
 
             <div className="h-20 overflow-hidden mb-3">
               <p>
-                {
-                  // Split the content into words, take the first 30 if on desktop, 15 if on mobile, and join them back into a string
-                  isMobile
-                    ? content.content.split(" ").slice(0, 15).join(" ")
-                    : content.content.split(" ").slice(0, 30).join(" ")
-                }
+                {isMobile
+                  ? content.content.split(" ").slice(0, 15).join(" ")
+                  : content.content.split(" ").slice(0, 30).join(" ")}
               </p>
             </div>
 

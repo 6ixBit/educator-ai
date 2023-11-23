@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { fetchUserTextContents, fetchUser } from "./actions";
 import { useQuery } from "react-query";
 import SkeletonLoader from "./components/SkeletonLoader";
+import * as Form from "@radix-ui/react-form";
 
 import CardList from "./components/CardList";
 
@@ -49,6 +50,7 @@ export default function ClientComponent() {
       <div className="my-3">
         <SearchHeader />
       </div>
+
       <div className="flex flex-row justify-between items-center mt-8 mb-3">
         <button
           onClick={() => router.push("/learn/create")}
@@ -78,6 +80,10 @@ export default function ClientComponent() {
   );
 }
 const SearchHeader = () => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value);
+  };
+
   return (
     <div className="flex flex-col gap-2 items-center">
       <h1 className="text-3xl font-bold mb-2 text-slate-300">
@@ -93,13 +99,20 @@ const SearchHeader = () => {
         </span>{" "}
         today?
       </h1>
-      <div className="rounded-full border w-60">
-        <input
-          type="text"
-          className="border rounded-md py-2 px-4 flex-grow text-left text-white"
-          placeholder="Search..."
-        />
-      </div>
+      <Form.Root>
+        <Form.Field name="content">
+          <div className="rounded-full border w-60">
+            <Form.Control asChild>
+              <input
+                type="text"
+                className="border rounded-md py-2 px-4 flex-grow text-left text-white"
+                placeholder="Search..."
+                onChange={handleChange}
+              />
+            </Form.Control>
+          </div>
+        </Form.Field>
+      </Form.Root>
     </div>
   );
 };
