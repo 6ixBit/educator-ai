@@ -46,6 +46,9 @@ export default function ClientComponent() {
 
   return (
     <div className="flex flex-col max-w-full w-10/12 sm:w-8/12 lg:w-10/12">
+      <div className="my-3">
+        <SearchHeader />
+      </div>
       <div className="flex flex-row justify-between items-center mt-4 mb-3">
         <button
           onClick={() => router.push("/learn/create")}
@@ -74,3 +77,20 @@ export default function ClientComponent() {
     </div>
   );
 }
+
+const SearchHeader = () => {
+  return (
+    <div className="flex flex-col gap-2 items-center">
+      <h1 className="text-white text-3xl font-bold mb-2">
+        What will you learn today?
+      </h1>
+      <div className="rounded-full border w-60">
+        <input
+          type="text"
+          className="border rounded-md py-2 px-4 flex-grow text-left text-white"
+          placeholder="Search..."
+        />
+      </div>
+    </div>
+  );
+};

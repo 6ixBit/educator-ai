@@ -33,7 +33,7 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
         userTextContents.map((content: any, index: number) => (
           <div
             key={index}
-            className="flex flex-col rounded border w-full p-6 sm:p-8 hover:border-blue-500 bg-off-white"
+            className="flex flex-col rounded border w-full max-h-60 p-6 sm:p-8 hover:border-blue-500 bg-off-white"
             onClick={(e) => {
               router.push(`/learn/${content.id}`);
             }}
@@ -50,11 +50,31 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
               </h2>
             )}
 
-            <ClampLines
+            {/* <ClampLines
               text={content.content}
               id="really-unique-id"
-              lines={5}
-            />
+              lines={4}
+            /> */}
+
+            {/* <ClampLines
+              text={content.content}
+              id={`content-${index}`}
+              lines={4}
+              ellipsis="..."
+              buttons={false}
+              innerElement="p"
+              className="p-2"
+            /> */}
+            <div className=" h-20 overflow-hidden mb-3">
+              <ClampLines
+                text={content.content}
+                id="really-unique-id"
+                lines={3}
+                ellipsis="..."
+                className="custom-class"
+                innerElement="p"
+              />
+            </div>
 
             <div className="flex flex-row justify-between mt-4">
               <div className="flex gap-3">
