@@ -33,13 +33,13 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
         userTextContents.map((content: any, index: number) => (
           <div
             key={index}
-            className="flex flex-col rounded border w-full max-h-60 p-6 sm:p-8 hover:border-blue-500 bg-off-white"
+            className="flex flex-col rounded border w-full h-60 p-6 sm:p-8 hover:border-blue-500 bg-off-white"
             onClick={(e) => {
               router.push(`/learn/${content.id}`);
             }}
           >
             {content.title && (
-              <h1 className="text-sky-500 text-lg font-medium font-sans overflow-ellipsis overflow-hidden">
+              <h1 className="text-sky-500 text-xl font-medium font-sans overflow-ellipsis overflow-hidden">
                 {content.title}
               </h1>
             )}
@@ -49,23 +49,7 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
                 {formatDate(content.created_at)}
               </h2>
             )}
-
-            {/* <ClampLines
-              text={content.content}
-              id="really-unique-id"
-              lines={4}
-            /> */}
-
-            {/* <ClampLines
-              text={content.content}
-              id={`content-${index}`}
-              lines={4}
-              ellipsis="..."
-              buttons={false}
-              innerElement="p"
-              className="p-2"
-            /> */}
-            <div className=" h-20 overflow-hidden mb-3">
+            {/* <div className="h-20 overflow-hidden mb-3">
               <ClampLines
                 text={content.content}
                 id="really-unique-id"
@@ -74,6 +58,19 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
                 className="custom-class"
                 innerElement="p"
               />
+            </div> */}
+
+            <div className="h-20 overflow-hidden mb-3">
+              <p>
+                {
+                  // Split the content into words, take the first 30, and join them back into a string
+                  content.content.split(" ").slice(0, 30).join(" ")
+                }
+                {/* {
+                  // If the content has more than 30 words, add an ellipsis
+                  content.content.split(" ").length > 30 && "..."
+                } */}
+              </p>
             </div>
 
             <div className="flex flex-row justify-between mt-4">
