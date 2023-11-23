@@ -17,7 +17,7 @@ interface ICardList {
 export default function CardList({ userTextContents, supabase }: ICardList) {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { isMobile } = useWindowSize();
+  const { isMobile, isDesktop } = useWindowSize();
 
   const mutation = useMutation({
     mutationFn: (item_id: string) => {
@@ -41,7 +41,7 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
             }}
           >
             {content.title && (
-              <h1 className="text-sky-500 text-xl font-medium font-sans overflow-ellipsis overflow-hidden">
+              <h1 className="text-sky-500 text-xl font-medium font-sans overflow-ellipsis overflow-hidden whitespace-nowrap">
                 {content.title}
               </h1>
             )}
@@ -55,8 +55,8 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
             <div className="h-20 overflow-hidden mb-3">
               <p>
                 {isMobile
-                  ? content.content.split(" ").slice(0, 15).join(" ")
-                  : content.content.split(" ").slice(0, 30).join(" ")}
+                  ? content.content.split(" ").slice(0, 14).join(" ")
+                  : content.content.split(" ").slice(0, 50).join(" ")}
               </p>
             </div>
 
