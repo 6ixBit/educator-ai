@@ -8,6 +8,8 @@ import { formatDate } from "@/utility";
 import ArrowLogo from "@/components/ArrowLogo";
 import { SupabaseClient } from "@supabase/supabase-js";
 
+import useWindowSize from "@/hooks/useWindowSize";
+
 interface ICardList {
   userTextContents: [{}];
   supabase: SupabaseClient;
@@ -16,6 +18,7 @@ interface ICardList {
 export default function CardList({ userTextContents, supabase }: ICardList) {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { isMobile, isDesktop } = useWindowSize();
 
   const mutation = useMutation({
     mutationFn: (item_id: string) => {
@@ -63,13 +66,11 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
             <div className="h-20 overflow-hidden mb-3">
               <p>
                 {
-                  // Split the content into words, take the first 30, and join them back into a string
-                  content.content.split(" ").slice(0, 30).join(" ")
+                  // Split the content into words, take the first 30 if on desktop, 15 if on mobile, and join them back into a string
+                  isMobile
+                    ? content.content.split(" ").slice(0, 15).join(" ")
+                    : content.content.split(" ").slice(0, 30).join(" ")
                 }
-                {/* {
-                  // If the content has more than 30 words, add an ellipsis
-                  content.content.split(" ").length > 30 && "..."
-                } */}
               </p>
             </div>
 
