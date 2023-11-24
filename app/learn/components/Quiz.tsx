@@ -79,14 +79,17 @@ export default function Quiz({ questions }: IQuiz) {
         >
           Prev
         </button>
-        <button
-          onClick={() => {
-            console.log(wrongAnswers);
-          }}
-          className="bg-green-500 text-white rounded-full w-20 text-center h-8"
-        >
-          Submit
-        </button>
+        {currentOption === questions.length - 1 && (
+          <button
+            onClick={() => {
+              console.log(wrongAnswers);
+            }}
+            className="bg-green-500 text-white rounded-full w-20 text-center h-8"
+          >
+            Submit
+          </button>
+        )}
+
         <button
           onClick={() => {
             handleNext();
@@ -109,6 +112,11 @@ export default function Quiz({ questions }: IQuiz) {
           <h2 className="text-red-500 text-sm mb-3 font-normal">
             Wrong answer for: {item.question}
           </h2>
+
+          <h2 className="text-purple-500 text-sm mb-3 font-normal">
+            Your answer : {item.question}
+          </h2>
+
           <h2 className="text-green-500 text-sm mb-3 font-normal">
             Correct answer is: {item.correctAnswer}
           </h2>
