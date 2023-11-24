@@ -2,16 +2,15 @@ import RadioGroupContainer from "@/components/RadioGroup/RadioGroupContainer";
 import { useState } from "react";
 
 interface IQuiz {
-  question: string;
-  answers: string[];
+  questions: [{ question: string; wrong_answers: []; correct_answer: string }];
 }
 
-export default function Quiz({ question, answers }: IQuiz) {
+export default function Quiz({ questions }: IQuiz) {
   const [currentOption, setCurrentOption] = useState(0);
   const [radioGrpVal, setRadioGrpVal] = useState<any>(null);
 
   const handleNext = () => {
-    if (currentOption < answers.length - 1) {
+    if (currentOption < questions.length - 1) {
       setCurrentOption(currentOption + 1);
     }
   };
@@ -22,6 +21,8 @@ export default function Quiz({ question, answers }: IQuiz) {
     }
   };
 
+  console.log("quiz component: ", questions);
+
   return (
     <div className="mt-12 mb-4 w-full">
       <div className="flex justify-between flex-row items-baseline">
@@ -30,14 +31,19 @@ export default function Quiz({ question, answers }: IQuiz) {
         </h1>
 
         <h2 className="text-gray-500 text-sm mb-3 font-normal">
-          {answers?.length} questions
+          {questions?.length} questions
         </h2>
       </div>
 
-      <h2 className="text-slate-200 text-left mb-8">{question}</h2>
+      <h2 className="text-slate-200 text-left mb-8">
+        {questions[currentOption].question}
+      </h2>
 
       <RadioGroupContainer
-        options={answers || []}
+        options={[
+          ...questions[currentOption].wrong_answers,
+          questions[currentOption].correct_answer,
+        ]}
         handleValueChange={(value: any) => {
           setRadioGrpVal(value);
         }}
@@ -46,10 +52,13 @@ export default function Quiz({ question, answers }: IQuiz) {
 
       <div className="flex flex-row justify-center mt-6">
         <button
-          onClick={handleNext}
-          disabled={currentOption === answers.length - 1}
+          onClick={() => {
+            handleNext();
+            setRadioGrpVal(null);
+          }}
+          disabled={currentOption === questions.length - 1}
           className={`bg-blue-500 text-white rounded-lg w-20 text-center h-8 ${
-            currentOption === answers.length - 1 ? "opacity-50" : ""
+            currentOption === questions.length - 1 ? "opacity-50" : ""
           }`}
         >
           Next

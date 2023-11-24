@@ -90,18 +90,18 @@ export default function Page({ params }: { params: { id: string } }) {
           {textContent?.case_study_scenario && (
             <CaseStudy
               caseStudyText={textContent?.case_study_scenario}
-              caseStudyContext={textContent.content}
+              caseStudyContext={textContent?.content}
             />
           )}
 
-          {textContent.flash_cards && (
-            <FlashCards options={textContent.flash_cards} />
+          {textContent?.flash_cards && (
+            <FlashCards options={textContent?.flash_cards} />
           )}
 
-          {textContent?.case_study_questions && (
+          {textContent?.quiz_questions && (
             <Quiz
-              question={textContent?.case_study_questions[0]}
-              answers={textContent?.case_study_answers}
+              questions={textContent?.quiz_questions?.questions}
+              answers={[]}
             />
           )}
         </>

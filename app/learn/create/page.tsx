@@ -9,7 +9,7 @@ import { useState } from "react";
 import ProgressBar from "@/components/ProgressBar";
 import DropDownMenu from "@/components/DropdownMenu/DropdownMenu";
 
-import { sendToSupabase, sendToServer } from "../actions";
+import { sendToSupabase, sendToServer, generateQuiz } from "../actions";
 
 export default function ClientComponent() {
   const router = useRouter();
@@ -42,7 +42,10 @@ export default function ClientComponent() {
 
     const data = await sendToSupabase(supabase, body, title, userID);
     const pageID = data[0].id;
+
+    // TODO: Name the sendToServer funciton better, it returns a few items.
     const { case_study, flash_cards, processed } = await sendToServer(body);
+    const questions = await generateQuiz(body);
 
     update_row(
       supabase,
@@ -50,6 +53,7 @@ export default function ClientComponent() {
         case_study_scenario: case_study.scenario,
         case_study_questions: case_study.questions,
         case_study_answers: case_study.answers,
+        quiz_questions: questions,
         summary_of_content: processed,
         flash_cards: flash_cards.flash_cards,
         level: level,

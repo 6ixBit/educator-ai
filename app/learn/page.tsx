@@ -50,11 +50,13 @@ export default function ClientComponent() {
     setSearchTerm(value);
   };
 
-  const filteredUserTextContents = userTextContents?.filter(
-    (content) =>
-      content.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      content.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredUserTextContents = Array.isArray(userTextContents)
+    ? userTextContents.filter(
+        (content: { content: string; title: string }) =>
+          content.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          content.title.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   return (
     <div className="flex flex-col max-w-full w-10/12 sm:w-8/12 lg:w-10/12">
