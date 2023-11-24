@@ -33,9 +33,15 @@ export default function FlashCards({ options }: IFlashCards) {
           Study Cards{" "}
         </h1>
 
-        <h2 className="text-gray-500 text-sm mb-3 font-normal">
-          {currentOption + 1} / {options.length}
-        </h2>
+        <div className="flex flex-row gap-1">
+          <h2 className="text-slate-300 text-sm mb-3 font-normal">
+            {currentOption + 1} /
+          </h2>
+
+          <h2 className="text-gray-500 text-sm mb-3 font-normal">
+            {options.length}
+          </h2>
+        </div>
       </div>
 
       <div className=" mx-auto">

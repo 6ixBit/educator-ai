@@ -96,17 +96,16 @@ export const sendToServer = async (content: string) => {
   }
 
   export const delete_item = async (supabase: SupabaseClient, column: string, item_id: string) => {
-const { data, error } = await supabase
-.from('text-content')
-.delete()
-.eq(column, item_id)
+    const { data, error } = await supabase
+    .from('text-content')
+    .delete()
+    .eq(column, item_id)
 
-if (error) {
-  return error
-}
+    if (error) {
+      return error
+    }
 
-return data
-
+    return data
   }
 
   export const fetchUserTextContents = async (supabase: SupabaseClient, id: string) => {

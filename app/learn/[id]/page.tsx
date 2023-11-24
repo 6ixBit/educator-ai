@@ -5,7 +5,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 
 import FlashCards from "../components/flashcards";
-import SkeletonLoader from "../components/SkeletonLoader";
+import SkeletonLoader from "../../../components/SkeletonLoader";
 import Summary from "../components/summary";
 
 import Quiz from "../components/Quiz";
@@ -99,10 +99,7 @@ export default function Page({ params }: { params: { id: string } }) {
           )}
 
           {textContent?.quiz_questions && (
-            <Quiz
-              questions={textContent?.quiz_questions?.questions}
-              answers={[]}
-            />
+            <Quiz questions={textContent?.quiz_questions?.questions} />
           )}
         </>
       ) : (
