@@ -49,6 +49,13 @@ export default function Quiz({ questions }: IQuiz) {
     }
   };
 
+  const handleRetry = () => {
+    setCurrentOption(0);
+    setUserAnswers([]);
+    setWrongAnswers([]);
+    setIsQuizComplete(false);
+  };
+
   return (
     <div className="mt-12 mb-4 w-full">
       <div className="flex justify-between flex-row items-baseline">
@@ -68,7 +75,11 @@ export default function Quiz({ questions }: IQuiz) {
       </div>
 
       {isQuizComplete ? (
-        <QuizReview questions={questions} wrongAnswers={wrongAnswers} />
+        <QuizReview
+          questions={questions}
+          wrongAnswers={wrongAnswers}
+          handleRetry={handleRetry}
+        />
       ) : (
         <>
           <h2 className="text-slate-200 text-left mb-8">
@@ -139,12 +150,15 @@ export default function Quiz({ questions }: IQuiz) {
     </div>
   );
 }
+
 const QuizReview = ({
   wrongAnswers,
   questions,
+  handleRetry,
 }: {
   wrongAnswers: IWrongAnswer[];
   questions: IQuestion[];
+  handleRetry: () => void;
 }) => {
   const score = questions.length - wrongAnswers.length;
 
@@ -176,9 +190,7 @@ const QuizReview = ({
       <div className="flex justify-center">
         <button
           className="bg-yellow-500 text-white rounded-full w-20 text-center h-8 mt-2"
-          onClick={() => {
-            console.log("Retry.");
-          }}
+          onClick={handleRetry}
         >
           Retry
         </button>
