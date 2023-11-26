@@ -82,7 +82,8 @@ export default function Page({ params }: { params: { id: string } }) {
           <Summary
             title={textContent?.title || "No title"}
             date={textContent.created_at}
-            summary={textContent?.content || "No summary found."}
+            summary={textContent?.content || "No summary found"}
+            keypoints={textContent?.key_points || [{}]}
           />
 
           <HorizontalSeparator />

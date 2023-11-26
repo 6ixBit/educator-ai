@@ -44,16 +44,15 @@ export default function ClientComponent() {
     const pageID = data[0].id;
 
     // TODO: Name the sendToServer funciton better, it returns a few items.
-    const { case_study, flash_cards, processed } = await sendToServer(body);
+    const { case_study, flash_cards, key_points } = await sendToServer(body);
     const questions = await generateQuiz(body);
-    console.log("case study: ", case_study);
 
     update_row(
       supabase,
       {
         case_study_scenario: case_study.scenario,
         quiz_questions: questions,
-        summary_of_content: processed,
+        key_points: key_points,
         flash_cards: flash_cards.flash_cards,
         level: level,
       },
