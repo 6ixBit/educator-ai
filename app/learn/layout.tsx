@@ -13,31 +13,39 @@ export default function LearnLayout({
 
   return (
     <div className="w-full flex flex-col items-center bg-slate-900">
-      <div className="flex justify-start space-x-5 pt-4 items-center text-md text-foreground mt-2 mb-4 max-w-full w-10/12 sm:w-8/12 lg:w-10/12">
-        <Link
-          href="/"
-          className={`no-underline font-semibold text-md transform transition-transform duration-200 ${
-            pathname === "/" ? "text-sky-500" : "text-gray-600"
-          } hover:text-highlight hover:scale-110 hover:text-white`}
-        >
-          Home
-        </Link>
-        <Link
-          href="/learn"
-          className={`no-underline font-semibold text-md transform transition-transform duration-200 ${
-            pathname === "/learn" ? "text-sky-500" : "text-gray-600"
-          } hover:text-highlight hover:scale-110 hover:text-white`}
-        >
-          Notes
-        </Link>
-        <Link
-          href="/learn/create"
-          className={`no-underline font-semibold text-md transform transition-transform duration-200 ${
-            pathname === "/learn/create" ? "text-sky-500" : "text-gray-600"
-          } hover:text-highlight hover:scale-110 hover:text-white`}
-        >
-          Add
-        </Link>
+      <div className="flex justify-between space-x-5 pt-4 items-center text-md text-foreground mt-2 mb-4 max-w-full w-10/12 sm:w-8/12 lg:w-10/12">
+        <div className="flex space-x-5">
+          <Link
+            href="/"
+            className={`no-underline font-semibold text-md transform transition-transform duration-200 ${
+              pathname === "/" ? "text-sky-500" : "text-gray-600"
+            } hover:text-highlight hover:scale-110 hover:text-white`}
+          >
+            Home
+          </Link>
+          <Link
+            href="/learn"
+            className={`no-underline font-semibold text-md transform transition-transform duration-200 ${
+              pathname === "/learn" ? "text-sky-500" : "text-gray-600"
+            } hover:text-highlight hover:scale-110 hover:text-white`}
+          >
+            Notes
+          </Link>
+          <Link
+            href="/learn/create"
+            className={`no-underline font-semibold text-md transform transition-transform duration-200 ${
+              pathname === "/learn/create" ? "text-sky-500" : "text-gray-600"
+            } hover:text-highlight hover:scale-110 hover:text-white`}
+          >
+            Add
+          </Link>
+        </div>
+        <HamburgerMenu
+          items={[
+            { name: "Language", url: "/auth/signout" },
+            { name: "Sign out", url: "/auth/signout" },
+          ]}
+        />
       </div>
 
       {children}
