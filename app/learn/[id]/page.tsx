@@ -14,6 +14,7 @@ import useWindowSize from "@/hooks/useWindowSize";
 import { useQuery } from "react-query";
 import CaseStudy from "../components/CaseStudy";
 import HorizontalSeparator from "@/components/HorizontalSeparator/HorizontalSeparator";
+import CollapsableSection from "../components/CollapsableSection";
 
 export default function Page({ params }: { params: { id: string } }) {
   const supabase = createClientComponentClient();
@@ -79,28 +80,32 @@ export default function Page({ params }: { params: { id: string } }) {
         </div>
       ) : isUserAuthorized ? (
         <>
-          <Summary
-            title={textContent?.title || "No title"}
-            date={textContent.created_at}
-            summary={textContent?.content || "No summary found"}
-            keypoints={textContent?.key_points || [{}]}
-          />
-
-          <HorizontalSeparator />
-
-          {textContent?.case_study_scenario && (
-            <CaseStudy
-              caseStudyText={textContent?.case_study_scenario}
-              caseStudyContext={textContent?.content}
+          <CollapsableSection title="Summary">
+            <Summary
+              title={textContent?.title || "No title"}
+              date={textContent.created_at}
+              summary={textContent?.content || "No summary found"}
+              keypoints={textContent?.key_points || [{}]}
             />
-          )}
+          </CollapsableSection>
+
+          <CollapsableSection title="Case Study">
+            {textContent?.case_study_scenario && (
+              <CaseStudy
+                caseStudyText={textContent?.case_study_scenario}
+                caseStudyContext={textContent?.content}
+              />
+            )}
+          </CollapsableSection>
+
+          <CollapsableSection title="Quiz">
+            {textContent?.quiz_questions && (
+              <Quiz questions={textContent?.quiz_questions?.questions} />
+            )}
+          </CollapsableSection>
 
           {textContent?.flash_cards && (
             <FlashCards options={textContent?.flash_cards} />
-          )}
-
-          {textContent?.quiz_questions && (
-            <Quiz questions={textContent?.quiz_questions?.questions} />
           )}
         </>
       ) : (

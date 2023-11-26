@@ -24,8 +24,8 @@ export default function Summary({ title, summary, date, keypoints }: ISummary) {
       </h1>
 
       <p className="text-slate-300 font-medium leading-loose pt-2 sm:px-37 mb-4">
-        Here are some crucial points I have extracted, it would be beneficial
-        for you to explore them.
+        Here are some crucial topics I have extracted, it would be beneficial
+        for you to explore them so you can build your understanding.
       </p>
 
       {keypoints?.map((keypoint, index) => (
