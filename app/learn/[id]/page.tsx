@@ -84,7 +84,10 @@ export default function Page({ params }: { params: { id: string } }) {
           <Overview title={textContent?.title} />
 
           <div className="mt-10">
-            <CollapsableSection title="Summary">
+            <CollapsableSection
+              title="Summary"
+              subtitle={`${textContent?.key_points?.length || 0} key points`}
+            >
               <Summary
                 title={textContent?.title || "No title"}
                 date={textContent.created_at}
@@ -94,7 +97,10 @@ export default function Page({ params }: { params: { id: string } }) {
             </CollapsableSection>
           </div>
 
-          <CollapsableSection title="Case Study">
+          <CollapsableSection
+            title="Case Study"
+            subtitle="Difficulty: High School"
+          >
             {textContent?.case_study_scenario && (
               <CaseStudy
                 caseStudyText={textContent?.case_study_scenario}
@@ -103,15 +109,27 @@ export default function Page({ params }: { params: { id: string } }) {
             )}
           </CollapsableSection>
 
-          <CollapsableSection title="Quiz">
+          <CollapsableSection
+            title="Study Cards"
+            subtitle={`${
+              textContent?.flash_cards?.length || 0
+            } cards for you to check out`}
+          >
+            {textContent?.flash_cards && (
+              <FlashCards options={textContent?.flash_cards} />
+            )}
+          </CollapsableSection>
+
+          <CollapsableSection
+            title="Quiz"
+            subtitle={`Reminder : ${
+              textContent?.quiz_questions?.questions?.length || 0
+            } questions`}
+          >
             {textContent?.quiz_questions && (
               <Quiz questions={textContent?.quiz_questions?.questions} />
             )}
           </CollapsableSection>
-
-          {textContent?.flash_cards && (
-            <FlashCards options={textContent?.flash_cards} />
-          )}
         </>
       ) : (
         <div className="mt-4 text-white font-bold text-2xl">
