@@ -83,14 +83,16 @@ export default function Page({ params }: { params: { id: string } }) {
         <>
           <Overview title={textContent?.title} />
 
-          <CollapsableSection title="Summary">
-            <Summary
-              title={textContent?.title || "No title"}
-              date={textContent.created_at}
-              summary={textContent?.content || "No summary found"}
-              keypoints={textContent?.key_points || [{}]}
-            />
-          </CollapsableSection>
+          <div className="mt-10">
+            <CollapsableSection title="Summary">
+              <Summary
+                title={textContent?.title || "No title"}
+                date={textContent.created_at}
+                summary={textContent?.content || "No summary found"}
+                keypoints={textContent?.key_points || [{}]}
+              />
+            </CollapsableSection>
+          </div>
 
           <CollapsableSection title="Case Study">
             {textContent?.case_study_scenario && (
