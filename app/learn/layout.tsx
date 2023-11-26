@@ -42,8 +42,10 @@ export default function LearnLayout({
         </div>
         <HamburgerMenu
           items={[
-            { name: "Language", url: "/auth/signout" },
-            { name: "Sign out", url: "/auth/signout" },
+            {
+              name: "Language",
+              url: "/auth/signout",
+            },
           ]}
         />
       </div>

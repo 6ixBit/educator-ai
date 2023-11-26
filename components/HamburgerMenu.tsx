@@ -10,6 +10,7 @@ interface IHamburgerMenu {
 type menuItem = {
   name: string;
   url: string;
+  onClick?: () => void;
 };
 
 export default function HamburgerMenu({ items }: IHamburgerMenu) {
@@ -36,6 +37,7 @@ export default function HamburgerMenu({ items }: IHamburgerMenu) {
                 <DropdownMenu.Item
                   key={idx}
                   className="group relative flex h-10 w-full select-none items-center justify-center rounded-[3px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1"
+                  onSelect={item.onClick}
                 >
                   <Menubar.Separator className="MenubarSeparator" />
                   {item.name}
@@ -45,6 +47,11 @@ export default function HamburgerMenu({ items }: IHamburgerMenu) {
           })}
 
           <DropdownMenu.Arrow className="fill-white" />
+          <form action="/auth/sign-out" method="post">
+            <div className="group relative flex h-10 w-full select-none items-center justify-center rounded-[3px] text-[13px] leading-none text-red-400 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1">
+              <button>Logout</button>
+            </div>
+          </form>
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
