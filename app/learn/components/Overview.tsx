@@ -33,7 +33,7 @@ export default function Overview({ title, date }: IOverview) {
       </h2>
       <h2 className="text-gray-500 font-medium text-md mb-0">1.4k words</h2>
 
-      <h2 className="text-slate-100 mt-4">
+      <h2 className="text-slate-100 mt-8">
         On review of your report card and consideration of your grade, I believe
         you are in a pretty good position to take an exam on this topic.
       </h2>

@@ -44,7 +44,7 @@ export default function LearnLayout({
           items={[
             {
               name: "Language",
-              url: "/auth/signout",
+              url: "/language",
             },
           ]}
         />
