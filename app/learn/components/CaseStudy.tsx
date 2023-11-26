@@ -33,8 +33,6 @@ export default function CaseStudy({
     );
 
     setGrade(response);
-
-    console.log("I wish I knew...", response);
   };
 
   return (
@@ -50,7 +48,7 @@ export default function CaseStudy({
           </h2>
 
           <p
-            className={`text-sm rounded-full border-2 p-2 ${
+            className={`text-sm flex justify-center items-center text-center rounded-full border-2 p-2 h-10  ${
               grades.grade < 50
                 ? "text-red-500 border-red-500"
                 : grades.grade < 70

@@ -15,6 +15,7 @@ import { useQuery } from "react-query";
 import CaseStudy from "../components/CaseStudy";
 import HorizontalSeparator from "@/components/HorizontalSeparator/HorizontalSeparator";
 import CollapsableSection from "../components/CollapsableSection";
+import Overview from "../components/Overview";
 
 export default function Page({ params }: { params: { id: string } }) {
   const supabase = createClientComponentClient();
@@ -80,6 +81,8 @@ export default function Page({ params }: { params: { id: string } }) {
         </div>
       ) : isUserAuthorized ? (
         <>
+          <Overview title={textContent?.title} />
+
           <CollapsableSection title="Summary">
             <Summary
               title={textContent?.title || "No title"}
