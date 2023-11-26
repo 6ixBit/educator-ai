@@ -81,7 +81,7 @@ export default function Page({ params }: { params: { id: string } }) {
         </div>
       ) : isUserAuthorized ? (
         <>
-          <Overview title={textContent?.title} />
+          <Overview title={textContent?.title} date={textContent.created_at} />
 
           <div className="mt-10">
             <CollapsableSection

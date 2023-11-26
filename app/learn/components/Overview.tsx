@@ -1,8 +1,11 @@
+import { formatDate } from "@/utility";
+
 interface IOverview {
   title: string;
+  date: any;
 }
 
-export default function Overview({ title }: IOverview) {
+export default function Overview({ title, date }: IOverview) {
   const grade = 88;
 
   return (
@@ -24,6 +27,10 @@ export default function Overview({ title }: IOverview) {
           {grade}
         </p>
       </div>
+
+      <h2 className="text-gray-500 font-medium text-sm mb-1">
+        {date ? formatDate(date) : ""}
+      </h2>
       <h2 className="text-gray-500 font-medium text-md mb-0">1.4k words</h2>
 
       <h2 className="text-slate-100 mt-4">
