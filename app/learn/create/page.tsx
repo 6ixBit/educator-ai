@@ -107,7 +107,6 @@ export default function ClientComponent() {
             />
           </Form.Control>
           <p className="text-slate-300 mt-2 text-right">
-            //TODO: Swap out for acutal count.
             {intl.formatMessage({ id: "create.charcount" }, { characters: 10 })}
           </p>
 

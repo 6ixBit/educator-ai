@@ -17,8 +17,11 @@ export default function RootLayout({
 }: {
   children: React.ReactElement;
 }) {
-  const locale = navigator.language;
-  console.log("localez: ", locale);
+  let locale = "en-US";
+
+  if (typeof window !== "undefined") {
+    locale = window.navigator.language;
+  }
 
   return (
     <html>
