@@ -67,7 +67,7 @@ export default function ClientComponent() {
       <div className="flex flex-row justify-between items-center mt-8 mb-3">
         <button
           onClick={() => router.push("/learn/create")}
-          className="bg-cyan-500 transform transition-transform duration-200 hover:scale-110 shadow-md shadow-cyan-500/50 w-28 text-white rounded-full font-medium shadow-blackA4 h-[35px] flex items-center justify-center"
+          className="bg-cyan-500 transform transition-transform duration-200 hover:scale-110 shadow-md shadow-cyan-500/50 w-28 text-white rounded-full font-medium  h-[35px] flex items-center justify-center"
         >
           Add a file
         </button>

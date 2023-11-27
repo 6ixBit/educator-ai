@@ -8,10 +8,12 @@ import { useQuery } from "react-query";
 import { useState } from "react";
 import ProgressBar from "@/components/ProgressBar";
 import DropDownMenu from "@/components/DropdownMenu/DropdownMenu";
+import { useIntl } from "react-intl";
 
 import { sendToSupabase, sendToServer, generateQuiz } from "../actions";
 
 export default function ClientComponent() {
+  const intl = useIntl();
   const router = useRouter();
   const supabase = createClientComponentClient();
   const [loading, setLoading] = useState(false);
@@ -72,13 +74,13 @@ export default function ClientComponent() {
         <Form.Field className="grid mb-[10px]" name="content">
           <div className="flex flex-row justify-between items-baseline">
             <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
-              Title
+              {intl.formatMessage({ id: "create.title.text" })}
             </Form.Label>
             <Form.Message
               className="text-[13px] text-red-500 opacity-[0.8]"
               match="valueMissing"
             >
-              Please enter a title
+              {intl.formatMessage({ id: "create.error.valuemissing.title" })}
             </Form.Message>
           </div>
 
@@ -93,7 +95,7 @@ export default function ClientComponent() {
 
           <div className="flex items-baseline justify-between mt-4">
             <Form.Label className="text-md font-medium my-2 leading-[35px] text-white">
-              What you want to learn
+              {intl.formatMessage({ id: "create.body.text" })}
             </Form.Label>
           </div>
           <Form.Control asChild>
@@ -105,12 +107,13 @@ export default function ClientComponent() {
             />
           </Form.Control>
           <p className="text-slate-300 mt-2 text-right">
-            0 / 10,000 characters
+            //TODO: Swap out for acutal count.
+            {intl.formatMessage({ id: "create.charcount" }, { characters: 10 })}
           </p>
 
           <div className="mb-6 flex flex-col">
             <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
-              Level
+              {intl.formatMessage({ id: "create.level.text" })}
             </Form.Label>
 
             <div className="flex flex-row justify-between items-baseline">
@@ -121,7 +124,7 @@ export default function ClientComponent() {
               />
 
               <h2 className="text-gray-500 font-medium text-sm mb-3">
-                Scale of study content
+                {intl.formatMessage({ id: "create.level.label" })}
               </h2>
             </div>
           </div>
@@ -131,7 +134,7 @@ export default function ClientComponent() {
               className="text-[13px] text-red-500 opacity-[0.8]"
               match="valueMissing"
             >
-              Please enter some content...
+              {intl.formatMessage({ id: "create.error.valuemissing.content" })}
             </Form.Message>
           </div>
         </Form.Field>
@@ -142,7 +145,7 @@ export default function ClientComponent() {
               disabled={loading}
               className="box-border w-1/2 text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-full bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
             >
-              Submit
+              {intl.formatMessage({ id: "button.submit.text" })}
             </button>
           </div>
         </Form.Submit>

@@ -1,0 +1,98 @@
+{
+    "en-US" : {
+        "button.add.file" : "Add a file",
+        "button.search.text": "Search...",
+        "button.submit.text": "Submit",
+
+        "search.header.text": "What will you Learn today?",
+
+        "create.title.text": "Title",
+        "create.error.valuemissing.title": "Please enter a title",
+        "create.error.valuemissing.content": "Please enter some content...",
+        "create.title.placeholder": "The influence of AI",
+        "create.body.text": "What you want to learn",
+        "create.body.placeholder": "How did the Roman Empire become so dominant?",
+        "create.level.text": "Level",
+        "create.level.label": "Scale of study content",
+        "create.charcount": "{characters} / 20,000 characters",
+
+        "hamburger.signout.text": "Sign out",
+        "hamburger.langs.text": "Language",
+
+        "project.summary.title": "Summary",
+        "project.casestudy.title": "Case Study",
+        "project.studycards.title": "Study Cards",
+        "project.quiz.title": "Quiz",
+        "project.keypoints.title": "Key Points"
+    },
+    "en-UK" : {
+        "button.add.file" : "Add a file",
+        "button.search.text": "Search...",
+        "button.submit.text": "Submit",
+
+        "search.header.text": "What will you Learn today?",
+
+        "create.title.text": "Titlez",
+        "create.title.placeholder": "The influence of AI",
+        "create.body.text": "What you want to learn",
+        "create.body.placeholder": "How did the Roman Empire become so dominant?",
+        "create.level.text": "Level",
+        "create.level.label": "Scale of study content",
+        "create.charcount": "{characters} characters",
+
+        "hamburger.signout.text": "Sign out",
+        "hamburger.langs.text": "Language",
+
+        "project.summary.title": "Summary",
+        "project.casestudy.title": "Case Study",
+        "project.studycards.title": "Study Cards",
+        "project.quiz.title": "Quiz",
+        "project.keypoints.title": "Key Points"
+    },
+    "fr" : {
+        "button.add.file" : "Ajouter un fichier",
+        "button.search.text": "Chercher...",
+        "button.submit.text": "Soumettre",
+
+        "search.header.text": "Qu'allez-vous apprendre aujourd'hui?",
+
+        "create.title.text": "Titre",
+        "create.title.placeholder": "L'influence de l'IA",
+        "create.body.text": "Ce que vous voulez apprendre",
+        "create.body.placeholder": "Comment l'Empire romain est-il devenu si dominant?",
+        "create.level.text": "Niveau",
+        "create.level.label": "Échelle du contenu d'étude",
+
+        "hamburger.signout.text": "Se déconnecter",
+        "hamburger.langs.text": "Langue",
+
+        "project.summary.title": "Résumé",
+        "project.casestudy.title": "Étude de cas",
+        "project.studycards.title": "Fiches d'étude",
+        "project.quiz.title": "Quiz",
+        "project.keypoints.title": "Points clés"
+    },
+    "es" : {
+        "button.add.file" : "Agregar un archivo",
+        "button.search.text": "Buscar...",
+        "button.submit.text": "Enviar",
+
+        "search.header.text": "¿Qué aprenderás hoy?",
+
+        "create.title.text": "Título",
+        "create.title.placeholder": "La influencia de la IA",
+        "create.body.text": "Lo que quieres aprender",
+        "create.body.placeholder": "¿Cómo llegó el Imperio Romano a ser tan dominante?",
+        "create.level.text": "Nivel",
+        "create.level.label": "Escala del contenido de estudio",
+
+        "hamburger.signout.text": "Cerrar sesión",
+        "hamburger.langs.text": "Idioma",
+
+        "project.summary.title": "Resumen",
+        "project.casestudy.title": "Estudio de caso",
+        "project.studycards.title": "Tarjetas de estudio",
+        "project.quiz.title": "Cuestionario",
+        "project.keypoints.title": "Puntos clave"
+    }
+}
