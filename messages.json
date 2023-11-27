@@ -32,13 +32,15 @@
 
         "search.header.text": "What will you Learn today?",
 
-        "create.title.text": "Titlez",
+        "create.title.text": "Title",
+        "create.error.valuemissing.title": "Please enter a title",
+        "create.error.valuemissing.content": "Please enter some content...",
         "create.title.placeholder": "The influence of AI",
         "create.body.text": "What you want to learn",
         "create.body.placeholder": "How did the Roman Empire become so dominant?",
         "create.level.text": "Level",
         "create.level.label": "Scale of study content",
-        "create.charcount": "{characters} characters",
+        "create.charcount": "{characters} / 20,000 characters",
 
         "hamburger.signout.text": "Sign out",
         "hamburger.langs.text": "Language",
@@ -57,11 +59,14 @@
         "search.header.text": "Qu'allez-vous apprendre aujourd'hui?",
 
         "create.title.text": "Titre",
+        "create.error.valuemissing.title": "Veuillez entrer un titre",
+        "create.error.valuemissing.content": "Veuillez entrer du contenu...",
         "create.title.placeholder": "L'influence de l'IA",
         "create.body.text": "Ce que vous voulez apprendre",
         "create.body.placeholder": "Comment l'Empire romain est-il devenu si dominant?",
         "create.level.text": "Niveau",
         "create.level.label": "Échelle du contenu d'étude",
+        "create.charcount": "{characters} / 20,000 caractères",
 
         "hamburger.signout.text": "Se déconnecter",
         "hamburger.langs.text": "Langue",
@@ -80,11 +85,14 @@
         "search.header.text": "¿Qué aprenderás hoy?",
 
         "create.title.text": "Título",
+        "create.error.valuemissing.title": "Por favor, introduzca un título",
+        "create.error.valuemissing.content": "Por favor, introduzca algún contenido...",
         "create.title.placeholder": "La influencia de la IA",
         "create.body.text": "Lo que quieres aprender",
         "create.body.placeholder": "¿Cómo llegó el Imperio Romano a ser tan dominante?",
         "create.level.text": "Nivel",
         "create.level.label": "Escala del contenido de estudio",
+        "create.charcount": "{characters} / 20,000 caracteres",
 
         "hamburger.signout.text": "Cerrar sesión",
         "hamburger.langs.text": "Idioma",
