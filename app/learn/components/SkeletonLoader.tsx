@@ -12,28 +12,28 @@ const SkeletonLoader = ({
       <Skeleton
         variant="rounded"
         animation="wave"
-        sx={{ bgcolor: "grey.900" }}
+        sx={{ bgcolor: "grey.700" }}
         width={width}
         height={height}
       />
       <Skeleton
         variant="rounded"
         animation="wave"
-        sx={{ bgcolor: "grey.900" }}
+        sx={{ bgcolor: "grey.700" }}
         width={width}
         height={height}
       />
       <Skeleton
         variant="rounded"
         animation="wave"
-        sx={{ bgcolor: "grey.900" }}
+        sx={{ bgcolor: "grey.700" }}
         width={width}
         height={height}
       />
       <Skeleton
         variant="rounded"
         animation="wave"
-        sx={{ bgcolor: "grey.900" }}
+        sx={{ bgcolor: "grey.700" }}
         width={width}
         height={height}
       />

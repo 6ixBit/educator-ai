@@ -9,11 +9,15 @@ import { useState } from "react";
 import SearchHeader from "./components/SearchHeader";
 import CardList from "./components/CardList";
 import { useIntl } from "react-intl";
+import useWindowSize from "@/hooks/useWindowSize";
+import Skeleton from "@mui/material/Skeleton";
 
 export default function ClientComponent() {
   const router = useRouter();
   const supabase = createClientComponentClient();
   const intl = useIntl();
+
+  const { isMobile } = useWindowSize();
 
   const {
     isLoading: isLoadingUser,
@@ -67,11 +71,21 @@ export default function ClientComponent() {
       </div>
 
       <div className="flex flex-row justify-between items-center mt-8 mb-3">
+        {(isLoadingUser || isLoading) && (
+          <Skeleton
+            variant="rounded"
+            animation="wave"
+            sx={{ bgcolor: "grey.700" }}
+            width={100}
+            height={50}
+          />
+        )}
+
         <button
           onClick={() => router.push("/learn/create")}
           className="bg-cyan-500 transform transition-transform duration-200 hover:scale-110 shadow-md shadow-cyan-500/50 w-28 text-white rounded-full font-medium  h-[35px] flex items-center justify-center"
         >
-          {intl.formatMessage({ id: "create.title.text" })}
+          {intl.formatMessage({ id: "button.add.file" })}
         </button>
 
         {Array.isArray(userTextContents) && (
@@ -84,7 +98,7 @@ export default function ClientComponent() {
 
       <div className="flex flex-col gap-2 w-auto mt-4 items-center mb-4">
         {(isLoadingUser || isLoading) && (
-          <SkeletonLoader height={100} width={320} />
+          <SkeletonLoader height={200} width={isMobile ? 320 : 500} />
         )}
 
         {!isLoading && !error && filteredUserTextContents && (

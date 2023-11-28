@@ -107,7 +107,7 @@ export default function ClientComponent() {
             />
           </Form.Control>
           <p className="text-slate-300 mt-2 text-right">
-            {intl.formatMessage({ id: "create.charcount" }, { characters: 10 })}
+            {intl.formatMessage({ id: "create.charcount" }, { characters: 99 })}
           </p>
 
           <div className="mb-6 flex flex-col">
