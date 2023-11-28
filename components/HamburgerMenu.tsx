@@ -2,6 +2,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import * as Menubar from "@radix-ui/react-menubar";
 import Link from "next/link";
+import { useIntl } from "react-intl";
 
 interface IHamburgerMenu {
   items: menuItem[];
@@ -14,6 +15,8 @@ type menuItem = {
 };
 
 export default function HamburgerMenu({ items }: IHamburgerMenu) {
+  const intl = useIntl();
+
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
@@ -49,7 +52,9 @@ export default function HamburgerMenu({ items }: IHamburgerMenu) {
           <DropdownMenu.Arrow className="fill-white" />
           <form action="/auth/sign-out" method="post">
             <div className="group relative flex h-10 w-full select-none items-center justify-center rounded-[3px] text-[13px] leading-none text-red-400 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1">
-              <button>Logout</button>
+              <button>
+                {intl.formatMessage({ id: "hamburger.signout.text" })}
+              </button>
             </div>
           </form>
         </DropdownMenu.Content>

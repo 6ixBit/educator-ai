@@ -1,3 +1,5 @@
+"use client";
+
 import * as Form from "@radix-ui/react-form";
 import Image from "next/image";
 import { useIntl } from "react-intl";
@@ -45,7 +47,7 @@ export default function SearchHeader({
                   src="/search.png"
                   width={20}
                   height={20}
-                  alt="delete button"
+                  alt="search button"
                   style={{ transition: "transform 0.2s" }}
                   className="hover:scale-110"
                 />

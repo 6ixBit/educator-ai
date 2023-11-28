@@ -17,6 +17,7 @@
         "create.charcount": "{characters} / 20,000 characters",
 
         "hamburger.signout.text": "Sign out",
+        "hamburger.login.text": "Login",
         "hamburger.langs.text": "Language",
 
         "project.summary.title": "Summary",
@@ -29,8 +30,12 @@
         "navmenu.home": "Home",
         "navmenu.notes": "Notes",
         "navmenu.create": "Create",
-        "hamburgermenu.languague": "Language"
 
+        "home.hero.text": "Go from text to study material with grading in one click",
+        "home.hero.getstarted": "Get started",
+        "home.hero.features": "Features",
+        "home.footer.text": "Built by",
+        "home.items": "items"
     },
     "en-UK" : {
         "button.add.file" : "Add a file",
@@ -50,13 +55,25 @@
         "create.charcount": "{characters} / 20,000 characters",
 
         "hamburger.signout.text": "Sign out",
+        "hamburger.login.text": "Login",
         "hamburger.langs.text": "Language",
 
         "project.summary.title": "Summary",
         "project.casestudy.title": "Case Study",
         "project.studycards.title": "Study Cards",
         "project.quiz.title": "Quiz",
-        "project.keypoints.title": "Key Points"
+        "project.keypoints.title": "Key Points",
+
+        "summary.noSummary": "No summary",
+        "navmenu.home": "Home",
+        "navmenu.notes": "Notes",
+        "navmenu.create": "Create",
+
+        "home.hero.text": "Go from text to study material with grading in one click",
+        "home.hero.getstarted": "Get started",
+        "home.hero.features": "Features",
+        "home.footer.text": "Built by",
+        "home.items": "items"
     },
     "fr" : {
         "button.add.file" : "Ajouter un fichier",
@@ -76,13 +93,25 @@
         "create.charcount": "{characters} / 20,000 caractères",
 
         "hamburger.signout.text": "Se déconnecter",
+        "hamburger.login.text": "Se connecter",
         "hamburger.langs.text": "Langue",
 
         "project.summary.title": "Résumé",
         "project.casestudy.title": "Étude de cas",
         "project.studycards.title": "Fiches d'étude",
         "project.quiz.title": "Quiz",
-        "project.keypoints.title": "Points clés"
+        "project.keypoints.title": "Points clés",
+
+        "summary.noSummary": "Pas de résumé",
+        "navmenu.home": "Accueil",
+        "navmenu.notes": "Notes",
+        "navmenu.create": "Créer",
+
+        "home.hero.text": "Passez du texte au matériel d'étude avec notation en un clic",
+        "home.hero.getstarted": "Commencer",
+        "home.hero.features": "Caractéristiques",
+        "home.footer.text": "Construit par",
+        "home.items": "articles"
     },
     "es" : {
         "button.add.file" : "Agregar un archivo",
@@ -102,12 +131,24 @@
         "create.charcount": "{characters} / 20,000 caracteres",
 
         "hamburger.signout.text": "Cerrar sesión",
+        "hamburger.login.text": "Iniciar sesión",
         "hamburger.langs.text": "Idioma",
 
         "project.summary.title": "Resumen",
         "project.casestudy.title": "Estudio de caso",
         "project.studycards.title": "Tarjetas de estudio",
         "project.quiz.title": "Cuestionario",
-        "project.keypoints.title": "Puntos clave"
+        "project.keypoints.title": "Puntos clave",
+
+        "summary.noSummary": "No hay resumen",
+        "navmenu.home": "Inicio",
+        "navmenu.notes": "Notas",
+        "navmenu.create": "Crear",
+
+        "home.hero.text": "Pasa de texto a material de estudio con calificación en un clic",
+        "home.hero.getstarted": "Empezar",
+        "home.hero.features": "Características",
+        "home.footer.text": "Construido por",
+        "home.items": "artículos"
     }
 }

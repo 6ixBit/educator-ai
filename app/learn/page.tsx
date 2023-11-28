@@ -71,12 +71,13 @@ export default function ClientComponent() {
           onClick={() => router.push("/learn/create")}
           className="bg-cyan-500 transform transition-transform duration-200 hover:scale-110 shadow-md shadow-cyan-500/50 w-28 text-white rounded-full font-medium  h-[35px] flex items-center justify-center"
         >
-          {intl.formatMessage({ id: "button.add.file" })}
+          {intl.formatMessage({ id: "create.title.text" })}
         </button>
 
         {Array.isArray(userTextContents) && (
           <div className="font-sans w-20 text-slate-300  text-center p-2 flex items-center justify-center h-6">
-            {filteredUserTextContents.length} items
+            {filteredUserTextContents.length}{" "}
+            {intl.formatMessage({ id: "home.items" })}
           </div>
         )}
       </div>

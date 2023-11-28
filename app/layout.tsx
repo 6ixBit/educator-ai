@@ -17,7 +17,7 @@ export default function RootLayout({
 }: {
   children: React.ReactElement;
 }) {
-  const locale = window.navigator.language;
+  const locale = window?.navigator?.language;
   console.log("cartz: ", locale);
 
   return (
