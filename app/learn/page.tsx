@@ -8,10 +8,12 @@ import SkeletonLoader from "./components/SkeletonLoader";
 import { useState } from "react";
 import SearchHeader from "./components/SearchHeader";
 import CardList from "./components/CardList";
+import { useIntl } from "react-intl";
 
 export default function ClientComponent() {
   const router = useRouter();
   const supabase = createClientComponentClient();
+  const intl = useIntl();
 
   const {
     isLoading: isLoadingUser,
@@ -69,7 +71,7 @@ export default function ClientComponent() {
           onClick={() => router.push("/learn/create")}
           className="bg-cyan-500 transform transition-transform duration-200 hover:scale-110 shadow-md shadow-cyan-500/50 w-28 text-white rounded-full font-medium  h-[35px] flex items-center justify-center"
         >
-          Add a file
+          {intl.formatMessage({ id: "button.add.file" })}
         </button>
 
         {Array.isArray(userTextContents) && (

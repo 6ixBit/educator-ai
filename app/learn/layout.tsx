@@ -3,6 +3,7 @@
 import Link from "next/link";
 import HamburgerMenu from "@/components/HamburgerMenu";
 import { usePathname } from "next/navigation";
+import { useIntl } from "react-intl";
 
 export default function LearnLayout({
   children,
@@ -10,6 +11,7 @@ export default function LearnLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const intl = useIntl();
 
   return (
     <div className="w-full flex flex-col items-center bg-slate-900">
@@ -21,7 +23,7 @@ export default function LearnLayout({
               pathname === "/" ? "text-sky-500" : "text-gray-600"
             } hover:text-highlight hover:scale-110 hover:text-white`}
           >
-            Home
+            {intl.formatMessage({ id: "navmenu.home" })}
           </Link>
           <Link
             href="/learn"
@@ -29,7 +31,7 @@ export default function LearnLayout({
               pathname === "/learn" ? "text-sky-500" : "text-gray-600"
             } hover:text-highlight hover:scale-110 hover:text-white`}
           >
-            Notes
+            {intl.formatMessage({ id: "navmenu.notes" })}
           </Link>
           <Link
             href="/learn/create"
@@ -37,13 +39,13 @@ export default function LearnLayout({
               pathname === "/learn/create" ? "text-sky-500" : "text-gray-600"
             } hover:text-highlight hover:scale-110 hover:text-white`}
           >
-            Add
+            {intl.formatMessage({ id: "navmenu.create" })}
           </Link>
         </div>
         <HamburgerMenu
           items={[
             {
-              name: "Language",
+              name: intl.formatMessage({ id: "hamburger.langs.text" }),
               url: "/language",
             },
           ]}

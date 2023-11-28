@@ -1,5 +1,6 @@
 import * as Form from "@radix-ui/react-form";
 import Image from "next/image";
+import { useIntl } from "react-intl";
 
 export default function SearchHeader({
   handleSearch,
@@ -9,6 +10,8 @@ export default function SearchHeader({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleSearch(event.target.value);
   };
+
+  const intl = useIntl();
 
   return (
     <div className="flex flex-col gap-2 items-center">
@@ -33,7 +36,7 @@ export default function SearchHeader({
                 <input
                   type="text"
                   className="border rounded-md py-2 pl-10 px-4 flex-grow text-left text-white"
-                  placeholder="Search..."
+                  placeholder={intl.formatMessage({ id: "button.search.text" })}
                   onChange={handleChange}
                 />
               </Form.Control>

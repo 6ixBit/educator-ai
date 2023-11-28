@@ -23,7 +23,14 @@
         "project.casestudy.title": "Case Study",
         "project.studycards.title": "Study Cards",
         "project.quiz.title": "Quiz",
-        "project.keypoints.title": "Key Points"
+        "project.keypoints.title": "Key Points",
+
+        "summary.noSummary": "No summary",
+        "navmenu.home": "Home",
+        "navmenu.notes": "Notes",
+        "navmenu.create": "Create",
+        "hamburgermenu.languague": "Language"
+
     },
     "en-UK" : {
         "button.add.file" : "Add a file",

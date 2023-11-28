@@ -13,7 +13,6 @@ import { fetchUser } from "../actions";
 import useWindowSize from "@/hooks/useWindowSize";
 import { useQuery } from "react-query";
 import CaseStudy from "../components/CaseStudy";
-import HorizontalSeparator from "@/components/HorizontalSeparator/HorizontalSeparator";
 import CollapsableSection from "../components/CollapsableSection";
 import Overview from "../components/Overview";
 
