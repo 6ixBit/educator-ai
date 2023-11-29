@@ -5,19 +5,20 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 
 export default function Modal({
-  trigger,
+  open,
+  onOpenChange,
   title,
   description,
   actionButtons,
 }: {
-  trigger: () => React.ReactNode;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
   title: string;
-  description: string;
+  description: string | React.ReactNode;
   actionButtons: React.ReactNode;
 }) {
   return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild>{trigger()}</Dialog.Trigger>
+    <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="DialogOverlay" style={{ zIndex: 1000 }} />
         <Dialog.Content className="DialogContent" style={{ zIndex: 1000 }}>

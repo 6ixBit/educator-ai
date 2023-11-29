@@ -7,10 +7,9 @@ import { useIntl } from "react-intl";
 interface IHamburgerMenu {
   items: menuItem[];
 }
-
 type menuItem = {
   name: string;
-  url: string;
+  url?: string;
   onClick?: () => void;
 };
 
@@ -35,7 +34,7 @@ export default function HamburgerMenu({ items }: IHamburgerMenu) {
           sideOffset={5}
         >
           {items.map((item, idx) => {
-            return (
+            return item.url ? (
               <Link key={idx} href={item.url} style={{ width: "auto" }}>
                 <DropdownMenu.Item
                   key={idx}
@@ -46,6 +45,15 @@ export default function HamburgerMenu({ items }: IHamburgerMenu) {
                   {item.name}
                 </DropdownMenu.Item>
               </Link>
+            ) : (
+              <DropdownMenu.Item
+                key={idx}
+                className="group relative flex h-10 w-full select-none items-center justify-center rounded-[3px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1"
+                onSelect={item.onClick}
+              >
+                <Menubar.Separator className="MenubarSeparator" />
+                {item.name}
+              </DropdownMenu.Item>
             );
           })}
 

@@ -6,8 +6,9 @@ import Modal from "@/components/Modal/Modal";
 import { formatDate } from "@/utility";
 import ArrowLogo from "@/components/ArrowLogo";
 import { SupabaseClient } from "@supabase/supabase-js";
-
+import { useState } from "react";
 import useWindowSize from "@/hooks/useWindowSize";
+import NewModal from "@/components/NewModal/NewModal";
 
 interface ICardList {
   userTextContents: any;
@@ -17,7 +18,8 @@ interface ICardList {
 export default function CardList({ userTextContents, supabase }: ICardList) {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { isMobile, isDesktop } = useWindowSize();
+  const { isMobile } = useWindowSize();
+  const [showModal, setShowModal] = useState(false);
 
   const mutation = useMutation({
     mutationFn: (item_id: string) => {
@@ -62,7 +64,7 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
 
             <div className="flex flex-row justify-between mt-4">
               <div className="flex gap-3">
-                <Modal
+                {/* <Modal TODO: Fix card not differentiating between the remove button and click btn
                   title="Delete"
                   description="Are you sure you want to delete this item?"
                   actionButtons={
@@ -85,6 +87,32 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
                       className="hover:scale-110"
                     />
                   )}
+                /> */}
+
+                <Image
+                  src="/trash.png"
+                  width={20}
+                  height={20}
+                  alt="delete button"
+                  style={{ transition: "transform 0.2s" }}
+                  className="hover:scale-110"
+                />
+
+                <NewModal
+                  open={showModal}
+                  onOpenChange={setShowModal}
+                  title="Delete"
+                  description="Are you sure you want to delete this item?"
+                  actionButtons={
+                    <button
+                      className="rounded-lg bg-red-200 text-red-700 px-2 py-1"
+                      onClick={() => {
+                        mutation.mutate(content.id);
+                      }}
+                    >
+                      Delete item
+                    </button>
+                  }
                 />
                 {/* <EditLogo /> */}
               </div>

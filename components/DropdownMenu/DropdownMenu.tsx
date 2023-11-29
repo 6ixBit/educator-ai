@@ -12,6 +12,7 @@ import "./styles.css";
 
 interface IDropDownMenu {
   onValueChange?: (value: any) => void;
+  options: { value: string; label: string }[];
 }
 
 const SelectItem = React.forwardRef(
@@ -33,6 +34,7 @@ const SelectItem = React.forwardRef(
 
 export default function DropDownMenu({
   onValueChange = () => {},
+  options = [],
 }: IDropDownMenu) {
   const handleValueChange = (value: string) => {
     onValueChange(value);
@@ -60,23 +62,16 @@ export default function DropDownMenu({
             <ChevronUpIcon />
           </Select.ScrollUpButton>
           <Select.Viewport className="SelectViewport">
-            <Select.Group>
-              <SelectItem value="middleSchool">
-                Middle School or lower
-              </SelectItem>
-            </Select.Group>
-
-            <Select.Separator className="SelectSeparator" />
-
-            <Select.Group>
-              <SelectItem value="highSchool">High School</SelectItem>
-            </Select.Group>
-
-            <Select.Separator className="SelectSeparator" />
-
-            <Select.Group>
-              <SelectItem value="underGrad">Undergrad</SelectItem>
-            </Select.Group>
+            {options.map((option, index) => (
+              <React.Fragment key={option.value}>
+                <Select.Group>
+                  <SelectItem value={option.value}>{option.label}</SelectItem>
+                </Select.Group>
+                {index < options.length - 1 && (
+                  <Select.Separator className="SelectSeparator" />
+                )}
+              </React.Fragment>
+            ))}
           </Select.Viewport>
           <Select.ScrollDownButton className="SelectScrollButton">
             <ChevronDownIcon />

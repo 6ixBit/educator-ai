@@ -117,8 +117,14 @@ export default function ClientComponent() {
 
             <div className="flex flex-row justify-between items-baseline">
               <DropDownMenu
+                options={[
+                  { value: "middleSchool", label: "Middle School" },
+                  { value: "highSchool", label: "High School" },
+                  { value: "underGrad", label: "Under Graduate" },
+                ]}
                 onValueChange={(value) => {
                   setLevel(value);
+                  console.log(value);
                 }}
               />
 

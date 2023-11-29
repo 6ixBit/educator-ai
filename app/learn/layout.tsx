@@ -4,6 +4,9 @@ import Link from "next/link";
 import HamburgerMenu from "@/components/HamburgerMenu";
 import { usePathname } from "next/navigation";
 import { useIntl } from "react-intl";
+import Modal from "@/components/Modal/Modal";
+import { useState } from "react";
+import NewModal from "@/components/NewModal/NewModal";
 
 export default function LearnLayout({
   children,
@@ -12,6 +15,7 @@ export default function LearnLayout({
 }) {
   const pathname = usePathname();
   const intl = useIntl();
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="w-full flex flex-col items-center bg-slate-900">
@@ -42,11 +46,19 @@ export default function LearnLayout({
             {intl.formatMessage({ id: "navmenu.create" })}
           </Link>
         </div>
+
+        <NewModal
+          open={showModal}
+          onOpenChange={setShowModal}
+          title="Change System Language"
+          description={<div>dizzeh</div>}
+          actionButtons={<button>Save</button>}
+        />
         <HamburgerMenu
           items={[
             {
               name: intl.formatMessage({ id: "hamburger.langs.text" }),
-              url: "/language",
+              onClick: () => setShowModal(true),
             },
           ]}
         />
