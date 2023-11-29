@@ -4,10 +4,10 @@ import Link from "next/link";
 import HamburgerMenu from "@/components/HamburgerMenu";
 import { usePathname } from "next/navigation";
 import { useIntl } from "react-intl";
-import Modal from "@/components/Modal/Modal";
+
 import { useState } from "react";
 import NewModal from "@/components/NewModal/NewModal";
-import Selector from "@/components/Selector/Selector";
+import { Select, Separator } from "@radix-ui/themes";
 
 export default function LearnLayout({
   children,
@@ -31,6 +31,7 @@ export default function LearnLayout({
           >
             {intl.formatMessage({ id: "navmenu.home" })}
           </Link>
+          <Separator orientation="vertical" />
           <Link
             href="/learn"
             className={`no-underline font-semibold text-md transform transition-transform duration-200 ${
@@ -39,6 +40,7 @@ export default function LearnLayout({
           >
             {intl.formatMessage({ id: "navmenu.notes" })}
           </Link>
+          <Separator orientation="vertical" />
           <Link
             href="/learn/create"
             className={`no-underline font-semibold text-md transform transition-transform duration-200 ${
@@ -54,8 +56,16 @@ export default function LearnLayout({
           onOpenChange={setShowModal}
           title="Change System Language"
           description={
-            <div className="pt-3">
-              <Selector />
+            <div className="pt-3 pl-3">
+              <Select.Root defaultValue="en-US">
+                <Select.Trigger variant="soft" />
+
+                <Select.Content>
+                  <Select.Item value="en-US">English </Select.Item>
+                  <Select.Item value="fr">French</Select.Item>
+                  <Select.Item value="es">Spanish</Select.Item>
+                </Select.Content>
+              </Select.Root>
             </div>
           }
           actionButtons={

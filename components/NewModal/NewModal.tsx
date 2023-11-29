@@ -20,8 +20,8 @@ export default function Modal({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="DialogOverlay" style={{ zIndex: 1000 }} />
-        <Dialog.Content className="DialogContent" style={{ zIndex: 1000 }}>
+        <Dialog.Overlay className="DialogOverlay" />
+        <Dialog.Content className="DialogContent">
           <Dialog.Title className="DialogTitle">{title}</Dialog.Title>
           <Dialog.Description className="DialogDescription">
             {description}
