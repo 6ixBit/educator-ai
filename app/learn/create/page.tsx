@@ -117,6 +117,7 @@ export default function ClientComponent() {
 
             <div className="flex flex-row justify-between items-baseline">
               <DropDownMenu
+                placeholder="High School"
                 options={[
                   { value: "middleSchool", label: "Middle School" },
                   { value: "highSchool", label: "High School" },

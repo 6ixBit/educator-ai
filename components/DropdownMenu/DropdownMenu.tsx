@@ -13,6 +13,7 @@ import "./styles.css";
 interface IDropDownMenu {
   onValueChange?: (value: any) => void;
   options: { value: string; label: string }[];
+  placeholder: string;
 }
 
 const SelectItem = React.forwardRef(
@@ -35,6 +36,7 @@ const SelectItem = React.forwardRef(
 export default function DropDownMenu({
   onValueChange = () => {},
   options = [],
+  placeholder,
 }: IDropDownMenu) {
   const handleValueChange = (value: string) => {
     onValueChange(value);
@@ -51,7 +53,7 @@ export default function DropDownMenu({
         aria-label="Level"
         style={{ width: "188px" }}
       >
-        <Select.Value placeholder="High school" />
+        <Select.Value placeholder={placeholder} />
         <Select.Icon className="SelectIcon">
           <ChevronDownIcon />
         </Select.Icon>

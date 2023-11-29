@@ -7,6 +7,7 @@ import { useIntl } from "react-intl";
 import Modal from "@/components/Modal/Modal";
 import { useState } from "react";
 import NewModal from "@/components/NewModal/NewModal";
+import Selector from "@/components/Selector/Selector";
 
 export default function LearnLayout({
   children,
@@ -16,6 +17,7 @@ export default function LearnLayout({
   const pathname = usePathname();
   const intl = useIntl();
   const [showModal, setShowModal] = useState(false);
+  const [language, setLanguage] = useState("English");
 
   return (
     <div className="w-full flex flex-col items-center bg-slate-900">
@@ -51,8 +53,16 @@ export default function LearnLayout({
           open={showModal}
           onOpenChange={setShowModal}
           title="Change System Language"
-          description={<div>dizzeh</div>}
-          actionButtons={<button>Save</button>}
+          description={
+            <div className="pt-3">
+              <Selector />
+            </div>
+          }
+          actionButtons={
+            <button className="border-black border px-2 py-1 rounded-none">
+              Save
+            </button>
+          }
         />
         <HamburgerMenu
           items={[
