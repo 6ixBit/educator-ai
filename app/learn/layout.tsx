@@ -86,11 +86,6 @@ export default function LearnLayout({
               </Select.Root>
             </div>
           }
-          actionButtons={
-            <Button variant="soft" size={"2"} radius="large">
-              Save
-            </Button>
-          }
         />
         <HamburgerMenu
           items={[

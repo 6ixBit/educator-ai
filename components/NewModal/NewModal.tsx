@@ -15,7 +15,7 @@ export default function Modal({
   onOpenChange: (open: boolean) => void;
   title: string;
   description: string | React.ReactNode;
-  actionButtons: React.ReactNode;
+  actionButtons?: React.ReactNode;
 }) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>

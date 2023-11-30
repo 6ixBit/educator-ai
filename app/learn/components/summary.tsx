@@ -1,25 +1,27 @@
 import { formatDate } from "@/utility";
+import { Text } from "@radix-ui/themes";
 interface ISummary {
-  title: string;
   summary: string;
-  date?: string;
   keypoints: { title: string; key_point: string }[];
 }
 
-export default function Summary({ title, summary, date, keypoints }: ISummary) {
+export default function Summary({ summary, keypoints }: ISummary) {
   return (
     <div className="flex flex-col items-start mt-6 ">
-      {/* <h1 className="text-white text-left font-bold mb-0 text-4xl leading-relaxed font-sans  sm:px-37">
-        {title}
-      </h1>
-      <h2 className="text-gray-500 font-medium text-sm mb-3">
-        {date ? formatDate(date) : ""}
-      </h2>
-      <p className="text-slate-300 font-medium leading-loose pt-2 sm:px-37">
-        {summary}
-      </p> */}
+      <Text color="yellow" trim="start">
+        {" "}
+        The Berlin Wall (German: Berliner Mauer, pronounced [bɛʁˌliːnɐ ˈmaʊ̯ɐ] ⓘ)
+        was a guarded concrete barrier that encircled West Berlin of the Federal
+        Republic of Germany (FRG; West Germany) from 1961 to 1989, separating it
+        from East Berlin and the German Democratic Republic (GDR; East
+        Germany).[a][1][3] Construction of the Berlin Wall was commenced by the
+        government of the GDR on 13 August 1961. It included guard towers placed
+        along large concrete walls,[4] accompanied by a wide area (later known
+        as the "death strip") that contained anti-vehicle trenches, beds of
+        nails and other defenses.{" "}
+      </Text>
 
-      <h1 className="text-white mt-12 mb-6 text-left font-bold text-4xl leading-relaxed font-sans  sm:px-37">
+      <h1 className="text-white mt-12 mb-2 text-left font-bold text-2xl leading-relaxed font-sans sm:px-37">
         Key Points
       </h1>
 
