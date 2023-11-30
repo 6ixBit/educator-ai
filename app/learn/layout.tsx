@@ -28,10 +28,7 @@ export default function LearnLayout({
   // const getLanguage = useStore((state) => state.getLanguage);
 
   return (
-    <div
-      className="w-full flex flex-col items-center bg-slate-900"
-      suppressHydrationWarning
-    >
+    <div className="w-full flex flex-col items-center bg-slate-900 h-full">
       <div className="flex justify-between space-x-5 pt-4 items-center text-md text-foreground mt-2 mb-4 max-w-full w-10/12 sm:w-8/12 lg:w-10/12">
         <div className="flex space-x-5">
           <Link
