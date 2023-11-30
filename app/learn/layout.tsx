@@ -20,12 +20,18 @@ export default function LearnLayout({
   const [showModal, setShowModal] = useState(false);
 
   // @ts-ignore
-  const setLanguage = useStore((state) => state.setLanguage);
+  const state = useStore();
+
   // @ts-ignore
-  const getLanguage = useStore((state) => state.getLanguage);
+  // const setLanguage = useStore((state) => state.setLanguage);
+  // // @ts-ignore
+  // const getLanguage = useStore((state) => state.getLanguage);
 
   return (
-    <div className="w-full flex flex-col items-center bg-slate-900">
+    <div
+      className="w-full flex flex-col items-center bg-slate-900"
+      suppressHydrationWarning
+    >
       <div className="flex justify-between space-x-5 pt-4 items-center text-md text-foreground mt-2 mb-4 max-w-full w-10/12 sm:w-8/12 lg:w-10/12">
         <div className="flex space-x-5">
           <Link
@@ -63,9 +69,11 @@ export default function LearnLayout({
           description={
             <div className="pt-3 pl-3">
               <Select.Root
-                defaultValue={getLanguage()}
+                // @ts-ignore
+                defaultValue={state.getLanguage()}
                 onValueChange={(value) => {
-                  setLanguage(value);
+                  // @ts-ignore
+                  state.setLanguage(value);
                   localStorage.setItem("language", value);
                 }}
               >

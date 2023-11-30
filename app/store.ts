@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import messages from "../messages.json";
 
 export const  languageMapping = {
     "en-US": "English (USA)",
@@ -11,8 +10,8 @@ export const  languageMapping = {
 const Settings = (set: any, get: any) => ({
     language: 'en-US',
 
-    setLanguage: (lang: string) => {
-      set({ language: lang});
+    setLanguage: (language: string) => {
+      set((state: any) => ({ language: language }));
     },
 
     getLanguage: () => get().language

@@ -21,10 +21,15 @@ export default function RootLayout({
 }: {
   children: React.ReactElement;
 }) {
-  const localStorageLang = localStorage.getItem("language");
-  const getLanguage = useStore((state) => state.getLanguage);
+  const storeLocale: string = useStore((state) => state.language);
+  let locale = storeLocale;
 
-  const locale = localStorageLang ? localStorageLang : getLanguage();
+  if (typeof window !== "undefined") {
+    const localStorageLang = localStorage.getItem("language");
+    const getLanguage = useStore((state) => state.getLanguage);
+
+    locale = localStorageLang ? localStorageLang : getLanguage();
+  }
 
   return (
     <html>
