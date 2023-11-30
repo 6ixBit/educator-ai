@@ -1,11 +1,13 @@
 // @ts-nocheck
 "use client";
+
 import "./globals.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { IntlProvider } from "react-intl";
 import messages from "../messages.json";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
+import useStore from "./store";
 
 // export const metadata = {
 //   title: "Educator AI",
@@ -19,17 +21,19 @@ export default function RootLayout({
 }: {
   children: React.ReactElement;
 }) {
-  const locale = window?.navigator?.language;
-  console.log("cartz: ", locale);
+  const localStorageLang = localStorage.getItem("language");
+  const getLanguage = useStore((state) => state.getLanguage);
+
+  const locale = localStorageLang ? localStorageLang : getLanguage();
 
   return (
     <html>
-      <Theme>
-        <body>
+      <body>
+        <Theme>
           <IntlProvider
+            key={locale}
             messages={messages[locale]}
             locale={locale}
-            defaultLocale="en"
           >
             <QueryClientProvider client={queryClient}>
               <main className="min-h-screen bg-slate-900 flex flex-col items-center">
@@ -37,8 +41,8 @@ export default function RootLayout({
               </main>
             </QueryClientProvider>
           </IntlProvider>
-        </body>
-      </Theme>
+        </Theme>
+      </body>
     </html>
   );
 }

@@ -4,10 +4,11 @@ import Link from "next/link";
 import HamburgerMenu from "@/components/HamburgerMenu";
 import { usePathname } from "next/navigation";
 import { useIntl } from "react-intl";
-
 import { useState } from "react";
 import NewModal from "@/components/NewModal/NewModal";
-import { Select, Separator } from "@radix-ui/themes";
+import { Select, Separator, Button } from "@radix-ui/themes";
+import { languageMapping } from "../store";
+import useStore from "../store";
 
 export default function LearnLayout({
   children,
@@ -17,7 +18,11 @@ export default function LearnLayout({
   const pathname = usePathname();
   const intl = useIntl();
   const [showModal, setShowModal] = useState(false);
-  const [language, setLanguage] = useState("English");
+
+  // @ts-ignore
+  const setLanguage = useStore((state) => state.setLanguage);
+  // @ts-ignore
+  const getLanguage = useStore((state) => state.getLanguage);
 
   return (
     <div className="w-full flex flex-col items-center bg-slate-900">
@@ -57,21 +62,29 @@ export default function LearnLayout({
           title="Change System Language"
           description={
             <div className="pt-3 pl-3">
-              <Select.Root defaultValue="en-US">
+              <Select.Root
+                defaultValue={getLanguage()}
+                onValueChange={(value) => {
+                  setLanguage(value);
+                  localStorage.setItem("language", value);
+                }}
+              >
                 <Select.Trigger variant="soft" />
 
                 <Select.Content>
-                  <Select.Item value="en-US">English </Select.Item>
-                  <Select.Item value="fr">French</Select.Item>
-                  <Select.Item value="es">Spanish</Select.Item>
+                  {Object.entries(languageMapping).map(([key, value]) => (
+                    <Select.Item key={key} value={key}>
+                      {value}
+                    </Select.Item>
+                  ))}
                 </Select.Content>
               </Select.Root>
             </div>
           }
           actionButtons={
-            <button className="border-black border px-2 py-1 rounded-none">
+            <Button variant="soft" size={"2"} radius="large">
               Save
-            </button>
+            </Button>
           }
         />
         <HamburgerMenu
