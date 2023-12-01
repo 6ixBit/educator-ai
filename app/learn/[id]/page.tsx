@@ -97,15 +97,16 @@ export default function Page({ params }: { params: { id: string } }) {
           </div>
 
           <CollapsableSection
-            title="Case Study"
-            subtitle="Difficulty: High School"
+            title="Quiz"
+            subtitle={`Reminder : ${
+              textContent?.quiz_questions?.questions?.length || 0
+            } questions`}
           >
-            {textContent?.case_study_scenario && (
-              <CaseStudy
-                caseStudyText={textContent?.case_study_scenario}
-                caseStudyContext={textContent?.content}
-              />
-            )}
+            <div>
+              {textContent?.quiz_questions && (
+                <Quiz questions={textContent?.quiz_questions?.questions} />
+              )}
+            </div>
           </CollapsableSection>
 
           <CollapsableSection
@@ -120,13 +121,14 @@ export default function Page({ params }: { params: { id: string } }) {
           </CollapsableSection>
 
           <CollapsableSection
-            title="Quiz"
-            subtitle={`Reminder : ${
-              textContent?.quiz_questions?.questions?.length || 0
-            } questions`}
+            title="Case Study"
+            subtitle="Difficulty: High School"
           >
-            {textContent?.quiz_questions && (
-              <Quiz questions={textContent?.quiz_questions?.questions} />
+            {textContent?.case_study_scenario && (
+              <CaseStudy
+                caseStudyText={textContent?.case_study_scenario}
+                caseStudyContext={textContent?.content}
+              />
             )}
           </CollapsableSection>
         </>

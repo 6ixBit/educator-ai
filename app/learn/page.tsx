@@ -11,30 +11,34 @@ import CardList from "./components/CardList";
 import { useIntl } from "react-intl";
 import useWindowSize from "@/hooks/useWindowSize";
 import Skeleton from "@mui/material/Skeleton";
+import NewModal from "@/components/NewModal/NewModal";
+import Link from "next/link";
+import { useEffect } from "react";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
 
 export default function ClientComponent() {
   const router = useRouter();
   const supabase = createClientComponentClient();
   const intl = useIntl();
-
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const { isMobile } = useWindowSize();
 
-  const {
-    isLoading: isLoadingUser,
-    error: errorUser,
-    data: userData,
-  } = useQuery({
+  const { isLoading: isLoadingUser, data: userData } = useQuery({
     queryKey: "userData",
     queryFn: () => fetchUser(supabase),
+    onError: (error) => {
+      console.log("Could not login user.: ", error);
+      setShowLoginModal(true);
+    },
   });
-
-  if (errorUser) {
-    console.log("get text error: ", errorUser);
-    return;
-  }
 
   // @ts-ignore
   const userID = userData?.user?.id;
+  useEffect(() => {
+    if (!userID && !isLoadingUser) {
+      setShowLoginModal(true);
+    }
+  }, [userID, isLoadingUser]);
 
   const {
     isLoading,
@@ -44,12 +48,11 @@ export default function ClientComponent() {
     queryKey: "textContents",
     queryFn: () => fetchUserTextContents(supabase, userID),
     enabled: !!userID,
+    onError: (error) => {
+      console.log("fetch items error: ", error);
+      setShowLoginModal(true);
+    },
   });
-
-  if (error) {
-    console.log("get text error: ", error);
-    return;
-  }
 
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearch = (value: string) => {
@@ -96,7 +99,7 @@ export default function ClientComponent() {
         )}
       </div>
 
-      <div className="flex flex-col gap-2 w-auto mt-4 items-center mb-4">
+      <div className="flex flex-col gap-2 w-auto mtx-4 py-2 items-center mb-4">
         {(isLoadingUser || isLoading) && (
           <SkeletonLoader height={200} width={isMobile ? 320 : 500} />
         )}
@@ -109,6 +112,23 @@ export default function ClientComponent() {
           />
         )}
       </div>
+      <NewModal
+        open={showLoginModal}
+        onOpenChange={setShowLoginModal}
+        title="Hold up! You need an account to see this!"
+        hideCloseButton={true}
+        preventOutsideClick={true}
+        description={
+          <div className="flex justify-center mt-6">
+            <Link href="/login">
+              <div className="border-2 border-slate-600 rounded-full px-5 py-1 w-full glow flex items-center flex-row gap-4 hover:bg-slate-200 transition-colors duration-200">
+                <p className="text-black text-lg">Sign In</p>
+                <ArrowRightIcon style={{ height: "1.8em", width: "1.8em" }} />
+              </div>
+            </Link>
+          </div>
+        }
+      />
     </div>
   );
 }

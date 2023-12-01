@@ -13,10 +13,14 @@ const CollapsableSection: React.FC<{
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex flex-col gap-2">
-          <h1 className="text-white mt-12  text-left font-bold text-2xl leading-relaxed font-sans ">
+          <h1
+            className={`text-white mt-12 text-left font-bold text-2xl leading-relaxed font-sans ${
+              isOpen ? "text-slate-500" : ""
+            }`}
+          >
             {title}
           </h1>
-          <p className="text-gray-400 mt-3"> {subtitle}</p>
+          {!isOpen && <p className="text-gray-400 mt-3"> {subtitle}</p>}
         </div>
 
         <span>{isOpen ? "👆" : "👇"}</span>

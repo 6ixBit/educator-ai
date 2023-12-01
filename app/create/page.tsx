@@ -1,7 +1,7 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { fetchUser, update_row } from "../actions";
+import { fetchUser, update_row } from "../learn/actions";
 import { useRouter } from "next/navigation";
 import * as Form from "@radix-ui/react-form";
 import { useQuery } from "react-query";
@@ -10,7 +10,7 @@ import ProgressBar from "@/components/ProgressBar";
 import DropDownMenu from "@/components/DropdownMenu/DropdownMenu";
 import { useIntl } from "react-intl";
 
-import { sendToSupabase, sendToServer, generateQuiz } from "../actions";
+import { sendToSupabase, sendToServer, generateQuiz } from "../learn/actions";
 
 export default function ClientComponent() {
   const intl = useIntl();
@@ -23,20 +23,12 @@ export default function ClientComponent() {
     queryKey: "userData",
     queryFn: () => fetchUser(supabase),
   });
-
   // @ts-ignore
   const userID = user?.user?.id;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    // TODO: Show user login modal if they aren't logged in already and return early.
     setLoading(true);
     event.preventDefault();
-
-    // @ts-ignore
-    if (!userID) {
-      console.log("we got a freeloader here.");
-      return;
-    }
 
     const formValues = event.target as any;
     const title = formValues[0].value;
@@ -73,9 +65,6 @@ export default function ClientComponent() {
       >
         <Form.Field className="grid mb-[10px]" name="content">
           <div className="flex flex-row justify-between items-baseline">
-            <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
-              {intl.formatMessage({ id: "create.title.text" })}
-            </Form.Label>
             <Form.Message
               className="text-[13px] text-red-500 opacity-[0.8]"
               match="valueMissing"
@@ -85,15 +74,43 @@ export default function ClientComponent() {
           </div>
 
           <Form.Control asChild>
-            <input
-              className="box-border w-full bg-blackA2 text-black bg-white shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-              placeholder="The influence of AI "
-              required
-              disabled={loading}
-            />
+            <div className="flex flex-row items-baseline">
+              <div className="flex flex-col">
+                <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
+                  {intl.formatMessage({ id: "create.title.text" })}
+                </Form.Label>
+                <input
+                  className="box-border w-auto bg-blackA2 text-black bg-white shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+                  placeholder="The influence of AI "
+                  required
+                  disabled={loading}
+                />
+              </div>
+
+              <div className="mb-6 flex flex-col ml-auto">
+                <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
+                  {intl.formatMessage({ id: "create.level.text" })}
+                </Form.Label>
+
+                <div className="flex flex-row justify-between items-baseline">
+                  <DropDownMenu
+                    placeholder="High School"
+                    options={[
+                      { value: "middleSchool", label: "Middle School" },
+                      { value: "highSchool", label: "High School" },
+                      { value: "underGrad", label: "Under Graduate" },
+                    ]}
+                    onValueChange={(value) => {
+                      setLevel(value);
+                      console.log(value);
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
           </Form.Control>
 
-          <div className="flex items-baseline justify-between mt-4">
+          <div className="flex items-baseline justify-between mt-1">
             <Form.Label className="text-md font-medium my-2 leading-[35px] text-white">
               {intl.formatMessage({ id: "create.body.text" })}
             </Form.Label>
@@ -110,7 +127,7 @@ export default function ClientComponent() {
             {intl.formatMessage({ id: "create.charcount" }, { characters: 99 })}
           </p>
 
-          <div className="mb-6 flex flex-col">
+          {/* <div className="mb-6 flex flex-col">
             <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
               {intl.formatMessage({ id: "create.level.text" })}
             </Form.Label>
@@ -133,7 +150,7 @@ export default function ClientComponent() {
                 {intl.formatMessage({ id: "create.level.label" })}
               </h2>
             </div>
-          </div>
+          </div> */}
 
           <div className="text-center">
             <Form.Message
