@@ -15,6 +15,8 @@ export default async function Index() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  const loggedIn = user ? "/learn" : "/login";
+
   return (
     <div className="w-full flex flex-col items-center">
       <Navigation>
@@ -46,7 +48,7 @@ export default async function Index() {
             Go from text to study material with grading in one click.
           </p>
 
-          <Link href="/learn" className="w-full text-center">
+          <Link href={loggedIn} className="w-full text-center">
             <button className="mt-[10px] box-border inline-flex h-[40px] w-1/2 sm:w-1/4 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-[15px] hover:from-pink-500 hover:to-yellow-500 leading-none text-white font-black shadow-blackA7 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none">
               Get started
             </button>

@@ -9,6 +9,7 @@ import NewModal from "@/components/NewModal/NewModal";
 import { Select, Separator, Button } from "@radix-ui/themes";
 import { languageMapping } from "../store";
 import useStore from "../store";
+import HorizontalSeparator from "@/components/HorizontalSeparator/HorizontalSeparator";
 
 export default function LearnLayout({
   children,
@@ -96,7 +97,8 @@ export default function LearnLayout({
           ]}
         />
       </div>
-
+      // TODO: Add responsiveness
+      <HorizontalSeparator style={{ width: "67.3%", color: "white" }} />
       {children}
     </div>
   );
