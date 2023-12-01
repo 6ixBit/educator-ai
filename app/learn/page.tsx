@@ -34,7 +34,6 @@ export default function ClientComponent() {
 
   // @ts-ignore
   const userID = userData?.user?.id;
-
   useEffect(() => {
     if (!userID && !isLoadingUser) {
       setShowLoginModal(true);

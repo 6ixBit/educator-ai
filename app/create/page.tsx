@@ -1,7 +1,7 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { fetchUser, update_row } from "../actions";
+import { fetchUser, update_row } from "../learn/actions";
 import { useRouter } from "next/navigation";
 import * as Form from "@radix-ui/react-form";
 import { useQuery } from "react-query";
@@ -10,7 +10,7 @@ import ProgressBar from "@/components/ProgressBar";
 import DropDownMenu from "@/components/DropdownMenu/DropdownMenu";
 import { useIntl } from "react-intl";
 
-import { sendToSupabase, sendToServer, generateQuiz } from "../actions";
+import { sendToSupabase, sendToServer, generateQuiz } from "../learn/actions";
 
 export default function ClientComponent() {
   const intl = useIntl();
@@ -23,20 +23,12 @@ export default function ClientComponent() {
     queryKey: "userData",
     queryFn: () => fetchUser(supabase),
   });
-
   // @ts-ignore
   const userID = user?.user?.id;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    // TODO: Show user login modal if they aren't logged in already and return early.
     setLoading(true);
     event.preventDefault();
-
-    // @ts-ignore
-    if (!userID) {
-      console.log("we got a freeloader here.");
-      return;
-    }
 
     const formValues = event.target as any;
     const title = formValues[0].value;

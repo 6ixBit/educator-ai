@@ -34,19 +34,15 @@ export default function RootLayout({
   return (
     <html>
       <body>
-        <Theme>
-          <IntlProvider
-            key={locale}
-            messages={messages[locale]}
-            locale={locale}
-          >
-            <QueryClientProvider client={queryClient}>
+        <IntlProvider key={locale} messages={messages[locale]} locale={locale}>
+          <QueryClientProvider client={queryClient}>
+            <Theme>
               <main className="min-h-screen bg-slate-900 flex flex-col items-center">
                 {children}
               </main>
-            </QueryClientProvider>
-          </IntlProvider>
-        </Theme>
+            </Theme>
+          </QueryClientProvider>
+        </IntlProvider>
       </body>
     </html>
   );
