@@ -19,16 +19,8 @@ export default function Summary({ summary, keypoints }: ISummary) {
         }}
         variant="classic"
       >
-        <Text color="purple" size="2">
-          The Berlin Wall (German: Berliner Mauer, pronounced [bɛʁˌliːnɐ ˈmaʊ̯ɐ]
-          ⓘ) was a guarded concrete barrier that encircled West Berlin of the
-          Federal Republic of Germany (FRG; West Germany) from 1961 to 1989,
-          separating it from East Berlin and the German Democratic Republic
-          (GDR; East Germany).[a][1][3] Construction of the Berlin Wall was
-          commenced by the government of the GDR on 13 August 1961. It included
-          guard towers placed along large concrete walls,[4] accompanied by a
-          wide area (later known as the "death strip") that contained
-          anti-vehicle trenches, beds of nails and other defenses.
+        <Text color="gray" size="2">
+          {summary.split(" ").slice(0, 120).join(" ")}
         </Text>
       </Card>
 

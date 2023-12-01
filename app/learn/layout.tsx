@@ -97,8 +97,7 @@ export default function LearnLayout({
           ]}
         />
       </div>
-      // TODO: Add responsiveness
-      <HorizontalSeparator style={{ width: "67.3%", color: "white" }} />
+
       {children}
     </div>
   );

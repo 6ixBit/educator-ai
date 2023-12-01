@@ -16,8 +16,17 @@ interface IWrongAnswer {
   correctAnswer: string;
   userAnswer: string;
 }
-
 export default function Quiz({ questions }: IQuiz) {
+  if (!questions || questions.length === 0) {
+    return (
+      <div className="mt-12 mb-4 w-full">
+        <h1 className="text-white text-left pb-1 font-bold mb-3 text-2xl leading-relaxed">
+          No Quiz Available
+        </h1>
+      </div>
+    );
+  }
+
   const [currentOption, setCurrentOption] = useState(0);
   const [radioGrpVal, setRadioGrpVal] = useState<any>(null);
   const [userAnswers, setUserAnswers] = useState<Array<string>>([]);

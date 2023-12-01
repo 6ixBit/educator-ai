@@ -116,10 +116,10 @@ export default function LearnLayout({
           ]}
         />
       </div>
-      // TODO: Add responsiveness
+      {/* 
       <HorizontalSeparator
         style={{ width: "67.3%", color: "white", marginBottom: "3rem" }}
-      />
+      /> */}
       <NewModal
         open={showLoginModal}
         onOpenChange={setShowLoginModal}
