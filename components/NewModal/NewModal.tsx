@@ -10,19 +10,40 @@ export default function Modal({
   title,
   description,
   actionButtons,
+  hideCloseButton,
+  preventOutsideClick,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title: string;
   description: string | React.ReactNode;
   actionButtons?: React.ReactNode;
+  hideCloseButton?: boolean;
+  preventOutsideClick?: boolean;
 }) {
   return (
-    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+    <Dialog.Root
+      open={open}
+      onOpenChange={(open) => {
+        if (!preventOutsideClick) {
+          onOpenChange(open);
+        }
+      }}
+    >
       <Dialog.Portal>
         <Dialog.Overlay className="DialogOverlay" />
         <Dialog.Content className="DialogContent">
-          <Dialog.Title className="DialogTitle">{title}</Dialog.Title>
+          <Dialog.Title
+            className="DialogTitle"
+            style={{
+              fontSize: "18px",
+              fontWeight: "bold",
+              marginTop: "1rem",
+              textAlign: "center",
+            }}
+          >
+            {title}
+          </Dialog.Title>
           <Dialog.Description className="DialogDescription">
             {description}
           </Dialog.Description>
@@ -37,13 +58,15 @@ export default function Modal({
             <Dialog.Close asChild>{actionButtons}</Dialog.Close>
           </div>
 
-          <div onClick={(e) => e.stopPropagation()}>
-            <Dialog.Close asChild>
-              <button className="IconButton" aria-label="Close">
-                <Cross2Icon />
-              </button>
-            </Dialog.Close>
-          </div>
+          {!hideCloseButton && (
+            <div onClick={(e) => e.stopPropagation()}>
+              <Dialog.Close asChild>
+                <button className="IconButton" aria-label="Close">
+                  <Cross2Icon />
+                </button>
+              </Dialog.Close>
+            </div>
+          )}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
