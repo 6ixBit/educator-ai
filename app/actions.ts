@@ -3,7 +3,7 @@ import {SupabaseClient}from "@supabase/supabase-js";
 
 const SERVER_URL = "http://localhost:9004"
 
-export const sendToSupabase = async (supabase:any, content: string, title: string, user_id: string) => {
+export const sendToDB = async (supabase:any, content: string, title: string, user_id: string) => {
     try {
       const { data, error } = await supabase
         .from("text-content")
@@ -61,7 +61,7 @@ export const generateQuiz = async (quiz_context: string) => {
   } 
 }
 
-export const sendToServer = async (content: string) => {
+export const sendFormDataForProcessing = async (content: string) => {
     try {
       const response = await fetch(`${SERVER_URL}/api/summary`, {
         method: "POST",

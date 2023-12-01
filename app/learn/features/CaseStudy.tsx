@@ -1,7 +1,7 @@
 "use client";
 
 import * as Form from "@radix-ui/react-form";
-import { gradeCaseStudy } from "../actions";
+import { gradeCaseStudy } from "../../actions";
 import { useState } from "react";
 
 interface ICaseStudy {
@@ -36,13 +36,14 @@ export default function CaseStudy({
   };
 
   return (
-    <div className="mt-12 mb-4">
+    <div className="mt-4 mb-4">
       <div className="flex flex-row gap-2 mb-3 justify-between">
-        <h1 className="text-white text-left pb-1 font-bold mb-0 text-2xl leading-relaxed">
-          Case Study
-        </h1>
+        <p className="text-white text-left pb-1  mb-2 text-lg leading-relaxed">
+          I have generated a case study for you to answer, when complete I will
+          grade you.
+        </p>
 
-        <div className="text-right flex flex-row items-baseline">
+        {/* <div className="text-right flex flex-row items-baseline">
           <h2 className="text-gray-500 font-medium text-md mb-3 pr-3">
             Your Last grade:
           </h2>
@@ -58,7 +59,7 @@ export default function CaseStudy({
           >
             {grades.grade}
           </p>
-        </div>
+        </div> */}
       </div>
 
       <p className="text-slate-300 mb-2">{caseStudyText}</p>

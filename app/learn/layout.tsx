@@ -6,9 +6,10 @@ import { usePathname } from "next/navigation";
 import { useIntl } from "react-intl";
 import { useState } from "react";
 import { Modal } from "@/components/Modal";
-import { Select, Separator, Button } from "@radix-ui/themes";
+import { Select, Separator } from "@radix-ui/themes";
 import { languageMapping } from "../store";
 import useStore from "../store";
+import { ChatBubbleIcon } from "@radix-ui/react-icons";
 
 export default function LearnLayout({
   children,
@@ -92,6 +93,7 @@ export default function LearnLayout({
             {
               name: intl.formatMessage({ id: "hamburger.langs.text" }),
               onClick: () => setShowModal(true),
+              icon: ChatBubbleIcon,
             },
           ]}
         />

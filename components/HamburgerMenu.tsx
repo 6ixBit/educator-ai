@@ -1,5 +1,5 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { HamburgerMenuIcon, ExitIcon } from "@radix-ui/react-icons";
 import * as Menubar from "@radix-ui/react-menubar";
 import Link from "next/link";
 import { useIntl } from "react-intl";
@@ -10,6 +10,7 @@ interface IHamburgerMenu {
 type menuItem = {
   name: string;
   url?: string;
+  icon?: React.ComponentType;
   onClick?: () => void;
 };
 
@@ -41,8 +42,13 @@ export default function HamburgerMenu({ items }: IHamburgerMenu) {
                   className="group relative flex h-10 w-full select-none items-center justify-center rounded-[3px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1"
                   onSelect={item.onClick}
                 >
-                  <Menubar.Separator className="MenubarSeparator" />
-                  {item.name}
+                  <div style={{ position: "relative" }}>
+                    <div style={{ position: "absolute", left: -40 }}>
+                      {item.icon && <item.icon />}
+                    </div>
+                    <Menubar.Separator className="MenubarSeparator" />
+                    {item.name}
+                  </div>
                 </DropdownMenu.Item>
               </Link>
             ) : (
@@ -51,18 +57,27 @@ export default function HamburgerMenu({ items }: IHamburgerMenu) {
                 className="group relative flex h-10 w-full select-none items-center justify-center rounded-[3px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1"
                 onSelect={item.onClick}
               >
-                <Menubar.Separator className="MenubarSeparator" />
-                {item.name}
+                <div style={{ position: "relative" }}>
+                  <div style={{ position: "absolute", left: -40 }}>
+                    {item.icon && <item.icon />}
+                  </div>
+                  <Menubar.Separator className="MenubarSeparator" />
+                  {item.name}
+                </div>
               </DropdownMenu.Item>
             );
           })}
 
           <DropdownMenu.Arrow className="fill-white" />
           <form action="/auth/sign-out" method="post">
-            <div className="group relative flex h-10 w-full select-none items-center justify-center rounded-[3px] text-[13px] leading-none text-red-400 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1">
-              <button>
+            <div className="group text-red-600 relative flex h-10 w-full select-none items-center justify-center rounded-[3px] text-[13px] leading-none text-rmd-400 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1">
+              <div style={{ position: "relative" }}>
+                <div style={{ position: "absolute", left: -40 }}>
+                  <ExitIcon />
+                </div>
+                <Menubar.Separator className="MenubarSeparator" />
                 {intl.formatMessage({ id: "hamburger.signout.text" })}
-              </button>
+              </div>
             </div>
           </form>
         </DropdownMenu.Content>

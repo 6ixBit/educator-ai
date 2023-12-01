@@ -1,12 +1,8 @@
 export default function NoQuiz() {
   return (
-    <div className="mt-12 mb-4 w-full">
-      <h1 className="text-white text-left pb-1 font-bold mb-3 text-2xl leading-relaxed">
-        No Quiz Available
-      </h1>
-
+    <div className=" mb-4 w-full">
       <button
-        className="border text-black"
+        className=" text-white rounded-full border-2  px-3 py-2 bg-green-400 "
         onClick={() => {
           console.log("generate quiz");
         }}

@@ -1,7 +1,6 @@
 import { RadioGroupContainer } from "@/components/RadioGroup";
 import { useState } from "react";
 import { IQuestion, IWrongAnswer } from "./types";
-import NoQuiz from "./NoQuiz";
 import QuizReview from "./QuizReview";
 
 interface IQuiz {
@@ -10,7 +9,7 @@ interface IQuiz {
 
 export default function Quiz({ questions }: IQuiz) {
   if (!questions || questions.length === 0) {
-    return <NoQuiz />;
+    return null;
   }
 
   const [currentOption, setCurrentOption] = useState(0);
@@ -52,14 +51,10 @@ export default function Quiz({ questions }: IQuiz) {
   };
 
   return (
-    <div className="mt-12 mb-4 w-full">
-      <div className="flex justify-between flex-row items-baseline">
-        <h1 className="text-white text-left pb-1 font-bold mb-3 text-2xl leading-relaxed">
-          Quiz
-        </h1>
-
+    <div className="mt-6 mb-4 w-full">
+      <div className="flex justify-end flex-row items-baseline">
         <div className="flex flex-row gap-1">
-          <h2 className="text-slate-300 text-sm mb-3 font-normal">
+          <h2 className="text-slate-300 text-md mb-3 font-normal">
             {currentOption + 1} /
           </h2>
 

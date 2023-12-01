@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { delete_item } from "../actions";
+import { delete_item } from "../../actions";
 import { useMutation, useQueryClient } from "react-query";
 import { Modal } from "@/components/Modal";
 import { formatDate } from "@/utility";

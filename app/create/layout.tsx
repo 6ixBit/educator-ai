@@ -13,7 +13,7 @@ import useStore from "../store";
 import { useEffect } from "react";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { useQuery } from "react-query";
-import { fetchUser } from "../learn/actions";
+import { fetchUser } from "../actions";
 
 export default function LearnLayout({
   children,

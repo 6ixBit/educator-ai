@@ -13,13 +13,14 @@ import SkeletonLoader from "../components/SkeletonLoader";
 import Summary from "../features/Summary";
 import { Quiz } from "../features/Quiz";
 
-import { fetchUser } from "../actions";
+import { fetchUser } from "../../actions";
 import useWindowSize from "@/hooks/useWindowSize";
 
 export default function Page({ params }: { params: { id: string } }) {
   const supabase = createClientComponentClient();
   const [isUserAuthorized, setisUserAuthorized] = useState<any>(true);
   const { isMobile } = useWindowSize();
+  const grade = 89;
 
   const {
     isLoading: isLoadingUser,
@@ -113,7 +114,7 @@ export default function Page({ params }: { params: { id: string } }) {
             title="Study Cards"
             subtitle={`${
               textContent?.flash_cards?.length || 0
-            } cards for you to check out`}
+            } cards generated`}
           >
             {textContent?.flash_cards && (
               <FlashCards options={textContent?.flash_cards} />
@@ -121,7 +122,24 @@ export default function Page({ params }: { params: { id: string } }) {
           </CollapsableSection>
 
           <CollapsableSection
-            title="Case Study"
+            title={
+              <>
+                <div className="text-right flex flex-row items-baseline">
+                  Case Study
+                  <p
+                    className={`text-sm flex justify-center items-center text-center rounded-full border-2 ml-6 p-2 h-10  ${
+                      grade < 50
+                        ? "text-red-500 border-red-500"
+                        : grade < 70
+                        ? "text-yellow-500 border-yellow-500"
+                        : "text-green-500 border-green-500"
+                    }`}
+                  >
+                    {grade}
+                  </p>
+                </div>
+              </>
+            }
             subtitle="Difficulty: High School"
           >
             {textContent?.case_study_scenario && (

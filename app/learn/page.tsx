@@ -2,7 +2,7 @@
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import { fetchUserTextContents, fetchUser } from "./actions";
+import { fetchUserTextContents, fetchUser } from "../actions";
 import { useQuery } from "react-query";
 import SkeletonLoader from "./components/SkeletonLoader";
 import { useState } from "react";

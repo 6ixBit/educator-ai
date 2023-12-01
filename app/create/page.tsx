@@ -1,7 +1,7 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { fetchUser, update_row } from "../learn/actions";
+import { fetchUser, update_row } from "../actions";
 import { useRouter } from "next/navigation";
 import * as Form from "@radix-ui/react-form";
 import { useQuery } from "react-query";
@@ -11,7 +11,7 @@ import { DropDownMenu } from "@/components/DropdownMenu";
 import { useIntl } from "react-intl";
 import { Text } from "@radix-ui/themes";
 
-import { sendToSupabase, sendToServer, generateQuiz } from "../learn/actions";
+import { sendToDB, sendFormDataForProcessing, generateQuiz } from "../actions";
 
 export default function ClientComponent() {
   const intl = useIntl();
@@ -35,11 +35,11 @@ export default function ClientComponent() {
     const title = formValues[0].value;
     const body = formValues[3].value;
 
-    const data = await sendToSupabase(supabase, body, title, userID);
+    const data = await sendToDB(supabase, body, title, userID);
     const pageID = data[0].id;
 
-    // TODO: Name the sendToServer funciton better, it returns a few items.
-    const { case_study, flash_cards, key_points } = await sendToServer(body);
+    const { case_study, flash_cards, key_points } =
+      await sendFormDataForProcessing(body);
     const questions = await generateQuiz(body);
 
     update_row(

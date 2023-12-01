@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { HorizontalSeparator } from "@/components/HorizontalSeparator";
+import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
+
 const CollapsableSection: React.FC<{
   title: string;
   subtitle?: string;
@@ -12,7 +14,7 @@ const CollapsableSection: React.FC<{
         className="flex justify-between items-baseline text-white space-x-4 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 items-baseline">
           <h1
             className={`text-white mt-12 text-left font-bold text-2xl leading-relaxed font-sans ${
               isOpen ? "text-slate-500" : ""
@@ -23,7 +25,13 @@ const CollapsableSection: React.FC<{
           {!isOpen && <p className="text-gray-400 mt-3"> {subtitle}</p>}
         </div>
 
-        <span>{isOpen ? "👆" : "👇"}</span>
+        <span>
+          {isOpen ? (
+            <ChevronUpIcon style={{ height: "1.6em", width: "1.8em" }} />
+          ) : (
+            <ChevronDownIcon style={{ height: "1.6em", width: "1.8em" }} />
+          )}
+        </span>
       </div>
       {!isOpen && <HorizontalSeparator />}
       {isOpen ? (
