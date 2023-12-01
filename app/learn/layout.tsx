@@ -51,7 +51,7 @@ export default function LearnLayout({
           </Link>
           <Separator orientation="vertical" />
           <Link
-            href="/learn/create"
+            href="/create"
             className={`no-underline font-semibold text-md transform transition-transform duration-200 ${
               pathname === "/learn/create" ? "text-sky-500" : "text-gray-600"
             } hover:text-highlight hover:scale-110 hover:text-white`}

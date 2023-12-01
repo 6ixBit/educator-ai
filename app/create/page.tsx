@@ -64,57 +64,49 @@ export default function ClientComponent() {
         onSubmit={handleSubmit}
       >
         <Form.Field className="grid mb-[10px]" name="content">
-          <div className="flex flex-row justify-between items-baseline">
-            <Form.Message
-              className="text-[13px] text-red-500 opacity-[0.8]"
-              match="valueMissing"
-            >
-              {intl.formatMessage({ id: "create.error.valuemissing.title" })}
-            </Form.Message>
-          </div>
-
-          <Form.Control asChild>
-            <div className="flex flex-row items-baseline">
-              <div className="flex flex-col">
-                <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
-                  {intl.formatMessage({ id: "create.title.text" })}
-                </Form.Label>
+          <div className="flex flex-row items-baseline">
+            <div className="flex flex-col">
+              <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
+                {intl.formatMessage({ id: "create.title.text" })}
+              </Form.Label>
+              <Form.Control asChild>
                 <input
                   className="box-border w-auto bg-blackA2 text-black bg-white shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
                   placeholder="The influence of AI "
                   required
                   disabled={loading}
                 />
-              </div>
+              </Form.Control>
+            </div>
 
-              <div className="mb-6 flex flex-col ml-auto">
-                <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
-                  {intl.formatMessage({ id: "create.level.text" })}
-                </Form.Label>
+            <div className="mb-6 flex flex-col ml-auto">
+              <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
+                {intl.formatMessage({ id: "create.level.text" })}
+              </Form.Label>
 
-                <div className="flex flex-row justify-between items-baseline">
-                  <DropDownMenu
-                    placeholder="High School"
-                    options={[
-                      { value: "middleSchool", label: "Middle School" },
-                      { value: "highSchool", label: "High School" },
-                      { value: "underGrad", label: "Under Graduate" },
-                    ]}
-                    onValueChange={(value) => {
-                      setLevel(value);
-                      console.log(value);
-                    }}
-                  />
-                </div>
+              <div className="flex flex-row justify-between items-baseline">
+                <DropDownMenu
+                  placeholder="High School"
+                  options={[
+                    { value: "middleSchool", label: "Middle School" },
+                    { value: "highSchool", label: "High School" },
+                    { value: "underGrad", label: "Under Graduate" },
+                  ]}
+                  onValueChange={(value) => {
+                    setLevel(value);
+                    console.log(value);
+                  }}
+                />
               </div>
             </div>
-          </Form.Control>
+          </div>
 
           <div className="flex items-baseline justify-between mt-1">
             <Form.Label className="text-md font-medium my-2 leading-[35px] text-white">
               {intl.formatMessage({ id: "create.body.text" })}
             </Form.Label>
           </div>
+
           <Form.Control asChild>
             <textarea
               className="box-border h-40 sm:h-52 text-black w-full  shadow-blackA6 inline-flex appearance-none items-center justify-center rounded-[4px] p-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6 resize-none"
