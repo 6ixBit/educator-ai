@@ -5,23 +5,45 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 
 export default function Modal({
-  trigger,
+  open,
+  onOpenChange,
   title,
   description,
   actionButtons,
+  hideCloseButton,
+  preventOutsideClick,
 }: {
-  trigger: () => React.ReactNode;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
   title: string;
-  description: string;
-  actionButtons: React.ReactNode;
+  description: string | React.ReactNode;
+  actionButtons?: React.ReactNode;
+  hideCloseButton?: boolean;
+  preventOutsideClick?: boolean;
 }) {
   return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild>{trigger()}</Dialog.Trigger>
+    <Dialog.Root
+      open={open}
+      onOpenChange={(open) => {
+        if (!preventOutsideClick) {
+          onOpenChange(open);
+        }
+      }}
+    >
       <Dialog.Portal>
-        <Dialog.Overlay className="DialogOverlay" style={{ zIndex: 1000 }} />
-        <Dialog.Content className="DialogContent" style={{ zIndex: 1000 }}>
-          <Dialog.Title className="DialogTitle">{title}</Dialog.Title>
+        <Dialog.Overlay className="DialogOverlay" />
+        <Dialog.Content className="DialogContent">
+          <Dialog.Title
+            className="DialogTitle"
+            style={{
+              fontSize: "18px",
+              fontWeight: "bold",
+              marginTop: "1rem",
+              textAlign: "center",
+            }}
+          >
+            {title}
+          </Dialog.Title>
           <Dialog.Description className="DialogDescription">
             {description}
           </Dialog.Description>
@@ -36,13 +58,15 @@ export default function Modal({
             <Dialog.Close asChild>{actionButtons}</Dialog.Close>
           </div>
 
-          <div onClick={(e) => e.stopPropagation()}>
-            <Dialog.Close asChild>
-              <button className="IconButton" aria-label="Close">
-                <Cross2Icon />
-              </button>
-            </Dialog.Close>
-          </div>
+          {!hideCloseButton && (
+            <div onClick={(e) => e.stopPropagation()}>
+              <Dialog.Close asChild>
+                <button className="IconButton" aria-label="Close">
+                  <Cross2Icon />
+                </button>
+              </Dialog.Close>
+            </div>
+          )}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

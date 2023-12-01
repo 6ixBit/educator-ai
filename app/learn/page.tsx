@@ -7,11 +7,11 @@ import { useQuery } from "react-query";
 import SkeletonLoader from "./components/SkeletonLoader";
 import { useState } from "react";
 import SearchHeader from "./components/SearchHeader";
-import CardList from "./components/CardList";
+import CardList from "./features/CardList";
 import { useIntl } from "react-intl";
 import useWindowSize from "@/hooks/useWindowSize";
 import Skeleton from "@mui/material/Skeleton";
-import NewModal from "@/components/NewModal/NewModal";
+import { Modal } from "@/components/Modal";
 import Link from "next/link";
 import { useEffect } from "react";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
@@ -112,7 +112,7 @@ export default function ClientComponent() {
           />
         )}
       </div>
-      <NewModal
+      <Modal
         open={showLoginModal}
         onOpenChange={setShowLoginModal}
         title="Hold up! You need an account to see this!"

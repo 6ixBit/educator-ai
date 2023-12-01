@@ -1,20 +1,20 @@
 // @ts-nocheck
 "use client";
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useQuery } from "react-query";
 
-import FlashCards from "../components/flashcards";
+import CaseStudy from "../features/CaseStudy";
+import CollapsableSection from "../components/CollapsableSection";
+import FlashCards from "../features/Flashcards";
+import Overview from "../features/Overview";
 import SkeletonLoader from "../components/SkeletonLoader";
-import Summary from "../components/summary";
+import Summary from "../features/Summary";
+import { Quiz } from "../features/Quiz";
 
-import Quiz from "../components/Quiz";
 import { fetchUser } from "../actions";
 import useWindowSize from "@/hooks/useWindowSize";
-import { useQuery } from "react-query";
-import CaseStudy from "../components/CaseStudy";
-import CollapsableSection from "../components/CollapsableSection";
-import Overview from "../components/Overview";
 
 export default function Page({ params }: { params: { id: string } }) {
   const supabase = createClientComponentClient();

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import HorizontalSeparator from "@/components/HorizontalSeparator/HorizontalSeparator";
+import { HorizontalSeparator } from "@/components/HorizontalSeparator";
 const CollapsableSection: React.FC<{
   title: string;
   subtitle?: string;

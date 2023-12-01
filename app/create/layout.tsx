@@ -6,11 +6,10 @@ import HamburgerMenu from "@/components/HamburgerMenu";
 import { usePathname } from "next/navigation";
 import { useIntl } from "react-intl";
 import { useState } from "react";
-import NewModal from "@/components/NewModal/NewModal";
+import { Modal } from "@/components/Modal";
 import { Select, Separator } from "@radix-ui/themes";
 import { languageMapping } from "../store";
 import useStore from "../store";
-import HorizontalSeparator from "@/components/HorizontalSeparator/HorizontalSeparator";
 import { useEffect } from "react";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { useQuery } from "react-query";
@@ -79,7 +78,7 @@ export default function LearnLayout({
           </Link>
         </div>
 
-        <NewModal
+        <Modal
           open={showModal}
           onOpenChange={setShowModal}
           title="Change System Language"
@@ -120,7 +119,7 @@ export default function LearnLayout({
       <HorizontalSeparator
         style={{ width: "67.3%", color: "white", marginBottom: "3rem" }}
       /> */}
-      <NewModal
+      <Modal
         open={showLoginModal}
         onOpenChange={setShowLoginModal}
         title="Hold up! You need an account to see this!"

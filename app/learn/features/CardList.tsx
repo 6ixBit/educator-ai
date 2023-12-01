@@ -2,13 +2,12 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { delete_item } from "../actions";
 import { useMutation, useQueryClient } from "react-query";
-import Modal from "@/components/Modal/Modal";
+import { Modal } from "@/components/Modal";
 import { formatDate } from "@/utility";
 import ArrowLogo from "@/components/ArrowLogo";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { useState } from "react";
 import useWindowSize from "@/hooks/useWindowSize";
-import NewModal from "@/components/NewModal/NewModal";
 
 interface ICardList {
   userTextContents: any;
@@ -98,7 +97,7 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
                   className="hover:scale-110"
                 />
 
-                <NewModal
+                <Modal
                   open={showModal}
                   onOpenChange={setShowModal}
                   title="Delete"

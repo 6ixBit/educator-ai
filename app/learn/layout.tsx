@@ -5,11 +5,10 @@ import HamburgerMenu from "@/components/HamburgerMenu";
 import { usePathname } from "next/navigation";
 import { useIntl } from "react-intl";
 import { useState } from "react";
-import NewModal from "@/components/NewModal/NewModal";
+import { Modal } from "@/components/Modal";
 import { Select, Separator, Button } from "@radix-ui/themes";
 import { languageMapping } from "../store";
 import useStore from "../store";
-import HorizontalSeparator from "@/components/HorizontalSeparator/HorizontalSeparator";
 
 export default function LearnLayout({
   children,
@@ -60,7 +59,7 @@ export default function LearnLayout({
           </Link>
         </div>
 
-        <NewModal
+        <Modal
           open={showModal}
           onOpenChange={setShowModal}
           title="Change System Language"

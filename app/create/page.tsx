@@ -7,7 +7,7 @@ import * as Form from "@radix-ui/react-form";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import ProgressBar from "@/components/ProgressBar";
-import DropDownMenu from "@/components/DropdownMenu/DropdownMenu";
+import { DropDownMenu } from "@/components/DropdownMenu";
 import { useIntl } from "react-intl";
 import { Text } from "@radix-ui/themes";
 
