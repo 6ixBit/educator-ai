@@ -5,6 +5,7 @@ import LogoutButton from "@/components/LogoutButton";
 import DashboardButton from "@/components/DashboardButton";
 import Navigation from "@/components/Navigation";
 import ArrowLogo from "@/components/ArrowLogo";
+import CollapsableSection from "./learn/components/CollapsableSection";
 
 export const dynamic = "force-dynamic";
 
@@ -40,12 +41,13 @@ export default async function Index() {
       <div className="animate-in flex flex-col gap-14 opacity-0 max-w-4xl px-3 py-16 lg:py-24 text-foreground">
         <div className="flex flex-col items-center mb-4 lg:mb-12">
           <h1 className="text-4xl font-sans font-semibold tracking-wide">
-            Educator AI
+            Pro Tutor AI: Elevate Your Learning Experience
           </h1>
 
           <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent mt-3" />
           <p className="text-2xl lg:text-4xl mx-auto max-w-xl text-center mt-4 mb-8 text-sky-400 font-sans leading-snug	">
-            Go from text to study material with grading in one click.
+            Unlock Your Full Potential with AI-Generated Study Tools –
+            Flashcards, Exams, Case Studies and more.
           </p>
 
           <Link href={loggedIn} className="w-full text-center">
@@ -98,6 +100,36 @@ export default async function Index() {
             ))}
           </div>
         </div>
+
+        <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
+
+        <h1
+          id="faq"
+          className="text-2xl font-sans font-semibold text-center tracking-wide"
+        >
+          FAQ
+        </h1>
+
+        <CollapsableSection title="How does Pro Tutor AI work?">
+          <p className="">
+            Simply upload your study material, and our AI will generate
+            personalized study tools for you to work through.
+          </p>
+        </CollapsableSection>
+
+        <CollapsableSection title="What formats can I upload my study material in?">
+          <p className="">
+            You can upload your material in various formats: raw text, text
+            files, or PDFs.
+          </p>
+        </CollapsableSection>
+
+        <CollapsableSection title="How long does the process take?">
+          <p className="">
+            The processing time depends on the size of the uploaded material,
+            but it typically takes under a couple of minutes.
+          </p>
+        </CollapsableSection>
 
         <div className="flex justify-center text-center text-xs">
           <p>
