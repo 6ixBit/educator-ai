@@ -23,6 +23,15 @@ export default async function Index() {
       <Navigation>
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm text-foreground">
           <DashboardButton />
+
+          <div className="flex flex-row gap-7">
+            <p className="text-md font-medium">Pricing</p>
+            <a href="#faq">
+              <p className="text-md font-medium">FAQ</p>
+            </a>
+            <p className="text-md font-medium">Contact</p>
+          </div>
+
           {user ? (
             <div className="flex items-center gap-4">
               <LogoutButton />
