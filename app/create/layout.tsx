@@ -20,7 +20,6 @@ export default function LearnLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // @ts-ignore
   const state = useStore();
   const supabase = createClientComponentClient();
   const pathname = usePathname();
@@ -115,10 +114,7 @@ export default function LearnLayout({
           ]}
         />
       </div>
-      {/* 
-      <HorizontalSeparator
-        style={{ width: "67.3%", color: "white", marginBottom: "3rem" }}
-      /> */}
+
       <Modal
         open={showLoginModal}
         onOpenChange={setShowLoginModal}

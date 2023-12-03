@@ -6,6 +6,7 @@ import DashboardButton from "@/components/DashboardButton";
 import Navigation from "@/components/Navigation";
 import ArrowLogo from "@/components/ArrowLogo";
 import CollapsableSection from "./learn/components/CollapsableSection";
+import HamburgerMenu from "@/components/HamburgerMenu";
 
 export const dynamic = "force-dynamic";
 
@@ -17,40 +18,70 @@ export default async function Index() {
   } = await supabase.auth.getUser();
 
   const loggedIn = user ? "/learn" : "/login";
+  const isMobile = true;
 
   return (
     <div className="w-full flex flex-col items-center">
       <Navigation>
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm text-foreground">
-          <DashboardButton />
-
-          <div className="flex flex-row gap-7">
-            <p className="text-md font-medium">Pricing</p>
-            <a href="#faq">
-              <p className="text-md font-medium">FAQ</p>
-            </a>
-            <p className="text-md font-medium">Contact</p>
+          <div className="text-white text-lg">
+            {/* <DashboardButton /> */}
+            Pro Tutor AI
           </div>
 
-          {user ? (
-            <div className="flex items-center gap-4">
-              <LogoutButton />
-            </div>
-          ) : (
-            <Link
-              href="/login"
-              className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
-            >
-              Login
-            </Link>
-          )}
+          <div className="flex items-center gap-4">
+            {isMobile ? (
+              <>
+                {user ? (
+                  <LogoutButton />
+                ) : (
+                  <Link
+                    href="/login"
+                    className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+                  >
+                    Login
+                  </Link>
+                )}
+                <HamburgerMenu
+                  items={[
+                    {
+                      name: "Pricing",
+                      url: "#pricing",
+                    },
+                    {
+                      name: "FAQ",
+                      url: "#faq",
+                    },
+                    {
+                      name: "Contact",
+                      url: "#contact",
+                    },
+                  ]}
+                />
+              </>
+            ) : (
+              <div className="flex flex-row gap-7 items-baseline">
+                <p className="text-md font-medium">Pricing</p>
+                <a href="#faq">
+                  <p className="text-md font-medium">FAQ</p>
+                </a>
+                <p className="text-md font-medium">Contact</p>
+                <Link
+                  href="/login"
+                  className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+                >
+                  Login
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </Navigation>
 
       <div className="animate-in flex flex-col gap-14 opacity-0 max-w-4xl px-3 py-16 lg:py-24 text-foreground">
         <div className="flex flex-col items-center mb-4 lg:mb-12">
           <h1 className="text-4xl font-sans font-semibold tracking-wide">
-            Pro Tutor AI: Elevate Your Learning Experience
+            Elevate Your Learning Experience
           </h1>
 
           <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent mt-3" />
@@ -119,28 +150,34 @@ export default async function Index() {
           FAQ
         </h1>
 
-        <CollapsableSection title="How does Pro Tutor AI work?">
-          <p className="">
-            Simply upload your study material, and our AI will generate
-            personalized study tools for you to work through.
-          </p>
-        </CollapsableSection>
+        <div className="px-4">
+          <CollapsableSection title="How does Pro Tutor AI work?">
+            <p className="">
+              Simply upload your study material, and our AI will generate
+              personalized study tools for you to work through.
+            </p>
+          </CollapsableSection>
+        </div>
 
-        <CollapsableSection title="What formats can I upload my study material in?">
-          <p className="">
-            You can upload your material in various formats: raw text, text
-            files, or PDFs.
-          </p>
-        </CollapsableSection>
+        <div className="px-4">
+          <CollapsableSection title="What formats can I upload my study material in?">
+            <p className="">
+              You can upload your material in various formats: raw text, text
+              files, or PDFs.
+            </p>
+          </CollapsableSection>
+        </div>
 
-        <CollapsableSection title="How long does the process take?">
-          <p className="">
-            The processing time depends on the size of the uploaded material,
-            but it typically takes under a couple of minutes.
-          </p>
-        </CollapsableSection>
+        <div className="px-4">
+          <CollapsableSection title="How long does the process take?">
+            <p className="">
+              The processing time depends on the size of the uploaded material,
+              but it typically takes under a couple of minutes.
+            </p>
+          </CollapsableSection>
+        </div>
 
-        <div className="flex justify-center text-center text-xs">
+        <div className="flex justify-center text-center text-md mt-2">
           <p>
             Built by{" "}
             <Link
