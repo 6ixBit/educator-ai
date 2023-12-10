@@ -1,5 +1,6 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+"use client";
+
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
 import LogoutButton from "@/components/LogoutButton";
 import DashboardButton from "@/components/DashboardButton";
@@ -7,41 +8,76 @@ import Navigation from "@/components/Navigation";
 import ArrowLogo from "@/components/ArrowLogo";
 import CollapsableSection from "./learn/components/CollapsableSection";
 import HamburgerMenu from "@/components/HamburgerMenu";
+import useWindowSize from "@/hooks/useWindowSize";
+import { useQuery } from "react-query";
+import { fetchUser } from "./actions";
 
 export const dynamic = "force-dynamic";
 
-export default async function Index() {
-  const supabase = createServerComponentClient({ cookies });
+export default function Index() {
+  const supabase = createClientComponentClient();
+  const { isMobile } = useWindowSize();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: user } = useQuery({
+    queryKey: "userData",
+    queryFn: () => fetchUser(supabase),
+  });
 
   const loggedIn = user ? "/learn" : "/login";
-  const isMobile = true;
 
   return (
     <div className="w-full flex flex-col items-center">
       <Navigation>
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm text-foreground">
-          <div className="text-white text-lg">
+          <div className="text-white text-lg font-bold">
             {/* <DashboardButton /> */}
             Pro Tutor AI
           </div>
 
           <div className="flex items-center gap-4">
-            {isMobile ? (
+            {user && <DashboardButton />}
+
+            {!user && (
+              <Link
+                href="/login"
+                className="py-1 px-3 rounded-md no-underline hover:bg-btn-background-hover bg-cyan-400 font-semibold"
+              >
+                Login
+              </Link>
+            )}
+
+            {isMobile && (
+              <HamburgerMenu
+                items={[
+                  {
+                    name: "Pricing",
+                    url: "#pricing",
+                  },
+                  {
+                    name: "FAQ",
+                    url: "#faq",
+                  },
+                  {
+                    name: "Contact",
+                    url: "#contact",
+                  },
+                ]}
+              />
+            )}
+
+            {/* {isMobile && !isDesktop ? (
               <>
                 {user ? (
-                  <LogoutButton />
+                  <DashboardButton />
                 ) : (
                   <Link
                     href="/login"
-                    className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+                    className="py-1 px-3 rounded-md no-underline hover:bg-btn-background-hover bg-cyan-400 font-semibold"
                   >
                     Login
                   </Link>
                 )}
+
                 <HamburgerMenu
                   items={[
                     {
@@ -68,19 +104,19 @@ export default async function Index() {
                 <p className="text-md font-medium">Contact</p>
                 <Link
                   href="/login"
-                  className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+                  className="py-1 px-3 rounded-md no-underline hover:bg-btn-background-hover bg-cyan-400 font-semibold"
                 >
                   Login
                 </Link>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </Navigation>
 
       <div className="animate-in flex flex-col gap-14 opacity-0 max-w-4xl px-3 py-16 lg:py-24 text-foreground">
         <div className="flex flex-col items-center mb-4 lg:mb-12">
-          <h1 className="text-4xl font-sans font-semibold tracking-wide">
+          <h1 className="text-4xl font-sans font-semibold tracking-wide text-center">
             Elevate Your Learning Experience
           </h1>
 

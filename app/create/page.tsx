@@ -24,6 +24,7 @@ export default function ClientComponent() {
     queryKey: "userData",
     queryFn: () => fetchUser(supabase),
   });
+
   // @ts-ignore
   const userID = user?.user?.id;
 
