@@ -30,13 +30,13 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
   });
 
   return (
-    <>
+    <div className="flex flex-wrap gap-3">
       {userTextContents &&
         // @ts-ignore
         userTextContents.map((content: any, index: number) => (
           <div
             key={index}
-            className="flex flex-col rounded border w-full h-60 p-6 sm:p-8 hover:border-blue-500 bg-off-white"
+            className="flex flex-col rounded border w-1/4 h-60 p-6 sm:p-8  hover:border-blue-500 bg-off-white"
             onClick={(e) => {
               router.push(`/learn/${content.id}`);
             }}
@@ -119,6 +119,6 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
             </div>
           </div>
         ))}
-    </>
+    </div>
   );
 }

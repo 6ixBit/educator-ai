@@ -3,13 +3,12 @@
 import Link from "next/link";
 import { AvatarImage, Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
 import HamburgerMenu from "./HamburgerMenu";
 import useWindowSize from "@/hooks/useWindowSize";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-export function HomeLayout() {
+export function HomeLayout({ children }: { children: React.ReactNode }) {
   const { isMobile } = useWindowSize();
   const path = usePathname();
 
@@ -40,9 +39,9 @@ export function HomeLayout() {
           </div>
 
           <nav className="mt-8">
-            <Link className={isActive("/home").border} href="/home">
+            <Link className={isActive("/projects").border} href="/home">
               <HomeIcon className="w-4 h-4" />
-              <span className={isActive("/home").text}>Projects</span>
+              <span className={isActive("/projects").text}>Projects</span>
             </Link>
             <Link
               className={isActive("/study-cards").border}
@@ -68,7 +67,7 @@ export function HomeLayout() {
         </div>
       </div>
 
-      <div className="flex flex-col flex-1 p-4 overflow-hidden">
+      <div className="flex flex-col flex-1 p-4 overflow-auto">
         <div className="flex justify-between items-center">
           {isMobile && (
             <HamburgerMenu
@@ -91,7 +90,9 @@ export function HomeLayout() {
           <h1 className="text-3xl font-bold">Welcome Back!</h1>
           <Button>Logout</Button>
         </div>
-        <div className="flex flex-col md:flex-row flex-wrap mt-6 gap-4">
+        {children}
+
+        {/* <div className="flex flex-col md:flex-row flex-wrap mt-6 gap-4">
           <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md">
             <CardHeader className="flex items-start justify-start pb-2">
               <CardTitle className="text-lg font-bold">
@@ -151,7 +152,7 @@ export function HomeLayout() {
               </CardContent>
             </Card>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import messages from "../messages.json";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import useStore from "./store";
+import { HomeLayout } from "@/components/home-layout";
 
 // export const metadata = {
 //   title: "Educator AI",
@@ -37,9 +38,7 @@ export default function RootLayout({
         <IntlProvider key={locale} messages={messages[locale]} locale={locale}>
           <QueryClientProvider client={queryClient}>
             <Theme>
-              <main className="min-h-screen bg-slate-900 flex flex-col items-center">
-                {children}
-              </main>
+              <HomeLayout>{children}</HomeLayout>
             </Theme>
           </QueryClientProvider>
         </IntlProvider>

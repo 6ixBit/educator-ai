@@ -17,22 +17,9 @@ export default function SearchHeader({
 
   return (
     <div className="flex flex-col gap-2 items-center">
-      <h1 className="text-3xl font-bold mb-2 text-slate-300">
-        What will you{" "}
-        <span
-          style={{
-            background: "linear-gradient(to right, #1BFFFF, #ED1E79)",
-            WebkitBackgroundClip: "text",
-            color: "transparent",
-          }}
-        >
-          Learn
-        </span>{" "}
-        today?
-      </h1>
       <Form.Root>
         <Form.Field name="content">
-          <div className="rounded-full border w-60 flex items-center">
+          <div className="rounded-lg border w-full flex items-center">
             <div className="relative">
               <Form.Control asChild>
                 <input

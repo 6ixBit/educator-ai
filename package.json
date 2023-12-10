@@ -33,7 +33,7 @@
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
     "focus-trap-react": "^10.2.3",
-    "framer-motion": "^10.16.4",
+    "framer-motion": "^10.16.16",
     "lucide-react": "^0.294.0",
     "next": "latest",
     "openai": "^4.16.2",

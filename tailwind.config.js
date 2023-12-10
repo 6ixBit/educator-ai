@@ -22,14 +22,15 @@ module.exports = {
         ...blackA,
         ...mauve,
         ...violet,
-        "bck-purp": "#B621FE",
-        "bck-blu": "#1FD1F9",
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         btn: {
           background: 'hsl(var(--btn-background))',
           'background-hover': 'hsl(var(--btn-background-hover))',
         },
+        'blue-p': '#24BAFA',
+        'bck-purp': "#B621FE",
+        'bck-blu': "#1FD1F9",
         'card-blue': '#1f8cff',
         'card-red': '#ce1411',
         'card-orange': '#d37a05',
@@ -83,6 +84,6 @@ module.exports = {
       addVariant("radix-side-top", '&[data-side="top"]');
       addVariant("radix-side-bottom", '&[data-side="bottom"]');
     }),
-      require("tailwindcss-animate")
-],
+    require("tailwindcss-animate")
+  ],
 };
