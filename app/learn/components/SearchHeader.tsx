@@ -14,17 +14,16 @@ export default function SearchHeader({
   };
 
   const intl = useIntl();
-
   return (
     <div className="flex flex-col gap-2 items-center">
       <Form.Root>
         <Form.Field name="content">
-          <div className="rounded-lg border w-full flex items-center">
-            <div className="relative">
+          <div className="rounded-full border-2 border-gray-300 w-full flex items-center">
+            <div className="relative w-72">
               <Form.Control asChild>
                 <input
                   type="text"
-                  className="border rounded-md py-2 pl-10 px-4 flex-grow text-left text-white"
+                  className="border rounded-full py-2 pl-10 px-4 flex-grow text-left text-black"
                   placeholder={intl.formatMessage({ id: "button.search.text" })}
                   onChange={handleChange}
                 />

@@ -23,8 +23,8 @@ export default function GradeCircle({ value }: { value: number }) {
       <motion.svg
         className="absolute inset-0 m-auto"
         viewBox="0 0 100 100"
-        width={40}
-        height={40}
+        width={35}
+        height={35}
       >
         <motion.circle
           initial={{ pathLength: 0 }}

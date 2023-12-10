@@ -87,72 +87,10 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
               ]}
             />
           )}
-          <h1 className="text-3xl font-bold">Welcome Back!</h1>
-          <Button>Logout</Button>
+          {/* <h1 className="text-3xl font-bold">Welcome Back!</h1>
+          <Button>Logout</Button> */}
         </div>
         {children}
-
-        {/* <div className="flex flex-col md:flex-row flex-wrap mt-6 gap-4">
-          <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md">
-            <CardHeader className="flex items-start justify-start pb-2">
-              <CardTitle className="text-lg font-bold">
-                Recent Activity
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col md:flex-row gap-4">
-                <div className="flex-1 p-4 bg-gray-200 rounded-lg h-[300px]">
-                  <h3 className="font-bold">Activity 1</h3>
-                  <p className="text-gray-600">Subtitle for Activity 1</p>
-                </div>
-                <div className="flex-1 p-4 bg-gray-200 rounded-lg h-[300px]">
-                  <h3 className="font-bold">Activity 2</h3>
-                  <p className="text-gray-600">Subtitle for Activity 2</p>
-                </div>
-                <div className="flex-1 p-4 bg-gray-200 rounded-lg h-[300px]">
-                  <h3 className="font-bold">Activity 3</h3>
-                  <p className="text-gray-600">Subtitle for Activity 3</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          <div className="flex flex-col md:flex-row w-full justify-between space-y-4 md:space-y-0 md:space-x-4">
-            <Card className="flex flex-col w-full md:w-1/2 p-4 bg-white rounded-lg shadow-md">
-              <CardHeader className="flex items-center justify-between pb-2">
-                <CardTitle className="text-lg font-bold">
-                  Upcoming Due Dates
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="text-center">
-                    <h3 className="font-bold">Due Date 1</h3>
-                    <p className="text-gray-600">Dummy Date 1</p>
-                  </div>
-                  <div className="text-center">
-                    <h3 className="font-bold">Due Date 2</h3>
-                    <p className="text-gray-600">Dummy Date 2</p>
-                  </div>
-                  <div className="text-center">
-                    <h3 className="font-bold">Due Date 3</h3>
-                    <p className="text-gray-600">Dummy Date 3</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="flex flex-col w-full md:w-1/2 p-4 bg-white rounded-lg shadow-md">
-              <CardHeader className="flex items-center justify-between pb-2">
-                <CardTitle className="text-lg font-bold">New Section</CardTitle>
-                <ImageIcon className="w-4 h-4" />
-              </CardHeader>
-              <CardContent>
-                <h3 className="font-bold">Title for New Section</h3>
-                <p className="text-gray-600">This is a new section.</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div> */}
       </div>
     </div>
   );

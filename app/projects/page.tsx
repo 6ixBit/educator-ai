@@ -70,7 +70,7 @@ export default function Page() {
 
   return (
     <div className="flex flex-col md:flex-row flex-wrap mt-6 gap-4">
-      {/* <div className="flex justify-center w-full flex-col">
+      <div className="flex justify-center w-full flex-col">
         <SearchHeader handleSearch={handleSearch} />
         {Array.isArray(userTextContents) && (
           <div className="font-sans text-slate-300 text-center p-2 h-6 flex-row">
@@ -80,7 +80,7 @@ export default function Page() {
             </p>
           </div>
         )}
-      </div> */}
+      </div>
 
       <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md">
         <CardHeader className="flex items-start justify-start pb-2">
