@@ -30,19 +30,19 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
   });
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-x-4 justify-items-center">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-x-4 xl:gap-x-2 justify-items-center">
       {userTextContents &&
         // @ts-ignore
         userTextContents.map((content: any, index: number) => (
           <div
             key={index}
-            className="flex flex-col my-2 rounded-lg border w-52 h-72 p-6 sm:p-8 hover:border-blue-500 bg-off-white space-y-4"
+            className="flex flex-col my-2 rounded-lg border w-52 h-72 md:w-60 lg:w-52 xl:w-72 p-6 sm:p-8 hover:border-blue-500 bg-off-white space-y-4"
             onClick={(e) => {
               router.push(`/learn/${content.id}`);
             }}
           >
             {content.title && (
-              <h1 className="text-sky-500 text-xl font-medium font-sans overflow-ellipsis overflow-hidden whitespace-nowrap">
+              <h1 className="text-sky-500 text-xl font-bold font-sans overflow-ellipsis overflow-hidden whitespace-nowrap">
                 {content.title}
               </h1>
             )}
@@ -59,6 +59,11 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
                   ? content.content.split(" ").slice(0, 14).join(" ")
                   : content.content.split(" ").slice(0, 50).join(" ")}
               </p>
+            </div>
+
+            <div className="flex flex-row justify-between pt-4">
+              <div className="flex gap-3"></div>
+              <ArrowLogo />
             </div>
           </div>
         ))}

@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import useWindowSize from "@/hooks/useWindowSize";
 import Skeleton from "@mui/material/Skeleton";
-import { Modal } from "@/components/Modal";
+import { Modal as LoginModal } from "@/components/Modal";
 import Link from "next/link";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import SearchHeader from "../learn/components/SearchHeader";
@@ -54,7 +54,7 @@ export default function Page() {
 
   return (
     <div className="flex flex-col md:flex-row flex-wrap mt-6 gap-4">
-      <Modal
+      <LoginModal
         icon={
           <Image
             src="/login.png"
@@ -95,9 +95,17 @@ export default function Page() {
       </div>
 
       <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md">
-        <CardHeader className="flex items-start justify-start pb-2">
+        <CardHeader className="flex flex-row items-baseline justify-between pb-2">
           <CardTitle className="text-lg font-bold">Recent Activity</CardTitle>
+
+          <button
+            onClick={() => router.push("/create")}
+            className="bg-cyan-500 font-bold transform transition-transform duration-200 hover:scale-110 shadow-md shadow-cyan-500/50 w-28 text-white rounded-full h-[35px] flex items-center justify-center"
+          >
+            {intl.formatMessage({ id: "button.add.file" })}
+          </button>
         </CardHeader>
+
         <CardContent>
           {!isLoading && !error && filteredUserTextContents && (
             <CardList
