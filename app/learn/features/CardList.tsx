@@ -36,7 +36,7 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
         userTextContents.map((content: any, index: number) => (
           <div
             key={index}
-            className="flex flex-col rounded-lg border w-1/4 h-60 p-6 sm:p-8  hover:border-blue-500 bg-off-white"
+            className="flex flex-col rounded-lg border w-52 h-72 p-6 sm:p-8  hover:border-blue-500 bg-off-white"
             onClick={(e) => {
               router.push(`/learn/${content.id}`);
             }}

@@ -12,6 +12,7 @@ export default function Modal({
   actionButtons,
   hideCloseButton,
   preventOutsideClick,
+  icon,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -20,6 +21,7 @@ export default function Modal({
   actionButtons?: React.ReactNode;
   hideCloseButton?: boolean;
   preventOutsideClick?: boolean;
+  icon?: React.ReactNode;
 }) {
   return (
     <Dialog.Root
@@ -33,6 +35,11 @@ export default function Modal({
       <Dialog.Portal>
         <Dialog.Overlay className="DialogOverlay" />
         <Dialog.Content className="DialogContent">
+          {icon && (
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              {icon}
+            </div>
+          )}
           <Dialog.Title
             className="DialogTitle"
             style={{

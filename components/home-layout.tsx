@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { AvatarImage, Avatar } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import HamburgerMenu from "./HamburgerMenu";
 import useWindowSize from "@/hooks/useWindowSize";
 import Image from "next/image";
@@ -28,6 +27,8 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
       };
     }
   };
+
+  //TODO: Check for user auth here.
 
   return (
     <div className="flex flex-col md:flex-row h-screen bg-gray-100 w-screen">

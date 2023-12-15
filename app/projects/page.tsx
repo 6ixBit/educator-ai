@@ -3,7 +3,7 @@ import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
 import { Table } from "@radix-ui/themes";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import { fetchUserTextContents, fetchUser } from "../actions";
+import { fetchUserTextContents } from "../actions";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import { useIntl } from "react-intl";
@@ -11,35 +11,19 @@ import useWindowSize from "@/hooks/useWindowSize";
 import Skeleton from "@mui/material/Skeleton";
 import { Modal } from "@/components/Modal";
 import Link from "next/link";
-import { useEffect } from "react";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import SearchHeader from "../learn/components/SearchHeader";
 import CardList from "../learn/features/CardList";
 import GradeCircle from "@/components/grade-circle";
+import { useUserAuth } from "@/hooks/useUserAuth";
+import Image from "next/image";
 
 export default function Page() {
   const router = useRouter();
   const supabase = createClientComponentClient();
   const intl = useIntl();
-  const [showLoginModal, setShowLoginModal] = useState(false);
   const { isMobile } = useWindowSize();
-
-  const { isLoading: isLoadingUser, data: userData } = useQuery({
-    queryKey: "userData",
-    queryFn: () => fetchUser(supabase),
-    onError: (error) => {
-      console.log("Could not login user.: ", error);
-      setShowLoginModal(true);
-    },
-  });
-
-  // @ts-ignore
-  const userID = userData?.user?.id;
-  useEffect(() => {
-    if (!userID && !isLoadingUser) {
-      setShowLoginModal(true);
-    }
-  }, [userID, isLoadingUser]);
+  const { userID, showLoginModal, setShowLoginModal } = useUserAuth();
 
   const {
     isLoading,
@@ -70,6 +54,34 @@ export default function Page() {
 
   return (
     <div className="flex flex-col md:flex-row flex-wrap mt-6 gap-4">
+      <Modal
+        icon={
+          <Image
+            src="/login.png"
+            width={30}
+            height={30}
+            alt="delete button"
+            style={{ transition: "transform 0.2s" }}
+            className="hover:scale-110"
+          />
+        }
+        open={showLoginModal}
+        onOpenChange={setShowLoginModal}
+        title="Hold up! You need an account to see this!"
+        hideCloseButton={true}
+        preventOutsideClick={true}
+        description={
+          <div className="flex justify-center mt-6">
+            <Link href="/login">
+              <div className="border-2 border-slate-600 rounded-full px-5 py-1 w-full glow flex items-center flex-row gap-4 hover:bg-slate-200 transition-colors duration-200">
+                <p className="text-black text-lg">Sign In</p>
+                <ArrowRightIcon style={{ height: "1.8em", width: "1.8em" }} />
+              </div>
+            </Link>
+          </div>
+        }
+      />
+
       <div className="flex justify-center w-full flex-col">
         <SearchHeader handleSearch={handleSearch} />
         {Array.isArray(userTextContents) && (
