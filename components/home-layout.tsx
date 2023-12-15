@@ -8,7 +8,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export function HomeLayout({ children }: { children: React.ReactNode }) {
-  const { isMobile } = useWindowSize();
+  const { isMobile, isTablet } = useWindowSize();
   const path = usePathname();
 
   const isActive = (route: string) => {
@@ -28,35 +28,48 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
     }
   };
 
-  //TODO: Check for user auth here.
-
   return (
     <div className="flex flex-col md:flex-row h-screen bg-gray-100 w-screen">
-      <div className="hidden md:flex w-56 bg-white p-4 shadow-lg  flex-col justify-between">
+      <div
+        className={`hidden md:flex ${
+          isTablet ? "w-20" : "w-56"
+        } bg-white p-4 shadow-lg  flex-col justify-between`}
+      >
         <div>
           <div className="flex items-center justify-center gap-1">
             <Image src="/logo.png" width={40} height={40} alt="ai logo" />
-            <span className="font-bold text-2xl mx-2">Pro Tutor AI</span>
+            {!isTablet && (
+              <span className="font-bold text-2xl mx-2">Pro Tutor AI</span>
+            )}
           </div>
 
           <nav className="mt-8">
-            <Link className={isActive("/projects").border} href="/home">
+            <Link className={isActive("/projects").border} href="/projects">
               <HomeIcon className="w-4 h-4" />
-              <span className={isActive("/projects").text}>Projects</span>
+              {!isTablet && (
+                <span className={isActive("/projects").text}>Projects</span>
+              )}
             </Link>
             <Link
               className={isActive("/study-cards").border}
               href="/study-cards"
             >
               <PieChartIcon className="w-4 h-4" />
-              <span className={isActive("/study-cards").text}>Study Cards</span>
+              {!isTablet && (
+                <span className={isActive("/study-cards").text}>
+                  Study Cards
+                </span>
+              )}
             </Link>
             <Link className={isActive("/quiz").border} href="/quiz">
               <SettingsIcon className="w-4 h-4" />
-              <span className={isActive("/quiz").text}>Quiz</span>
+              {!isTablet && (
+                <span className={isActive("/quiz").text}>Quiz</span>
+              )}
             </Link>
           </nav>
         </div>
+
         <div className="flex items-center mt-8">
           <Avatar className="w-8 h-8 mr-2">
             <AvatarImage
@@ -64,7 +77,7 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
               src="/placeholder.svg?height=32&width=32"
             />
           </Avatar>
-          <span className="text-gray-600">hcar@yahoo.co</span>
+          {!isTablet && <span className="text-gray-600">hcar@yahoo.co</span>}
         </div>
       </div>
 

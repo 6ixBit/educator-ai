@@ -86,10 +86,10 @@ export default function Page() {
         <SearchHeader handleSearch={handleSearch} />
         {Array.isArray(userTextContents) && (
           <div className="font-sans text-slate-300 text-center p-2 h-6 flex-row">
-            <p className="text-blue-p px-1 text-center">
+            {/* <p className="text-blue-p px-1 text-center">
               {filteredUserTextContents.length}{" "}
               {intl.formatMessage({ id: "home.items" })}
-            </p>
+            </p> */}
           </div>
         )}
       </div>
@@ -100,7 +100,6 @@ export default function Page() {
         </CardHeader>
         <CardContent>
           {!isLoading && !error && filteredUserTextContents && (
-            // @ts-ignore
             <CardList
               userTextContents={filteredUserTextContents}
               supabase={supabase}

@@ -30,13 +30,13 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
   });
 
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="flex flex-wrap gap-1">
       {userTextContents &&
         // @ts-ignore
         userTextContents.map((content: any, index: number) => (
           <div
             key={index}
-            className="flex flex-col rounded-lg border w-52 h-72 p-6 sm:p-8  hover:border-blue-500 bg-off-white"
+            className="flex flex-col rounded-lg border w-60 h-72 p-6 sm:p-8  hover:border-blue-500 bg-off-white"
             onClick={(e) => {
               router.push(`/learn/${content.id}`);
             }}
@@ -61,9 +61,9 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
               </p>
             </div>
 
-            <div className="flex flex-row justify-between mt-4">
-              <div className="flex gap-3">
-                {/* <Modal TODO: Fix card not differentiating between the remove button and click btn
+            {/* <div className="flex flex-row justify-between mt-4">
+              <div className="flex gap-3"> */}
+            {/* <Modal
                   title="Delete"
                   description="Are you sure you want to delete this item?"
                   actionButtons={
@@ -86,7 +86,7 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
                       className="hover:scale-110"
                     />
                   )}
-                /> */}
+                />
 
                 <Image
                   src="/trash.png"
@@ -112,11 +112,10 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
                       Delete item
                     </button>
                   }
-                />
-                {/* <EditLogo /> */}
-              </div>
-              <ArrowLogo />
-            </div>
+                /> */}
+            {/* </div> */}
+            {/* <ArrowLogo /> */}
+            {/* </div> */}
           </div>
         ))}
     </div>
