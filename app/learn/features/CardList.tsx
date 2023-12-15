@@ -17,7 +17,7 @@ interface ICardList {
 export default function CardList({ userTextContents, supabase }: ICardList) {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { isMobile } = useWindowSize();
+  const { isMobile, isTablet, isDesktop } = useWindowSize();
   const [showModal, setShowModal] = useState(false);
 
   const mutation = useMutation({
@@ -30,13 +30,13 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
   });
 
   return (
-    <div className="flex flex-wrap gap-1">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-x-4 justify-items-center">
       {userTextContents &&
         // @ts-ignore
         userTextContents.map((content: any, index: number) => (
           <div
             key={index}
-            className="flex flex-col rounded-lg border w-60 h-72 p-6 sm:p-8  hover:border-blue-500 bg-off-white"
+            className="flex flex-col my-2 rounded-lg border w-52 h-72 p-6 sm:p-8 hover:border-blue-500 bg-off-white space-y-4"
             onClick={(e) => {
               router.push(`/learn/${content.id}`);
             }}
@@ -54,68 +54,12 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
             )}
 
             <div className="h-20 overflow-hidden mb-3">
-              <p>
+              <p className="text-base leading-relaxed">
                 {isMobile
                   ? content.content.split(" ").slice(0, 14).join(" ")
                   : content.content.split(" ").slice(0, 50).join(" ")}
               </p>
             </div>
-
-            {/* <div className="flex flex-row justify-between mt-4">
-              <div className="flex gap-3"> */}
-            {/* <Modal
-                  title="Delete"
-                  description="Are you sure you want to delete this item?"
-                  actionButtons={
-                    <button
-                      className="rounded-lg bg-red-200 text-red-700 px-2 py-1"
-                      onClick={() => {
-                        mutation.mutate(content.id);
-                      }}
-                    >
-                      Delete item
-                    </button>
-                  }
-                  trigger={() => (
-                    <Image
-                      src="/trash.png"
-                      width={20}
-                      height={20}
-                      alt="delete button"
-                      style={{ transition: "transform 0.2s" }}
-                      className="hover:scale-110"
-                    />
-                  )}
-                />
-
-                <Image
-                  src="/trash.png"
-                  width={20}
-                  height={20}
-                  alt="delete button"
-                  style={{ transition: "transform 0.2s" }}
-                  className="hover:scale-110"
-                />
-
-                <Modal
-                  open={showModal}
-                  onOpenChange={setShowModal}
-                  title="Delete"
-                  description="Are you sure you want to delete this item?"
-                  actionButtons={
-                    <button
-                      className="rounded-lg bg-red-200 text-red-700 px-2 py-1"
-                      onClick={() => {
-                        mutation.mutate(content.id);
-                      }}
-                    >
-                      Delete item
-                    </button>
-                  }
-                /> */}
-            {/* </div> */}
-            {/* <ArrowLogo /> */}
-            {/* </div> */}
           </div>
         ))}
     </div>
