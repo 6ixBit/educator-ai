@@ -6,13 +6,17 @@ import HamburgerMenu from "./HamburgerMenu";
 import useWindowSize from "@/hooks/useWindowSize";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { Button } from "@radix-ui/themes";
+import ChangeLangModal from "./ChangeLangModal";
+import { useState } from "react";
 
 export function HomeLayout({ children }: { children: React.ReactNode }) {
   const { isMobile, isTablet } = useWindowSize();
   const path = usePathname();
+  const [showChangeLangModal, setShowChangeLangModal] = useState(false);
 
   const isActive = (route: string) => {
-    if (path.startsWith(route)) {
+    if (route === path) {
       const activeStyles = {
         border:
           "flex items-center px-4 py-2 mt-2 text-gray-700 hover:bg-gray-300 bg-[#1DB8FA] bg-opacity-20 rounded-lg",
@@ -67,6 +71,12 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
                 <span className={isActive("/quiz").text}>Quiz</span>
               )}
             </Link>
+
+            <Button
+              onClick={() => {
+                setShowChangeLangModal(true);
+              }}
+            ></Button>
           </nav>
         </div>
 
@@ -106,6 +116,11 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
         </div>
         {children}
       </div>
+
+      <ChangeLangModal
+        showModal={showChangeLangModal}
+        setShowModal={showChangeLangModal}
+      />
     </div>
   );
 }
