@@ -4,7 +4,6 @@ import { useUserAuth } from "@/hooks/useUserAuth";
 import { useUserData } from "@/hooks/useUserData";
 import { useState } from "react";
 import Overview from "@/app/projects/Overview";
-import Image from "next/image";
 import LoginModal from "@/components/LoginModal";
 
 export default function Page({
@@ -16,8 +15,6 @@ export default function Page({
   const [isUserAuthorized, setisUserAuthorized] = useState(true);
   const { isLoadingProject, project } = useUserData({ projectID, userID });
 
-  console.log("id: ", projectID);
-
   if (!isLoadingProject && project) {
     if (project.user_id !== userID) {
       setisUserAuthorized(false);
@@ -28,7 +25,7 @@ export default function Page({
     <>
       {!isUserAuthorized && <div>You are not allowed to see this.</div>}
 
-      <div className="grid grid-col-1 sm:grid-cols-2 px-8 mt-7">
+      <div className="grid grid-col-1 sm:grid-cols-2 px-8 mt-8">
         <Overview title={project?.title} date={project?.created_at} />
       </div>
 
