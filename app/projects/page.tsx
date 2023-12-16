@@ -7,7 +7,6 @@ import { fetchUserTextContents } from "../actions";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import useWindowSize from "@/hooks/useWindowSize";
 import Skeleton from "@mui/material/Skeleton";
 import { Modal as LoginModal } from "@/components/Modal";
 import Link from "next/link";
@@ -22,7 +21,6 @@ export default function Page() {
   const router = useRouter();
   const supabase = createClientComponentClient();
   const intl = useIntl();
-  const { isMobile } = useWindowSize();
   const { userID, showLoginModal, setShowLoginModal } = useUserAuth();
 
   const {

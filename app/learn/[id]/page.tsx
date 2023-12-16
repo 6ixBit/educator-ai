@@ -8,7 +8,7 @@ import { useQuery } from "react-query";
 import CaseStudy from "../features/CaseStudy";
 import CollapsableSection from "../components/CollapsableSection";
 import FlashCards from "../features/Flashcards";
-import Overview from "../features/Overview";
+import Overview from "../../projects/Overview";
 import SkeletonLoader from "../components/SkeletonLoader";
 import Summary from "../features/Summary";
 import { Quiz } from "../features/Quiz";

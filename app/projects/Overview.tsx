@@ -11,7 +11,7 @@ export default function Overview({ title, date }: IOverview) {
   return (
     <div className="flex flex-col justify-start">
       <div className="flex flex-row gap-6 items-center">
-        <h1 className="text-white text-left font-bold mb-0 text-5xl leading-relaxed font-sans  sm:px-37">
+        <h1 className="text-black text-left font-bold mb-0 text-2xl sm:text-4xl leading-relaxed font-sans pb-3">
           {title}
         </h1>
 
@@ -33,19 +33,28 @@ export default function Overview({ title, date }: IOverview) {
       </h2>
       <h2 className="text-gray-500 font-medium text-md mb-0">1.4k words</h2>
 
-      <h2 className="text-slate-100 mt-8">
-        On review of your report card and consideration of your grade, I believe
-        you are in a pretty good position to take an exam on this topic.
-      </h2>
+      <div className="mt-16">
+        <h1 className="text-slate-500 pb-2 text-lg font-bold">
+          Teachers notes
+        </h1>
 
-      <div className="flex mt-6">
+        <div className="bg-white rounded-lg p-4">
+          <h2 className="text-black">
+            On review of your report card and consideration of your grade, I
+            believe you are in a pretty good position to take an exam on this
+            topic.
+          </h2>
+        </div>
+      </div>
+
+      {/* <div className="flex mt-6">
         <button className="bg-amber-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
           Take a Test
         </button>
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Add Due Date
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
