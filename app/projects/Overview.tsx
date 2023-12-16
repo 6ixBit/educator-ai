@@ -1,4 +1,6 @@
 import { formatDate } from "@/utility";
+import { Button } from "@radix-ui/themes";
+import GradeCircle from "@/components/grade-circle";
 
 interface IOverview {
   title: string;
@@ -15,7 +17,7 @@ export default function Overview({ title, date }: IOverview) {
           {title}
         </h1>
 
-        <p
+        {/* <p
           className={`text-sm flex justify-center items-center text-center rounded-full border-2 p-2 h-10 ${
             grade < 50
               ? "text-red-500 border-red-500"
@@ -25,13 +27,24 @@ export default function Overview({ title, date }: IOverview) {
           }`}
         >
           {grade}
-        </p>
+        </p> */}
+
+        <div className="w-12 h-12 ml-6 mb-4 sm:mb-0 sm:pl-0 xl:ml-28 2xl:ml-60">
+          <GradeCircle value={grade} />
+        </div>
       </div>
 
       <h2 className="text-gray-500 font-medium text-sm mb-1">
         {date ? formatDate(date) : ""}
       </h2>
-      <h2 className="text-gray-500 font-medium text-md mb-0">1.4k words</h2>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2">
+        <h2 className="text-gray-500 font-medium text-md mb-0">1.4k words</h2>
+
+        <span className="pl-0 sm:pl-16 pt-4 sm:pt-0 xl:ml-24">
+          <Button className="w-28">View Original</Button>
+        </span>
+      </div>
 
       <div className="mt-16">
         <h1 className="text-slate-500 pb-2 text-lg font-bold">
