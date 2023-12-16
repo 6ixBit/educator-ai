@@ -12,7 +12,7 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
   const path = usePathname();
 
   const isActive = (route: string) => {
-    if (route === path) {
+    if (path.startsWith(route)) {
       const activeStyles = {
         border:
           "flex items-center px-4 py-2 mt-2 text-gray-700 hover:bg-gray-300 bg-[#1DB8FA] bg-opacity-20 rounded-lg",
@@ -110,7 +110,7 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
   );
 }
 
-function SettingsIcon(props) {
+function SettingsIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -130,7 +130,7 @@ function SettingsIcon(props) {
   );
 }
 
-function PieChartIcon(props) {
+function PieChartIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -150,7 +150,7 @@ function PieChartIcon(props) {
   );
 }
 
-function HomeIcon(props) {
+function HomeIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -170,7 +170,7 @@ function HomeIcon(props) {
   );
 }
 
-function MenuIcon(props) {
+function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -191,7 +191,7 @@ function MenuIcon(props) {
   );
 }
 
-function ImageIcon(props) {
+function ImageIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}

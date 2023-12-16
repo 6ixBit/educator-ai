@@ -60,7 +60,9 @@ export default function Overview({ title, date }: IOverview) {
         <div className="bg-white rounded-lg p-4">
           <div className="flex justify-between items-center mb-2">
             <p className="text-black">Take Quiz</p>
-            <Button radius="full" size="3"></Button>
+            <Button radius="full" size="3">
+              Start
+            </Button>
           </div>
           <div className="flex justify-between items-center mb-2">
             <p className="text-black">Study Flash Cards</p>
