@@ -1,10 +1,10 @@
 "use client";
 
+import LoginModal from "@/components/LoginModal";
+import Overview from "@/app/projects/Overview";
+import { useState } from "react";
 import { useUserAuth } from "@/hooks/useUserAuth";
 import { useUserData } from "@/hooks/useUserData";
-import { useState } from "react";
-import Overview from "@/app/projects/Overview";
-import LoginModal from "@/components/LoginModal";
 
 export default function Page({
   params: { id: projectID },

@@ -2,6 +2,7 @@ import { formatDate } from "@/utility";
 import { Button } from "@radix-ui/themes";
 import GradeCircle from "@/components/grade-circle";
 import { EyeOpenIcon } from "@radix-ui/react-icons";
+import { useIntl } from "react-intl";
 
 interface IOverview {
   title: string;
@@ -9,6 +10,7 @@ interface IOverview {
 }
 
 export default function Overview({ title, date }: IOverview) {
+  const intl = useIntl();
   const grade = 88;
 
   return (
@@ -28,19 +30,22 @@ export default function Overview({ title, date }: IOverview) {
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2">
-        <h2 className="text-gray-500 font-medium text-md mb-0">1.4k words</h2>
+        <h2 className="text-gray-500 font-medium text-md mb-0">
+          <strong className="font-bold">1.4k</strong>{" "}
+          {intl.formatMessage({ id: "word.count.text" })}
+        </h2>
 
         <span className="pl-0 sm:pl-12 pt-4 sm:pt-0 xl:ml-24">
           <Button className="w-36">
             <EyeOpenIcon />
-            View Original
+            {intl.formatMessage({ id: "button.vieworiginal" })}
           </Button>
         </span>
       </div>
 
       <div className="mt-16">
         <h1 className="text-slate-500 pb-2 text-lg font-bold">
-          Teachers notes
+          {intl.formatMessage({ id: "section.teachersNotes" })}
         </h1>
 
         <div className="bg-white rounded-lg p-4">
@@ -54,26 +59,32 @@ export default function Overview({ title, date }: IOverview) {
 
       <div className="mt-16">
         <h1 className="text-slate-500 pb-2 text-lg font-bold">
-          Learning Checklist
+          {intl.formatMessage({ id: "title.checklist" })}
         </h1>
 
         <div className="bg-white rounded-lg p-4">
           <div className="flex justify-between items-center mb-2">
-            <p className="text-black">Take Quiz</p>
+            <p className="text-black">
+              {intl.formatMessage({ id: "button.takequiz" })}
+            </p>
             <Button radius="full" size="3">
-              Start
+              {intl.formatMessage({ id: "button.start" })}
             </Button>
           </div>
           <div className="flex justify-between items-center mb-2">
-            <p className="text-black">Study Flash Cards</p>
+            <p className="text-black">
+              {intl.formatMessage({ id: "button.flashcards" })}
+            </p>
             <Button radius="full" size="3">
-              Start{" "}
+              {intl.formatMessage({ id: "button.start" })}
             </Button>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-black">Attempt a case study</p>
+            <p className="text-black">
+              {intl.formatMessage({ id: "button.casestudy" })}
+            </p>
             <Button radius="full" size="3">
-              Start{" "}
+              {intl.formatMessage({ id: "button.start" })}
             </Button>
           </div>
         </div>

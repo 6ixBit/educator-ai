@@ -1,19 +1,22 @@
 "use client";
 
-import Link from "next/link";
-import { AvatarImage, Avatar } from "@/components/ui/avatar";
-import HamburgerMenu from "./HamburgerMenu";
-import useWindowSize from "@/hooks/useWindowSize";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+
 import { Button } from "@radix-ui/themes";
 import ChangeLangModal from "./ChangeLangModal";
+import HamburgerMenu from "./HamburgerMenu";
+import Image from "next/image";
+import Link from "next/link";
+import { useIntl } from "react-intl";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
+import useWindowSize from "@/hooks/useWindowSize";
 
 export function HomeLayout({ children }: { children: React.ReactNode }) {
   const { isMobile, isTablet } = useWindowSize();
   const path = usePathname();
   const [showChangeLangModal, setShowChangeLangModal] = useState(false);
+  const intl = useIntl();
 
   const isActive = (route: string) => {
     if (route === path) {
@@ -51,7 +54,9 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
             <Link className={isActive("/projects").border} href="/projects">
               <HomeIcon className="w-4 h-4" />
               {!isTablet && (
-                <span className={isActive("/projects").text}>Projects</span>
+                <span className={isActive("/projects").text}>
+                  {intl.formatMessage({ id: "navmenu.projects" })}
+                </span>
               )}
             </Link>
             <Link
@@ -61,32 +66,38 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
               <PieChartIcon className="w-4 h-4" />
               {!isTablet && (
                 <span className={isActive("/study-cards").text}>
-                  Study Cards
+                  {intl.formatMessage({ id: "navmenu.studycards" })}
                 </span>
               )}
             </Link>
             <Link className={isActive("/quiz").border} href="/quiz">
               <SettingsIcon className="w-4 h-4" />
               {!isTablet && (
-                <span className={isActive("/quiz").text}>Quiz</span>
+                <span className={isActive("/quiz").text}>
+                  {intl.formatMessage({ id: "navmenu.quiz" })}
+                </span>
               )}
             </Link>
-
-            <Button
-              onClick={() => {
-                setShowChangeLangModal(true);
-              }}
-            ></Button>
           </nav>
         </div>
 
-        <div className="flex items-center mt-8">
+        <div className="flex items-center mt-8 flex-col">
+          <Button
+            variant="outline"
+            radius="large"
+            onClick={() => {
+              setShowChangeLangModal(true);
+            }}
+          >
+            Change Language
+          </Button>
           <Avatar className="w-8 h-8 mr-2">
             <AvatarImage
               alt="User avatar"
               src="/placeholder.svg?height=32&width=32"
             />
           </Avatar>
+
           {!isTablet && <span className="text-gray-600">hcar@yahoo.co</span>}
         </div>
       </div>
@@ -119,7 +130,7 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
 
       <ChangeLangModal
         showModal={showChangeLangModal}
-        setShowModal={showChangeLangModal}
+        setShowModal={setShowChangeLangModal}
       />
     </div>
   );

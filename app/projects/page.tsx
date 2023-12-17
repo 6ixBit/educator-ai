@@ -1,21 +1,23 @@
 "use client";
-import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
-import { Table } from "@radix-ui/themes";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
-import { fetchUserTextContents } from "../actions";
-import { useQuery } from "react-query";
-import { useState } from "react";
-import { useIntl } from "react-intl";
-import Skeleton from "@mui/material/Skeleton";
-import { Modal as LoginModal } from "@/components/Modal";
-import Link from "next/link";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import { ArrowRightIcon } from "@radix-ui/react-icons";
-import SearchHeader from "../learn/components/SearchHeader";
 import CardList from "../learn/features/CardList";
 import GradeCircle from "@/components/grade-circle";
-import { useUserAuth } from "@/hooks/useUserAuth";
 import Image from "next/image";
+import Link from "next/link";
+import { Modal as LoginModal } from "@/components/Modal";
+import SearchHeader from "../learn/components/SearchHeader";
+import Skeleton from "@mui/material/Skeleton";
+import { Table } from "@radix-ui/themes";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { fetchUserTextContents } from "../actions";
+import { useIntl } from "react-intl";
+import { useQuery } from "react-query";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useUserAuth } from "@/hooks/useUserAuth";
 
 export default function Page() {
   const router = useRouter();
@@ -24,6 +26,7 @@ export default function Page() {
   const { userID, showLoginModal, setShowLoginModal } = useUserAuth();
 
   const {
+    //TODO: Swap to appropriate query, text contents is no longer valid.
     isLoading,
     error,
     data: userTextContents,
@@ -72,7 +75,9 @@ export default function Page() {
           <div className="flex justify-center mt-6">
             <Link href="/login">
               <div className="border-2 border-slate-600 rounded-full px-5 py-1 w-full glow flex items-center flex-row gap-4 hover:bg-slate-200 transition-colors duration-200">
-                <p className="text-black text-lg">Sign In</p>
+                <p className="text-black text-lg">
+                  {intl.formatMessage({ id: "hamburger.login.text" })}
+                </p>
                 <ArrowRightIcon style={{ height: "1.8em", width: "1.8em" }} />
               </div>
             </Link>
@@ -94,7 +99,9 @@ export default function Page() {
 
       <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md">
         <CardHeader className="flex flex-row items-baseline justify-between pb-2">
-          <CardTitle className="text-lg font-bold">Recent Activity</CardTitle>
+          <CardTitle className="text-lg font-bold">
+            {intl.formatMessage({ id: "title.recentactivity" })}
+          </CardTitle>
 
           <button
             onClick={() => router.push("/create")}
@@ -117,15 +124,21 @@ export default function Page() {
         <Card className="flex flex-col w-full md:w-1/2 p-4 bg-white rounded-lg shadow-md">
           <CardHeader className="flex items-start justify-between pb-6">
             <CardTitle className="text-lg font-bold ">
-              Upcoming Due Dates
+              {intl.formatMessage({ id: "title.upcomingduedates" })}
             </CardTitle>
           </CardHeader>
           <Table.Root>
             <Table.Header>
               <Table.Row>
-                <Table.ColumnHeaderCell>Grade</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Date</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  {intl.formatMessage({ id: "title.grade" })}
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  {intl.formatMessage({ id: "title.title" })}
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  {intl.formatMessage({ id: "title.date" })}
+                </Table.ColumnHeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -140,7 +153,6 @@ export default function Page() {
 
               <Table.Row>
                 <Table.RowHeaderCell>
-                  {" "}
                   <GradeCircle value={77} />
                 </Table.RowHeaderCell>
                 <Table.Cell>Of Mice and Men</Table.Cell>
