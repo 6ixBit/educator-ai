@@ -1,15 +1,17 @@
-import { formatDate } from "@/utility";
 import { Button } from "@radix-ui/themes";
-import GradeCircle from "@/components/grade-circle";
 import { EyeOpenIcon } from "@radix-ui/react-icons";
+import GradeCircle from "@/components/grade-circle";
+import { formatDate } from "@/utility";
+import { nFormatter } from "@/utility";
 import { useIntl } from "react-intl";
 
 interface IOverview {
   title: string;
   date: any;
+  content: string;
 }
 
-export default function Overview({ title, date }: IOverview) {
+export default function Overview({ title, date, content }: IOverview) {
   const intl = useIntl();
   const grade = 88;
 
@@ -30,8 +32,10 @@ export default function Overview({ title, date }: IOverview) {
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2">
-        <h2 className="text-gray-500 font-medium text-md mb-0">
-          <strong className="font-bold">1.4k</strong>{" "}
+        <h2 className="text-gray-500 font-medium text-md mb-0 w-max">
+          <strong className="font-bold">
+            {content ? nFormatter(content.split(" ").length) : 0}
+          </strong>{" "}
           {intl.formatMessage({ id: "word.count.text" })}
         </h2>
 
