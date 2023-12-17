@@ -12,32 +12,20 @@ import SearchHeader from "../learn/components/SearchHeader";
 import Skeleton from "@mui/material/Skeleton";
 import { Table } from "@radix-ui/themes";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { fetchUserTextContents } from "../actions";
 import { useIntl } from "react-intl";
-import { useQuery } from "react-query";
+import { useProject } from "./hooks";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUserAuth } from "@/hooks/useUserAuth";
 
 export default function Page() {
+  const intl = useIntl();
   const router = useRouter();
   const supabase = createClientComponentClient();
-  const intl = useIntl();
   const { userID, showLoginModal, setShowLoginModal } = useUserAuth();
-
-  const {
-    //TODO: Swap to appropriate query, text contents is no longer valid.
-    isLoading,
-    error,
-    data: userTextContents,
-  } = useQuery({
-    queryKey: "textContents",
-    queryFn: () => fetchUserTextContents(supabase, userID),
-    enabled: !!userID,
-    onError: (error) => {
-      console.log("fetch items error: ", error);
-      setShowLoginModal(true);
-    },
+  const { projects, isProjectLoading, projectLoadError } = useProject({
+    userID,
+    supabase,
   });
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -45,8 +33,8 @@ export default function Page() {
     setSearchTerm(value);
   };
 
-  const filteredUserTextContents = Array.isArray(userTextContents)
-    ? userTextContents.filter(
+  const filteredProjects = Array.isArray(projects)
+    ? projects.filter(
         (content: { content: string; title: string }) =>
           content.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
           content.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -87,7 +75,7 @@ export default function Page() {
 
       <div className="flex justify-center w-full flex-col">
         <SearchHeader handleSearch={handleSearch} />
-        {Array.isArray(userTextContents) && (
+        {Array.isArray(projects) && (
           <div className="font-sans text-slate-300 text-center p-2 h-6 flex-row">
             {/* <p className="text-blue-p px-1 text-center">
               {filteredUserTextContents.length}{" "}
@@ -112,11 +100,8 @@ export default function Page() {
         </CardHeader>
 
         <CardContent>
-          {!isLoading && !error && filteredUserTextContents && (
-            <CardList
-              userTextContents={filteredUserTextContents}
-              supabase={supabase}
-            />
+          {!isProjectLoading && !projectLoadError && filteredProjects && (
+            <CardList userTextContents={filteredProjects} supabase={supabase} />
           )}
         </CardContent>
       </Card>
