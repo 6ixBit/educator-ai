@@ -2,6 +2,8 @@
 
 import LoginModal from "@/components/LoginModal";
 import Overview from "@/app/projects/Overview";
+import { Table } from "@radix-ui/themes";
+import { useIntl } from "react-intl";
 import { useState } from "react";
 import { useUserAuth } from "@/hooks/useUserAuth";
 import { useUserData } from "@/hooks/useUserData";
@@ -14,6 +16,7 @@ export default function Page({
   const { userID, showLoginModal, setShowLoginModal } = useUserAuth();
   const [isUserAuthorized, setisUserAuthorized] = useState(true);
   const { isLoadingProject, project } = useUserData({ projectID, userID });
+  const intl = useIntl();
 
   if (!isLoadingProject && project) {
     if (project.user_id !== userID) {
@@ -28,17 +31,45 @@ export default function Page({
       <div className="grid grid-col-1 sm:grid-cols-2 px-8 mt-8">
         <Overview title={project?.title} date={project?.created_at} />
 
-        <div className="md:pl-20 mt-16 md:mt-52">
+        <div className="md:pl-16 mt-16 md:mt-52">
           <h1 className="text-slate-500 pb-2 text-lg font-bold">
-            RIver so way eh
+            {intl.formatMessage({ id: "title.statistics" })}
           </h1>
 
           <div className="bg-white rounded-lg p-4">
-            <h2 className="text-black">
-              On review of your report card and consideration of your grade, I
-              believe you are in a pretty good position to take an exam on this
-              topic.
-            </h2>
+            <Table.Root>
+              <Table.Header>
+                <Table.Row>
+                  <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
+                  <Table.ColumnHeaderCell>
+                    {intl.formatMessage({ id: "title.attempts" })}
+                  </Table.ColumnHeaderCell>
+                  <Table.ColumnHeaderCell>
+                    {intl.formatMessage({ id: "title.avgscore" })}
+                  </Table.ColumnHeaderCell>
+                </Table.Row>
+              </Table.Header>
+
+              <Table.Body>
+                <Table.Row>
+                  <Table.RowHeaderCell>Quizzes</Table.RowHeaderCell>
+                  <Table.Cell className="text-center">1</Table.Cell>
+                  <Table.Cell>10 / 10</Table.Cell>
+                </Table.Row>
+
+                <Table.Row>
+                  <Table.RowHeaderCell>Study Cards</Table.RowHeaderCell>
+                  <Table.Cell className="text-center">5</Table.Cell>
+                  <Table.Cell>5 / 10</Table.Cell>
+                </Table.Row>
+
+                <Table.Row>
+                  <Table.RowHeaderCell>Case Studies</Table.RowHeaderCell>
+                  <Table.Cell className="text-center">2</Table.Cell>
+                  <Table.Cell>6 / 10</Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table.Root>
           </div>
         </div>
       </div>

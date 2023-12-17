@@ -49,7 +49,10 @@
         "title.grade": "Grade",
         "title.title": "Title",
         "title.date": "Date",
-        "title.recentactivity": "Recent Activity"
+        "title.recentactivity": "Recent Activity",
+        "title.statistics": "Statistics",
+        "title.attempts": "Attempts",
+        "title.avgscore": "Avg Score"
     },
     "en-UK" : {
         "button.add.file" : "Add a file",
@@ -101,7 +104,8 @@
         "title.grade": "Grade",
         "title.title": "Title",
         "title.date": "Date",
-        "title.recentactivity": "Recent Activity"
+        "title.recentactivity": "Recent Activity",
+        "title.statistics": "Statistics"
     },
     "fr" : {
         "button.add.file" : "Ajouter un projet",
@@ -153,7 +157,8 @@
         "title.grade": "Note",
         "title.title": "Titre",
         "title.date": "Date",
-        "title.recentactivity": "Activité récente"
+        "title.recentactivity": "Activité récente",
+        "title.statistics": "Statistiques"
     },
     "es" : {
         "button.add.file" : "Agregar un proyecto",
@@ -205,6 +210,7 @@
         "title.grade": "Grado",
         "title.title": "Título",
         "title.date": "Fecha",
-        "title.recentactivity": "Actividad reciente"
+        "title.recentactivity": "Actividad reciente",
+        "title.statistics": "Estadísticas"
     }
 }
