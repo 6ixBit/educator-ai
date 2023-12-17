@@ -43,6 +43,10 @@ export default function Page() {
 
     // TODO: ASync send data to LLM.
 
+    // TODO: Host all routes to API in store. so that we can easily change LLM endpoint?
+    // tODO: At the very miinmum we do not have to wait for these calls to finish.
+    // TODO: On [id] page we can handle loads.
+
     setLoading(false);
     router.push(`/projects/${project[0].project_uuid}`);
   };

@@ -1,9 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
 import CountingNumbers from "./counting-numbers";
+import { motion } from "framer-motion";
 
 export default function GradeCircle({ value }: { value: number }) {
+  value = isNaN(value) ? 0 : value;
   let fillColor, strokeColor, textColor;
   if (value > 70) {
     fillColor = "#DCFCE7";

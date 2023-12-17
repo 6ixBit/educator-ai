@@ -9,11 +9,11 @@ interface IOverview {
   title: string;
   date: any;
   content: string;
+  grade: number;
 }
 
-export default function Overview({ title, date, content }: IOverview) {
+export default function Overview({ title, date, content, grade }: IOverview) {
   const intl = useIntl();
-  const grade = 88;
 
   return (
     <div className="flex flex-col justify-start">

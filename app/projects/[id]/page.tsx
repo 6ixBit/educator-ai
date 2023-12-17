@@ -24,6 +24,8 @@ export default function Page({
     }
   }
 
+  console.log("proj: ", project);
+
   return (
     <>
       {!isUserAuthorized && <div>You are not allowed to see this.</div>}
@@ -33,6 +35,7 @@ export default function Page({
           title={project?.title}
           date={project?.created_at}
           content={project?.content}
+          grade={parseFloat(project?.grade)}
         />
 
         <div className="md:pl-16 mt-16 md:mt-52">
