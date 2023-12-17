@@ -1,16 +1,16 @@
 "use client";
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import ArrowLogo from "@/components/ArrowLogo";
+import CollapsableSection from "@/components/CollapsableSection";
+import DashboardButton from "@/components/DashboardButton";
+import HamburgerMenu from "@/components/HamburgerMenu";
 import Link from "next/link";
 import LogoutButton from "@/components/LogoutButton";
-import DashboardButton from "@/components/DashboardButton";
 import Navigation from "@/components/Navigation";
-import ArrowLogo from "@/components/ArrowLogo";
-import CollapsableSection from "./learn/components/CollapsableSection";
-import HamburgerMenu from "@/components/HamburgerMenu";
-import useWindowSize from "@/hooks/useWindowSize";
-import { useQuery } from "react-query";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { fetchUser } from "./actions";
+import { useQuery } from "react-query";
+import useWindowSize from "@/hooks/useWindowSize";
 
 export const dynamic = "force-dynamic";
 
