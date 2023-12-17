@@ -1,20 +1,21 @@
 "use client";
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
-import { fetchUserTextContents, fetchUser } from "../actions";
-import { useQuery } from "react-query";
-import SkeletonLoader from "./components/SkeletonLoader";
-import { useState } from "react";
-import SearchHeader from "./components/SearchHeader";
-import CardList from "./features/CardList";
-import { useIntl } from "react-intl";
-import useWindowSize from "@/hooks/useWindowSize";
-import Skeleton from "@mui/material/Skeleton";
-import { Modal } from "@/components/Modal";
-import Link from "next/link";
-import { useEffect } from "react";
+import { fetchUser, fetchUserTextContents } from "../actions";
+
 import { ArrowRightIcon } from "@radix-ui/react-icons";
+import CardList from "../projects/CardList";
+import Link from "next/link";
+import { Modal } from "@/components/Modal";
+import SearchHeader from "./components/SearchHeader";
+import Skeleton from "@mui/material/Skeleton";
+import SkeletonLoader from "./components/SkeletonLoader";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useEffect } from "react";
+import { useIntl } from "react-intl";
+import { useQuery } from "react-query";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import useWindowSize from "@/hooks/useWindowSize";
 
 export default function ClientComponent() {
   const router = useRouter();

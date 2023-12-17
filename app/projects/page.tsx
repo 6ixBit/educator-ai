@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { ArrowRightIcon } from "@radix-ui/react-icons";
-import CardList from "../learn/features/CardList";
+import CardList from "./CardList";
 import GradeCircle from "@/components/grade-circle";
 import Image from "next/image";
 import Link from "next/link";
@@ -95,13 +95,13 @@ export default function Page() {
             onClick={() => router.push("/create")}
             className="bg-cyan-500 font-bold transform transition-transform duration-200 hover:scale-110 shadow-md shadow-cyan-500/50 w-28 text-white rounded-full h-[35px] flex items-center justify-center"
           >
-            {intl.formatMessage({ id: "button.add.file" })}
+            {intl.formatMessage({ id: "button.add.project" })}
           </button>
         </CardHeader>
 
         <CardContent>
           {!isProjectLoading && !projectLoadError && filteredProjects && (
-            <CardList userTextContents={filteredProjects} supabase={supabase} />
+            <CardList projects={filteredProjects} supabase={supabase} />
           )}
         </CardContent>
       </Card>

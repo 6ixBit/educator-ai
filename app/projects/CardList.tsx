@@ -1,23 +1,23 @@
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { delete_item } from "../../actions";
 import { useMutation, useQueryClient } from "react-query";
-import { Modal } from "@/components/Modal";
-import { formatDate } from "@/utility";
+
 import ArrowLogo from "@/components/ArrowLogo";
+import { Modal } from "@/components/Modal"; // TODO: Add delete modal
 import { SupabaseClient } from "@supabase/supabase-js";
+import { delete_item } from "../actions";
+import { formatDate } from "@/utility";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import useWindowSize from "@/hooks/useWindowSize";
 
 interface ICardList {
-  userTextContents: any;
+  projects: any;
   supabase: SupabaseClient;
 }
 
-export default function CardList({ userTextContents, supabase }: ICardList) {
+export default function CardList({ projects, supabase }: ICardList) {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { isMobile, isTablet, isDesktop } = useWindowSize();
+  const { isMobile } = useWindowSize();
   const [showModal, setShowModal] = useState(false);
 
   const mutation = useMutation({
@@ -31,33 +31,33 @@ export default function CardList({ userTextContents, supabase }: ICardList) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 xl:gap-x-2 justify-items-center">
-      {userTextContents &&
+      {projects &&
         // @ts-ignore
-        userTextContents.map((content: any, index: number) => (
+        projects.map((project: any, index: number) => (
           <div
             key={index}
             className="flex flex-col my-2 rounded-lg border w-52 h-72 md:w-60 lg:w-52 xl:w-60 p-6 sm:p-8 hover:border-blue-500 bg-off-white space-y-4"
             onClick={(e) => {
-              router.push(`/learn/${content.id}`);
+              router.push(`/projects/${project.project_uuid}`);
             }}
           >
-            {content.title && (
+            {project.title && (
               <h1 className="text-sky-500 text-xl font-bold font-sans overflow-ellipsis overflow-hidden whitespace-nowrap">
-                {content.title}
+                {project.title}
               </h1>
             )}
 
-            {content.created_at && (
+            {project.created_at && (
               <h2 className="text-gray-500 font-medium text-sm mb-3">
-                {formatDate(content.created_at)}
+                {formatDate(project.created_at)}
               </h2>
             )}
 
             <div className="h-20 overflow-hidden mb-3">
               <p className="text-base leading-relaxed">
                 {isMobile
-                  ? content.content.split(" ").slice(0, 14).join(" ")
-                  : content.content.split(" ").slice(0, 50).join(" ")}
+                  ? project.content.split(" ").slice(0, 14).join(" ")
+                  : project.content.split(" ").slice(0, 50).join(" ")}
               </p>
             </div>
 
