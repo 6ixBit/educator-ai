@@ -27,6 +27,20 @@ export default function Page({
 
       <div className="grid grid-col-1 sm:grid-cols-2 px-8 mt-8">
         <Overview title={project?.title} date={project?.created_at} />
+
+        <div className="md:pl-20 mt-16 md:mt-52">
+          <h1 className="text-slate-500 pb-2 text-lg font-bold">
+            RIver so way eh
+          </h1>
+
+          <div className="bg-white rounded-lg p-4">
+            <h2 className="text-black">
+              On review of your report card and consideration of your grade, I
+              believe you are in a pretty good position to take an exam on this
+              topic.
+            </h2>
+          </div>
+        </div>
       </div>
 
       <LoginModal

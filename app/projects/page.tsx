@@ -8,7 +8,7 @@ import GradeCircle from "@/components/grade-circle";
 import Image from "next/image";
 import Link from "next/link";
 import { Modal as LoginModal } from "@/components/Modal";
-import SearchHeader from "../learn/components/SearchHeader";
+import SearchHeader from "@/components/SearchHeader";
 import Skeleton from "@mui/material/Skeleton";
 import { Table } from "@radix-ui/themes";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
