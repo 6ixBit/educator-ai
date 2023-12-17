@@ -10,11 +10,11 @@
         "create.error.valuemissing.title": "Please enter a title",
         "create.error.valuemissing.content": "Please enter some content...",
         "create.title.placeholder": "The influence of AI",
-        "create.body.text": "What you want to learn",
+        "create.body.text": "Content",
         "create.body.placeholder": "How did the Roman Empire become so dominant?",
         "create.level.text": "Level",
         "create.level.label": "Scale of study content",
-        "create.charcount": "{characters} / 20,000 characters",
+        "create.wordcount": "{characters} / 20,000 words",
 
         "hamburger.signout.text": "Sign out",
         "hamburger.login.text": "Login",
@@ -69,7 +69,7 @@
         "create.body.placeholder": "How did the Roman Empire become so dominant?",
         "create.level.text": "Level",
         "create.level.label": "Scale of study content",
-        "create.charcount": "{characters} / 20,000 characters",
+        "create.wordcount": "{characters} / 20,000 words",
 
         "hamburger.signout.text": "Sign out",
         "hamburger.login.text": "Login",
@@ -122,7 +122,7 @@
         "create.body.placeholder": "Comment l'Empire romain est-il devenu si dominant?",
         "create.level.text": "Niveau",
         "create.level.label": "Échelle du contenu d'étude",
-        "create.charcount": "{characters} / 20,000 caractères",
+        "create.wordcount": "{characters} / 20,000 mots",
 
         "hamburger.signout.text": "Se déconnecter",
         "hamburger.login.text": "Se connecter",
@@ -175,7 +175,7 @@
         "create.body.placeholder": "¿Cómo llegó el Imperio Romano a ser tan dominante?",
         "create.level.text": "Nivel",
         "create.level.label": "Escala del contenido de estudio",
-        "create.charcount": "{characters} / 20,000 caracteres",
+        "create.wordcount": "{characters} / 20,000 palabras",
 
         "hamburger.signout.text": "Cerrar sesión",
         "hamburger.login.text": "Iniciar sesión",

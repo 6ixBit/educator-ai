@@ -4,6 +4,7 @@ import ArrowLogo from "@/components/ArrowLogo";
 import CollapsableSection from "@/components/CollapsableSection";
 import DashboardButton from "@/components/DashboardButton";
 import HamburgerMenu from "@/components/HamburgerMenu";
+import Image from "next/image";
 import Link from "next/link";
 import LogoutButton from "@/components/LogoutButton";
 import Navigation from "@/components/Navigation";
@@ -23,15 +24,16 @@ export default function Index() {
     queryFn: () => fetchUser(supabase),
   });
 
-  const loggedIn = user ? "/learn" : "/login";
+  const loggedIn = user ? "/projects" : "/login";
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center bg-black">
       <Navigation>
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm text-foreground">
-          <div className="text-white text-lg font-bold">
-            {/* <DashboardButton /> */}
-            Pro Tutor AI
+          <div className="text-white text-lg font-bold flex flex-row items-center gap-3">
+            {" "}
+            <Image src="/logo.png" width={40} height={40} alt="ai logo" />
+            <p>Pro Tutor AI</p>
           </div>
 
           <div className="flex items-center gap-4">
@@ -40,7 +42,7 @@ export default function Index() {
             {!user && (
               <Link
                 href="/login"
-                className="py-1 px-3 rounded-md no-underline hover:bg-btn-background-hover bg-cyan-400 font-semibold"
+                className="py-1 px-3 rounded-md no-underline hover:bg-btn-background-hover bg-cyan-500 font-semibold"
               >
                 Login
               </Link>

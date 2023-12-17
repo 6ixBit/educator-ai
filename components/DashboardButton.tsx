@@ -6,7 +6,7 @@ export default function DashboardButton() {
   return (
     <Link
       className="py-2 px-3 flex rounded-md no-underline text-white bg-black transition-colors hover:bg-gray-700 border"
-      href="/learn"
+      href="/projects"
     >
       <svg
         aria-label="Vercel logomark"

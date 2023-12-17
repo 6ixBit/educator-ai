@@ -92,7 +92,7 @@ export default function Page() {
           </CardTitle>
 
           <button
-            onClick={() => router.push("/create")}
+            onClick={() => router.push("/projects/create")}
             className="bg-cyan-500 font-bold transform transition-transform duration-200 hover:scale-110 shadow-md shadow-cyan-500/50 w-28 text-white rounded-full h-[35px] flex items-center justify-center"
           >
             {intl.formatMessage({ id: "button.add.project" })}

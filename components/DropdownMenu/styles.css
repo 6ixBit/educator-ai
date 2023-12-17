@@ -23,7 +23,7 @@ button {
   gap: 5px;
   background-color: white;
   color: var(--violet-11);
-  box-shadow: 0 2px 10px var(--black-a7);
+  border: 2px solid rgba(0, 0, 0, 0.1); /* light black border */
 }
 .SelectTrigger:hover {
   background-color: var(--mauve-3);

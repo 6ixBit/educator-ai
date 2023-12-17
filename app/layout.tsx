@@ -2,13 +2,15 @@
 "use client";
 
 import "./globals.css";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { IntlProvider } from "react-intl";
-import messages from "../messages.json";
-import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
-import useStore from "./store";
+
+import { QueryClient, QueryClientProvider } from "react-query";
+
 import { HomeLayout } from "@/components/home-layout";
+import { IntlProvider } from "react-intl";
+import { Theme } from "@radix-ui/themes";
+import messages from "../messages.json";
+import useStore from "./store";
 
 // export const metadata = {
 //   title: "Educator AI",
@@ -37,8 +39,13 @@ export default function RootLayout({
       <body>
         <IntlProvider key={locale} messages={messages[locale]} locale={locale}>
           <QueryClientProvider client={queryClient}>
-            <Theme>
-              <HomeLayout>{children}</HomeLayout>
+            <Theme
+              appearance="light"
+              accentColor="blue"
+              panelBackground="solid"
+              radius="large"
+            >
+              {children}
             </Theme>
           </QueryClientProvider>
         </IntlProvider>

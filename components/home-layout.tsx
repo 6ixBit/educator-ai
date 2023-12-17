@@ -10,10 +10,12 @@ import Link from "next/link";
 import { useIntl } from "react-intl";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useUserAuth } from "@/hooks/useUserAuth";
 import useWindowSize from "@/hooks/useWindowSize";
 
 export function HomeLayout({ children }: { children: React.ReactNode }) {
   const { isMobile, isTablet } = useWindowSize();
+  const { userEmail } = useUserAuth();
   const path = usePathname();
   const [showChangeLangModal, setShowChangeLangModal] = useState(false);
   const intl = useIntl();
@@ -98,7 +100,7 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
             />
           </Avatar>
 
-          {!isTablet && <span className="text-gray-600">hcar@yahoo.co</span>}
+          {!isTablet && <span className="text-gray-600">{userEmail}</span>}
         </div>
       </div>
 

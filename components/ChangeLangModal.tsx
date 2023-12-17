@@ -22,7 +22,7 @@ export default function ({ showModal, setShowModal }: IChangeLangModal) {
       onOpenChange={setShowModal}
       title="Change System Language"
       description={
-        <div className="pt-3 pl-3">
+        <div className="pt-3 pl-3 text-center">
           <Select.Root
             // @ts-ignore
             defaultValue={state.getLanguage()}
