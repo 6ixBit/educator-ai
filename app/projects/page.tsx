@@ -11,17 +11,19 @@ import { Modal as LoginModal } from "@/components/Modal";
 import SearchHeader from "@/components/SearchHeader";
 import Skeleton from "@mui/material/Skeleton";
 import { Table } from "@radix-ui/themes";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useIntl } from "react-intl";
 import { useProject } from "./hooks";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import useStore from "../store";
 import { useUserAuth } from "@/hooks/useUserAuth";
 
 export default function Page() {
   const intl = useIntl();
   const router = useRouter();
-  const supabase = createClientComponentClient();
+  // @ts-ignore
+  const supabase = useStore((state) => state?.supabase);
+
   const { userID, showLoginModal, setShowLoginModal } = useUserAuth();
   const { projects, isProjectLoading, projectLoadError } = useProject({
     userID,

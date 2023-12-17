@@ -15,7 +15,7 @@ export const fetchProjects = async (supabase: SupabaseClient, id: string) => {
 };
 
 export const addProjectToDB = async (
-  supabase: any,
+  supabase: SupabaseClient,
   content: string,
   title: string,
   user_id: string

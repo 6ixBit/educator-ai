@@ -37,7 +37,9 @@ export default function Page() {
     const formValues = event.target as any;
     const title = formValues[0].value;
     const body = formValues[3].value;
-    const project = await addProjectToDB(supabase, body, title, userID);
+    const project = (await addProjectToDB(supabase, body, title, userID)) || [
+      {},
+    ];
 
     // TODO: ASync send data to LLM.
 
