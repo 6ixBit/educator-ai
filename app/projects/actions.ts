@@ -13,3 +13,23 @@ export const fetchProjects = async (supabase: SupabaseClient, id: string) => {
 
   return error;
 };
+
+export const addProjectToDB = async (
+  supabase: any,
+  content: string,
+  title: string,
+  user_id: string
+) => {
+  try {
+    const { data, error } = await supabase
+      .from("projects")
+      .insert([{ content, user_id, title }])
+      .select();
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Error Adding Project: ", error);
+  }
+};

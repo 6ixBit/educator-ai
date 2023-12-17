@@ -2,19 +2,26 @@
 
 import * as Form from "@radix-ui/react-form";
 
-import { Button, Tooltip } from "@radix-ui/themes";
-
 import { DropDownMenu } from "@/components/DropdownMenu";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
+import { Tooltip } from "@radix-ui/themes";
+import { addProjectToDB } from "../actions";
 import { useIntl } from "react-intl";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import useStore from "@/app/store";
 import { useUserAuth } from "@/hooks/useUserAuth";
 
 export default function Page() {
   const intl = useIntl();
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const { userID } = useUserAuth();
   const [level, setLevel] = useState("highSchool");
   const [textAreaWordCount, setTextAreaWordCount] = useState(0);
+
+  // @ts-ignore
+  const supabase = useStore((state) => state?.supabase);
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const words = event.target.value
@@ -23,8 +30,19 @@ export default function Page() {
     setTextAreaWordCount(words.length);
   };
 
-  const handleSubmit = () => {
-    return {};
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
+    event.preventDefault();
+
+    const formValues = event.target as any;
+    const title = formValues[0].value;
+    const body = formValues[3].value;
+    const project = await addProjectToDB(supabase, body, title, userID);
+
+    // TODO: ASync send data to LLM.
+
+    setLoading(false);
+    router.push(`/projects/${project[0].project_uuid}`);
   };
 
   return (
