@@ -24,8 +24,6 @@ export default function Page({
     }
   }
 
-  console.log("proj: ", project);
-
   return (
     <>
       {!isUserAuthorized && <div>You are not allowed to see this.</div>}

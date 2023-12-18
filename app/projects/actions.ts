@@ -1,5 +1,14 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 
+const baseUrl = "http://localhost:8080";
+const ExternalAPI = {
+  generateQuiz: `${baseUrl}/api/quiz`,
+  gradeCaseStudy: `${baseUrl}/api/casestudy/grade`,
+  generateStudyCards: `${baseUrl}/api/studycards`,
+  createCaseStudy: `${baseUrl}/api/casestudy/create`,
+  getKeyPoints: `${baseUrl}/api/keypoints`,
+};
+
 export const fetchProjects = async (supabase: SupabaseClient, id: string) => {
   const { data, error } = await supabase
     .from("projects")
@@ -31,5 +40,31 @@ export const addProjectToDB = async (
     return data;
   } catch (error) {
     console.error("Error Adding Project: ", error);
+  }
+};
+
+export const generateQuiz = async (
+  quiz_context: string,
+  education_level: string
+) => {
+  const endpoint = ExternalAPI?.generateQuiz;
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        quiz_context: quiz_context,
+        education_level: education_level,
+      }),
+    });
+
+    const data = await response.json();
+
+    return { status: "success", data };
+  } catch (error) {
+    return { status: "failure", info: "Failed to generate quiz." };
   }
 };

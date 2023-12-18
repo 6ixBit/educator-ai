@@ -2,10 +2,11 @@
 
 import * as Form from "@radix-ui/react-form";
 
+import { addProjectToDB, generateQuiz } from "../actions";
+
 import { DropDownMenu } from "@/components/DropdownMenu";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { Tooltip } from "@radix-ui/themes";
-import { addProjectToDB } from "../actions";
 import { useIntl } from "react-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -41,11 +42,7 @@ export default function Page() {
       {},
     ];
 
-    // TODO: ASync send data to LLM.
-
-    // TODO: Host all routes to API in store. so that we can easily change LLM endpoint?
-    // tODO: At the very miinmum we do not have to wait for these calls to finish.
-    // TODO: On [id] page we can handle loads.
+    const quiz = generateQuiz(body, level);
 
     setLoading(false);
     router.push(`/projects/${project[0].project_uuid}`);
