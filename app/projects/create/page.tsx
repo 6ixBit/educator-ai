@@ -2,7 +2,7 @@
 
 import * as Form from "@radix-ui/react-form";
 
-import { addProjectToDB, generateQuiz } from "../actions";
+import { addProjectToDB, generateQuiz, generateStudyCards } from "../actions";
 
 import { DropDownMenu } from "@/components/DropdownMenu";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
@@ -42,10 +42,13 @@ export default function Page() {
       {},
     ];
 
-    const quiz = generateQuiz(body, level);
+    const quiz = await generateQuiz(body, level);
+    const studyCards = await generateStudyCards(body, level);
+
+    console.log(quiz, studyCards);
 
     setLoading(false);
-    router.push(`/projects/${project[0].project_uuid}`);
+    // router.push(`/projects/${project[0].project_uuid}`);
   };
 
   return (

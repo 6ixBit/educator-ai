@@ -68,3 +68,29 @@ export const generateQuiz = async (
     return { status: "failure", info: "Failed to generate quiz." };
   }
 };
+
+export const generateStudyCards = async (
+  context: string,
+  education_level: string
+) => {
+  const endpoint = ExternalAPI.generateStudyCards;
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        context: context,
+        education_level: education_level,
+      }),
+    });
+
+    const data = await response.json();
+
+    return { status: "success", data };
+  } catch (error) {
+    return { status: "failure", info: "Failed to generate quiz." };
+  }
+};
