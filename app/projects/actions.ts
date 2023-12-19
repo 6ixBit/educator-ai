@@ -5,7 +5,7 @@ const ExternalAPI = {
   generateQuiz: `${baseUrl}/api/quiz`,
   gradeCaseStudy: `${baseUrl}/api/casestudy/grade`,
   generateStudyCards: `${baseUrl}/api/studycards`,
-  createCaseStudy: `${baseUrl}/api/casestudy/create`,
+  generateCaseStudy: `${baseUrl}/api/casestudy`,
   getKeyPoints: `${baseUrl}/api/keypoints`,
 };
 
@@ -43,6 +43,28 @@ export const addProjectToDB = async (
   }
 };
 
+export const addQuizToDB = async (
+  supabase: SupabaseClient,
+  questions: any,
+  project_id: string,
+  user_id: string
+) => {
+  try {
+    const { data, error } = await supabase
+      .from("quiz")
+      .insert([{ questions, user_id , project_id}])
+      .select();
+
+    if (error) return { status: "failure", info: error };
+
+    return data;
+  } catch (error) {
+    console.error("Error adding quiz to DB. ", error);
+    return error
+  }
+};
+
+
 export const generateQuiz = async (
   quiz_context: string,
   education_level: string
@@ -65,7 +87,7 @@ export const generateQuiz = async (
 
     return { status: "success", data };
   } catch (error) {
-    return { status: "failure", info: "Failed to generate quiz." };
+    return { status: "failure", info: "Failed to generate quiz.", error };
   }
 };
 
@@ -91,6 +113,36 @@ export const generateStudyCards = async (
 
     return { status: "success", data };
   } catch (error) {
-    return { status: "failure", info: "Failed to generate quiz." };
+    return { status: "failure", info: "Failed to generate quiz.", error };
+  }
+};
+
+export const generateCaseStudy = async (
+  context: string,
+  education_level: string
+) => {
+  const endpoint = ExternalAPI.generateCaseStudy;
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        context: context,
+        education_level: education_level,
+      }),
+    });
+
+    const data = await response.json();
+
+    return { status: "success", data };
+  } catch (error) {
+    return {
+      status: "failure",
+      info: "Failed to generate quiz.",
+      error: error,
+    };
   }
 };

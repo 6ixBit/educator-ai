@@ -2,11 +2,17 @@
 
 import * as Form from "@radix-ui/react-form";
 
-import { addProjectToDB, generateQuiz, generateStudyCards } from "../actions";
+import {
+  addProjectToDB,
+  generateCaseStudy,
+  generateQuiz,
+  generateStudyCards,
+} from "../actions";
 
 import { DropDownMenu } from "@/components/DropdownMenu";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { Tooltip } from "@radix-ui/themes";
+import { addQuizToDB } from "../actions";
 import { useIntl } from "react-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -43,9 +49,19 @@ export default function Page() {
     ];
 
     const quiz = await generateQuiz(body, level);
-    const studyCards = await generateStudyCards(body, level);
+    // const studyCards = await generateStudyCards(body, level);
+    // const caseStudy = await generateCaseStudy(body, level);
 
-    console.log(quiz, studyCards);
+    // TODO: Add quiz, case study, and studycards, using UserID
+    const error = await addQuizToDB(
+      supabase,
+      // @ts-ignore
+      quiz?.data.quiz,
+      project[0].id,
+      userID
+    );
+
+    console.log("proj: ", project[0]);
 
     setLoading(false);
     // router.push(`/projects/${project[0].project_uuid}`);
