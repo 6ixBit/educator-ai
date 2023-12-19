@@ -3,6 +3,7 @@
 import * as Form from "@radix-ui/react-form";
 
 import {
+  addDeckToDB,
   addProjectToDB,
   addStudyCardsToDB,
   generateCaseStudy,
@@ -50,19 +51,21 @@ export default function Page() {
     ];
 
     // TODO: Abstraction possibly?
-    const quiz = await generateQuiz(body, level);
-    const err_quiz = addQuizToDB(
-      supabase,
-      quiz?.data.quiz,
-      project[0].id,
-      userID
-    );
+    // const quiz = await generateQuiz(body, level);
+    // const err_quiz = addQuizToDB(
+    //   supabase,
+    //   quiz?.data.quiz,
+    //   project[0].id,
+    //   userID
+    // );
 
     const studyCards = await generateStudyCards(body, level);
+    const deck = await addDeckToDB(supabase, studyCards.deck.deck_name);
     const err_studycards = await addStudyCardsToDB(
       supabase,
       userID,
-      studyCards
+      studyCards,
+      deck && deck[0].id
     );
 
     // const caseStudy = await generateCaseStudy(body, level);

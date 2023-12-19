@@ -5,7 +5,6 @@ interface Card {
   back: string;
 }
 
-
 const baseUrl = "http://localhost:8080";
 const ExternalAPI = {
   generateQuiz: `${baseUrl}/api/quiz`,
@@ -98,6 +97,21 @@ export const addStudyCardsToDB = async (
   }
 };
 
+export const addDeckToDB = async (  supabase: SupabaseClient, name: string) => {
+  try {
+    const { data, error } = await supabase
+      .from("decks")
+      .insert([{ name }])
+      .select();
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Error Adding Deck: ", error);
+  }
+}
+
 
 export const generateQuiz = async (
   quiz_context: string,
@@ -147,7 +161,7 @@ export const generateStudyCards = async (
     const cards = data.study_cards
 
     // @ts-ignore
-    return { status: "success", cards };
+    return { status: "success", cards, "deck": data.deck_name };
   } catch (error) {
     return { status: "failure", info: "Failed to generate quiz.", error };
   }
