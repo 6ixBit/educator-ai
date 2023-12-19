@@ -1,5 +1,11 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 
+interface Card {
+  front: string;
+  back: string;
+}
+
+
 const baseUrl = "http://localhost:8080";
 const ExternalAPI = {
   generateQuiz: `${baseUrl}/api/quiz`,
@@ -64,6 +70,34 @@ export const addQuizToDB = async (
   }
 };
 
+export const addStudyCardsToDB = async (
+  supabase: SupabaseClient,
+  user_id: string, 
+  studyCards: any,
+  deck_id?: string,
+) => {
+  try {
+    const cards = studyCards.cards.cards.map((card: Card) => ({
+      user_id,
+      deck_id,
+      front: card.front,
+      back: card.back
+    }));
+
+    const { data, error } = await supabase
+      .from("studycards")
+      .insert(cards)
+      .select();
+
+    if (error) return { status: "failure", info: error };
+
+    return data;
+  } catch (error) {
+    console.error("Error adding quiz to DB. ", error);
+    return error
+  }
+};
+
 
 export const generateQuiz = async (
   quiz_context: string,
@@ -110,8 +144,10 @@ export const generateStudyCards = async (
     });
 
     const data = await response.json();
+    const cards = data.study_cards
 
-    return { status: "success", data };
+    // @ts-ignore
+    return { status: "success", cards };
   } catch (error) {
     return { status: "failure", info: "Failed to generate quiz.", error };
   }

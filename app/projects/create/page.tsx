@@ -4,6 +4,7 @@ import * as Form from "@radix-ui/react-form";
 
 import {
   addProjectToDB,
+  addStudyCardsToDB,
   generateCaseStudy,
   generateQuiz,
   generateStudyCards,
@@ -48,20 +49,23 @@ export default function Page() {
       {},
     ];
 
+    // TODO: Abstraction possibly?
     const quiz = await generateQuiz(body, level);
-    // const studyCards = await generateStudyCards(body, level);
-    // const caseStudy = await generateCaseStudy(body, level);
-
-    // TODO: Add quiz, case study, and studycards, using UserID
-    const error = await addQuizToDB(
+    const err_quiz = addQuizToDB(
       supabase,
-      // @ts-ignore
       quiz?.data.quiz,
       project[0].id,
       userID
     );
 
-    console.log("proj: ", project[0]);
+    const studyCards = await generateStudyCards(body, level);
+    const err_studycards = await addStudyCardsToDB(
+      supabase,
+      userID,
+      studyCards
+    );
+
+    // const caseStudy = await generateCaseStudy(body, level);
 
     setLoading(false);
     // router.push(`/projects/${project[0].project_uuid}`);
