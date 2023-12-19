@@ -88,7 +88,7 @@ export const addStudyCardsToDB = async (
       .insert(cards)
       .select();
 
-    if (error) return { status: "failure", info: error };
+    if (error) return { status: "Failure", info: error };
 
     return data;
   } catch (error) {
@@ -186,8 +186,9 @@ export const generateCaseStudy = async (
     });
 
     const data = await response.json();
+    const question = data.case_study.question
 
-    return { status: "success", data };
+    return { status: "success", question };
   } catch (error) {
     return {
       status: "failure",
@@ -196,3 +197,20 @@ export const generateCaseStudy = async (
     };
   }
 };
+
+
+export const addCaseStudyToDB = async (  supabase: SupabaseClient, project_id: string, question: string) => {
+  try {
+    const { data, error } = await supabase
+      .from("casestudy")
+      .insert([{ project_id, question }])
+      .select();
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Error Adding Case Study: ", error);
+  }
+}
+
