@@ -6,7 +6,7 @@ interface IuseDecks {
   supabase: any;
 }
 
-export const useDecks = ({ userID, supabase }: IuseDecks) => {
+export const useDecks = ({ supabase, userID}: IuseDecks) => {
   const {
     isLoading: isDecksLoading,
     error: decksLoadError,
