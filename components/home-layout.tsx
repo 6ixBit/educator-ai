@@ -61,13 +61,10 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
                 </span>
               )}
             </Link>
-            <Link
-              className={isActive("/study-cards").border}
-              href="/study-cards"
-            >
+            <Link className={isActive("/studycards").border} href="/studycards">
               <PieChartIcon className="w-4 h-4" />
               {!isTablet && (
-                <span className={isActive("/study-cards").text}>
+                <span className={isActive("/studycards").text}>
                   {intl.formatMessage({ id: "navmenu.studycards" })}
                 </span>
               )}
