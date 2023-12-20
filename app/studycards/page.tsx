@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import SearchHeader from "@/components/SearchHeader";
 import { fetchDecks } from "./actions";
+import { useDecks } from "./hooks";
 import { useIntl } from "react-intl";
 import { useState } from "react";
 import useStore from "../store";
@@ -17,7 +18,8 @@ export default function Page() {
 
   const supabase = useStore((state) => state?.supabase);
 
-  const decks = fetchDecks(supabase, userID);
+  const decks = useDecks(supabase, userID);
+  console.log("decks: ", decks);
 
   const handleSearch = (value: string) => {
     setSearchTerm(value);
