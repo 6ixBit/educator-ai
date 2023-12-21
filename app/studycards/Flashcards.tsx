@@ -29,13 +29,9 @@ export default function FlashCards({ options }: IFlashCards) {
 
   return (
     <div className="mt-4 w-full">
-      <p className="text-slate-400 mb-6">
-        Practise these regularly to build your understanding.
-      </p>
-
       <div className="flex flex-row items-baseline justify-center">
         <div className="flex flex-row gap-1">
-          <h2 className="text-white text-md mb-3 font-normal">
+          <h2 className="text-black text-md mb-3 font-normal">
             {currentOption + 1} /
           </h2>
 
@@ -43,7 +39,6 @@ export default function FlashCards({ options }: IFlashCards) {
             {options.length}
           </h2>
         </div>
-        p
       </div>
 
       <div className=" mx-auto">

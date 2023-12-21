@@ -13,29 +13,31 @@ export default function Page({
   params: { id: string };
 }) {
   const [studyCards, setStudyCards] = useState([]);
-  const [deckID, setDeckID] = useState("");
+  const [deckData, setDeckData] = useState({});
   const supabase = useStore((state) => state?.supabase);
 
   useEffect(() => {
     const response = getDeckIDFromUUID(supabase, deckUUID);
     response.then((result) => {
-      setDeckID(result[0]?.id);
+      setDeckData({ ...result[0] });
     });
   }, [deckUUID, supabase]);
 
   useEffect(() => {
-    if (deckID) {
-      fetchStudyCardsFromDeck(supabase, deckID).then((result) => {
+    if (deckData) {
+      fetchStudyCardsFromDeck(supabase, deckData.id).then((result) => {
         const validStudyCards = result
           .filter((card) => card.front && card.back)
           .map(({ front, back }) => ({ front, back }));
         setStudyCards(validStudyCards);
       });
     }
-  }, [deckID, supabase]);
+  }, [deckData, supabase]);
 
   return (
     <div className="flex flex-col justify-center mt-6">
+      <h1 className="font-bold">{deckData.name}</h1>
+      {studyCards.length} cards
       <FlashCards options={studyCards} />
     </div>
   );

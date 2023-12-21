@@ -20,14 +20,13 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
   const [showChangeLangModal, setShowChangeLangModal] = useState(false);
   const intl = useIntl();
 
-  const isActive = (route: string) => {
-    if (path.startsWith(route)) {
-      const activeStyles = {
+  const isActive = (routes: string[]) => {
+    if (routes.some((route) => path.startsWith(route))) {
+      return {
         border:
           "flex items-center px-4 py-2 mt-2 text-gray-700 hover:bg-gray-300 bg-[#1DB8FA] bg-opacity-20 rounded-lg",
         text: "text-[#24BAFA] mx-4",
       };
-      return activeStyles;
     } else {
       return {
         border:
@@ -53,26 +52,29 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
           </div>
 
           <nav className="mt-8">
-            <Link className={isActive("/projects").border} href="/projects">
+            <Link className={isActive(["/projects"]).border} href="/projects">
               <HomeIcon className="w-4 h-4" />
               {!isTablet && (
-                <span className={isActive("/projects").text}>
+                <span className={isActive(["/projects"]).text}>
                   {intl.formatMessage({ id: "navmenu.projects" })}
                 </span>
               )}
             </Link>
-            <Link className={isActive("/studycards").border} href="/studycards">
+            <Link
+              className={isActive(["/studycards", "/deck"]).border}
+              href="/studycards"
+            >
               <PieChartIcon className="w-4 h-4" />
               {!isTablet && (
-                <span className={isActive("/studycards").text}>
+                <span className={isActive(["/studycards", "/deck"]).text}>
                   {intl.formatMessage({ id: "navmenu.studycards" })}
                 </span>
               )}
             </Link>
-            <Link className={isActive("/quiz").border} href="/quiz">
+            <Link className={isActive(["/quiz"]).border} href="/quiz">
               <SettingsIcon className="w-4 h-4" />
               {!isTablet && (
-                <span className={isActive("/quiz").text}>
+                <span className={isActive(["/quiz"]).text}>
                   {intl.formatMessage({ id: "navmenu.quiz" })}
                 </span>
               )}
