@@ -1,12 +1,12 @@
 import { fetchProjects } from "./actions";
 import { useQuery } from "react-query";
 
-interface IuseProject {
+interface IUseProject {
   userID: string;
   supabase: any;
 }
 
-export const useProject = ({ userID, supabase }: IuseProject) => {
+export const useProject = ({ userID, supabase }: IUseProject) => {
   const {
     isLoading: isProjectLoading,
     error: projectLoadError,

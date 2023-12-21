@@ -91,10 +91,10 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
             Change Language
           </Button>
           <Avatar className="w-8 h-8 mr-2">
-            <AvatarImage
+            {/* <AvatarImage
               alt="User avatar"
               src="/placeholder.svg?height=32&width=32"
-            />
+            /> */}
           </Avatar>
 
           {!isTablet && <span className="text-gray-600">{userEmail}</span>}

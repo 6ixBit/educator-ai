@@ -97,11 +97,11 @@ export const addStudyCardsToDB = async (
   }
 };
 
-export const addDeckToDB = async (  supabase: SupabaseClient, name: string) => {
+export const addDeckToDB = async (  supabase: SupabaseClient, name: string, user_id: string) => {
   try {
     const { data, error } = await supabase
       .from("decks")
-      .insert([{ name }])
+      .insert([{ name, user_id }])
       .select();
 
     if (error) throw error;

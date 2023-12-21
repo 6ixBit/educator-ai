@@ -1,11 +1,12 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectFlip, Pagination, Navigation } from "swiper/modules";
-import { useState } from "react";
-
 import "swiper/css";
 import "swiper/css/effect-flip";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+
+import { EffectFlip, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import { useState } from "react";
 
 interface IFlashCards {
   options: { front: string; back: string }[];
@@ -54,16 +55,20 @@ export default function FlashCards({ options }: IFlashCards) {
           effect={"flip"}
           className="mySwiper"
         >
-          <SwiperSlide className="text-white">
-            <div className="flex flex-col gap-3 border rounded justify-center text-center h-44 px-2 bg-card-blue">
-              <h2>{options[currentOption].front}</h2>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="text-white">
-            <div className="flex flex-col gap-3 border rounded justify-center text-center h-44 bg-card-orange">
-              <h2> {options[currentOption].back}</h2>
-            </div>
-          </SwiperSlide>
+          {options[currentOption] && ( // Check if options[currentOption] exists
+            <SwiperSlide className="text-white">
+              <div className="flex flex-col gap-3 border rounded justify-center text-center h-44 px-2 bg-card-blue">
+                <h2>{options[currentOption].front}</h2>
+              </div>
+            </SwiperSlide>
+          )}
+          {options[currentOption] && ( // Check if options[currentOption] exists
+            <SwiperSlide className="text-white">
+              <div className="flex flex-col gap-3 border rounded justify-center text-center h-44 bg-card-orange">
+                <h2> {options[currentOption].back}</h2>
+              </div>
+            </SwiperSlide>
+          )}
         </Swiper>
         <div className="flex flex-row justify-between mt-6">
           <button
