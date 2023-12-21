@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import SearchHeader from "@/components/SearchHeader";
+import { Skeleton } from "@mui/material";
 import { fetchStudyCardsFromDeck } from "./actions";
 import { truncate } from "@/utility";
 import { useDecks } from "./hooks";
@@ -20,7 +21,10 @@ export default function Page() {
   const supabase = useStore((state) => state?.supabase);
   const router = useRouter();
 
-  const { isDecksLoading, decks } = useDecks({ supabase, userID });
+  const { isDecksLoading, decksLoadError, decks } = useDecks({
+    supabase,
+    userID,
+  });
   const [deckDataMap, setDeckDataMap] = useState({});
 
   useEffect(() => {
@@ -63,20 +67,31 @@ export default function Page() {
         </CardHeader>
 
         <CardContent className="flex flex-wrap justify-center">
-          {Object.entries(deckDataMap).map(([deckName, deckData], index) => (
-            <div
-              key={index}
-              className="p-4 m-2 bg-white rounded-lg shadow-md w-60 h-32 flex-shrink-0 relative"
-              onClick={() => router.push(`/deck/${deckData.deck_uuid}`)}
-            >
-              <div className="font-semibold font-sans">
-                {truncate(deckName, 30)}
-              </div>
-              <div className="pt-4 absolute bottom-0 pb-4 text-gray-500">
-                <span className="font-bold">{deckData.cards.length}</span> cards
-              </div>
+          {isDecksLoading ? (
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Skeleton variant="rounded" width={200} height={150} />
+              <Skeleton variant="rounded" width={200} height={150} />
+              <Skeleton variant="rounded" width={200} height={150} />
             </div>
-          ))}
+          ) : decksLoadError ? (
+            <div>Error: Loading projects</div>
+          ) : (
+            Object.entries(deckDataMap).map(([deckName, deckData], index) => (
+              <div
+                key={index}
+                className="p-4 m-2 bg-white rounded-lg shadow-md w-60 h-32 flex-shrink-0 relative"
+                onClick={() => router.push(`/deck/${deckData.deck_uuid}`)}
+              >
+                <div className="font-semibold font-sans">
+                  {truncate(deckName, 30)}
+                </div>
+                <div className="pt-4 absolute bottom-0 pb-4 text-gray-500">
+                  <span className="font-bold">{deckData.cards.length}</span>{" "}
+                  cards
+                </div>
+              </div>
+            ))
+          )}
         </CardContent>
       </Card>
     </div>
