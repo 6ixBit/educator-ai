@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import useStore from "../store";
 import { useUserAuth } from "@/hooks/useUserAuth";
+import useWindowSize from "@/hooks/useWindowSize";
 
 export default function Page() {
   const intl = useIntl();
@@ -24,6 +25,7 @@ export default function Page() {
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
 
+  const { isMobile } = useWindowSize();
   const { userID, showLoginModal, setShowLoginModal } = useUserAuth();
   const { projects, isProjectLoading, projectLoadError } = useProject({
     userID,
@@ -78,18 +80,18 @@ export default function Page() {
       <div className="flex justify-center w-full flex-col">
         <SearchHeader handleSearch={handleSearch} />
         {Array.isArray(projects) && (
-          <div className="font-sans text-slate-300 text-center p-2 h-6 flex-row">
-            {/* <p className="text-blue-p px-1 text-center">
-              {filteredUserTextContents.length}{" "}
+          <div className="font-sans text-slate-300 text-center p-2 h-6 flex-row mb-2">
+            <p className="text-blue-p px-1 text-center">
+              <b>{filteredProjects.length}</b>{" "}
               {intl.formatMessage({ id: "home.items" })}
-            </p> */}
+            </p>
           </div>
         )}
       </div>
 
       <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md">
         <CardHeader className="flex flex-row items-baseline justify-between pb-2">
-          <CardTitle className="text-lg font-bold">
+          <CardTitle className="text-lg font-bold pb-3">
             {intl.formatMessage({ id: "title.recentactivity" })}
           </CardTitle>
 
@@ -102,7 +104,15 @@ export default function Page() {
         </CardHeader>
 
         <CardContent>
-          {!isProjectLoading && !projectLoadError && filteredProjects && (
+          {isProjectLoading ? (
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Skeleton variant="rectangular" width={240} height={288} />
+              <Skeleton variant="rectangular" width={240} height={288} />
+              <Skeleton variant="rectangular" width={240} height={288} />
+            </div>
+          ) : projectLoadError ? (
+            <div>Error: Loading projects</div>
+          ) : (
             <CardList projects={filteredProjects} supabase={supabase} />
           )}
         </CardContent>

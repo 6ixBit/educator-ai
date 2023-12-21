@@ -17,7 +17,6 @@ export const useProject = ({ userID, supabase }: IUseProject) => {
     enabled: !!userID,
     onError: (error) => {
       console.log("fetch items error: ", error);
-      //setShowLoginModal(true);
     },
   });
 
