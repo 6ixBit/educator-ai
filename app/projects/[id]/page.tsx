@@ -28,7 +28,7 @@ export default function Page({
     <>
       {!isUserAuthorized && <div>You are not allowed to see this.</div>}
 
-      <div className="grid grid-col-1 sm:grid-cols-2 px-8 mt-8">
+      <div className="grid grid-col-1 sm:grid-cols-2 px-1.5 sm:px-8 mt-8">
         <Overview
           title={project?.title}
           date={project?.created_at}

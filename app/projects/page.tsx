@@ -64,7 +64,7 @@ export default function Page() {
         description={
           <div className="flex justify-center mt-6">
             <Link href="/login">
-              <div className="border-2 border-slate-600 rounded-full px-5 py-1 w-full glow flex items-center flex-row gap-4 hover:bg-slate-200 transition-colors duration-200">
+              <div className="border-2 border-slate-600 rounded-full px-5 py-1 w-full glow flex items-center flex-row gap-4 hover:bg-slate-200 transition-colors">
                 <p className="text-black text-lg">
                   {intl.formatMessage({ id: "hamburger.login.text" })}
                 </p>
@@ -95,7 +95,7 @@ export default function Page() {
 
           <button
             onClick={() => router.push("/projects/create")}
-            className="bg-cyan-500 font-bold transform transition-transform duration-200 hover:scale-110 shadow-md shadow-cyan-500/50 w-28 text-white rounded-full h-[35px] flex items-center justify-center"
+            className="bg-cyan-500 cursor-pointer font-bold transform transition-transform hover:scale-110 shadow-md shadow-cyan-500/50 w-28 text-white rounded-full h-[35px] flex items-center justify-center"
           >
             {intl.formatMessage({ id: "button.add.project" })}
           </button>
@@ -103,7 +103,8 @@ export default function Page() {
 
         <CardContent>
           {isProjectLoading ? (
-            <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="flex flex-col gap-4 sm:flex-row justify-center">
+              <Skeleton variant="rectangular" width={240} height={288} />
               <Skeleton variant="rectangular" width={240} height={288} />
               <Skeleton variant="rectangular" width={240} height={288} />
               <Skeleton variant="rectangular" width={240} height={288} />

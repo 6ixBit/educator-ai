@@ -22,7 +22,7 @@ export default function Overview({ title, date, content, grade }: IOverview) {
           {title}
         </h1>
 
-        <div className="w-12 h-12 ml-6 mb-4 sm:mb-0 sm:pl-0 xl:ml-28 2xl:ml-60">
+        <div className="w-12 h-12 ml-36 mb-4 sm:mb-0 sm:pl-0 xl:ml-28 2xl:ml-60">
           <GradeCircle value={grade} />
         </div>
       </div>

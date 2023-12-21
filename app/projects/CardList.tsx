@@ -30,13 +30,13 @@ export default function CardList({ projects, supabase }: ICardList) {
   });
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 xl:gap-x-2 justify-items-center ">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 xl:gap-x-2 justify-items-center  ">
       {projects &&
         // @ts-ignore
         projects.map((project: any, index: number) => (
           <div
             key={index}
-            className="flex flex-col my-2 rounded-lg border w-52 h-72 md:w-60 lg:w-52 xl:w-60 p-6 sm:p-8 hover:border-blue-500 bg-off-white space-y-4"
+            className="flex cursor-pointer flex-col my-2 rounded-lg border w-52 h-72 md:w-60 lg:w-52 xl:w-60 p-6 sm:p-8 hover:border-blue-500 bg-off-white space-y-4"
             onClick={(e) => {
               router.push(`/projects/${project.project_uuid}`);
             }}

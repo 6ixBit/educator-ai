@@ -19,7 +19,7 @@ export default function SearchHeader({
     <div className="flex flex-col gap-2 items-center">
       <Form.Root>
         <Form.Field name="content">
-          <div className="rounded-full border-2 border-gray-300 w-full flex items-center">
+          <div className="rounded-full border-2 border-gray-300 bg-gray-176 bg-opacity-95 w-full flex items-center">
             <div className="relative w-72">
               <Form.Control asChild>
                 <input

@@ -18,8 +18,10 @@ export default function Page({
   const supabase = useStore((state) => state?.supabase);
 
   useEffect(() => {
+    // @ts-ignore
     const response = getDeckIDFromUUID(supabase, deckUUID);
     response.then((result) => {
+      // @ts-ignore
       setDeckData({ ...result[0] });
     });
   }, [deckUUID, supabase]);

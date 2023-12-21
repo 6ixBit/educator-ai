@@ -82,16 +82,19 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
           </nav>
         </div>
 
-        <div className="flex items-center mt-8 flex-col">
-          <Button
-            variant="outline"
-            radius="large"
-            onClick={() => {
-              setShowChangeLangModal(true);
-            }}
-          >
-            Change Language
-          </Button>
+        <div className="flex items-center mt-8 flex-col ">
+          {!isTablet && (
+            <Button
+              variant="outline"
+              radius="large"
+              onClick={() => {
+                setShowChangeLangModal(true);
+              }}
+            >
+              Change Languages
+            </Button>
+          )}
+
           <Avatar className="w-8 h-8 mr-2">
             {/* <AvatarImage
               alt="User avatar"

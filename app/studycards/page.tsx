@@ -43,21 +43,21 @@ export default function Page() {
     }
   }, [decks]);
 
-  //   const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("");
 
-  //   const handleSearch = (value: string) => {
-  //     setSearchTerm(value);
-  //   };
+  const handleSearch = (value: string) => {
+    setSearchTerm(value);
+  };
 
-  //   const filteredDecks = Array.isArray(Decks)
-  //     ? Object.entries(Decks).filter(([deckName]) =>
-  //         deckName.toLowerCase().includes(searchTerm.toLowerCase())
-  //       )
-  //     : [];
+  const filteredDecks = Array.isArray(decks)
+    ? decks.filter((deck) =>
+        deck.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   return (
     <div className="flex flex-col justify-center mt-6">
-      {/* <SearchHeader handleSearch={handleSearch} /> */}
+      <SearchHeader handleSearch={handleSearch} />
 
       <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md mt-10">
         <CardHeader className="flex flex-row items-baseline justify-between pb-2">
@@ -67,33 +67,37 @@ export default function Page() {
         </CardHeader>
 
         <CardContent className="flex flex-wrap justify-center">
-          {isDecksLoading ? (
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Skeleton variant="rounded" width={200} height={150} />
-              <Skeleton variant="rounded" width={200} height={150} />
-              <Skeleton variant="rounded" width={200} height={150} />
-            </div>
-          ) : decksLoadError ? (
-            <div>Error: Loading projects</div>
-          ) : (
-            Object.entries(deckDataMap).map(([deckName, deckData], index) => (
-              <div
-                key={index}
-                className="p-4 m-2 bg-white rounded-lg shadow-md w-60 h-32 flex-shrink-0 relative"
-                onClick={() => router.push(`/deck/${deckData.deck_uuid}`)}
-              >
-                <div className="font-semibold font-sans">
-                  {truncate(deckName, 30)}
-                </div>
-                <div className="pt-4 absolute bottom-0 pb-4 text-gray-500">
-                  <span className="font-bold">{deckData.cards.length}</span>{" "}
-                  cards
-                </div>
+          {filteredDecks.map((deck, index) => (
+            <div
+              key={index}
+              className="p-4 m-2 bg-white rounded-lg shadow-md w-60 h-32 flex-shrink-0 relative border cursor-pointer border-gray-300  hover:border-blue-600"
+              onClick={() => router.push(`/deck/${deck.deck_uuid}`)}
+              style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}
+            >
+              <div className="font-semibold font-sans">
+                {truncate(deck.name, 30)}
               </div>
-            ))
-          )}
+            </div>
+          ))}
         </CardContent>
       </Card>
     </div>
   );
 }
+
+// Object.entries(deckDataMap).map(([deckName, deckData], index) => (
+//     <div
+//       key={index}
+//       className="p-4 m-2 bg-white rounded-lg shadow-md w-60 h-32 flex-shrink-0 relative border cursor-pointer border-gray-300  hover:border-blue-600"
+//       onClick={() => router.push(`/deck/${deckData.deck_uuid}`)}
+//       style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}
+//     >
+//       <div className="font-semibold font-sans">
+//         {truncate(deckName, 30)}
+//       </div>
+//       <div className="pt-4 absolute bottom-0 pb-4 text-gray-500">
+//         <span className="font-bold">{deckData.cards.length}</span>{" "}
+//         cards
+//       </div>
+//     </div>
+//   ))
