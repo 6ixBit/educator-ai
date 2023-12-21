@@ -25,17 +25,19 @@ export default function Page({
 
   useEffect(() => {
     if (deckData) {
-      fetchStudyCardsFromDeck(supabase, deckData.id).then((result) => {
-        const validStudyCards = result
-          .filter((card) => card.front && card.back)
-          .map(({ front, back }) => ({ front, back }));
+      fetchStudyCardsFromDeck(supabase, deckData.id).then((res) => {
+        const validStudyCards =
+          Array.isArray(res) &&
+          res
+            .filter((card) => card.front && card.back)
+            .map(({ front, back }) => ({ front, back }));
         setStudyCards(validStudyCards);
       });
     }
   }, [deckData, supabase]);
 
   return (
-    <div className="flex flex-col justify-center mt-6">
+    <div className="flex flex-col justify-center mt-16">
       <h1 className="font-bold">{deckData.name}</h1>
       {studyCards.length} cards
       <FlashCards options={studyCards} />
