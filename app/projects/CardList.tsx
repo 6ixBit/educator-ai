@@ -30,7 +30,7 @@ export default function CardList({ projects, supabase }: ICardList) {
   });
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 xl:gap-x-2 justify-items-center">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 xl:gap-x-2 justify-items-center ">
       {projects &&
         // @ts-ignore
         projects.map((project: any, index: number) => (

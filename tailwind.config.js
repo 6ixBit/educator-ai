@@ -9,7 +9,10 @@ module.exports = {
   },
   theme: {
     extend: {
-
+      maxHeight: {
+        '120': '35rem',
+        '160': '44.6rem',
+      },
       animation: {
         // Fade up and down
         "fade-up": "fade-up 0.5s",
