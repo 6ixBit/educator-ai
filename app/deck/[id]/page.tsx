@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { Button } from "@radix-ui/themes";
 import FlashCards from "@/app/studycards/Flashcards";
 import { fetchStudyCardsFromDeck } from "@/app/studycards/actions";
 import { getDeckIDFromUUID } from "../actions";
@@ -38,9 +39,14 @@ export default function Page({
 
   return (
     <div className="flex flex-col justify-center mt-16">
-      <h1 className="font-bold">{deckData.name}</h1>
-      {studyCards.length} cards
-      <FlashCards options={studyCards} />
+      <div className="w-8/12 pl-20">
+        <div className="flex justify-between">
+          <h1 className="font-bold">{deckData.name}</h1>
+          <Button variant="outline">Practise deck</Button>
+        </div>
+        {studyCards.length} cards
+        <FlashCards options={studyCards} />
+      </div>
     </div>
   );
 }

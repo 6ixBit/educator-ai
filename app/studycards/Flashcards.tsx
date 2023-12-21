@@ -52,14 +52,14 @@ export default function FlashCards({ options }: IFlashCards) {
         >
           {options[currentOption] && ( // Check if options[currentOption] exists
             <SwiperSlide className="text-white">
-              <div className="flex flex-col gap-3 border rounded justify-center text-center h-44 px-2 bg-card-blue">
+              <div className="flex flex-col gap-3 border rounded justify-center text-center h-44 p-10 bg-card-blue">
                 <h2>{options[currentOption].front}</h2>
               </div>
             </SwiperSlide>
           )}
           {options[currentOption] && ( // Check if options[currentOption] exists
             <SwiperSlide className="text-white">
-              <div className="flex flex-col gap-3 border rounded justify-center text-center h-44 bg-card-orange">
+              <div className="flex flex-col gap-3 border rounded justify-center text-center h-44 p-10 bg-card-orange">
                 <h2> {options[currentOption].back}</h2>
               </div>
             </SwiperSlide>
