@@ -62,7 +62,7 @@ export default function Page() {
           </CardTitle>
         </CardHeader>
 
-        <CardContent className="flex flex-wrap">
+        <CardContent className="flex flex-wrap justify-center">
           {Object.entries(deckDataMap).map(([deckName, deckData], index) => (
             <div
               key={index}
