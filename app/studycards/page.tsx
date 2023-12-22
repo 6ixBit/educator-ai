@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+import LoginModal from "@/components/LoginModal";
 import SearchHeader from "@/components/SearchHeader";
 import { Skeleton } from "@mui/material";
 import { fetchStudyCardsFromDeck } from "./actions";
@@ -16,7 +17,7 @@ import { useUserAuth } from "@/hooks/useUserAuth";
 
 export default function Page() {
   const intl = useIntl();
-  const { userID } = useUserAuth();
+  const { userID, showLoginModal, setShowLoginModal } = useUserAuth();
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
   const router = useRouter();
@@ -25,7 +26,9 @@ export default function Page() {
     supabase,
     userID,
   });
-  const [deckDataMap, setDeckDataMap] = useState({});
+  const [deckDataMap, setDeckDataMap] = useState<{
+    [key: string]: { cards: [{}]; deck_name: string };
+  }>({});
 
   useEffect(() => {
     if (Array.isArray(decks)) {
@@ -44,7 +47,7 @@ export default function Page() {
   }, [decks]);
 
   const getDeckCount = (deck_uuid: string) => {
-    return deckDataMap[deck_uuid].cards.length;
+    return deckDataMap[deck_uuid]?.cards?.length || 0;
   };
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -61,6 +64,11 @@ export default function Page() {
 
   return (
     <div className="flex flex-col justify-center mt-6">
+      <LoginModal
+        showLoginModal={showLoginModal}
+        setShowLoginModal={setShowLoginModal}
+      />
+
       <div className=" w-full flex-col">
         <SearchHeader handleSearch={handleSearch} />
         {Array.isArray(filteredDecks) && (

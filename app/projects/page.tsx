@@ -2,12 +2,9 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-import { ArrowRightIcon } from "@radix-ui/react-icons";
 import CardList from "./CardList";
 import GradeCircle from "@/components/grade-circle";
-import Image from "next/image";
-import Link from "next/link";
-import { Modal as LoginModal } from "@/components/Modal";
+import LoginModal from "@/components/LoginModal";
 import SearchHeader from "@/components/SearchHeader";
 import Skeleton from "@mui/material/Skeleton";
 import { Table } from "@radix-ui/themes";
@@ -46,33 +43,8 @@ export default function Page() {
   return (
     <div className="flex flex-col md:flex-row flex-wrap mt-6 gap-4">
       <LoginModal
-        icon={
-          <Image
-            src="/login.png"
-            width={30}
-            height={30}
-            alt="delete button"
-            style={{ transition: "transform 0.2s" }}
-            className="hover:scale-110"
-          />
-        }
-        open={showLoginModal}
-        onOpenChange={setShowLoginModal}
-        title="Hold up! You need an account to see this!"
-        hideCloseButton={true}
-        preventOutsideClick={true}
-        description={
-          <div className="flex justify-center mt-6">
-            <Link href="/login">
-              <div className="border-2 border-slate-600 rounded-full px-5 py-1 w-full glow flex items-center flex-row gap-4 hover:bg-slate-200 transition-colors">
-                <p className="text-black text-lg">
-                  {intl.formatMessage({ id: "hamburger.login.text" })}
-                </p>
-                <ArrowRightIcon style={{ height: "1.8em", width: "1.8em" }} />
-              </div>
-            </Link>
-          </div>
-        }
+        showLoginModal={showLoginModal}
+        setShowLoginModal={setShowLoginModal}
       />
 
       <div className="flex justify-center w-full flex-col">
@@ -85,6 +57,7 @@ export default function Page() {
             </p>
           </div>
         )}
+        L
       </div>
 
       <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md max-h-120 sm:max-h-160 overflow-y-scroll">

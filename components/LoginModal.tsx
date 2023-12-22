@@ -1,7 +1,7 @@
-import { Modal } from "./Modal";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { Modal } from "./Modal";
 
 export default function ({
   showLoginModal,
