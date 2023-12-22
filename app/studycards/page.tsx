@@ -32,7 +32,7 @@ export default function Page() {
       decks.forEach(async (deck) => {
         const cards = await fetchStudyCardsFromDeck(supabase, deck.id);
         const deckCardsMap = {
-          [deck.name]: { cards, deck_uuid: deck.deck_uuid },
+          [deck.deck_uuid]: { cards, deck_name: deck.name },
         };
 
         setDeckDataMap((prevDecks) => ({
@@ -42,6 +42,10 @@ export default function Page() {
       });
     }
   }, [decks]);
+
+  const getDeckCount = (deck_uuid: string) => {
+    return deckDataMap[deck_uuid].cards.length;
+  };
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -57,7 +61,17 @@ export default function Page() {
 
   return (
     <div className="flex flex-col justify-center mt-6">
-      <SearchHeader handleSearch={handleSearch} />
+      <div className=" w-full flex-col">
+        <SearchHeader handleSearch={handleSearch} />
+        {Array.isArray(filteredDecks) && (
+          <div className="font-sans text-slate-300 text-center p-2 h-6 flex-row mb-6">
+            <p className="text-blue-p px-1 text-center">
+              <b>{filteredDecks.length}</b>{" "}
+              {intl.formatMessage({ id: "home.items" })}
+            </p>
+          </div>
+        )}
+      </div>
 
       <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md mt-10">
         <CardHeader className="flex flex-row items-baseline justify-between pb-2">
@@ -67,37 +81,37 @@ export default function Page() {
         </CardHeader>
 
         <CardContent className="flex flex-wrap justify-center">
-          {filteredDecks.map((deck, index) => (
-            <div
-              key={index}
-              className="p-4 m-2 bg-white rounded-lg shadow-md w-60 h-32 flex-shrink-0 relative border cursor-pointer border-gray-300  hover:border-blue-600"
-              onClick={() => router.push(`/deck/${deck.deck_uuid}`)}
-              style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}
-            >
-              <div className="font-semibold font-sans">
-                {truncate(deck.name, 30)}
-              </div>
+          {isDecksLoading ? (
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Skeleton variant="rounded" width={200} height={150} />
+              <Skeleton variant="rounded" width={200} height={150} />
+              <Skeleton variant="rounded" width={200} height={150} />
             </div>
-          ))}
+          ) : decksLoadError ? (
+            <div>Error: Loading projects</div>
+          ) : (
+            filteredDecks.map((deck, index) => (
+              <div
+                key={index}
+                className="p-4 m-2 bg-white rounded-lg shadow-md w-60 h-32 flex-shrink-0 relative border cursor-pointer border-gray-300  hover:border-blue-600"
+                onClick={() => router.push(`/deck/${deck.deck_uuid}`)}
+                style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}
+              >
+                <div className="font-semibold font-sans">
+                  {truncate(deck.name, 30)}
+                </div>
+
+                <div className="pt-4 absolute bottom-0 pb-4 text-gray-500">
+                  <span className="font-bold">
+                    {getDeckCount(deck.deck_uuid)}
+                  </span>{" "}
+                  cards
+                </div>
+              </div>
+            ))
+          )}
         </CardContent>
       </Card>
     </div>
   );
 }
-
-// Object.entries(deckDataMap).map(([deckName, deckData], index) => (
-//     <div
-//       key={index}
-//       className="p-4 m-2 bg-white rounded-lg shadow-md w-60 h-32 flex-shrink-0 relative border cursor-pointer border-gray-300  hover:border-blue-600"
-//       onClick={() => router.push(`/deck/${deckData.deck_uuid}`)}
-//       style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}
-//     >
-//       <div className="font-semibold font-sans">
-//         {truncate(deckName, 30)}
-//       </div>
-//       <div className="pt-4 absolute bottom-0 pb-4 text-gray-500">
-//         <span className="font-bold">{deckData.cards.length}</span>{" "}
-//         cards
-//       </div>
-//     </div>
-//   ))
