@@ -25,12 +25,15 @@ module.exports = {
         ...blackA,
         ...mauve,
         ...violet,
+
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         btn: {
           background: 'hsl(var(--btn-background))',
           'background-hover': 'hsl(var(--btn-background-hover))',
         },
+        'login-bckg': "#0F172A",
+        'login-btn': '#33EFFB',
         'blue-p': '#24BAFA',
         'bck-purp': "#B621FE",
         'bck-blu': "#1FD1F9",

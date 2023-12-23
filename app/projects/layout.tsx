@@ -1,9 +1,5 @@
 import { HomeLayout } from "@/components/home-layout";
 
-export default function LearnLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return <HomeLayout>{children}</HomeLayout>;
 }

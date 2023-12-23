@@ -57,7 +57,6 @@ export default function Page() {
             </p>
           </div>
         )}
-        L
       </div>
 
       <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md max-h-120 sm:max-h-160 overflow-y-scroll">

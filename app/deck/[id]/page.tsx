@@ -4,15 +4,18 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@radix-ui/themes";
 import FlashCards from "@/app/studycards/Flashcards";
+import LoginModal from "@/components/LoginModal";
 import { fetchStudyCardsFromDeck } from "@/app/studycards/actions";
 import { getDeckIDFromUUID } from "../actions";
 import useStore from "@/app/store";
+import { useUserAuth } from "@/hooks/useUserAuth";
 
 export default function Page({
   params: { id: deckUUID },
 }: {
   params: { id: string };
 }) {
+  const { showLoginModal, setShowLoginModal } = useUserAuth();
   const [studyCards, setStudyCards] = useState([]);
   const [deckData, setDeckData] = useState({});
   const supabase = useStore((state) => state?.supabase);
@@ -41,6 +44,10 @@ export default function Page({
 
   return (
     <div className="flex flex-col justify-center mt-16">
+      <LoginModal
+        showLoginModal={showLoginModal}
+        setShowLoginModal={setShowLoginModal}
+      />
       <div className="w-8/12 pl-20">
         <div className="flex justify-between">
           <h1 className="font-bold">{deckData.name}</h1>
