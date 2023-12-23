@@ -18,6 +18,7 @@ export default function Page({
   const { showLoginModal, setShowLoginModal } = useUserAuth();
   const [studyCards, setStudyCards] = useState([]);
   const [deckData, setDeckData] = useState({});
+  // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
 
   useEffect(() => {
@@ -31,12 +32,14 @@ export default function Page({
 
   useEffect(() => {
     if (deckData) {
+      // @ts-ignore
       fetchStudyCardsFromDeck(supabase, deckData.id).then((res) => {
         const validStudyCards =
           Array.isArray(res) &&
           res
             .filter((card) => card.front && card.back)
             .map(({ front, back }) => ({ front, back }));
+        // @ts-ignore
         setStudyCards(validStudyCards);
       });
     }
@@ -50,7 +53,9 @@ export default function Page({
       />
       <div className="w-8/12 pl-20">
         <div className="flex justify-between">
-          <h1 className="font-bold">{deckData.name}</h1>
+          <h1 className="font-bold">
+            {(deckData as { name: string })?.name || "None"}
+          </h1>
           <Button variant="outline">Practise deck</Button>
         </div>
         {studyCards.length} cards
