@@ -32,7 +32,7 @@ export default function Page({
       <div className="sm:px-7 px-1">
         <Link
           href="/projects"
-          className=" py-2 px-4 w-32 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
+          className=" py-2 px-4 w-28 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

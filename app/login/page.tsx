@@ -1,8 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import Messages from "./messages";
+import { useState } from "react";
 
 export default function Login() {
+  const [mode, setMode] = useState("Login");
+
   return (
     <div className="w-full">
       <form
@@ -31,28 +36,68 @@ export default function Login() {
           placeholder="you@email.com"
           required
         />
-        <label className="text-md text-white font-semibold" htmlFor="password">
-          Password
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6 text-white"
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          required
-        />
-        <button
-          className="rounded  mt-8 p-4 py-2 text-black mb-2 bg-login-btn"
-          // style={{ background: "linear-gradient(to right, #008FFF, #A436FE)" }}
-        >
-          Login
-        </button>
-        {/* <button
-          formAction="/auth/sign-up"
-          className="border border-white rounded px-4 py-2 text-white mb-2"
-        >
-          Sign Up
-        </button> */}
+        <div className="flex flex-col">
+          <label
+            className="text-md text-white font-semibold"
+            htmlFor="password"
+          >
+            Password
+          </label>
+          <input
+            className="rounded-md px-4 pt-2 pb-1 bg-inherit border mb-4 text-white"
+            type="password"
+            name="password"
+            placeholder="••••••••"
+            required
+          />
+          {mode === "Sign up" && (
+            <>
+              <p className="self-end text-white font-md">
+                Have an account?{" "}
+                <span
+                  onClick={() => {
+                    setMode("Login");
+                  }}
+                >
+                  <span className="text-login-link underline font-bold">
+                    Login
+                  </span>
+                </span>
+              </p>
+
+              <button
+                formAction="/auth/sign-up"
+                className="border border-black rounded px-4 py-2 text-white mb-2 mt-8"
+                style={{
+                  background: "linear-gradient(to right, #008FFF, #A436FE)",
+                }}
+              >
+                Sign Up
+              </button>
+            </>
+          )}
+
+          {mode === "Login" && (
+            <>
+              <p className="self-end text-white font-md">
+                Need an account?{" "}
+                <span
+                  onClick={() => {
+                    setMode("Sign up");
+                  }}
+                >
+                  <span className="text-login-link underline font-bold">
+                    Sign up
+                  </span>
+                </span>
+              </p>
+              <button className="rounded  mt-8 p-4 py-2 text-black mb-2 bg-login-btn">
+                Login
+              </button>
+            </>
+          )}
+        </div>
+
         <Messages />
       </form>
     </div>

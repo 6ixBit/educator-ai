@@ -34,6 +34,7 @@ module.exports = {
         },
         'login-bckg': "#0F172A",
         'login-btn': '#33EFFB',
+        'login-link': "#01B3FF",
         'blue-p': '#24BAFA',
         'bck-purp': "#B621FE",
         'bck-blu': "#1FD1F9",
