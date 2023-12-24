@@ -20,7 +20,7 @@ export default function SearchHeader({
       <Form.Root>
         <Form.Field name="content">
           <div className="rounded-full border-2 border-gray-300 bg-gray-176 bg-opacity-95 w-full flex items-center">
-            <div className="relative w-72">
+            <div className="relative sm:w-72 w-60">
               <Form.Control asChild>
                 <input
                   type="text"

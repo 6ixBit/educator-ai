@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+import HamburgerMenu from "@/components/HamburgerMenu";
 import LoginModal from "@/components/LoginModal";
 import SearchHeader from "@/components/SearchHeader";
 import { Skeleton } from "@mui/material";
@@ -14,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import useStore from "../store";
 import { useUserAuth } from "@/hooks/useUserAuth";
+import useWindowSize from "@/hooks/useWindowSize";
 
 export default function Page() {
   const intl = useIntl();
@@ -21,6 +23,7 @@ export default function Page() {
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
   const router = useRouter();
+  const { isMobile } = useWindowSize();
 
   const { isDecksLoading, decksLoadError, decks } = useDecks({
     supabase,
@@ -63,25 +66,47 @@ export default function Page() {
     : [];
 
   return (
-    <div className="flex flex-col justify-center mt-6">
+    <div className="flex flex-col justify-center mt-1">
       <LoginModal
         showLoginModal={showLoginModal}
         setShowLoginModal={setShowLoginModal}
       />
 
-      <div className=" w-full flex-col">
-        <SearchHeader handleSearch={handleSearch} />
-        {Array.isArray(filteredDecks) && (
-          <div className="font-sans text-slate-300 text-center p-2 h-6 flex-row mb-6">
-            <p className="text-blue-p px-1 text-center">
-              <b>{filteredDecks.length}</b>{" "}
-              {intl.formatMessage({ id: "home.items" })}
-            </p>
+      <div className="flex flex-row">
+        {isMobile && (
+          <div className="pl-4">
+            <HamburgerMenu
+              items={[
+                {
+                  name: "Projects",
+                  url: "/projects",
+                },
+                {
+                  name: "Study cards",
+                  url: "/studycards",
+                },
+                {
+                  name: "Quiz",
+                  url: "/quiz",
+                },
+              ]}
+            />
           </div>
         )}
+        <div className=" w-full flex-col">
+          <SearchHeader handleSearch={handleSearch} />
+          {Array.isArray(filteredDecks) && (
+            <div className="font-sans text-slate-300 text-center p-2 h-6 flex-row mb-6">
+              <p className="text-blue-p px-1 text-center">
+                <b>{filteredDecks.length}</b>{" "}
+                {intl.formatMessage({ id: "card.items" })}
+              </p>
+            </div>
+          )}
+        </div>
       </div>
 
-      <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md mt-10">
+      <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md mt-5">
         <CardHeader className="flex flex-row items-baseline justify-between pb-2">
           <CardTitle className="text-lg font-bold">
             {intl.formatMessage({ id: "decks.title" })}

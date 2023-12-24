@@ -7,6 +7,7 @@ import ChangeLangModal from "./ChangeLangModal";
 import HamburgerMenu from "./HamburgerMenu";
 import Image from "next/image";
 import Link from "next/link";
+import SearchHeader from "./SearchHeader";
 import { useIntl } from "react-intl";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -107,28 +108,26 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
       </div>
 
       <div className="flex flex-col flex-1 p-4 overflow-auto">
-        <div className="flex justify-between items-center">
+        {/* <div className="flex justify-between items-center">
           {isMobile && (
             <HamburgerMenu
               items={[
                 {
                   name: "Projects",
-                  url: "#projects",
+                  url: "/projects",
+                },
+                {
+                  name: "Study cards",
+                  url: "/studycards",
                 },
                 {
                   name: "Quiz",
-                  url: "#quiz",
-                },
-                {
-                  name: "Case study",
-                  url: "#case",
+                  url: "/quiz",
                 },
               ]}
             />
           )}
-          {/* <h1 className="text-3xl font-bold">Welcome Back!</h1>
-          <Button>Logout</Button> */}
-        </div>
+        </div> */}
         {children}
       </div>
 

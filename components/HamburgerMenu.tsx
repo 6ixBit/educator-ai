@@ -2,11 +2,13 @@
 
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import * as Menubar from "@radix-ui/react-menubar";
-import { HamburgerMenuIcon, ExitIcon } from "@radix-ui/react-icons";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useState, useEffect } from "react";
-import { useIntl } from "react-intl";
+
+import { ExitIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { useEffect, useState } from "react";
+
 import Link from "next/link";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useIntl } from "react-intl";
 
 interface IHamburgerMenu {
   items: menuItem[];
@@ -83,20 +85,6 @@ export default function HamburgerMenu({ items }: IHamburgerMenu) {
           })}
 
           <DropdownMenu.Arrow className="fill-white" />
-
-          {/* {user && (
-            <form action="/auth/sign-out" method="post">
-              <div className="group text-red-600 relative flex h-10 w-full select-none items-center justify-center rounded-[3px] text-[13px] leading-none text-rmd-400 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1">
-                <div style={{ position: "relative" }}>
-                  <div style={{ position: "absolute", left: -40 }}>
-                    <ExitIcon />
-                  </div>
-                  <Menubar.Separator className="MenubarSeparator" />
-                  {intl.formatMessage({ id: "hamburger.signout.text" })}
-                </div>
-              </div>
-            </form>
-          )} */}
 
           {user && (
             <form action="/auth/sign-out" method="post">

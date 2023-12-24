@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import CardList from "./CardList";
 import GradeCircle from "@/components/grade-circle";
+import HamburgerMenu from "@/components/HamburgerMenu";
 import LoginModal from "@/components/LoginModal";
 import SearchHeader from "@/components/SearchHeader";
 import Skeleton from "@mui/material/Skeleton";
@@ -14,10 +15,12 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import useStore from "../store";
 import { useUserAuth } from "@/hooks/useUserAuth";
+import useWindowSize from "@/hooks/useWindowSize";
 
 export default function Page() {
   const intl = useIntl();
   const router = useRouter();
+  const { isMobile } = useWindowSize();
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
 
@@ -41,26 +44,49 @@ export default function Page() {
     : [];
 
   return (
-    <div className="flex flex-col md:flex-row flex-wrap mt-6 gap-4">
+    <div className="flex flex-col md:flex-row flex-wrap mt-1 gap-4">
       <LoginModal
         showLoginModal={showLoginModal}
         setShowLoginModal={setShowLoginModal}
       />
 
-      <div className="flex justify-center w-full flex-col">
-        <SearchHeader handleSearch={handleSearch} />
-        {Array.isArray(projects) && (
-          <div className="font-sans text-slate-300 text-center p-2 h-6 flex-row mb-6">
-            <p className="text-blue-p px-1 text-center">
-              <b>{filteredProjects.length}</b>{" "}
-              {intl.formatMessage({ id: "home.items" })}
-            </p>
+      <div className="flex justify-center w-full flex-row gap-4 sm:gap-8 flex-baseline">
+        {isMobile && (
+          <div className="pl-4">
+            <HamburgerMenu
+              items={[
+                {
+                  name: "Projects",
+                  url: "/projects",
+                },
+                {
+                  name: "Study cards",
+                  url: "/studycards",
+                },
+                {
+                  name: "Quiz",
+                  url: "/quiz",
+                },
+              ]}
+            />
           </div>
         )}
+
+        <div className="w-full flex-col">
+          <SearchHeader handleSearch={handleSearch} />
+          {Array.isArray(projects) && (
+            <div className="font-sans text-slate-300 text-center p-2 h-6 flex-row mb-6">
+              <p className="text-blue-p px-1 text-center">
+                <b>{filteredProjects.length}</b>{" "}
+                {intl.formatMessage({ id: "project.items" })}
+              </p>
+            </div>
+          )}
+        </div>
       </div>
 
       <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md max-h-120 sm:max-h-160 overflow-y-scroll">
-        <CardHeader className="flex flex-row items-baseline justify-between pb-2">
+        <CardHeader className="flex flex-row items-baseline justify-between pb-2 sm:px-2 px-0">
           <CardTitle className="text-lg font-bold pb-3">
             {intl.formatMessage({ id: "title.recentactivity" })}
           </CardTitle>
