@@ -31,7 +31,7 @@ export default function Page({
 
       <div className="sm:px-7 px-1">
         <Link href="/projects">
-          <Button variant="secondary" size="sm">
+          <Button variant="outline" size="sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"

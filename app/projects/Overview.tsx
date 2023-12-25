@@ -4,6 +4,7 @@ import {
   calculateDaysUntilDeadline,
   convertToISODateString,
 } from "@/lib/utils";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import DatePicker from "@/components/ui/datepicker";
@@ -33,6 +34,8 @@ export default function Overview({
   due_date,
 }: IOverview) {
   const intl = useIntl();
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     console.log("muh due date: ", due_date);
@@ -79,7 +82,14 @@ export default function Overview({
           project_uuid={project_uuid}
           current_deadline={due_date ? new Date(due_date) : undefined}
         />
-        <Button className="w-32" size="sm" variant="default">
+        <Button
+          className="w-32"
+          size="sm"
+          variant="default"
+          onClick={() => {
+            router.push(pathname + "/original");
+          }}
+        >
           <EyeOpenIcon className="mr-2" />
           {intl.formatMessage({ id: "button.vieworiginal" })}
         </Button>

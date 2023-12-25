@@ -50,7 +50,7 @@ export default function DatePicker({
       <PopoverTrigger asChild>
         <Button
           size="sm"
-          variant={"secondary"}
+          variant="outline"
           className={cn(
             "text-black justify-start text-left font-normal",
             !date && "text-muted-foreground"
