@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-// import { Button } from "@radix-ui/themes";
 import FlashCards from "@/app/studycards/Flashcards";
 import Link from "next/link";
 import LoginModal from "@/components/LoginModal";
+import { Separator } from "@/components/ui/separator";
 import { fetchStudyCardsFromDeck } from "@/app/studycards/actions";
 import { getDeckIDFromUUID } from "../actions";
 import useStore from "@/app/store";
@@ -51,7 +51,7 @@ export default function Page({
     <div className="flex flex-col justify-center mt-1">
       <div className="sm:px-7 px-1">
         <Link href="/studycards">
-          <Button variant="outline" size="sm">
+          <Button variant="secondary" size="sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -69,17 +69,20 @@ export default function Page({
             Decks
           </Button>
         </Link>
+        <Separator className="mt-4" />
       </div>
       <LoginModal
         showLoginModal={showLoginModal}
         setShowLoginModal={setShowLoginModal}
       />
-      <div className="w-8/12 pl-8">
+      <div className=" pl-8">
         <div className="flex justify-between mt-8">
           <h1 className="font-bold text-lg">
             {(deckData as { name: string })?.name || "None"}
           </h1>
-          <Button variant="outline">Practise deck</Button>
+          <Button variant="default" size="sm">
+            Practise deck
+          </Button>
         </div>
         {studyCards.length} cards
         <FlashCards options={studyCards} />
