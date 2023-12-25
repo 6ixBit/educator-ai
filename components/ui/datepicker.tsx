@@ -14,14 +14,20 @@ import { cn } from "@/lib/utils";
 import { convertToISODateString } from "@/lib/utils";
 import { format } from "date-fns";
 import { useProjectDateMutation } from "@/app/projects/hooks";
+import { useQueryClient } from "react-query";
 import useStore from "@/app/store";
 
 interface IDatePicker {
   project_uuid: string;
+  current_deadline?: Date | undefined;
 }
 
-export default function DatePicker({ project_uuid }: IDatePicker) {
+export default function DatePicker({
+  project_uuid,
+  current_deadline,
+}: IDatePicker) {
   const [date, setDate] = React.useState<Date>();
+  const queryClient = useQueryClient();
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
 
@@ -32,9 +38,11 @@ export default function DatePicker({ project_uuid }: IDatePicker) {
   });
 
   useEffect(() => {
-    // @ts-ignore
-    console.log("mutate: ", mutate({ date }));
-    console.log({ isSuccess });
+    if (!isLoading && !isError) {
+      // @ts-ignore
+      mutate({ date });
+      queryClient.invalidateQueries("getProject");
+    }
   }, [date]);
 
   return (
@@ -55,8 +63,10 @@ export default function DatePicker({ project_uuid }: IDatePicker) {
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
-          selected={date}
-          onSelect={setDate}
+          selected={current_deadline || date}
+          onSelect={
+            setDate as React.Dispatch<React.SetStateAction<Date | undefined>>
+          }
           initialFocus
         />
       </PopoverContent>

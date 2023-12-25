@@ -1,10 +1,14 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import DatePicker from "@/components/ui/datepicker";
 import { EyeOpenIcon } from "@radix-ui/react-icons";
 import GradeCircle from "@/components/grade-circle";
 import { Table } from "@radix-ui/themes";
+import { convertToISODateString } from "@/lib/utils";
 import { formatDate } from "@/utility";
 import { nFormatter } from "@/utility";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
 
 interface IOverview {
@@ -13,6 +17,7 @@ interface IOverview {
   content: string;
   grade: number;
   project_uuid: string;
+  due_date: Date | string | undefined;
 }
 
 export default function Overview({
@@ -21,8 +26,13 @@ export default function Overview({
   content,
   grade,
   project_uuid,
+  due_date,
 }: IOverview) {
   const intl = useIntl();
+
+  useEffect(() => {
+    console.log("muh due date: ", due_date);
+  }, [project_uuid]);
 
   return (
     <div className="flex flex-col justify-start">
@@ -40,6 +50,10 @@ export default function Overview({
         {date ? formatDate(date) : ""}
       </h2>
 
+      <h2 className="text-gray-500 font-medium text-sm mb-1">
+        Deadline: {due_date ? due_date.toString() : "No deadline set."}
+      </h2>
+
       <div>
         <h2 className="text-gray-500 font-medium text-md mb-0 w-max">
           <strong className="font-bold">
@@ -50,8 +64,11 @@ export default function Overview({
       </div>
 
       <div className="flex flex-row pt-6 items-center justify-between">
-        <DatePicker project_uuid={project_uuid} />
-        <Button className="w-32 " size="sm" variant="default">
+        <DatePicker
+          project_uuid={project_uuid}
+          current_deadline={due_date ? new Date(due_date) : undefined}
+        />
+        <Button className="w-32" size="sm" variant="default">
           <EyeOpenIcon className="mr-2" />
           {intl.formatMessage({ id: "button.vieworiginal" })}
         </Button>
