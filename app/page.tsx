@@ -118,7 +118,7 @@ export default function Index() {
 
       <div className="animate-in flex flex-col gap-14 opacity-0 max-w-4xl px-3 py-16 lg:py-24 text-foreground">
         <div className="flex flex-col items-center mb-4 lg:mb-12">
-          <h1 className="text-4xl font-sans font-semibold tracking-wide text-center">
+          <h1 className="text-4xl text-white font-sans font-semibold tracking-wide text-center">
             Elevate Your Learning Experience
           </h1>
 
@@ -137,7 +137,7 @@ export default function Index() {
 
         <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
 
-        <h1 className="text-2xl font-sans font-semibold text-center tracking-wide">
+        <h1 className="text-2xl text-white font-sans font-semibold text-center tracking-wide">
           Features
         </h1>
         <div className="flex flex-col gap-8 text-foreground">
@@ -146,13 +146,12 @@ export default function Index() {
               <a
                 key={title}
                 className="relative flex flex-col group rounded-lg border p-6 hover:border-blue-500"
-                href={url}
               >
-                <h3 className="font-bold mb-2  min-h-[40px] lg:min-h-[60px]">
+                <h3 className="font-bold mb-2  min-h-[40px] lg:min-h-[60px] text-white">
                   {title}
                 </h3>
                 <div className="flex flex-col grow gap-4 justify-between">
-                  <p className="text-sm opacity-70">{subtitle}</p>
+                  <p className="text-sm opacity-70 text-gray-400">{subtitle}</p>
                   <div className="flex justify-between items-center">
                     <svg
                       width="24"
@@ -164,7 +163,7 @@ export default function Index() {
                     >
                       <path
                         d={icon}
-                        stroke="currentColor"
+                        stroke="white"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -183,7 +182,7 @@ export default function Index() {
 
         <h1
           id="faq"
-          className="text-2xl font-sans font-semibold text-center tracking-wide"
+          className="text-2xl text-white font-sans font-semibold text-center tracking-wide"
         >
           FAQ
         </h1>

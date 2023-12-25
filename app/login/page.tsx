@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import Messages from "./messages";
@@ -9,7 +10,7 @@ export default function Login() {
   const [mode, setMode] = useState("Login");
 
   return (
-    <div className="w-full">
+    <div className="w-full xl:w-9/12 mx-auto">
       <form
         className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground sm:px-36 lg:px-72 md:max-w-52"
         action="/auth/sign-in"
@@ -65,15 +66,9 @@ export default function Login() {
                 </span>
               </p>
 
-              <button
-                formAction="/auth/sign-up"
-                className="border border-black rounded px-4 py-2 text-white mb-2 mt-8"
-                style={{
-                  background: "linear-gradient(to right, #008FFF, #A436FE)",
-                }}
-              >
-                Sign Up
-              </button>
+              <Button formAction="/auth/sign-up" variant="signup">
+                Sign up
+              </Button>
             </>
           )}
 
@@ -91,9 +86,10 @@ export default function Login() {
                   </span>
                 </span>
               </p>
-              <button className="rounded  mt-8 p-4 py-2 text-black mb-2 bg-login-btn">
+
+              <Button variant="login" size="default" loading={false}>
                 Login
-              </button>
+              </Button>
             </>
           )}
         </div>

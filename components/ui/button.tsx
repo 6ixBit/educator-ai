@@ -20,6 +20,9 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-stone-100 hover:text-stone-900 dark:hover:bg-stone-800 dark:hover:text-stone-50",
         link: "text-stone-900 underline-offset-4 hover:underline dark:text-stone-50",
+        login: "rounded text-center mt-8 p-4 py-2 text-black mb-2 bg-login-btn",
+        signup:
+          "rounded text-center mt-8 p-4 py-2 text-white mb-2 bg-gradient-to-r from-blue-500 to-purple-500",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -39,18 +42,16 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
-  borderColor?: string;
+  loading?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    { className, variant, size, borderColor, asChild = false, ...props },
-    ref
-  ) => {
+  ({ className, variant, size, asChild = false, loading, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
+        disabled={loading}
         ref={ref}
         {...props}
       />
