@@ -1,5 +1,6 @@
 "use client";
 
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -7,8 +8,10 @@ import FlashCards from "@/app/studycards/Flashcards";
 import Link from "next/link";
 import LoginModal from "@/components/LoginModal";
 import { Separator } from "@/components/ui/separator";
+import { Table } from "@radix-ui/themes";
 import { fetchStudyCardsFromDeck } from "@/app/studycards/actions";
 import { getDeckIDFromUUID } from "../actions";
+import { useIntl } from "react-intl";
 import useStore from "@/app/store";
 import { useUserAuth } from "@/hooks/useUserAuth";
 
@@ -17,9 +20,11 @@ export default function Page({
 }: {
   params: { id: string };
 }) {
+  const intl = useIntl();
   const { showLoginModal, setShowLoginModal } = useUserAuth();
   const [studyCards, setStudyCards] = useState([]);
   const [deckData, setDeckData] = useState({});
+
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
 
@@ -43,6 +48,7 @@ export default function Page({
             .map(({ front, back }) => ({ front, back }));
         // @ts-ignore
         setStudyCards(validStudyCards);
+        console.log({ validStudyCards });
       });
     }
   }, [deckData, supabase]);
@@ -51,7 +57,7 @@ export default function Page({
     <div className="flex flex-col justify-center mt-1">
       <div className="sm:px-7 px-1">
         <Link href="/studycards">
-          <Button variant="secondary" size="sm">
+          <Button variant="outline" size="sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -86,6 +92,49 @@ export default function Page({
         </div>
         {studyCards.length} cards
         <FlashCards options={studyCards} />
+        <Card className="flex flex-col w-full  p-4 bg-white rounded-lg shadow-md mt-16">
+          <CardHeader className="flex items-start justify-between pb-6">
+            <CardTitle className="text-lg font-bold ">
+              {intl.formatMessage({ id: "cards.table.title" })}
+            </CardTitle>
+          </CardHeader>
+          <Table.Root>
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeaderCell>
+                  {intl.formatMessage({ id: "cards.front" })}
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  {intl.formatMessage({ id: "cards.back" })}
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  {intl.formatMessage({ id: "cards.actions" })}
+                </Table.ColumnHeaderCell>
+              </Table.Row>
+            </Table.Header>
+
+            <Table.Body>
+              {studyCards &&
+                studyCards.map((card, index) => (
+                  <Table.Row key={index}>
+                    <Table.Cell>{card.front}</Table.Cell>
+                    <Table.Cell>{card.back}</Table.Cell>
+                    <Table.Cell className="text-center">
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => {
+                          console.log("delete");
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+            </Table.Body>
+          </Table.Root>
+        </Card>
       </div>
     </div>
   );

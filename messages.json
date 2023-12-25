@@ -31,6 +31,10 @@
         "navmenu.studycards": "Study Cards",
         "navmenu.quiz": "Quiz",
         "decks.title": "Your Decks",
+        "cards.table.title": "Control Panel",
+        "cards.front": "Front",
+        "cards.back": "Back",
+        "cards.actions": "Actions",
 
         "home.hero.text": "Go from text to study material with grading in one click",
         "home.hero.getstarted": "Get started",
