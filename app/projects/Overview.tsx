@@ -1,11 +1,15 @@
 "use client";
 
+import {
+  calculateDaysUntilDeadline,
+  convertToISODateString,
+} from "@/lib/utils";
+
 import { Button } from "@/components/ui/button";
 import DatePicker from "@/components/ui/datepicker";
 import { EyeOpenIcon } from "@radix-ui/react-icons";
 import GradeCircle from "@/components/grade-circle";
 import { Table } from "@radix-ui/themes";
-import { convertToISODateString } from "@/lib/utils";
 import { formatDate } from "@/utility";
 import { nFormatter } from "@/utility";
 import { useEffect } from "react";
@@ -50,10 +54,6 @@ export default function Overview({
         {date ? formatDate(date) : ""}
       </h2>
 
-      <h2 className="text-gray-500 font-medium text-sm mb-1">
-        Deadline: {due_date ? due_date.toString() : "No deadline set."}
-      </h2>
-
       <div>
         <h2 className="text-gray-500 font-medium text-md mb-0 w-max">
           <strong className="font-bold">
@@ -63,7 +63,18 @@ export default function Overview({
         </h2>
       </div>
 
-      <div className="flex flex-row pt-6 items-center justify-between">
+      <h2 className="text-gray-500 font-medium text-sm pt-12">
+        {due_date ? (
+          <span>
+            <span style={{ color: "red" }}>
+              {calculateDaysUntilDeadline(due_date.toString())} days
+            </span>{" "}
+            till deadline.
+          </span>
+        ) : null}
+      </h2>
+
+      <div className="flex flex-row pt-2 items-center justify-between">
         <DatePicker
           project_uuid={project_uuid}
           current_deadline={due_date ? new Date(due_date) : undefined}

@@ -99,7 +99,7 @@ export default function Page() {
             <div className="font-sans text-slate-300 text-center p-2 h-6 flex-row mb-6">
               <p className="text-blue-p px-1 text-center">
                 <b>{filteredDecks.length}</b>{" "}
-                {intl.formatMessage({ id: "card.items" })}
+                {intl.formatMessage({ id: "decks.items" })}
               </p>
             </div>
           )}

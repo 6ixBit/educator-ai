@@ -12,8 +12,11 @@ import {
   generateStudyCards,
 } from "../actions";
 
+import { Button } from "@/components/ui/button";
 import { DropDownMenu } from "@/components/DropdownMenu";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@radix-ui/themes";
 import { addQuizToDB } from "../actions";
 import { useIntl } from "react-intl";
@@ -79,12 +82,36 @@ export default function Page() {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col">
-      <h1 className="text-start font-bold text-3xl mb-12 mt-6 text-zinc-700">
-        Create a new project
-      </h1>
+    <>
+      <div className="sm:px-7 px-1">
+        <Link href="/projects">
+          <Button variant="secondary" size="sm">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
+            >
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+            Projects
+          </Button>
+        </Link>
+        <Separator className="mt-4" />
+      </div>
 
-      {/* <div className="w-6/12 xl:w-7/12 2xl:w-3/12">
+      <div className="flex justify-center items-center flex-col">
+        <h1 className="text-start font-bold text-3xl mb-12 mt-6 text-zinc-700">
+          Create a new project
+        </h1>
+
+        {/* <div className="w-6/12 xl:w-7/12 2xl:w-3/12">
         <Button className="w-full" radius="full" variant="surface">
           Upload a PDF
         </Button>
@@ -92,9 +119,8 @@ export default function Page() {
 
       <strong className="py-3">or</strong> */}
 
-      <div>
         <Form.Root
-          className="w-full sm:w-[500px] md:w-[500px] lg:w-[685px]"
+          className="w-10/12 sm:w-[500px] md:w-[500px] lg:w-[685px]"
           onSubmit={handleSubmit}
         >
           <Form.Field className=" mb-[10px]" name="content">
@@ -113,7 +139,7 @@ export default function Page() {
                 </Form.Control>
               </div>
 
-              <div className="mb-6 flex flex-col ml-auto mt-4 sm:mt-0">
+              <div className="mb-6 flex flex-col ml-0 sm:ml-auto mt-4 sm:mt-0">
                 <Form.Label className=" flex flex-row items-center gap-2">
                   <p className="text-[16px] font-bold leading-[35px] text-black">
                     {intl.formatMessage({ id: "create.level.text" })}
@@ -123,7 +149,7 @@ export default function Page() {
                   </Tooltip>
                 </Form.Label>
 
-                <div className="flex flex-row justify-between items-baseline">
+                <div className="flex flex-row justify-between items-baseline w-full">
                   <DropDownMenu
                     placeholder="High School"
                     options={[
@@ -147,7 +173,7 @@ export default function Page() {
 
             <Form.Control asChild>
               <textarea
-                className="box-border h-72 sm:h-80 text-black w-56 p-6  sm:w-full  shadow-blackA6 inline-flex appearance-none items-center justify-center rounded-[4px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6 resize-none"
+                className="box-border h-72 sm:h-80 text-black w-full md:w-56 p-6  sm:w-full  shadow-blackA6 inline-flex appearance-none items-center justify-center rounded-[4px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6 resize-none"
                 placeholder="How did the Roman empire become so dominant?"
                 required
                 disabled={loading}
@@ -186,6 +212,6 @@ export default function Page() {
           </Form.Submit>
         </Form.Root>
       </div>
-    </div>
+    </>
   );
 }
