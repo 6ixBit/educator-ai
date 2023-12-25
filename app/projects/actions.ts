@@ -57,7 +57,7 @@ export const addQuizToDB = async (
   try {
     const { data, error } = await supabase
       .from("quiz")
-      .insert([{ questions, user_id , project_id}])
+      .insert([{ questions, user_id, project_id }])
       .select();
 
     if (error) return { status: "failure", info: error };
@@ -65,22 +65,22 @@ export const addQuizToDB = async (
     return data;
   } catch (error) {
     console.error("Error adding quiz to DB. ", error);
-    return error
+    return error;
   }
 };
 
 export const addStudyCardsToDB = async (
   supabase: SupabaseClient,
-  user_id: string, 
+  user_id: string,
   studyCards: any,
-  deck_id?: string,
+  deck_id?: string
 ) => {
   try {
     const cards = studyCards.cards.cards.map((card: Card) => ({
       user_id,
       deck_id,
       front: card.front,
-      back: card.back
+      back: card.back,
     }));
 
     const { data, error } = await supabase
@@ -93,11 +93,15 @@ export const addStudyCardsToDB = async (
     return data;
   } catch (error) {
     console.error("Error adding quiz to DB. ", error);
-    return error
+    return error;
   }
 };
 
-export const addDeckToDB = async (  supabase: SupabaseClient, name: string, user_id: string) => {
+export const addDeckToDB = async (
+  supabase: SupabaseClient,
+  name: string,
+  user_id: string
+) => {
   try {
     const { data, error } = await supabase
       .from("decks")
@@ -110,8 +114,7 @@ export const addDeckToDB = async (  supabase: SupabaseClient, name: string, user
   } catch (error) {
     console.error("Error Adding Deck: ", error);
   }
-}
-
+};
 
 export const generateQuiz = async (
   quiz_context: string,
@@ -158,10 +161,10 @@ export const generateStudyCards = async (
     });
 
     const data = await response.json();
-    const cards = data.study_cards
+    const cards = data.study_cards;
 
     // @ts-ignore
-    return { status: "success", cards, "deck": data.deck_name };
+    return { status: "success", cards, deck: data.deck_name };
   } catch (error) {
     return { status: "failure", info: "Failed to generate quiz.", error };
   }
@@ -186,7 +189,7 @@ export const generateCaseStudy = async (
     });
 
     const data = await response.json();
-    const question = data.case_study.question
+    const question = data.case_study.question;
 
     return { status: "success", question };
   } catch (error) {
@@ -198,8 +201,11 @@ export const generateCaseStudy = async (
   }
 };
 
-
-export const addCaseStudyToDB = async (  supabase: SupabaseClient, project_id: string, question: string) => {
+export const addCaseStudyToDB = async (
+  supabase: SupabaseClient,
+  project_id: string,
+  question: string
+) => {
   try {
     const { data, error } = await supabase
       .from("casestudy")
@@ -212,5 +218,24 @@ export const addCaseStudyToDB = async (  supabase: SupabaseClient, project_id: s
   } catch (error) {
     console.error("Error Adding Case Study: ", error);
   }
-}
+};
 
+export const updateProjectDate = async (
+  supabase: SupabaseClient,
+  project_uuid: string,
+  due_date: Date | undefined
+) => {
+  try {
+    const { data, error } = await supabase
+      .from("projects")
+      .update({ due_date })
+      .eq("project_uuid", project_uuid)
+      .select();
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Error updating due date for project");
+  }
+};
