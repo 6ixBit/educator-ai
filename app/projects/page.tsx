@@ -9,6 +9,7 @@ import LoginModal from "@/components/LoginModal";
 import SearchHeader from "@/components/SearchHeader";
 import Skeleton from "@mui/material/Skeleton";
 import { Table } from "@radix-ui/themes";
+import { formatDate } from "@/utility";
 import { useIntl } from "react-intl";
 import { useProject } from "./hooks";
 import { useRouter } from "next/navigation";
@@ -154,7 +155,9 @@ export default function Page() {
                       <GradeCircle value={project.grade} />
                     </Table.RowHeaderCell>
                     <Table.Cell>{project.title}</Table.Cell>
-                    <Table.Cell>{project.due_date}</Table.Cell>
+                    <Table.Cell>
+                      {formatDate(project.due_date, true)}
+                    </Table.Cell>
                   </Table.Row>
                 ))}
             </Table.Body>

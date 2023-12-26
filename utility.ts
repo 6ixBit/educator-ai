@@ -1,8 +1,12 @@
 import { format } from "date-fns";
 
-export function formatDate(dateString: string) {
+export function formatDate(dateString: string, onlyReturnDate?: boolean) {
   const parsedDate = new Date(dateString);
-  return format(parsedDate, "do MMM yy @h:mm a");
+  if (onlyReturnDate) {
+    return format(parsedDate, "do MMM yy");
+  } else {
+    return format(parsedDate, "do MMM yy @h:mm a");
+  }
 }
 
 export function nFormatter(num: number, digits?: number) {
