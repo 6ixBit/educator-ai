@@ -6,9 +6,7 @@ import LoginModal from "@/components/LoginModal";
 import Overview from "@/app/projects/Overview";
 import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
-import { getDueProjects } from "../actions";
 import { useState } from "react";
-import useStore from "@/app/store";
 import { useUserAuth } from "@/hooks/useUserAuth";
 import { useUserData } from "@/hooks/useUserData";
 

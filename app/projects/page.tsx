@@ -104,11 +104,13 @@ export default function Page() {
           </button>
         </CardHeader>
 
-        {filteredProjects.length === 0 && projects && projects.length === 0 && (
-          <p className="text-xl text-center italic pt-12 font-semibold">
-            You have no projects.
-          </p>
-        )}
+        {filteredProjects.length === 0 &&
+          Array.isArray(projects) &&
+          projects.length === 0 && (
+            <p className="text-xl text-center italic pt-12 font-semibold">
+              You have no projects.
+            </p>
+          )}
 
         <CardContent>
           {isProjectLoading ? (

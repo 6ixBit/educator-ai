@@ -15,6 +15,12 @@ import { useIntl } from "react-intl";
 import useStore from "@/app/store";
 import { useUserAuth } from "@/hooks/useUserAuth";
 
+type StudyCard = {
+  front: string;
+  back: string;
+  [key: string]: any;
+};
+
 export default function Page({
   params: { id: deckUUID },
 }: {
@@ -22,7 +28,7 @@ export default function Page({
 }) {
   const intl = useIntl();
   const { showLoginModal, setShowLoginModal } = useUserAuth();
-  const [studyCards, setStudyCards] = useState([]);
+  const [studyCards, setStudyCards] = useState<StudyCard[]>([]);
   const [deckData, setDeckData] = useState({});
 
   // @ts-ignore
