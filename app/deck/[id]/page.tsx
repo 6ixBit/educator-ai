@@ -81,7 +81,7 @@ export default function Page({
         showLoginModal={showLoginModal}
         setShowLoginModal={setShowLoginModal}
       />
-      <div className=" pl-8">
+      <div className="sm:pl-6 pl-2">
         <div className="flex justify-between mt-8">
           <h1 className="font-bold text-lg">
             {(deckData as { name: string })?.name || "None"}

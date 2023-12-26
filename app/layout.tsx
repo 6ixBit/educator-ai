@@ -6,7 +6,6 @@ import "@radix-ui/themes/styles.css";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 
-import { HomeLayout } from "@/components/home-layout";
 import { IntlProvider } from "react-intl";
 import { Theme } from "@radix-ui/themes";
 import messages from "../messages.json";
