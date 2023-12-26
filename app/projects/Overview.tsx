@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import DatePicker from "@/components/ui/datepicker";
 import { EyeOpenIcon } from "@radix-ui/react-icons";
 import GradeCircle from "@/components/grade-circle";
+import { Separator } from "@/components/ui/separator";
 import { Table } from "@radix-ui/themes";
 import { formatDate } from "@/utility";
 import { nFormatter } from "@/utility";
@@ -165,17 +166,11 @@ export default function Overview({
               {intl.formatMessage({ id: "button.start" })}
             </Button>
           </div>
+
+          <Separator className="my-2" />
           <div className="flex justify-between items-center mb-2">
             <p className="text-black">
               {intl.formatMessage({ id: "button.flashcards" })}
-            </p>
-            <Button size="sm">
-              {intl.formatMessage({ id: "button.start" })}
-            </Button>
-          </div>
-          <div className="flex justify-between items-center">
-            <p className="text-black">
-              {intl.formatMessage({ id: "button.casestudy" })}
             </p>
             <Button size="sm">
               {intl.formatMessage({ id: "button.start" })}

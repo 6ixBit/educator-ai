@@ -65,7 +65,12 @@ export default function Page() {
 
     // STUDY CARD -------
     const studyCards = await generateStudyCards(body, level);
-    const deck = await addDeckToDB(supabase, studyCards.deck.deck_name, userID);
+    const deck = await addDeckToDB(
+      supabase,
+      studyCards.deck.deck_name,
+      userID,
+      project[0].id
+    );
     const err_studycards = await addStudyCardsToDB(
       supabase,
       userID,

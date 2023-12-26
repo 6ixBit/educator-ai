@@ -43,6 +43,10 @@ export default function Page() {
       )
     : [];
 
+  const dueProjects =
+    Array.isArray(projects) &&
+    projects.filter((proj) => proj.due_date !== null);
+
   return (
     <div className="flex flex-col md:flex-row flex-wrap mt-1 gap-4">
       <LoginModal
@@ -143,29 +147,16 @@ export default function Page() {
             </Table.Header>
 
             <Table.Body>
-              <Table.Row>
-                <Table.RowHeaderCell>
-                  <GradeCircle value={67} />
-                </Table.RowHeaderCell>
-                <Table.Cell>Quadratic equations</Table.Cell>
-                <Table.Cell>January 1, 2023</Table.Cell>
-              </Table.Row>
-
-              <Table.Row>
-                <Table.RowHeaderCell>
-                  <GradeCircle value={77} />
-                </Table.RowHeaderCell>
-                <Table.Cell>Of Mice and Men</Table.Cell>
-                <Table.Cell>February 15, 2023</Table.Cell>
-              </Table.Row>
-
-              <Table.Row>
-                <Table.RowHeaderCell>
-                  <GradeCircle value={42} />
-                </Table.RowHeaderCell>
-                <Table.Cell>Molecular Theory</Table.Cell>
-                <Table.Cell>March 30, 2023</Table.Cell>
-              </Table.Row>
+              {Array.isArray(dueProjects) &&
+                dueProjects.map((project) => (
+                  <Table.Row>
+                    <Table.RowHeaderCell>
+                      <GradeCircle value={project.grade} />
+                    </Table.RowHeaderCell>
+                    <Table.Cell>{project.title}</Table.Cell>
+                    <Table.Cell>{project.due_date}</Table.Cell>
+                  </Table.Row>
+                ))}
             </Table.Body>
           </Table.Root>
         </Card>

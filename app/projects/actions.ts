@@ -1,8 +1,14 @@
 import { SupabaseClient } from "@supabase/supabase-js";
+import { useQuery } from "react-query";
 
 interface Card {
   front: string;
   back: string;
+}
+
+interface IGetDueProjects {
+  userID: string;
+  supabase: SupabaseClient;
 }
 
 const baseUrl = "http://localhost:8080";
@@ -100,12 +106,13 @@ export const addStudyCardsToDB = async (
 export const addDeckToDB = async (
   supabase: SupabaseClient,
   name: string,
-  user_id: string
+  user_id: string,
+  project_id: string
 ) => {
   try {
     const { data, error } = await supabase
       .from("decks")
-      .insert([{ name, user_id }])
+      .insert([{ name, user_id, project_id }])
       .select();
 
     if (error) throw error;
