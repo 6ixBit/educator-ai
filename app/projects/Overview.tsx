@@ -38,10 +38,6 @@ export default function Overview({
   const pathname = usePathname();
   const router = useRouter();
 
-  useEffect(() => {
-    console.log("muh due date: ", due_date);
-  }, [project_uuid]);
-
   return (
     <div className="flex flex-col justify-start">
       <div className="flex flex-row gap-6 items-center">
@@ -97,7 +93,7 @@ export default function Overview({
       </div>
 
       <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 sm:gap-6">
-        <div>
+        <div className="max h-40">
           <h1 className="text-slate-500 pb-2 text-lg font-bold">
             {intl.formatMessage({ id: "section.teachersNotes" })}
           </h1>
@@ -139,12 +135,6 @@ export default function Overview({
                   <Table.RowHeaderCell>Study Cards</Table.RowHeaderCell>
                   <Table.Cell className="text-center">5</Table.Cell>
                   <Table.Cell>5 / 10</Table.Cell>
-                </Table.Row>
-
-                <Table.Row>
-                  <Table.RowHeaderCell>Case Studies</Table.RowHeaderCell>
-                  <Table.Cell className="text-center">2</Table.Cell>
-                  <Table.Cell>6 / 10</Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table.Root>

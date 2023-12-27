@@ -11,39 +11,50 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { convertToISODateString } from "@/lib/utils";
 import { format } from "date-fns";
-import { useProjectDateMutation } from "@/app/projects/hooks";
+import { useMutation } from "react-query";
 import { useQueryClient } from "react-query";
 import useStore from "@/app/store";
 
 interface IDatePicker {
   project_uuid: string;
-  current_deadline?: Date | undefined;
+  current_deadline: Date | undefined;
 }
 
 export default function DatePicker({
   project_uuid,
   current_deadline,
 }: IDatePicker) {
-  const [date, setDate] = React.useState<Date>();
-  const queryClient = useQueryClient();
+  const [date, setDate] = React.useState<Date | undefined>(current_deadline);
+  const useQuery = useQueryClient();
+
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
 
-  const { mutate, isLoading, isError, isSuccess } = useProjectDateMutation({
-    project_uuid,
-    supabase,
-    due_date: date,
-  });
+  const { mutate: updateProjectDate } = useMutation(
+    (newDate: Date) => {
+      return supabase
+        .from("projects")
+        .update({ due_date: newDate })
+        .eq("project_uuid", project_uuid);
+    },
+    {
+      onSuccess: () => {
+        console.log("Project successfully.");
+      },
+
+      onSettled: () => {
+        useQuery.invalidateQueries("fetchProject");
+        console.log("on settled");
+      },
+    }
+  );
 
   useEffect(() => {
-    if (!isLoading && !isError) {
-      // @ts-ignore
-      mutate({ date });
-      queryClient.invalidateQueries("getProject");
+    if (date && date !== current_deadline) {
+      updateProjectDate(date);
     }
-  }, [date]);
+  }, [date, updateProjectDate]);
 
   return (
     <Popover>
@@ -63,10 +74,11 @@ export default function DatePicker({
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
-          selected={current_deadline || date}
-          onSelect={
-            setDate as React.Dispatch<React.SetStateAction<Date | undefined>>
-          }
+          showOutsideDays={false}
+          selected={date || undefined}
+          onSelect={(date) => {
+            setDate(date);
+          }}
           initialFocus
         />
       </PopoverContent>

@@ -1,13 +1,14 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DayPicker } from "react-day-picker"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>
+import { DayPicker } from "react-day-picker";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 function Calendar({
   className,
@@ -19,6 +20,7 @@ function Calendar({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
+      disabled={{ before: new Date() }}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
@@ -44,7 +46,8 @@ function Calendar({
         day_range_end: "day-range-end",
         day_selected:
           "bg-stone-900 text-stone-50 hover:bg-stone-900 hover:text-stone-50 focus:bg-stone-900 focus:text-stone-50 dark:bg-stone-50 dark:text-stone-900 dark:hover:bg-stone-50 dark:hover:text-stone-900 dark:focus:bg-stone-50 dark:focus:text-stone-900",
-        day_today: "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-50",
+        day_today:
+          "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-50",
         day_outside:
           "day-outside text-stone-500 opacity-50 aria-selected:bg-stone-100/50 aria-selected:text-stone-500 aria-selected:opacity-30 dark:text-stone-400 dark:aria-selected:bg-stone-800/50 dark:aria-selected:text-stone-400",
         day_disabled: "text-stone-500 opacity-50 dark:text-stone-400",
@@ -59,8 +62,8 @@ function Calendar({
       }}
       {...props}
     />
-  )
+  );
 }
-Calendar.displayName = "Calendar"
+Calendar.displayName = "Calendar";
 
-export { Calendar }
+export { Calendar };

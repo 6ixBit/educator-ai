@@ -6,9 +6,9 @@ import LoginModal from "@/components/LoginModal";
 import Overview from "@/app/projects/Overview";
 import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
+import { useProjectData } from "../hooks";
 import { useState } from "react";
 import { useUserAuth } from "@/hooks/useUserAuth";
-import { useUserData } from "@/hooks/useUserData";
 
 export default function Page({
   params: { id: projectID },
@@ -17,7 +17,7 @@ export default function Page({
 }) {
   const { userID, showLoginModal, setShowLoginModal } = useUserAuth();
   const [isUserAuthorized, setisUserAuthorized] = useState(true);
-  const { isLoadingProject, project } = useUserData({ projectID, userID });
+  const { isLoadingProject, project } = useProjectData({ projectID, userID });
 
   if (!isLoadingProject && project) {
     if (project.user_id !== userID) {
