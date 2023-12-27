@@ -4,6 +4,7 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { deleteStudyCard, getDeckIDFromUUID } from "../actions";
 import { useEffect, useState } from "react";
 
+import AddStudyCardModal from "@/components/AddStudyCardModal";
 import { Button } from "@/components/ui/button";
 import FlashCards from "@/app/decks/Flashcards";
 import Link from "next/link";
@@ -29,6 +30,7 @@ export default function Page({
 }) {
   const intl = useIntl();
   const { showLoginModal, setShowLoginModal } = useUserAuth();
+  const [showAddStudyCardModal, setShowStudyCardModal] = useState(false);
   const [studyCards, setStudyCards] = useState<StudyCard[]>([]);
   const [deckData, setDeckData] = useState({});
 
@@ -88,6 +90,10 @@ export default function Page({
         showLoginModal={showLoginModal}
         setShowLoginModal={setShowLoginModal}
       />
+      <AddStudyCardModal
+        showModal={showAddStudyCardModal}
+        setShowStudyCardModal={setShowStudyCardModal}
+      />
       <div className="sm:pl-6 pl-2">
         <div className="flex justify-between mt-8">
           <h1 className="font-bold text-lg">
@@ -102,10 +108,20 @@ export default function Page({
           <FlashCards options={studyCards} />
         </div>
         <Card className="flex flex-col w-full  p-4 bg-white rounded-lg shadow-md mt-16">
-          <CardHeader className="flex items-start justify-between pb-6">
+          <CardHeader className="flex items-center flex-row justify-between pb-6">
             <CardTitle className="text-lg font-bold ">
               {intl.formatMessage({ id: "cards.table.title" })}
             </CardTitle>
+
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => {
+                setShowStudyCardModal(true);
+              }}
+            >
+              Add card
+            </Button>
           </CardHeader>
           <Table.Root>
             <Table.Header>
