@@ -38,23 +38,6 @@ export const useProject = ({ userID, supabase }: IUseProject) => {
   return { isProjectLoading, projectLoadError, projects };
 };
 
-export const useProjectDateMutation = ({
-  project_uuid,
-  supabase,
-  due_date,
-}: IUseProjectDateMutation) => {
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation({
-    mutationFn: () => updateProjectDate(supabase, project_uuid, due_date),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["fetchProject", project_uuid]);
-    },
-  });
-
-  return mutation;
-};
-
 export const useProjectData = ({ projectID, userID }: IUseProjectData) => {
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);

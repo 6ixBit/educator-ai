@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 import { IntlProvider } from "react-intl";
 import { Theme } from "@radix-ui/themes";
+import { Toaster } from "@/components/ui/sonner";
 import messages from "../messages.json";
 import useStore from "./store";
 
@@ -45,6 +46,7 @@ export default function RootLayout({
               radius="large"
             >
               {children}
+              <Toaster />
             </Theme>
           </QueryClientProvider>
         </IntlProvider>

@@ -1,9 +1,5 @@
 "use client";
 
-import {
-  calculateDaysUntilDeadline,
-  convertToISODateString,
-} from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -12,9 +8,9 @@ import { EyeOpenIcon } from "@radix-ui/react-icons";
 import GradeCircle from "@/components/grade-circle";
 import { Separator } from "@/components/ui/separator";
 import { Table } from "@radix-ui/themes";
+import { calculateDaysUntilDeadline } from "@/lib/utils";
 import { formatDate } from "@/utility";
 import { nFormatter } from "@/utility";
-import { useEffect } from "react";
 import { useIntl } from "react-intl";
 
 interface IOverview {

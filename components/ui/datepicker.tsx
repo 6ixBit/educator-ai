@@ -39,13 +39,8 @@ export default function DatePicker({
         .eq("project_uuid", project_uuid);
     },
     {
-      onSuccess: () => {
-        console.log("Project successfully.");
-      },
-
       onSettled: () => {
         useQuery.invalidateQueries("fetchProject");
-        console.log("on settled");
       },
     }
   );
@@ -68,14 +63,18 @@ export default function DatePicker({
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Change deadline</span>}
+          {current_deadline ? (
+            format(current_deadline, "PPP")
+          ) : (
+            <span>Change deadline</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
           showOutsideDays={false}
-          selected={date || undefined}
+          selected={date}
           onSelect={(date) => {
             setDate(date);
           }}

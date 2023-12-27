@@ -1,16 +1,17 @@
 "use client";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { deleteStudyCard, getDeckIDFromUUID } from "../actions";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import FlashCards from "@/app/studycards/Flashcards";
+import FlashCards from "@/app/decks/Flashcards";
 import Link from "next/link";
 import LoginModal from "@/components/LoginModal";
 import { Separator } from "@/components/ui/separator";
 import { Table } from "@radix-ui/themes";
-import { fetchStudyCardsFromDeck } from "@/app/studycards/actions";
-import { getDeckIDFromUUID } from "../actions";
+import { fetchStudyCardsFromDeck } from "@/app/decks/actions";
+import { toast } from "sonner";
 import { useIntl } from "react-intl";
 import useStore from "@/app/store";
 import { useUserAuth } from "@/hooks/useUserAuth";
@@ -51,7 +52,7 @@ export default function Page({
           Array.isArray(res) &&
           res
             .filter((card) => card.front && card.back)
-            .map(({ front, back }) => ({ front, back }));
+            .map(({ front, back, card_uuid }) => ({ front, back, card_uuid }));
         // @ts-ignore
         setStudyCards(validStudyCards);
         console.log({ validStudyCards });
@@ -62,7 +63,7 @@ export default function Page({
   return (
     <div className="flex flex-col justify-center mt-1">
       <div className="sm:px-7 px-1">
-        <Link href="/studycards">
+        <Link href="/decks">
           <Button variant="outline" size="sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +98,9 @@ export default function Page({
           </Button>
         </div>
         {studyCards.length} cards
-        <FlashCards options={studyCards} />
+        <div className="px-0 sm:px-5">
+          <FlashCards options={studyCards} />
+        </div>
         <Card className="flex flex-col w-full  p-4 bg-white rounded-lg shadow-md mt-16">
           <CardHeader className="flex items-start justify-between pb-6">
             <CardTitle className="text-lg font-bold ">
@@ -130,7 +133,13 @@ export default function Page({
                         variant="destructive"
                         size="sm"
                         onClick={() => {
-                          console.log("delete");
+                          console.log("card: ", card.card_uuid);
+                          deleteStudyCard(supabase, card.card_uuid).then(
+                            (result) => {
+                              toast("Card has been deleted. ");
+                              console.log({ result });
+                            }
+                          );
                         }}
                       >
                         Delete

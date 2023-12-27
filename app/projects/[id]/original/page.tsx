@@ -2,12 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Toaster } from "@/components/ui/sonner";
 import { formatDate } from "@/utility";
 import { toast } from "sonner";
 import { usePathname } from "next/navigation";
+import { useProjectData } from "../../hooks";
 import { useUserAuth } from "@/hooks/useUserAuth";
-import { useUserData } from "@/hooks/useUserData";
 
 export default function Page() {
   // TODO: Blur user from seeing this if unauthenticated or unauthrozied.
@@ -16,7 +15,7 @@ export default function Page() {
 
   const project_uuid = pathname.split("/projects/")[1].split("/original")[0];
 
-  const { isLoadingProject, project } = useUserData({
+  const { isLoadingProject, project } = useProjectData({
     projectID: project_uuid,
     userID,
   });
@@ -32,7 +31,6 @@ export default function Page() {
 
   return (
     <div>
-      <Toaster />
       <div className="sm:px-7 px-1">
         <Link href={`/projects/${project_uuid}`}>
           <Button variant="outline" size="sm">

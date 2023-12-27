@@ -66,52 +66,6 @@ export default function Index() {
                 ]}
               />
             )}
-
-            {/* {isMobile && !isDesktop ? (
-              <>
-                {user ? (
-                  <DashboardButton />
-                ) : (
-                  <Link
-                    href="/login"
-                    className="py-1 px-3 rounded-md no-underline hover:bg-btn-background-hover bg-cyan-400 font-semibold"
-                  >
-                    Login
-                  </Link>
-                )}
-
-                <HamburgerMenu
-                  items={[
-                    {
-                      name: "Pricing",
-                      url: "#pricing",
-                    },
-                    {
-                      name: "FAQ",
-                      url: "#faq",
-                    },
-                    {
-                      name: "Contact",
-                      url: "#contact",
-                    },
-                  ]}
-                />
-              </>
-            ) : (
-              <div className="flex flex-row gap-7 items-baseline">
-                <p className="text-md font-medium">Pricing</p>
-                <a href="#faq">
-                  <p className="text-md font-medium">FAQ</p>
-                </a>
-                <p className="text-md font-medium">Contact</p>
-                <Link
-                  href="/login"
-                  className="py-1 px-3 rounded-md no-underline hover:bg-btn-background-hover bg-cyan-400 font-semibold"
-                >
-                  Login
-                </Link>
-              </div>
-            )} */}
           </div>
         </div>
       </Navigation>
