@@ -134,12 +134,15 @@ export default function Page({
                         size="sm"
                         onClick={() => {
                           console.log("card: ", card.card_uuid);
-                          deleteStudyCard(supabase, card.card_uuid).then(
-                            (result) => {
-                              toast("Card has been deleted. ");
-                              console.log({ result });
-                            }
-                          );
+                          deleteStudyCard(supabase, card.card_uuid).then(() => {
+                            setStudyCards((prevStudyCards) =>
+                              prevStudyCards.filter(
+                                (c) => c.card_uuid !== card.card_uuid
+                              )
+                            );
+
+                            toast("Card has been deleted.");
+                          });
                         }}
                       >
                         Delete
