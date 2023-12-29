@@ -33,11 +33,12 @@ export const addStudyCard = async (
   user_id: string,
   front: string,
   back: string,
-  deck_id: string
+  deck_id: number,
+  deck_uuid: string
 ) => {
   const { data, error } = await supabase
     .from("studycards")
-    .insert([{ user_id, front, back, deck_id }])
+    .insert([{ user_id, front, back, deck_id, deck_uuid }])
     .select();
 
   if (error) {

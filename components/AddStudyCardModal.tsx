@@ -1,12 +1,14 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { addStudyCard, getDeckIDFromUUID } from "@/app/deck/actions";
 
 import { Button } from "@/components/ui/button";
 import { Modal } from "./Modal";
 import { Textarea } from "@/components/ui/textarea";
+import { addStudyCard } from "@/app/deck/actions";
 import { toast } from "sonner";
+import { useAddStudyCardToDeck } from "@/app/deck/hooks";
+import { useDeck } from "@/app/deck/hooks";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useQueryClient } from "react-query";
@@ -21,23 +23,26 @@ export default function ({
   showModal: boolean;
   setShowStudyCardModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [deckID, setDeckID] = useState<string | null>("");
-  const { userID } = useUserAuth();
-  const queryClient = useQueryClient();
-
-  // @ts-ignore
-  const supabase = useStore((state) => state?.supabase);
   const pathname = usePathname();
   const deck_uuid = pathname.split("/").pop() ?? "";
+  const { userID } = useUserAuth();
+  const supabase = useStore((state) => state?.supabase);
+  const { data: deck, isLoading: isDeckLoading } = useDeck({
+    supabase,
+    deck_uuid,
+  });
+  const [deckID, setDeckID] = useState<number | null>(0);
+
+  const { mutate } = useAddStudyCardToDeck(supabase);
 
   const [frontText, setFrontText] = useState("");
   const [backText, setBackText] = useState("");
 
   useEffect(() => {
-    getDeckIDFromUUID(supabase, deck_uuid).then((res) => {
-      setDeckID(res[0].id);
-    });
-  }, []);
+    if (!isDeckLoading && deck) {
+      setDeckID(deck[0].deck_id);
+    }
+  }, [deck, isDeckLoading]);
 
   const handleFrontChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setFrontText(event?.target.value);
@@ -49,16 +54,18 @@ export default function ({
 
   const handleSubmit = () => {
     if (frontText !== "" && backText !== "") {
-      // TODO: Trigger an error to show.
-      addStudyCard(supabase, userID, frontText, backText, deckID || "").then(
-        (res) => {
-          console.log({ res, status: "success" });
-        }
-      );
+      mutate({
+        user_id: userID,
+        front: frontText,
+        back: backText,
+        deck_id: deckID || 0,
+        deck_uuid: deck_uuid,
+      });
 
-      queryClient.invalidateQueries("fetchStudyCardsFromDeck");
       toast("Added new card.");
       setShowStudyCardModal(false);
+    } else {
+      console.log("we else out.");
     }
   };
 

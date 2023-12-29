@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import FlashCards from "@/app/decks/Flashcards";
 import RandomizeLogo from "@/components/RandomizeLogo";
 import { Separator } from "@/components/ui/separator";
-import { getDeckIDFromUUID } from "../../actions";
 import { useDeck } from "../../hooks";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -20,14 +19,13 @@ export default function Page() {
   const supabase = useStore((state) => state?.supabase);
   const deck_uuid = pathname.split("/")[2];
 
-  const {
-    data: deck,
-    isLoading: isDeckLoading,
-    error: deckLoadError,
-  } = useDeck({ supabase, deck_uuid });
+  const { data: deck, isLoading: isDeckLoading } = useDeck({
+    supabase,
+    deck_uuid,
+  });
 
   useEffect(() => {
-    if (deck) {
+    if (deck && !isDeckLoading) {
       setDeck(deck);
     }
   }, [deck]);
@@ -67,6 +65,10 @@ export default function Page() {
             Deck
           </Button>
           <Separator className="mt-4" />
+        </div>
+
+        <div>
+          {userDeck && !isDeckLoading && <FlashCards options={userDeck} />}
         </div>
         <div className="flex justify-center items-center gap-2 mt-8">
           <Button onClick={handleStart} className="bg-green-500 text-white">
