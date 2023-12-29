@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { useDeck, useDeleteStudyCardFromDeck } from "../hooks";
+import { useDeck, useDeckMetaData, useDeleteStudyCardFromDeck } from "../hooks";
 import { useEffect, useState } from "react";
 
 import AddStudyCardModal from "@/components/AddStudyCardModal";
@@ -33,6 +33,7 @@ export default function Page({
   const { showLoginModal, setShowLoginModal } = useUserAuth();
   const [showAddStudyCardModal, setShowStudyCardModal] = useState(false);
   const [studyCards, setStudyCards] = useState<StudyCard[]>([]);
+  const [deckName, setDeckName] = useState("");
 
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
@@ -47,9 +48,19 @@ export default function Page({
     if (deck && !isDeckLoading) {
       // @ts-ignore
       setStudyCards(deck);
-      console.log({ deck });
     }
   }, [deck, isDeckLoading]);
+
+  const { data: metaData, isLoading: isMetaDataLoading } = useDeckMetaData(
+    supabase,
+    studyCards[0]?.deck_id
+  );
+
+  useEffect(() => {
+    if (metaData && !isMetaDataLoading) {
+      setDeckName(metaData[0].name);
+    }
+  }, [metaData, isMetaDataLoading]);
 
   return (
     <div className="flex flex-col justify-center mt-1">
@@ -85,7 +96,7 @@ export default function Page({
       />
       <div className="sm:pl-6 pl-2">
         <div className="flex justify-between mt-8">
-          <h1 className="font-bold text-lg">No Name Given Yet.</h1>
+          <h1 className="font-bold text-lg">{deckName}</h1>
           <Button
             variant="default"
             size="sm"

@@ -6,7 +6,10 @@ import { Button } from "@/components/ui/button";
 import FlashCards from "@/app/decks/Flashcards";
 import RandomizeLogo from "@/components/RandomizeLogo";
 import { Separator } from "@/components/ui/separator";
+import { randomizeArray } from "@/lib/utils";
+import { toast } from "sonner";
 import { useDeck } from "../../hooks";
+import { useDeckMetaData } from "../../hooks";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import useStore from "@/app/store";
@@ -14,22 +17,36 @@ import useStore from "@/app/store";
 export default function Page() {
   const pathname = usePathname();
   const router = useRouter();
-  const [userDeck, setDeck] = useState<any>();
+  const [deck, setDeck] = useState<any>();
+  const [deckName, setDeckName] = useState("");
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
   const deck_uuid = pathname.split("/")[2];
 
-  const { data: deck, isLoading: isDeckLoading } = useDeck({
+  const { data, isLoading: isDeckLoading } = useDeck({
     supabase,
     deck_uuid,
   });
 
+  // GET CARDS ASSOCIATED WITH DECK
   useEffect(() => {
-    if (deck && !isDeckLoading) {
-      setDeck(deck);
+    if (data && !isDeckLoading) {
+      setDeck(data);
+      console.log("deck:", data);
     }
-  }, [deck]);
+  }, [data]);
 
+  const { data: metaData, isLoading: isMetaDataLoading } = useDeckMetaData(
+    supabase,
+    deck && deck.length > 0 ? deck[0].deck_id : undefined
+  );
+
+  // GET META DATA
+  useEffect(() => {
+    if (metaData && metaData.length > 0 && !isMetaDataLoading) {
+      setDeckName(metaData[0].name);
+    }
+  }, [metaData, isMetaDataLoading]);
   const handleStart = () => {
     // TODO: Start swapping of cards
     console.log("start");
@@ -37,10 +54,8 @@ export default function Page() {
   };
 
   const handleRandomize = () => {
-    // TODO: Randomize the order.
-    console.log("Randomize.");
-
-    return null;
+    setDeck(randomizeArray(deck));
+    toast("Shuffled!");
   };
 
   return (
@@ -67,9 +82,8 @@ export default function Page() {
           <Separator className="mt-4" />
         </div>
 
-        <div>
-          {userDeck && !isDeckLoading && <FlashCards options={userDeck} />}
-        </div>
+        <div className="text-black pt-4">{deckName}</div>
+        <div>{deck && !isDeckLoading && <FlashCards options={deck} />}</div>
         <div className="flex justify-center items-center gap-2 mt-8">
           <Button onClick={handleStart} className="bg-green-500 text-white">
             Start

@@ -27,7 +27,9 @@ export default function Page({
 
   return (
     <>
-      {!isUserAuthorized && <div>You are not allowed to see this.</div>}
+      {!isUserAuthorized && (
+        <div className="text-black">You are not allowed to see this.</div>
+      )}
 
       <div className="sm:px-7 px-1">
         <Link href="/projects">

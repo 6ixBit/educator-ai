@@ -47,3 +47,19 @@ export const addStudyCard = async (
 
   return data;
 };
+
+export const getDeckMetaData = async (
+  supabase: SupabaseClient,
+  deck_id: number
+) => {
+  const { data, error } = await supabase
+    .from("decks")
+    .select("name, is_private")
+    .eq("id", deck_id);
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+};

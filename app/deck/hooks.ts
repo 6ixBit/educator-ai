@@ -1,6 +1,6 @@
 "use client";
 
-import { addStudyCard, deleteStudyCard } from "./actions";
+import { addStudyCard, deleteStudyCard, getDeckMetaData } from "./actions";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import { SupabaseClient } from "@supabase/supabase-js";
@@ -31,7 +31,17 @@ export const useDeck = ({ deck_id, supabase, deck_uuid }: IUseDeck) => {
     onError: (error) => {
       toast("Failed to fetch deck, please try again.");
     },
-    staleTime: 20000,
+  });
+};
+
+export const useDeckMetaData = (supabase: SupabaseClient, deck_id: number) => {
+  return useQuery({
+    queryKey: ["deckMetaData", deck_id],
+    queryFn: () => getDeckMetaData(supabase, deck_id),
+    onError: (error) => {
+      toast("Failed to fetch deck metadata, please try again later.");
+    },
+    enabled: !!deck_id,
   });
 };
 

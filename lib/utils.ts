@@ -23,3 +23,12 @@ export function calculateDaysUntilDeadline(dueDate: string) {
   const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
   return daysDifference;
 }
+
+export function randomizeArray<T>(array: T[]): T[] {
+  let shuffledArray = [...array];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+}
