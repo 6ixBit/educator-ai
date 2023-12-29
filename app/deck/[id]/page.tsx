@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { useDeck, useDeleteStudyCardFromDeck } from "../hooks";
 import { useEffect, useState } from "react";
 
 import AddStudyCardModal from "@/components/AddStudyCardModal";
@@ -10,9 +11,7 @@ import Link from "next/link";
 import LoginModal from "@/components/LoginModal";
 import { Separator } from "@/components/ui/separator";
 import { Table } from "@radix-ui/themes";
-import { deleteStudyCard } from "../actions";
 import { toast } from "sonner";
-import { useDeck } from "../hooks";
 import { useIntl } from "react-intl";
 import { useRouter } from "next/navigation";
 import useStore from "@/app/store";
@@ -38,6 +37,7 @@ export default function Page({
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
 
+  const { mutate } = useDeleteStudyCardFromDeck(supabase);
   const { data: deck, isLoading: isDeckLoading } = useDeck({
     supabase,
     deck_uuid,
@@ -142,15 +142,11 @@ export default function Page({
                         variant="destructive"
                         size="sm"
                         onClick={() => {
-                          deleteStudyCard(supabase, card.card_uuid).then(() => {
-                            setStudyCards((prevStudyCards: StudyCard[]) =>
-                              prevStudyCards.filter(
-                                (c: StudyCard) => c.card_uuid !== card.card_uuid
-                              )
-                            );
-
-                            toast("Card has been deleted.");
+                          mutate({
+                            card_uuid: card.card_uuid,
                           });
+
+                          toast("Card has been deleted.");
                         }}
                       >
                         Delete

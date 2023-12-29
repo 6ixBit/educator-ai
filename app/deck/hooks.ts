@@ -1,9 +1,9 @@
 "use client";
 
+import { addStudyCard, deleteStudyCard } from "./actions";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import { SupabaseClient } from "@supabase/supabase-js";
-import { addStudyCard } from "./actions";
 import { fetchStudyCardsFromDeck } from "../decks/actions";
 import { getDeckIDFromUUID } from "./actions";
 import { toast } from "sonner";
@@ -52,6 +52,22 @@ export const useAddStudyCardToDeck = (supabase: SupabaseClient) => {
       deck_uuid: string;
       deck_id: number;
     }) => addStudyCard(supabase, user_id, front, back, deck_id, deck_uuid),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("fetchStudyCardsFromDeck");
+      },
+    }
+  );
+
+  return mutation;
+};
+
+export const useDeleteStudyCardFromDeck = (supabase: SupabaseClient) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    ({ card_uuid }: { card_uuid: string }) =>
+      deleteStudyCard(supabase, card_uuid),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("fetchStudyCardsFromDeck");
