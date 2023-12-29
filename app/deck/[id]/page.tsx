@@ -1,7 +1,6 @@
 "use client";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { deleteStudyCard, getDeckIDFromUUID } from "../actions";
 import { useEffect, useState } from "react";
 
 import AddStudyCardModal from "@/components/AddStudyCardModal";
@@ -11,8 +10,9 @@ import Link from "next/link";
 import LoginModal from "@/components/LoginModal";
 import { Separator } from "@/components/ui/separator";
 import { Table } from "@radix-ui/themes";
-import { fetchStudyCardsFromDeck } from "@/app/decks/actions";
+import { deleteStudyCard } from "../actions";
 import { toast } from "sonner";
+import { useDeck } from "../hooks";
 import { useIntl } from "react-intl";
 import { useRouter } from "next/navigation";
 import useStore from "@/app/store";
@@ -25,7 +25,7 @@ type StudyCard = {
 };
 
 export default function Page({
-  params: { id: deckUUID },
+  params: { id: deck_uuid },
 }: {
   params: { id: string };
 }) {
@@ -34,34 +34,22 @@ export default function Page({
   const { showLoginModal, setShowLoginModal } = useUserAuth();
   const [showAddStudyCardModal, setShowStudyCardModal] = useState(false);
   const [studyCards, setStudyCards] = useState<StudyCard[]>([]);
-  const [deckData, setDeckData] = useState({});
 
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
 
-  useEffect(() => {
-    // @ts-ignore
-    const response = getDeckIDFromUUID(supabase, deckUUID);
-    response.then((result) => {
-      // @ts-ignore
-      setDeckData({ ...result[0] });
-    });
-  }, [deckUUID, supabase]);
+  const { data: deck, isLoading: isDeckLoading } = useDeck({
+    supabase,
+    deck_uuid,
+  });
 
   useEffect(() => {
-    if (deckData) {
+    if (deck && !isDeckLoading) {
       // @ts-ignore
-      fetchStudyCardsFromDeck(supabase, deckData.id).then((res) => {
-        const validStudyCards =
-          Array.isArray(res) &&
-          res
-            .filter((card) => card.front && card.back)
-            .map(({ front, back, card_uuid }) => ({ front, back, card_uuid }));
-        // @ts-ignore
-        setStudyCards(validStudyCards);
-      });
+      setStudyCards(deck);
+      console.log({ deck });
     }
-  }, [deckData, supabase]);
+  }, [deck, isDeckLoading]);
 
   return (
     <div className="flex flex-col justify-center mt-1">
@@ -97,14 +85,12 @@ export default function Page({
       />
       <div className="sm:pl-6 pl-2">
         <div className="flex justify-between mt-8">
-          <h1 className="font-bold text-lg">
-            {(deckData as { name: string })?.name || "None"}
-          </h1>
+          <h1 className="font-bold text-lg">No Name Given Yet.</h1>
           <Button
             variant="default"
             size="sm"
             onClick={() => {
-              router.push(`/deck/${deckUUID}/practise`);
+              router.push(`/deck/${deck_uuid}/practise`);
             }}
           >
             Practise deck
@@ -147,7 +133,7 @@ export default function Page({
 
             <Table.Body>
               {studyCards &&
-                studyCards.map((card, index) => (
+                studyCards.map((card: StudyCard, index: number) => (
                   <Table.Row key={index}>
                     <Table.Cell>{card.front}</Table.Cell>
                     <Table.Cell>{card.back}</Table.Cell>
@@ -157,9 +143,9 @@ export default function Page({
                         size="sm"
                         onClick={() => {
                           deleteStudyCard(supabase, card.card_uuid).then(() => {
-                            setStudyCards((prevStudyCards) =>
+                            setStudyCards((prevStudyCards: StudyCard[]) =>
                               prevStudyCards.filter(
-                                (c) => c.card_uuid !== card.card_uuid
+                                (c: StudyCard) => c.card_uuid !== card.card_uuid
                               )
                             );
 
