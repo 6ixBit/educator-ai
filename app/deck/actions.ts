@@ -27,3 +27,22 @@ export const deleteStudyCard = async (
 
   return error;
 };
+
+export const addStudyCard = async (
+  supabase: SupabaseClient,
+  user_id: string,
+  front: string,
+  back: string,
+  deck_id: string
+) => {
+  const { data, error } = await supabase
+    .from("studycards")
+    .insert([{ user_id, front, back, deck_id }])
+    .select();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+};

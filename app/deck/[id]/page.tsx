@@ -14,6 +14,7 @@ import { Table } from "@radix-ui/themes";
 import { fetchStudyCardsFromDeck } from "@/app/decks/actions";
 import { toast } from "sonner";
 import { useIntl } from "react-intl";
+import { useRouter } from "next/navigation";
 import useStore from "@/app/store";
 import { useUserAuth } from "@/hooks/useUserAuth";
 
@@ -28,6 +29,7 @@ export default function Page({
 }: {
   params: { id: string };
 }) {
+  const router = useRouter();
   const intl = useIntl();
   const { showLoginModal, setShowLoginModal } = useUserAuth();
   const [showAddStudyCardModal, setShowStudyCardModal] = useState(false);
@@ -57,7 +59,6 @@ export default function Page({
             .map(({ front, back, card_uuid }) => ({ front, back, card_uuid }));
         // @ts-ignore
         setStudyCards(validStudyCards);
-        console.log({ validStudyCards });
       });
     }
   }, [deckData, supabase]);
@@ -99,7 +100,13 @@ export default function Page({
           <h1 className="font-bold text-lg">
             {(deckData as { name: string })?.name || "None"}
           </h1>
-          <Button variant="default" size="sm">
+          <Button
+            variant="default"
+            size="sm"
+            onClick={() => {
+              router.push(`/deck/${deckUUID}/practise`);
+            }}
+          >
             Practise deck
           </Button>
         </div>
@@ -149,7 +156,6 @@ export default function Page({
                         variant="destructive"
                         size="sm"
                         onClick={() => {
-                          console.log("card: ", card.card_uuid);
                           deleteStudyCard(supabase, card.card_uuid).then(() => {
                             setStudyCards((prevStudyCards) =>
                               prevStudyCards.filter(

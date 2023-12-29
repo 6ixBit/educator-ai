@@ -10,12 +10,6 @@ interface IUseProject {
   supabase: SupabaseClient;
 }
 
-interface IUseProjectDateMutation {
-  supabase: SupabaseClient;
-  project_uuid: string;
-  due_date: Date | undefined;
-}
-
 interface IUseProjectData {
   projectID: string;
   userID: string;
