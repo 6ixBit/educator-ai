@@ -1,8 +1,8 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { fetchProjects, getMainDeckForProject } from "./actions";
 
 import { SupabaseClient } from "@supabase/supabase-js";
-import { fetchProjects } from "./actions";
-import { updateProjectDate } from "./actions";
+import { toast } from "sonner";
+import { useQuery } from "react-query";
 import useStore from "../store";
 
 interface IUseProject {
@@ -11,7 +11,7 @@ interface IUseProject {
 }
 
 interface IUseProjectData {
-  projectID: string;
+  project_uuid: string;
   userID: string;
 }
 
@@ -32,7 +32,7 @@ export const useProject = ({ userID, supabase }: IUseProject) => {
   return { isProjectLoading, projectLoadError, projects };
 };
 
-export const useProjectData = ({ projectID, userID }: IUseProjectData) => {
+export const useProjectData = ({ project_uuid, userID }: IUseProjectData) => {
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
 
@@ -50,8 +50,8 @@ export const useProjectData = ({ projectID, userID }: IUseProjectData) => {
   };
 
   const { isLoading: isLoadingProject, data: project } = useQuery(
-    ["fetchProject", projectID],
-    () => fetchProject(projectID),
+    ["fetchProject", project_uuid],
+    () => fetchProject(project_uuid),
     { enabled: !!userID }
   );
 
@@ -59,4 +59,18 @@ export const useProjectData = ({ projectID, userID }: IUseProjectData) => {
     isLoadingProject,
     project,
   };
+};
+
+export const useGetMainDeckForProject = (project_id: number) => {
+  // @ts-ignore
+  const supabase = useStore((state) => state?.supabase);
+
+  return useQuery({
+    queryKey: ["getMainDeckForProject", project_id],
+    queryFn: () => getMainDeckForProject(supabase, project_id),
+    onError: (error) => {
+      toast("Failed to load deck for your project");
+    },
+    enabled: !!project_id,
+  });
 };

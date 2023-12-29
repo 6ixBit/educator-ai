@@ -246,3 +246,17 @@ export const updateProjectDate = async (
     console.error("Error updating due date for project");
   }
 };
+
+export const getMainDeckForProject = async (
+  supabase: SupabaseClient,
+  project_id: number
+) => {
+  let { data, error } = await supabase
+    .from("decks")
+    .select("id, deck_uuid")
+    .eq("project_id", project_id);
+
+  if (error) throw error;
+
+  return data;
+};

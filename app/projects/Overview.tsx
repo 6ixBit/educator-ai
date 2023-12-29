@@ -20,6 +20,7 @@ interface IOverview {
   grade: number;
   project_uuid: string;
   due_date: Date | string | undefined;
+  deck_uuid?: string;
 }
 
 export default function Overview({
@@ -29,6 +30,7 @@ export default function Overview({
   grade,
   project_uuid,
   due_date,
+  deck_uuid,
 }: IOverview) {
   const intl = useIntl();
   const pathname = usePathname();
@@ -154,14 +156,19 @@ export default function Overview({
           </div>
 
           <Separator className="my-2" />
-          <div className="flex justify-between items-center mb-2">
-            <p className="text-black">
-              {intl.formatMessage({ id: "button.flashcards" })}
-            </p>
-            <Button size="sm">
-              {intl.formatMessage({ id: "button.start" })}
-            </Button>
-          </div>
+          {deck_uuid && (
+            <div className="flex justify-between items-center mb-2">
+              <p className="text-black">
+                {intl.formatMessage({ id: "button.flashcards" })}
+              </p>
+              <Button
+                size="sm"
+                onClick={() => router.push(`/deck/${deck_uuid}`)}
+              >
+                {intl.formatMessage({ id: "button.start" })}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -6,24 +6,30 @@ import LoginModal from "@/components/LoginModal";
 import Overview from "@/app/projects/Overview";
 import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
+import { useGetMainDeckForProject } from "../hooks";
 import { useProjectData } from "../hooks";
 import { useState } from "react";
 import { useUserAuth } from "@/hooks/useUserAuth";
 
 export default function Page({
-  params: { id: projectID },
+  params: { id: project_uuid },
 }: {
   params: { id: string };
 }) {
   const { userID, showLoginModal, setShowLoginModal } = useUserAuth();
   const [isUserAuthorized, setisUserAuthorized] = useState(true);
-  const { isLoadingProject, project } = useProjectData({ projectID, userID });
+  const { isLoadingProject, project } = useProjectData({
+    project_uuid,
+    userID,
+  });
 
   if (!isLoadingProject && project) {
     if (project.user_id !== userID) {
       setisUserAuthorized(false);
     }
   }
+  // TODO: Map project_uuid to projectID
+  const { data: mainDeck } = useGetMainDeckForProject(project.id);
 
   return (
     <>
@@ -63,6 +69,7 @@ export default function Page({
           project_uuid={project?.project_uuid}
           grade={parseFloat(project?.grade)}
           due_date={project?.due_date}
+          deck_uuid={mainDeck && mainDeck[0] ? mainDeck[0].deck_uuid : null}
         />
 
         <Toaster />
