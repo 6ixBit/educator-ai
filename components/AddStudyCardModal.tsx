@@ -1,12 +1,12 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useAddStudyCardToDeck, useGetDeckMetaData } from "@/app/deck/hooks";
 
 import { Button } from "@/components/ui/button";
 import { Modal } from "./Modal";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { useAddStudyCardToDeck } from "@/app/deck/hooks";
 import { useDeck } from "@/app/deck/hooks";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
@@ -36,11 +36,14 @@ export default function ({
   const [frontText, setFrontText] = useState("");
   const [backText, setBackText] = useState("");
 
+  const { data: deckMetaData, isLoading: isDeckMetaDataLoading } =
+    useGetDeckMetaData(supabase, deck_uuid);
+
   useEffect(() => {
-    if (!isDeckLoading && deck) {
-      setDeckID(deck[0].deck_id);
+    if (deckMetaData && !isDeckMetaDataLoading) {
+      setDeckID(deckMetaData[0].id);
     }
-  }, [deck, isDeckLoading]);
+  }, [deck, isDeckMetaDataLoading]);
 
   const handleFrontChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setFrontText(event?.target.value);
@@ -52,18 +55,21 @@ export default function ({
 
   const handleSubmit = () => {
     if (frontText !== "" && backText !== "") {
-      mutate({
-        user_id: userID,
-        front: frontText,
-        back: backText,
-        deck_id: deckID || 0,
-        deck_uuid: deck_uuid,
-      });
+      try {
+        mutate({
+          user_id: userID,
+          front: frontText,
+          back: backText,
+          deck_id: deckID || 0,
+          deck_uuid: deck_uuid,
+        });
 
-      toast("Added new card.");
-      setShowStudyCardModal(false);
-    } else {
-      console.log("we else out.");
+        toast("Added new card.");
+
+        setShowStudyCardModal(false);
+      } catch (error) {
+        toast("Failed to add card to deck, please try again later.");
+      }
     }
   };
 

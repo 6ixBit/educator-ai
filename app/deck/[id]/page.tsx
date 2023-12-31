@@ -1,7 +1,11 @@
 "use client";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { useDeck, useDeckMetaData, useDeleteStudyCardFromDeck } from "../hooks";
+import {
+  useDeck,
+  useDeleteStudyCardFromDeck,
+  useGetDeckMetaData,
+} from "../hooks";
 import { useEffect, useState } from "react";
 
 import AddStudyCardModal from "@/components/AddStudyCardModal";
@@ -31,18 +35,29 @@ export default function Page({
   const router = useRouter();
   const intl = useIntl();
   const { showLoginModal, setShowLoginModal } = useUserAuth();
+
   const [showAddStudyCardModal, setShowStudyCardModal] = useState(false);
   const [studyCards, setStudyCards] = useState<StudyCard[]>([]);
-  const [deckName, setDeckName] = useState("");
 
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
-
   const { mutate } = useDeleteStudyCardFromDeck(supabase);
   const { data: deck, isLoading: isDeckLoading } = useDeck({
     supabase,
     deck_uuid,
   });
+
+  const [deckMetaData, setDeckMetaData] = useState();
+  const { data, isLoading: isDeckMetaDataLoading } = useGetDeckMetaData(
+    supabase,
+    deck_uuid
+  );
+
+  useEffect(() => {
+    if (data && !isDeckMetaDataLoading) {
+      setDeckMetaData(data[0]);
+    }
+  }, [deck, isDeckMetaDataLoading]);
 
   useEffect(() => {
     if (deck && !isDeckLoading) {
@@ -50,17 +65,6 @@ export default function Page({
       setStudyCards(deck);
     }
   }, [deck, isDeckLoading]);
-
-  const { data: metaData, isLoading: isMetaDataLoading } = useDeckMetaData(
-    supabase,
-    studyCards[0]?.deck_id
-  );
-
-  useEffect(() => {
-    if (metaData && !isMetaDataLoading) {
-      setDeckName(metaData[0].name);
-    }
-  }, [metaData, isMetaDataLoading]);
 
   return (
     <div className="flex flex-col justify-center mt-1">
@@ -96,7 +100,9 @@ export default function Page({
       />
       <div className="sm:pl-6 pl-2">
         <div className="flex justify-between mt-8">
-          <h1 className="font-bold text-lg">{deckName}</h1>
+          <h1 className="font-bold text-lg">
+            {!isDeckMetaDataLoading && deckMetaData && deckMetaData.name}
+          </h1>
           <Button
             variant="default"
             size="sm"

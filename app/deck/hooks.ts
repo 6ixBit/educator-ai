@@ -5,7 +5,6 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import { SupabaseClient } from "@supabase/supabase-js";
 import { fetchStudyCardsFromDeck } from "../decks/actions";
-import { getDeckIDFromUUID } from "./actions";
 import { toast } from "sonner";
 
 interface IUseDeck {
@@ -17,7 +16,7 @@ interface IUseDeck {
 export const useDeck = ({ deck_id, supabase, deck_uuid }: IUseDeck) => {
   const fetchDeck = async () => {
     if (deck_uuid) {
-      const resolvedDeckID = await getDeckIDFromUUID(supabase, deck_uuid);
+      const resolvedDeckID = await getDeckMetaData(supabase, deck_uuid);
 
       return fetchStudyCardsFromDeck(supabase, resolvedDeckID[0].id);
     } else {
@@ -34,14 +33,20 @@ export const useDeck = ({ deck_id, supabase, deck_uuid }: IUseDeck) => {
   });
 };
 
-export const useDeckMetaData = (supabase: SupabaseClient, deck_id: number) => {
+export const useGetDeckMetaData = (
+  supabase: SupabaseClient,
+  deck_uuid: string
+) => {
   return useQuery({
-    queryKey: ["deckMetaData", deck_id],
-    queryFn: () => getDeckMetaData(supabase, deck_id),
-    onError: (error) => {
-      toast("Failed to fetch deck metadata, please try again later.");
+    queryKey: ["getDeckMetaData", deck_uuid],
+    queryFn: async () => {
+      const result = await getDeckMetaData(supabase, deck_uuid);
+      return result;
     },
-    enabled: !!deck_id,
+    onError: (error) => {
+      console.log("error", error);
+      toast("Failed to fetch deck, please try again later.");
+    },
   });
 };
 

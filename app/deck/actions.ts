@@ -1,6 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 
-export const getDeckIDFromUUID = async (
+export const getDeckMetaData = async (
   supabase: SupabaseClient,
   deck_uuid: string
 ) => {
@@ -40,22 +40,6 @@ export const addStudyCard = async (
     .from("studycards")
     .insert([{ user_id, front, back, deck_id, deck_uuid }])
     .select();
-
-  if (error) {
-    throw error;
-  }
-
-  return data;
-};
-
-export const getDeckMetaData = async (
-  supabase: SupabaseClient,
-  deck_id: number
-) => {
-  const { data, error } = await supabase
-    .from("decks")
-    .select("name, is_private")
-    .eq("id", deck_id);
 
   if (error) {
     throw error;
