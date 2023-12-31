@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { DropDownMenu } from "@/components/DropdownMenu";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+import ProgressBar from "@/components/ProgressBar";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@radix-ui/themes";
 import { addQuizToDB } from "../actions";
@@ -220,9 +221,15 @@ export default function Page() {
 
           <Form.Submit asChild>
             <div className="flex justify-center">
-              <Button variant="submit_blue" disabled={loading}>
-                {intl.formatMessage({ id: "button.submit.text" })}
-              </Button>
+              {loading ? (
+                <div className="w-9/12 mt-2">
+                  <ProgressBar initialProgress={10} end={!loading} />
+                </div>
+              ) : (
+                <Button variant="submit_blue" disabled={loading}>
+                  {intl.formatMessage({ id: "button.submit.text" })}
+                </Button>
+              )}
             </div>
           </Form.Submit>
         </Form.Root>
