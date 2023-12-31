@@ -52,6 +52,7 @@
         "title.checklist": "Learning Checklist", 
         "title.loginmodal": "Hold up! You need an account to see this!",
         "title.upcomingduedates": "Upcoming Due Dates",
+        "title.noupcomingdueduates": "0 Upcoming Due Dates",
         "title.grade": "Grade",
         "title.title": "Title",
         "title.date": "Date Due",

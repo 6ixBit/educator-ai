@@ -122,6 +122,8 @@ export default function Page() {
             </div>
           ) : decksLoadError ? (
             <div>Error: Loading projects</div>
+          ) : filteredDecks.length === 0 ? (
+            <div>You have 0 decks</div>
           ) : (
             filteredDecks.map((deck, index) => (
               <div

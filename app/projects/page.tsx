@@ -108,7 +108,7 @@ export default function Page() {
           Array.isArray(projects) &&
           projects.length === 0 && (
             <p className="text-xl text-center italic pt-12 font-semibold">
-              You have no projects.
+              Add a project to get started
             </p>
           )}
 
@@ -131,7 +131,9 @@ export default function Page() {
         <Card className="flex flex-col w-full md:w-1/2 p-4 bg-white rounded-lg shadow-md">
           <CardHeader className="flex items-start justify-between pb-6">
             <CardTitle className="text-lg font-bold ">
-              {intl.formatMessage({ id: "title.upcomingduedates" })}
+              {Array.isArray(dueProjects) && dueProjects.length < 1
+                ? intl.formatMessage({ id: "title.noupcomingdueduates" })
+                : intl.formatMessage({ id: "title.upcomingduedates" })}
             </CardTitle>
           </CardHeader>
           <Table.Root>
@@ -166,7 +168,7 @@ export default function Page() {
           </Table.Root>
         </Card>
 
-        <Card className="flex flex-col w-full md:w-1/2 p-4 bg-white rounded-lg shadow-md">
+        {/* <Card className="flex flex-col w-full md:w-1/2 p-4 bg-white rounded-lg shadow-md">
           <CardHeader className="flex items-center justify-between pb-2">
             <CardTitle className="text-lg font-bold">New Section</CardTitle>
           </CardHeader>
@@ -174,7 +176,7 @@ export default function Page() {
             <h3 className="font-bold">Title for New Section</h3>
             <p className="text-gray-600">This is a new section.</p>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
     </div>
   );

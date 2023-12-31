@@ -17,6 +17,7 @@ export default function Page({
   params: { id: string };
 }) {
   const { userID, showLoginModal, setShowLoginModal } = useUserAuth();
+  const [projectID, setProjectID] = useState(null);
   const [isUserAuthorized, setisUserAuthorized] = useState(true);
   const { isLoadingProject, project } = useProjectData({
     project_uuid,
@@ -26,10 +27,10 @@ export default function Page({
   if (!isLoadingProject && project) {
     if (project.user_id !== userID) {
       setisUserAuthorized(false);
+      setProjectID(project.id);
     }
   }
-  // TODO: Map project_uuid to projectID
-  const { data: mainDeck } = useGetMainDeckForProject(project.id);
+  const { data: mainDeck } = useGetMainDeckForProject(projectID);
 
   return (
     <>
