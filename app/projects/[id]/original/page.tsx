@@ -16,7 +16,7 @@ export default function Page() {
   const project_uuid = pathname.split("/projects/")[1].split("/original")[0];
 
   const { isLoadingProject, project } = useProjectData({
-    projectID: project_uuid,
+    project_uuid,
     userID,
   });
 

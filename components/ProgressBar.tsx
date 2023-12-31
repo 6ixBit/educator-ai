@@ -23,15 +23,15 @@ const ProgressBar = ({ initialProgress, end }: IProgress) => {
 
       const timer3 = setTimeout(() => {
         setProgress(60);
-      }, 1300);
+      }, 1700);
 
       const timer4 = setTimeout(() => {
         setProgress(75);
-      }, 1900);
+      }, 2100);
 
       const timer5 = setTimeout(() => {
         setProgress(90);
-      }, 2200);
+      }, 2700);
 
       return () => {
         clearTimeout(timer1);
