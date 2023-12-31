@@ -19,6 +19,7 @@ import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@radix-ui/themes";
 import { addQuizToDB } from "../actions";
+import { toast } from "sonner";
 import { useIntl } from "react-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -26,6 +27,8 @@ import useStore from "@/app/store";
 import { useUserAuth } from "@/hooks/useUserAuth";
 
 export default function Page() {
+  const maxCharacterLimit = 10_000;
+
   const intl = useIntl();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -46,6 +49,14 @@ export default function Page() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
     event.preventDefault();
+
+    if (textAreaWordCount > maxCharacterLimit) {
+      toast.error(
+        "Your content exceeds the character limit, please reduce it."
+      );
+      setLoading(false);
+      return;
+    }
 
     const formValues = event.target as any;
     const title = formValues[0].value;
@@ -90,7 +101,7 @@ export default function Page() {
     <>
       <div className="sm:px-7 px-1">
         <Link href="/projects">
-          <Button variant="secondary" size="sm">
+          <Button variant="outline" size="sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -136,8 +147,10 @@ export default function Page() {
                 </Form.Label>
                 <Form.Control asChild>
                   <input
-                    className="box-border w-auto bg-blackA2 text-black bg-white inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-                    placeholder="The influence of AI "
+                    className={`box-border w-auto bg-blackA2 text-black bg-white inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6 ${
+                      loading ? "opacity-50 pointer-events-none" : ""
+                    }`}
+                    placeholder="The influence of AI"
                     required
                     disabled={loading}
                   />
@@ -199,7 +212,7 @@ export default function Page() {
                 match="valueMissing"
               >
                 {intl.formatMessage({
-                  id: "create.error.valuemissing.content",
+                  id: "create.error.valuemissing.title",
                 })}
               </Form.Message>
             </div>
@@ -207,12 +220,9 @@ export default function Page() {
 
           <Form.Submit asChild>
             <div className="flex justify-center">
-              <button
-                disabled={loading}
-                className="box-border w-1/2 text-black shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-full bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
-              >
+              <Button variant="submit_blue" disabled={loading}>
                 {intl.formatMessage({ id: "button.submit.text" })}
-              </button>
+              </Button>
             </div>
           </Form.Submit>
         </Form.Root>

@@ -8,13 +8,13 @@
 
         "create.title.text": "Title",
         "create.error.valuemissing.title": "Please enter a title",
-        "create.error.valuemissing.content": "Please enter some content...",
+        "create.error.valuemissing.content": "Please input some text content...",
         "create.title.placeholder": "The influence of AI",
         "create.body.text": "Content",
         "create.body.placeholder": "How did the Roman Empire become so dominant?",
         "create.level.text": "Level",
         "create.level.label": "Scale of study content",
-        "create.wordcount": "{characters} / 20,000 words",
+        "create.wordcount": "{characters} / 10,000 words",
 
         "hamburger.signout.text": "Sign out",
         "hamburger.login.text": "Login",

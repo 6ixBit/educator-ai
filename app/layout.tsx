@@ -46,7 +46,7 @@ export default function RootLayout({
               radius="large"
             >
               {children}
-              <Toaster />
+              <Toaster richColors />
             </Theme>
           </QueryClientProvider>
         </IntlProvider>
