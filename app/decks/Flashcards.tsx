@@ -30,15 +30,22 @@ export default function FlashCards({ options }: IFlashCards) {
   return (
     <div className="mt-4 w-full">
       <div className="flex flex-row items-baseline justify-center">
-        <div className="flex flex-row gap-1">
-          <h2 className="text-black text-md mb-3 font-normal">
-            {currentOption + 1} /
-          </h2>
+        {options.length === 0 ? (
+          <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+            {" "}
+            0 cards in deck
+          </h3>
+        ) : (
+          <div className="flex flex-row gap-1">
+            <h2 className="text-black text-md mb-3 font-normal">
+              {currentOption + 1} /
+            </h2>
 
-          <h2 className="text-gray-500 text-md mb-3 font-normal">
-            {options.length}
-          </h2>
-        </div>
+            <h2 className="text-gray-500 text-md mb-3 font-normal">
+              {options.length}
+            </h2>
+          </div>
+        )}
       </div>
 
       <div className=" mx-auto">

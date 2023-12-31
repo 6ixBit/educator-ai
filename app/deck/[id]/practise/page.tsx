@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { randomizeArray } from "@/lib/utils";
 import { toast } from "sonner";
 import { useDeck } from "../../hooks";
-import { useDeckMetaData } from "../../hooks";
+import { useGetDeckMetaData } from "../../hooks";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import useStore from "@/app/store";
@@ -19,6 +19,7 @@ export default function Page() {
   const router = useRouter();
   const [deck, setDeck] = useState<any>();
   const [deckName, setDeckName] = useState("");
+  const [isDeckEmpty, setIsDeckEmpty] = useState(false);
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
   const deck_uuid = pathname.split("/")[2];
@@ -32,11 +33,14 @@ export default function Page() {
   useEffect(() => {
     if (data && !isDeckLoading) {
       setDeck(data);
-      console.log("deck:", data);
+
+      if (data.length === 0) {
+        setIsDeckEmpty(true);
+      }
     }
   }, [data]);
 
-  const { data: metaData, isLoading: isMetaDataLoading } = useDeckMetaData(
+  const { data: metaData, isLoading: isMetaDataLoading } = useGetDeckMetaData(
     supabase,
     deck && deck.length > 0 ? deck[0].deck_id : undefined
   );
@@ -47,6 +51,7 @@ export default function Page() {
       setDeckName(metaData[0].name);
     }
   }, [metaData, isMetaDataLoading]);
+
   const handleStart = () => {
     // TODO: Start swapping of cards
     console.log("start");
@@ -85,10 +90,14 @@ export default function Page() {
         <div className="text-black pt-4">{deckName}</div>
         <div>{deck && !isDeckLoading && <FlashCards options={deck} />}</div>
         <div className="flex justify-center items-center gap-2 mt-8">
-          <Button onClick={handleStart} className="bg-green-500 text-white">
+          <Button
+            onClick={handleStart}
+            className="bg-green-500 text-white"
+            disabled={isDeckEmpty}
+          >
             Start
           </Button>
-          <Button onClick={handleRandomize}>
+          <Button onClick={handleRandomize} disabled={isDeckEmpty}>
             <RandomizeLogo />
             <p className="px-2">Randomize Order</p>
           </Button>
