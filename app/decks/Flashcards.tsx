@@ -33,7 +33,7 @@ export default function FlashCards({ options }: IFlashCards) {
         {options.length === 0 ? (
           <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
             {" "}
-            0 cards in deck
+            No cards in deck
           </h3>
         ) : (
           <div className="flex flex-row gap-1">

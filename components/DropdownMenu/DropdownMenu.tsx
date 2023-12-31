@@ -1,14 +1,16 @@
+import "./styles.css";
+
 // @ts-nocheck
 import * as Select from "@radix-ui/react-select";
-import React from "react";
-import classnames from "classnames";
+
 import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
 
-import "./styles.css";
+import React from "react";
+import classnames from "classnames";
 
 interface IDropDownMenu {
   onValueChange?: (value: any) => void;
@@ -46,12 +48,12 @@ export default function DropDownMenu({
     <Select.Root
       className="selectRoot"
       onValueChange={handleValueChange}
-      style={{ width: "188px" }}
+      style={{ width: "100%" }}
     >
       <Select.Trigger
         className="SelectTrigger"
         aria-label="Level"
-        style={{ width: "188px" }}
+        style={{ width: "100%" }}
       >
         <Select.Value placeholder={placeholder} />
         <Select.Icon className="SelectIcon">

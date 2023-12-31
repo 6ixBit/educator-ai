@@ -129,7 +129,7 @@ export default function Page() {
           onSubmit={handleSubmit}
         >
           <Form.Field className=" mb-[10px]" name="content">
-            <div className="flex flex-col sm:flex-row sm:items-baseline">
+            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
               <div className="flex flex-col">
                 <Form.Label className="text-[16px] font-bold leading-[35px] text-black">
                   {intl.formatMessage({ id: "create.title.text" })}
@@ -144,7 +144,7 @@ export default function Page() {
                 </Form.Control>
               </div>
 
-              <div className="mb-6 flex flex-col ml-0 sm:ml-auto mt-4 sm:mt-0">
+              <div className="mb-6 flex flex-col mt-4 sm:mt-0 sm:pr-8">
                 <Form.Label className=" flex flex-row items-center gap-2">
                   <p className="text-[16px] font-bold leading-[35px] text-black">
                     {intl.formatMessage({ id: "create.level.text" })}
@@ -154,7 +154,7 @@ export default function Page() {
                   </Tooltip>
                 </Form.Label>
 
-                <div className="flex flex-row justify-between items-baseline w-full">
+                <div className="pr-8 sm:pr-0">
                   <DropDownMenu
                     placeholder="High School"
                     options={[
@@ -178,7 +178,7 @@ export default function Page() {
 
             <Form.Control asChild>
               <textarea
-                className="box-border h-72 sm:h-80 text-black w-full md:w-56 p-6  sm:w-full  shadow-blackA6 inline-flex appearance-none items-center justify-center rounded-[4px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6 resize-none"
+                className="box-border h-72 sm:h-80 text-black w-full p-6 sm:w-full shadow-blackA6 inline-flex appearance-none items-center justify-center rounded-[4px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6 resize-none"
                 placeholder="How did the Roman empire become so dominant?"
                 required
                 disabled={loading}
