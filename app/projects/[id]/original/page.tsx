@@ -23,9 +23,9 @@ export default function Page() {
   const handleCopiedClick = () => {
     try {
       navigator.clipboard.writeText(project?.content);
-      toast("Copied content to your clipboard!");
+      toast.success("Copied content to your clipboard!");
     } catch (err) {
-      toast("Failed to copy content to clipboard");
+      toast.error("Failed to copy content to clipboard");
     }
   };
 

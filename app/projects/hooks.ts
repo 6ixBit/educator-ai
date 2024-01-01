@@ -61,18 +61,15 @@ export const useProjectData = ({ project_uuid, userID }: IUseProjectData) => {
   };
 };
 
-export const useGetMainDeckForProject = (project_id: number | null) => {
+export const useGetMainDeckForProject = (project_id: number | undefined) => {
   // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
 
   return useQuery({
     queryKey: ["getMainDeckForProject", project_id],
-    queryFn: () =>
-      project_id !== null
-        ? getMainDeckForProject(supabase, project_id)
-        : undefined,
+    queryFn: () => getMainDeckForProject(supabase, project_id),
     onError: (error) => {
-      toast("Failed to load deck for your project");
+      toast.error("Failed to load deck for your project");
     },
     enabled: !!project_id,
   });

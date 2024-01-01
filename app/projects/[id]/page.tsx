@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import LoginModal from "@/components/LoginModal";
@@ -8,7 +10,6 @@ import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
 import { useGetMainDeckForProject } from "../hooks";
 import { useProjectData } from "../hooks";
-import { useState } from "react";
 import { useUserAuth } from "@/hooks/useUserAuth";
 
 export default function Page({
@@ -24,13 +25,24 @@ export default function Page({
     userID,
   });
 
-  if (!isLoadingProject && project) {
-    if (project.user_id !== userID) {
-      setisUserAuthorized(false);
-      setProjectID(project.id);
+  const [userDeck, setUserDeck] = useState<any>();
+
+  useEffect(() => {
+    if (!isLoadingProject && project) {
+      if (project.user_id !== userID) {
+        setisUserAuthorized(false);
+        // setProjectID(project.id); - User is not authorized so we cant get set the markup.
+      } else {
+        setProjectID(project.id);
+      }
     }
-  }
-  const { data: mainDeck } = useGetMainDeckForProject(projectID);
+  }, [project, isLoadingProject]);
+
+  const { data: mainDeck, isLoading } = useGetMainDeckForProject(projectID);
+
+  useEffect(() => {
+    setUserDeck(mainDeck);
+  }, [mainDeck, isLoading]);
 
   return (
     <>
@@ -70,7 +82,7 @@ export default function Page({
           project_uuid={project?.project_uuid}
           grade={parseFloat(project?.grade)}
           due_date={project?.due_date}
-          deck_uuid={mainDeck && mainDeck[0] ? mainDeck[0].deck_uuid : null}
+          deck_uuid={userDeck && userDeck[0] ? userDeck[0].deck_uuid : null}
         />
 
         <Toaster />

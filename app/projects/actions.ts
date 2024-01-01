@@ -249,7 +249,7 @@ export const updateProjectDate = async (
 
 export const getMainDeckForProject = async (
   supabase: SupabaseClient,
-  project_id: number
+  project_id: number | undefined
 ) => {
   let { data, error } = await supabase
     .from("decks")
