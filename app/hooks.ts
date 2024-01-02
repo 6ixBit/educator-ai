@@ -1,11 +1,25 @@
 import { useEffect, useState } from "react";
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { fetchUser } from "../app/actions";
+import { fetchUser } from "./actions";
+import { getUserAPIKey } from "./actions";
 import { useQuery } from "react-query";
+import useStore from "./store";
+
+export const useAPIKey = (user_id: string) => {
+  // @ts-ignore
+  const supabase = useStore((state) => state?.supabase);
+
+  return useQuery({
+    queryKey: ["getUserAPIKey", user_id],
+    queryFn: () => getUserAPIKey(supabase, user_id),
+    onError: (error) => {},
+    enabled: !!user_id,
+  });
+};
 
 export const useUserAuth = () => {
-  const supabase = createClientComponentClient();
+  // @ts-ignore
+  const supabase = useStore((state) => state?.supabase);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   const { isLoading, data: userData } = useQuery({

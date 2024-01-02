@@ -25,7 +25,7 @@ import { useIntl } from "react-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import useStore from "@/app/store";
-import { useUserAuth } from "@/hooks/useUserAuth";
+import { useUserAuth } from "@/app/hooks";
 
 export default function Page() {
   const maxCharacterLimit = 10_000;

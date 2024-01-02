@@ -1,7 +1,8 @@
+import { IQuestion, IWrongAnswer } from "./types";
+
+import QuizReview from "./QuizReview";
 import { RadioGroupContainer } from "@/components/RadioGroup";
 import { useState } from "react";
-import { IQuestion, IWrongAnswer } from "./types";
-import QuizReview from "./QuizReview";
 
 interface IQuiz {
   questions: IQuestion[];

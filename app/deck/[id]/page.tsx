@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 import AddStudyCardModal from "@/components/AddStudyCardModal";
 import { Button } from "@/components/ui/button";
 import FlashCards from "@/app/decks/Flashcards";
-import Link from "next/link";
 import LoginModal from "@/components/LoginModal";
 import { Separator } from "@/components/ui/separator";
 import { Table } from "@radix-ui/themes";
@@ -19,7 +18,7 @@ import { toast } from "sonner";
 import { useIntl } from "react-intl";
 import { useRouter } from "next/navigation";
 import useStore from "@/app/store";
-import { useUserAuth } from "@/hooks/useUserAuth";
+import { useUserAuth } from "@/app/hooks";
 
 type StudyCard = {
   front: string;
@@ -69,25 +68,29 @@ export default function Page({
   return (
     <div className="flex flex-col justify-center mt-1">
       <div className="sm:px-7 px-1">
-        <Link href="/decks">
-          <Button variant="outline" size="sm">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
-            >
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-            Decks
-          </Button>
-        </Link>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => {
+            router.back();
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          Back
+        </Button>
         <Separator className="mt-4" />
       </div>
       <LoginModal

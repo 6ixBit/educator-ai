@@ -64,10 +64,21 @@ export default function Overview({
       <h2 className="text-gray-500 font-medium text-sm pt-12">
         {due_date ? (
           <span>
-            <span style={{ color: "red" }}>
-              {calculateDaysUntilDeadline(due_date.toString())} days
-            </span>{" "}
-            till deadline.
+            {calculateDaysUntilDeadline(due_date.toString()) < 0 ? (
+              <span style={{ color: "red" }}>
+                Deadline passed{" "}
+                {Math.abs(calculateDaysUntilDeadline(due_date.toString()))} days
+                ago
+              </span>
+            ) : (
+              <div>
+                <span style={{ color: "red" }}>
+                  {calculateDaysUntilDeadline(due_date.toString())} days
+                </span>
+
+                <span> till deadline</span>
+              </div>
+            )}
           </span>
         ) : null}
       </h2>
@@ -146,16 +157,6 @@ export default function Overview({
         </h1>
 
         <div className="bg-white rounded-lg p-4">
-          <div className="flex justify-between items-center mb-2">
-            <p className="text-black">
-              {intl.formatMessage({ id: "button.takequiz" })}
-            </p>
-            <Button size="sm">
-              {intl.formatMessage({ id: "button.start" })}
-            </Button>
-          </div>
-
-          <Separator className="my-2" />
           {deck_uuid && (
             <div className="flex justify-between items-center mb-2">
               <p className="text-black">
@@ -169,6 +170,17 @@ export default function Overview({
               </Button>
             </div>
           )}
+
+          <Separator className="my-2" />
+
+          {/* <div className="flex justify-between items-center mb-2">
+            <p className="text-black">
+              {intl.formatMessage({ id: "button.takequiz" })}
+            </p>
+            <Button size="sm">
+              {intl.formatMessage({ id: "button.start" })}
+            </Button>
+          </div> */}
         </div>
       </div>
     </div>

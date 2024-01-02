@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useEffect, useState } from "react";
 
 import CardList from "./CardList";
 import GradeCircle from "@/components/grade-circle";
@@ -10,12 +11,12 @@ import SearchHeader from "@/components/SearchHeader";
 import Skeleton from "@mui/material/Skeleton";
 import { Table } from "@radix-ui/themes";
 import { formatDate } from "@/utility";
+import { useAPIKey } from "../hooks";
 import { useIntl } from "react-intl";
 import { useProject } from "./hooks";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import useStore from "../store";
-import { useUserAuth } from "@/hooks/useUserAuth";
+import { useUserAuth } from "../hooks";
 import useWindowSize from "@/hooks/useWindowSize";
 
 export default function Page() {
@@ -44,9 +45,20 @@ export default function Page() {
       )
     : [];
 
+  const todaysDate = new Date();
+
   const dueProjects =
     Array.isArray(projects) &&
-    projects.filter((proj) => proj.due_date !== null);
+    projects.filter((proj) => {
+      const projectDate = new Date(proj.due_date);
+      return projectDate >= todaysDate;
+    });
+
+  const { data, isLoading } = useAPIKey(userID);
+
+  useEffect(() => {
+    console.log("api key: ", data);
+  }, [data, isLoading]);
 
   return (
     <div className="flex flex-col md:flex-row flex-wrap mt-1 gap-4">

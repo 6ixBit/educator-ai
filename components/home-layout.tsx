@@ -4,14 +4,12 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 import { Button } from "@radix-ui/themes";
 import ChangeLangModal from "./ChangeLangModal";
-import HamburgerMenu from "./HamburgerMenu";
 import Image from "next/image";
 import Link from "next/link";
-import SearchHeader from "./SearchHeader";
 import { useIntl } from "react-intl";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { useUserAuth } from "@/hooks/useUserAuth";
+import { useUserAuth } from "@/app/hooks";
 import useWindowSize from "@/hooks/useWindowSize";
 
 export function HomeLayout({ children }: { children: React.ReactNode }) {
@@ -65,7 +63,7 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
               className={isActive(["/deck", "/decks"]).border}
               href="/decks"
             >
-              <PieChartIcon className="w-4 h-4" />
+              <CardIcon className="w-4 h-4" />
               {!isTablet && (
                 <span className={isActive(["/deck", "/decks"]).text}>
                   {intl.formatMessage({ id: "navmenu.studycards" })}
@@ -73,7 +71,8 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
               )}
             </Link>
             <Link className={isActive(["/quiz"]).border} href="/quiz">
-              <SettingsIcon className="w-4 h-4" />
+              <QuizIcon className="w-4 h-4" />
+
               {!isTablet && (
                 <span className={isActive(["/quiz"]).text}>
                   {intl.formatMessage({ id: "navmenu.quiz" })}
@@ -92,6 +91,7 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
                 setShowChangeLangModal(true);
               }}
             >
+              <SettingsIcon className="w-4 h-4" />
               Change Languages
             </Button>
           )}
@@ -107,29 +107,7 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
         </div>
       </div>
 
-      <div className="flex flex-col flex-1 p-4 overflow-auto">
-        {/* <div className="flex justify-between items-center">
-          {isMobile && (
-            <HamburgerMenu
-              items={[
-                {
-                  name: "Projects",
-                  url: "/projects",
-                },
-                {
-                  name: "Study cards",
-                  url: "/studycards",
-                },
-                {
-                  name: "Quiz",
-                  url: "/quiz",
-                },
-              ]}
-            />
-          )}
-        </div> */}
-        {children}
-      </div>
+      <div className="flex flex-col flex-1 p-4 overflow-auto">{children}</div>
 
       <ChangeLangModal
         showModal={showChangeLangModal}
@@ -155,26 +133,6 @@ function SettingsIcon(props: React.SVGProps<SVGSVGElement>) {
     >
       <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
       <circle cx="12" cy="12" r="3" />
-    </svg>
-  );
-}
-
-function PieChartIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
-      <path d="M22 12A10 10 0 0 0 12 2v10z" />
     </svg>
   );
 }
@@ -237,6 +195,50 @@ function ImageIcon(props: React.SVGProps<SVGSVGElement>) {
       <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
       <circle cx="9" cy="9" r="2" />
       <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+    </svg>
+  );
+}
+
+function CardIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2" />
+      <path d="M3 11h3c.8 0 1.6.3 2.1.9l1.1.9c1.6 1.6 4.1 1.6 5.7 0l1.1-.9c.5-.5 1.3-.9 2.1-.9H21" />
+    </svg>
+  );
+}
+
+function QuizIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M10 2v7.31" />
+      <path d="M14 9.3V1.99" />
+      <path d="M8.5 2h7" />
+      <path d="M14 9.3a6.5 6.5 0 1 1-4 0" />
+      <path d="M5.52 16h12.96" />
     </svg>
   );
 }

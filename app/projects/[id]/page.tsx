@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
 import { useGetMainDeckForProject } from "../hooks";
 import { useProjectData } from "../hooks";
-import { useUserAuth } from "@/hooks/useUserAuth";
+import { useUserAuth } from "@/app/hooks";
 
 export default function Page({
   params: { id: project_uuid },

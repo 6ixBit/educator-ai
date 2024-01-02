@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import useStore from "@/app/store";
-import { useUserAuth } from "@/hooks/useUserAuth";
+import { useUserAuth } from "@/app/hooks";
 
 export default function ({
   showModal,

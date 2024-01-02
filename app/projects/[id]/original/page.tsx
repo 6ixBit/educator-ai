@@ -6,7 +6,7 @@ import { formatDate } from "@/utility";
 import { toast } from "sonner";
 import { usePathname } from "next/navigation";
 import { useProjectData } from "../../hooks";
-import { useUserAuth } from "@/hooks/useUserAuth";
+import { useUserAuth } from "@/app/hooks";
 
 export default function Page() {
   // TODO: Blur user from seeing this if unauthenticated or unauthrozied.

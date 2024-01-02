@@ -14,7 +14,7 @@ import { useIntl } from "react-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import useStore from "../store";
-import { useUserAuth } from "@/hooks/useUserAuth";
+import { useUserAuth } from "../hooks";
 import useWindowSize from "@/hooks/useWindowSize";
 
 export default function Page() {
