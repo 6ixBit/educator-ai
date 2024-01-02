@@ -49,7 +49,7 @@ export default function QuizReview({
 
       {wrongAnswers.map((item, index) => (
         <div key={index} className="mt-6">
-          <h2 className="text-slate-300 text-sm mb-3 font-normal">
+          <h2 className="text-black text-sm mb-3 font-normal">
             Q: {item.question}
           </h2>
 
