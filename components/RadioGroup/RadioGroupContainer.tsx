@@ -1,5 +1,6 @@
-import * as RadioGroup from "@radix-ui/react-radio-group";
 import "./styles.css";
+
+import * as RadioGroup from "@radix-ui/react-radio-group";
 
 export default function RadioGroupContainer({
   children,
@@ -16,7 +17,7 @@ export default function RadioGroupContainer({
     <>
       <form>
         <RadioGroup.Root
-          className="RadioGroupRoot"
+          className="RadioGroupRoot ml-5"
           defaultValue="default"
           aria-label="View density"
           onValueChange={handleValueChange}
@@ -31,19 +32,8 @@ export default function RadioGroupContainer({
               >
                 <RadioGroup.Indicator className="RadioGroupIndicator" />
               </RadioGroup.Item>
-              <label
-                className="Label"
-                htmlFor={`r${index}`}
-                style={{
-                  width: "100%",
-                  textOverflow: "clip",
-                  whiteSpace: "normal",
-                  fontSize: ".9rem",
-                  marginTop: "0rem",
-                }}
-              >
-                {option}
-              </label>
+
+              <p className="leading-2  sm:px-5 text-black">{option}</p>
             </div>
           ))}
           {children}

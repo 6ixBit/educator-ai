@@ -55,11 +55,11 @@ export default function Quiz({ questions }: IQuiz) {
     <div className="mt-6 mb-4 w-full">
       <div className="flex justify-end flex-row items-baseline">
         <div className="flex flex-row gap-1">
-          <h2 className="text-slate-300 text-md mb-3 font-normal">
+          <h2 className="text-black text-md mb-3 font-normal">
             {currentOption + 1} /
           </h2>
 
-          <h2 className="text-gray-500 text-sm mb-3 font-normal">
+          <h2 className="text-black text-sm mb-3 font-normal">
             {questions?.length} questions
           </h2>
         </div>
@@ -73,7 +73,7 @@ export default function Quiz({ questions }: IQuiz) {
         />
       ) : (
         <>
-          <h2 className="text-slate-200 text-left mb-8">
+          <h2 className="text-black text-left mb-8">
             {questions[currentOption].question}
           </h2>
 

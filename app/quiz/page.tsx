@@ -89,6 +89,20 @@ export default function Page() {
                     >
                       Take Quiz{" "}
                     </Button>
+
+                    {quiz.project_id && (
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        className="mx-1 sm:mx-2"
+                        onClick={() => {
+                          router.push(`/projects/${quiz.project_uuid}`);
+                        }}
+                      >
+                        {" "}
+                        View Project
+                      </Button>
+                    )}
                   </Table.Cell>
                 </Table.Row>
               ))}
