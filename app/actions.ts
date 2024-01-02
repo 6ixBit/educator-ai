@@ -2,26 +2,6 @@ import { SupabaseClient } from "@supabase/supabase-js";
 
 const SERVER_URL = "http://localhost:9004";
 
-export const sendToDB = async (
-  supabase: any,
-  content: string,
-  title: string,
-  user_id: string
-) => {
-  try {
-    const { data, error } = await supabase
-      .from("text-content")
-      .insert([{ content, user_id, title }])
-      .select();
-
-    if (error) throw error;
-
-    return data;
-  } catch (error) {
-    console.error("Error: ", error);
-  }
-};
-
 export const gradeCaseStudy = async (
   caseStudy: string,
   caseStudyContext: string,
@@ -93,23 +73,6 @@ export const sendFormDataForProcessing = async (content: string) => {
   }
 };
 
-export const update_row = async (
-  supabase: SupabaseClient,
-  input: object,
-  id: string
-) => {
-  const { data, error } = await supabase
-    .from("text-content")
-    .update(input)
-    .eq("id", id)
-    .select();
-
-  if (data && !error) {
-    return data;
-  }
-  return error;
-};
-
 export const delete_item = async (
   supabase: SupabaseClient,
   column: string,
@@ -125,23 +88,6 @@ export const delete_item = async (
   }
 
   return data;
-};
-
-export const fetchUserTextContents = async (
-  supabase: SupabaseClient,
-  id: string
-) => {
-  const { data, error } = await supabase
-    .from("text-content")
-    .select("*")
-    .eq("user_id", id)
-    .order("created_at", { ascending: false });
-
-  if (data) {
-    return data;
-  }
-
-  return error;
 };
 
 export const fetchUser = async (supabase: SupabaseClient) => {

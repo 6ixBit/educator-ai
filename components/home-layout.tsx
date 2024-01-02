@@ -1,7 +1,5 @@
 "use client";
 
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-
 import { Button } from "@radix-ui/themes";
 import ChangeLangModal from "./ChangeLangModal";
 import Image from "next/image";
@@ -13,7 +11,7 @@ import { useUserAuth } from "@/app/hooks";
 import useWindowSize from "@/hooks/useWindowSize";
 
 export function HomeLayout({ children }: { children: React.ReactNode }) {
-  const { isMobile, isTablet } = useWindowSize();
+  const { isTablet } = useWindowSize();
   const { userEmail } = useUserAuth();
   const path = usePathname();
   const [showChangeLangModal, setShowChangeLangModal] = useState(false);
@@ -82,7 +80,7 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
           </nav>
         </div>
 
-        <div className="flex items-center mt-8 flex-col ">
+        <div className="flex items-center mt-8 flex-col">
           {!isTablet && (
             <Button
               variant="outline"
@@ -96,14 +94,7 @@ export function HomeLayout({ children }: { children: React.ReactNode }) {
             </Button>
           )}
 
-          <Avatar className="w-8 h-8 mr-2">
-            {/* <AvatarImage
-              alt="User avatar"
-              src="/placeholder.svg?height=32&width=32"
-            /> */}
-          </Avatar>
-
-          {!isTablet && <span className="text-gray-600">{userEmail}</span>}
+          {!isTablet && <span className="text-gray-600 pt-4">{userEmail}</span>}
         </div>
       </div>
 
