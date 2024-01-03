@@ -1,6 +1,6 @@
 "use client";
 
-import ArrowLogo from "@/components/ArrowLogo";
+import ArrowLogo from "@/components/icons/ArrowLogo";
 import CollapsableSection from "@/components/CollapsableSection";
 import DashboardButton from "@/components/DashboardButton";
 import HamburgerMenu from "@/components/HamburgerMenu";

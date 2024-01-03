@@ -31,6 +31,7 @@ export default function Page({
             questions={data[0].questions}
             uuid={data[0].quiz_uuid}
             attempts={data[0].attempts}
+            current_scores={data[0].user_scores || []}
           />
         )}
       </Card>

@@ -1,17 +1,27 @@
 import { IQuestion, IWrongAnswer } from "./types";
+import { useAddQuizPercentageScore, useIncrementQuizAttempt } from "./hooks";
 
 import QuizReview from "./QuizReview";
 import { RadioGroupContainer } from "@/components/RadioGroup";
-import { useIncrementQuizAttempt } from "./hooks";
 import { useState } from "react";
 
 interface IQuiz {
   questions: IQuestion[];
   uuid: string;
   attempts: number;
+  current_scores: [];
 }
 
-export default function Quiz({ questions, uuid, attempts }: IQuiz) {
+const calcPercentage = (score: number, totalQuestions: number) => {
+  return (score / totalQuestions) * 100;
+};
+
+export default function Quiz({
+  questions,
+  uuid,
+  attempts,
+  current_scores,
+}: IQuiz) {
   if (!questions || questions.length === 0) {
     return null;
   }
@@ -22,9 +32,8 @@ export default function Quiz({ questions, uuid, attempts }: IQuiz) {
   const [wrongAnswers, setWrongAnswers] = useState<Array<IWrongAnswer>>([]);
   const [isQuizComplete, setIsQuizComplete] = useState(false);
 
-  const { mutate } = useIncrementQuizAttempt();
-
-  console.log("quiz uuid; ", uuid);
+  const { mutate: mutateQuizAttempt } = useIncrementQuizAttempt();
+  const { mutate: mutateQuizScore } = useAddQuizPercentageScore();
 
   const handleNext = () => {
     if (currentOption < questions.length - 1) {
@@ -109,8 +118,7 @@ export default function Quiz({ questions, uuid, attempts }: IQuiz) {
             {currentOption === questions.length - 1 && (
               <button
                 onClick={() => {
-                  setUserAnswers([...userAnswers, radioGrpVal]);
-
+                  // Process the last answer
                   const isAnswerWrong =
                     radioGrpVal !== questions[currentOption].correct_answer;
                   if (isAnswerWrong) {
@@ -119,13 +127,33 @@ export default function Quiz({ questions, uuid, attempts }: IQuiz) {
                       correctAnswer: questions[currentOption].correct_answer,
                       userAnswer: radioGrpVal,
                     };
-
                     setWrongAnswers([...wrongAnswers, wrongAnswer]);
-                    setIsQuizComplete(true);
                   }
+                  setUserAnswers([...userAnswers, radioGrpVal]);
 
-                  mutate({ quiz_uuid: uuid, current_attempts: attempts });
-                  console.log("mutate!S", uuid, attempts);
+                  // Calculate percentage
+                  const correctAnswers =
+                    questions.length -
+                    wrongAnswers.length -
+                    (isAnswerWrong ? 1 : 0);
+                  const percentage = calcPercentage(
+                    correctAnswers,
+                    questions.length
+                  );
+
+                  // Mutate data
+                  mutateQuizAttempt({
+                    quiz_uuid: uuid,
+                    current_attempts: attempts,
+                  });
+                  mutateQuizScore({
+                    quiz_uuid: uuid,
+                    current_scores: current_scores,
+                    score: percentage,
+                  });
+
+                  // Set quiz as complete
+                  setIsQuizComplete(true);
                 }}
                 className="bg-green-500 text-white rounded-full w-20 text-center h-8"
               >

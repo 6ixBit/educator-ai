@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 
-import ArrowLogo from "@/components/ArrowLogo";
+import ArrowLogo from "@/components/icons/ArrowLogo";
 import { Modal } from "@/components/Modal"; // TODO: Add delete modal
 import { SupabaseClient } from "@supabase/supabase-js";
 import { delete_item } from "../actions";

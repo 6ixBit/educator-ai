@@ -65,3 +65,21 @@ export const incrementQuizAttempt = async (
 
   return data;
 };
+
+export const addQuizPercentageScore = async (
+  supabase: SupabaseClient,
+  quiz_uuid: string,
+  current_scores: [],
+  score: number
+) => {
+  const { data, error } = await supabase
+    .from("quiz")
+    .update({ user_scores: [...current_scores, score] })
+    .eq("quiz_uuid", quiz_uuid);
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+};

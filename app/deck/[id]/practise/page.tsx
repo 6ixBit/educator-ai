@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import FlashCards from "@/app/decks/Flashcards";
-import RandomizeLogo from "@/components/RandomizeLogo";
+import RandomizeLogo from "@/components/icons/RandomizeLogo";
 import { Separator } from "@/components/ui/separator";
 import { randomizeArray } from "@/lib/utils";
 import { toast } from "sonner";

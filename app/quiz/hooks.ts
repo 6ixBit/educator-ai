@@ -2,6 +2,7 @@ import {
   GetAllQuizzes,
   GetQuizByUUID,
   GetQuizForProject,
+  addQuizPercentageScore,
   incrementQuizAttempt,
 } from "./actions";
 import { useMutation, useQuery } from "react-query";
@@ -69,6 +70,31 @@ export const useIncrementQuizAttempt = () => {
       quiz_uuid: string;
       current_attempts: number;
     }) => incrementQuizAttempt(supabase, quiz_uuid, current_attempts),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("getQuizForProject");
+      },
+    }
+  );
+
+  return mutation;
+};
+
+export const useAddQuizPercentageScore = () => {
+  // @ts-ignore
+  const supabase = useStore((state) => state?.supabase);
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    ({
+      quiz_uuid,
+      current_scores,
+      score,
+    }: {
+      quiz_uuid: string;
+      current_scores: [];
+      score: number;
+    }) => addQuizPercentageScore(supabase, quiz_uuid, current_scores, score),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("getQuizForProject");
