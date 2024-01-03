@@ -1,7 +1,13 @@
-import { GetAllQuizzes, GetQuizByUUID, GetQuizForProject } from "./actions";
+import {
+  GetAllQuizzes,
+  GetQuizByUUID,
+  GetQuizForProject,
+  incrementQuizAttempt,
+} from "./actions";
+import { useMutation, useQuery } from "react-query";
 
 import { toast } from "sonner";
-import { useQuery } from "react-query";
+import { useQueryClient } from "react-query";
 import useStore from "../store";
 
 export const useGetQuizForProject = (project_id: string) => {
@@ -48,4 +54,27 @@ export const useGetQuizByUUID = (quiz_uuid: string) => {
       toast.error("Failed to fetch quiz, please try again later.");
     },
   });
+};
+
+export const useIncrementQuizAttempt = () => {
+  // @ts-ignore
+  const supabase = useStore((state) => state?.supabase);
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    ({
+      quiz_uuid,
+      current_attempts,
+    }: {
+      quiz_uuid: string;
+      current_attempts: number;
+    }) => incrementQuizAttempt(supabase, quiz_uuid, current_attempts),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("getQuizForProject");
+      },
+    }
+  );
+
+  return mutation;
 };

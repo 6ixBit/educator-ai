@@ -165,8 +165,8 @@ export default function Page() {
 
             <Table.Body>
               {Array.isArray(dueProjects) &&
-                dueProjects.map((project) => (
-                  <Table.Row>
+                dueProjects.map((project, idx) => (
+                  <Table.Row key={idx}>
                     <Table.RowHeaderCell>
                       <GradeCircle value={project.grade} />
                     </Table.RowHeaderCell>

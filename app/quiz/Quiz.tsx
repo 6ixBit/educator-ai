@@ -2,13 +2,16 @@ import { IQuestion, IWrongAnswer } from "./types";
 
 import QuizReview from "./QuizReview";
 import { RadioGroupContainer } from "@/components/RadioGroup";
+import { useIncrementQuizAttempt } from "./hooks";
 import { useState } from "react";
 
 interface IQuiz {
   questions: IQuestion[];
+  uuid: string;
+  attempts: number;
 }
 
-export default function Quiz({ questions }: IQuiz) {
+export default function Quiz({ questions, uuid, attempts }: IQuiz) {
   if (!questions || questions.length === 0) {
     return null;
   }
@@ -18,6 +21,10 @@ export default function Quiz({ questions }: IQuiz) {
   const [userAnswers, setUserAnswers] = useState<Array<string>>([]);
   const [wrongAnswers, setWrongAnswers] = useState<Array<IWrongAnswer>>([]);
   const [isQuizComplete, setIsQuizComplete] = useState(false);
+
+  const { mutate } = useIncrementQuizAttempt();
+
+  console.log("quiz uuid; ", uuid);
 
   const handleNext = () => {
     if (currentOption < questions.length - 1) {
@@ -93,7 +100,7 @@ export default function Quiz({ questions }: IQuiz) {
                 handlePrev();
               }}
               disabled={currentOption === 0}
-              className={`text-yellow-500 rounded-lg w-20 text-center h-8 ${
+              className={`text-yellow-500 rounded-lg w-20 text-center cursor-pointer h-8 ${
                 currentOption === 0 ? "opacity-50" : ""
               }`}
             >
@@ -116,6 +123,9 @@ export default function Quiz({ questions }: IQuiz) {
                     setWrongAnswers([...wrongAnswers, wrongAnswer]);
                     setIsQuizComplete(true);
                   }
+
+                  mutate({ quiz_uuid: uuid, current_attempts: attempts });
+                  console.log("mutate!S", uuid, attempts);
                 }}
                 className="bg-green-500 text-white rounded-full w-20 text-center h-8"
               >
@@ -129,7 +139,7 @@ export default function Quiz({ questions }: IQuiz) {
                 setRadioGrpVal(null);
               }}
               disabled={currentOption === questions.length - 1}
-              className={`border-blue-500 text-blue-500 border-2 rounded-full w-20 text-center h-8 ${
+              className={`border-blue-500 text-blue-500 border-2 rounded-full w-20 text-center h-8 cursor-pointer ${
                 currentOption === questions.length - 1 ? "opacity-50" : ""
               }`}
             >

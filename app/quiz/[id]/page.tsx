@@ -15,7 +15,7 @@ export default function Page({
 
   useEffect(() => {
     if (data) {
-      console.log(data);
+      console.log("id: ", data);
     }
 
     if (error) {
@@ -26,7 +26,13 @@ export default function Page({
   return (
     <div className="sm:pl-6 pl-2">
       <Card className="flex flex-col w-full  p-4 bg-white rounded-lg shadow-md mt-16">
-        {data && <Quiz questions={data[0].questions} />}
+        {data && (
+          <Quiz
+            questions={data[0].questions}
+            uuid={data[0].quiz_uuid}
+            attempts={data[0].attempts}
+          />
+        )}
       </Card>
     </div>
   );

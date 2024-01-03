@@ -47,3 +47,21 @@ export const GetQuizByUUID = async (
 
   return error;
 };
+
+export const incrementQuizAttempt = async (
+  supabase: SupabaseClient,
+  quiz_uuid: string,
+  current_attempts: number
+) => {
+  const { data, error } = await supabase
+    .from("quiz")
+    .update({ attempts: current_attempts + 1 })
+    .eq("quiz_uuid", quiz_uuid)
+    .select();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+};

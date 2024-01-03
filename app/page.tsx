@@ -8,7 +8,6 @@ import Image from "next/image";
 import Link from "next/link";
 import LogoutButton from "@/components/LogoutButton";
 import Navigation from "@/components/Navigation";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { fetchUser } from "./actions";
 import { useQuery } from "react-query";
 import useWindowSize from "@/hooks/useWindowSize";
@@ -16,7 +15,9 @@ import useWindowSize from "@/hooks/useWindowSize";
 export const dynamic = "force-dynamic";
 
 export default function Index() {
-  const supabase = createClientComponentClient();
+  // @ts-ignore
+  const supabase = useStore((state) => state?.supabase);
+
   const { isMobile } = useWindowSize();
 
   const { data: user } = useQuery({
