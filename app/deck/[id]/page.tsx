@@ -15,6 +15,7 @@ import LoginModal from "@/components/LoginModal";
 import { Separator } from "@/components/ui/separator";
 import { Table } from "@radix-ui/themes";
 import { toast } from "sonner";
+import { useIncrementStudyAttempt } from "../hooks";
 import { useIntl } from "react-intl";
 import { useRouter } from "next/navigation";
 import useStore from "@/app/store";
@@ -47,10 +48,12 @@ export default function Page({
   });
 
   const [deckMetaData, setDeckMetaData] = useState();
-  const { data, isLoading: isDeckMetaDataLoading } = useGetDeckMetaData(
-    supabase,
-    deck_uuid
-  );
+  const { mutate: incrementStudyAttempt } = useIncrementStudyAttempt();
+  const {
+    data,
+    error,
+    isLoading: isDeckMetaDataLoading,
+  } = useGetDeckMetaData(deck_uuid);
 
   useEffect(() => {
     if (data && !isDeckMetaDataLoading) {
@@ -110,7 +113,11 @@ export default function Page({
             variant="default"
             size="sm"
             onClick={() => {
-              // TODO: Increment attempt count
+              incrementStudyAttempt({
+                deck_uuid: deck_uuid,
+                current_attempts: deckMetaData.attempts,
+              });
+
               router.push(`/deck/${deck_uuid}/practise`);
             }}
           >

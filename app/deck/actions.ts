@@ -47,3 +47,18 @@ export const addStudyCard = async (
 
   return data;
 };
+
+export const incrementStudyAttempt = async (
+  supabase: SupabaseClient,
+  deck_uuid: string,
+  current_attempts: number
+) => {
+  const { data, error } = await supabase
+    .from("decks")
+    .update({ attempts: current_attempts + 1 })
+    .eq("deck_uuid", deck_uuid);
+
+  if (error) {
+    throw error;
+  }
+};

@@ -10,6 +10,7 @@ import LogoutButton from "@/components/LogoutButton";
 import Navigation from "@/components/Navigation";
 import { fetchUser } from "./actions";
 import { useQuery } from "react-query";
+import useStore from "./store";
 import useWindowSize from "@/hooks/useWindowSize";
 
 export const dynamic = "force-dynamic";

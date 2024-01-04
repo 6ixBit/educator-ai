@@ -1,6 +1,11 @@
 "use client";
 
-import { addStudyCard, deleteStudyCard, getDeckMetaData } from "./actions";
+import {
+  addStudyCard,
+  deleteStudyCard,
+  getDeckMetaData,
+  incrementStudyAttempt,
+} from "./actions";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import { SupabaseClient } from "@supabase/supabase-js";
@@ -45,7 +50,6 @@ export const useGetDeckMetaData = (deck_uuid: string) => {
       return result;
     },
     onError: (error) => {
-      console.log("error", error);
       toast("Failed to fetch deck, please try again later.");
     },
     enabled: !!deck_uuid,
@@ -88,6 +92,29 @@ export const useDeleteStudyCardFromDeck = (supabase: SupabaseClient) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries("fetchStudyCardsFromDeck");
+      },
+    }
+  );
+
+  return mutation;
+};
+
+export const useIncrementStudyAttempt = () => {
+  // @ts-ignore
+  const supabase = useStore((state) => state?.supabase);
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    ({
+      deck_uuid,
+      current_attempts,
+    }: {
+      deck_uuid: string;
+      current_attempts: number;
+    }) => incrementStudyAttempt(supabase, deck_uuid, current_attempts),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("getDeckMetaData");
       },
     }
   );

@@ -1,5 +1,7 @@
 "use client";
 
+import { useGetDeckMetaData, useIncrementStudyAttempt } from "../deck/hooks";
+import { useGetQuizForProject, useIncrementQuizAttempt } from "../quiz/hooks";
 import { usePathname, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -13,8 +15,6 @@ import { formatDate } from "@/utility";
 import { getAvgOfArray } from "@/lib/utils";
 import { nFormatter } from "@/utility";
 import { useEffect } from "react";
-import { useGetDeckMetaData } from "../deck/hooks";
-import { useGetQuizForProject } from "../quiz/hooks";
 import { useIntl } from "react-intl";
 import { useState } from "react";
 
@@ -45,10 +45,10 @@ export default function Overview({
 
   const [mainQuiz, setMainQuiz] = useState<any>();
   const [mainDeck, setMainDeck] = useState<any>();
+
   const { data, error, isLoading } = useGetQuizForProject(project_id);
-  const { data: loadedDeck, isLoading: isMainDeckLoading } = useGetDeckMetaData(
-    deck_uuid || ""
-  );
+  const { data: loadedDeck, isLoading: isMainDeckLoading } =
+    useGetDeckMetaData(deck_uuid);
 
   useEffect(() => {
     if (data) {
@@ -60,7 +60,7 @@ export default function Overview({
     if (loadedDeck) {
       setMainDeck(loadedDeck[0]);
     }
-  }, [mainDeck, isMainDeckLoading]);
+  }, [isMainDeckLoading, loadedDeck]);
 
   return (
     <div className="flex flex-col justify-start">

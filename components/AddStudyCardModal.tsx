@@ -37,7 +37,7 @@ export default function ({
   const [backText, setBackText] = useState("");
 
   const { data: deckMetaData, isLoading: isDeckMetaDataLoading } =
-    useGetDeckMetaData(supabase, deck_uuid);
+    useGetDeckMetaData(deck_uuid);
 
   useEffect(() => {
     if (deckMetaData && !isDeckMetaDataLoading) {

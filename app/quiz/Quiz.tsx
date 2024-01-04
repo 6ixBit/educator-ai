@@ -141,7 +141,6 @@ export default function Quiz({
                     questions.length
                   );
 
-                  // Mutate data
                   mutateQuizAttempt({
                     quiz_uuid: uuid,
                     current_attempts: attempts,
