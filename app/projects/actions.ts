@@ -1,14 +1,8 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { useQuery } from "react-query";
 
 interface Card {
   front: string;
   back: string;
-}
-
-interface IGetDueProjects {
-  userID: string;
-  supabase: SupabaseClient;
 }
 
 const baseUrl = "http://localhost:8080";

@@ -10,8 +10,12 @@ import { Separator } from "@/components/ui/separator";
 import { Table } from "@radix-ui/themes";
 import { calculateDaysUntilDeadline } from "@/lib/utils";
 import { formatDate } from "@/utility";
+import { getAvgOfArray } from "@/lib/utils";
 import { nFormatter } from "@/utility";
+import { useEffect } from "react";
+import { useGetQuizForProject } from "../quiz/hooks";
 import { useIntl } from "react-intl";
+import { useState } from "react";
 
 interface IOverview {
   title: string;
@@ -21,6 +25,7 @@ interface IOverview {
   project_uuid: string;
   due_date: Date | string | undefined;
   deck_uuid?: string;
+  project_id: string;
 }
 
 export default function Overview({
@@ -31,10 +36,20 @@ export default function Overview({
   project_uuid,
   due_date,
   deck_uuid,
+  project_id,
 }: IOverview) {
   const intl = useIntl();
   const pathname = usePathname();
   const router = useRouter();
+
+  const [mainQuiz, setMainQuiz] = useState<any>();
+  const { data, error, isLoading } = useGetQuizForProject(project_id);
+
+  useEffect(() => {
+    if (data[0]) {
+      setMainQuiz(data[0]);
+    }
+  }, [isLoading, data]);
 
   return (
     <div className="flex flex-col justify-start">
@@ -134,16 +149,22 @@ export default function Overview({
               </Table.Header>
 
               <Table.Body>
-                <Table.Row>
-                  <Table.RowHeaderCell>Quizzes</Table.RowHeaderCell>
-                  <Table.Cell className="text-center">1</Table.Cell>
-                  <Table.Cell>10 / 10</Table.Cell>
-                </Table.Row>
+                {mainQuiz && (
+                  <Table.Row>
+                    <Table.RowHeaderCell>Quizzes</Table.RowHeaderCell>
+                    <Table.Cell className="text-center">
+                      {mainQuiz.attempts}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {getAvgOfArray(mainQuiz.user_scores)}%
+                    </Table.Cell>
+                  </Table.Row>
+                )}
 
                 <Table.Row>
                   <Table.RowHeaderCell>Study Cards</Table.RowHeaderCell>
                   <Table.Cell className="text-center">5</Table.Cell>
-                  <Table.Cell>5 / 10</Table.Cell>
+                  <Table.Cell></Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table.Root>
@@ -173,14 +194,20 @@ export default function Overview({
 
           <Separator className="my-2" />
 
-          {/* <div className="flex justify-between items-center mb-2">
-            <p className="text-black">
-              {intl.formatMessage({ id: "button.takequiz" })}
-            </p>
-            <Button size="sm">
-              {intl.formatMessage({ id: "button.start" })}
-            </Button>
-          </div> */}
+          {mainQuiz && (
+            <div className="flex justify-between items-center mb-2">
+              <p className="text-black">
+                {intl.formatMessage({ id: "button.takequiz" })}
+              </p>
+
+              <Button
+                size="sm"
+                onClick={() => router.push(`/quiz/${mainQuiz.quiz_uuid}`)}
+              >
+                {intl.formatMessage({ id: "button.start" })}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>
