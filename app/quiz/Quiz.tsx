@@ -180,9 +180,7 @@ export default function Quiz({
   );
 }
 
-// TODO: Update Quiz score on project page.
 // TODO: Show users average percentage on quiz test page.
-// TODO: Take user to quiz button on quiz page.
 // TODO: Show Key points on project page.
 // TODO: Add practise counter for study cards.
 

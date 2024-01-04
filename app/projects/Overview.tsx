@@ -13,6 +13,7 @@ import { formatDate } from "@/utility";
 import { getAvgOfArray } from "@/lib/utils";
 import { nFormatter } from "@/utility";
 import { useEffect } from "react";
+import { useGetDeckMetaData } from "../deck/hooks";
 import { useGetQuizForProject } from "../quiz/hooks";
 import { useIntl } from "react-intl";
 import { useState } from "react";
@@ -43,13 +44,23 @@ export default function Overview({
   const router = useRouter();
 
   const [mainQuiz, setMainQuiz] = useState<any>();
+  const [mainDeck, setMainDeck] = useState<any>();
   const { data, error, isLoading } = useGetQuizForProject(project_id);
+  const { data: loadedDeck, isLoading: isMainDeckLoading } = useGetDeckMetaData(
+    deck_uuid || ""
+  );
 
   useEffect(() => {
-    if (data[0]) {
+    if (data) {
       setMainQuiz(data[0]);
     }
   }, [isLoading, data]);
+
+  useEffect(() => {
+    if (loadedDeck) {
+      setMainDeck(loadedDeck[0]);
+    }
+  }, [mainDeck, isMainDeckLoading]);
 
   return (
     <div className="flex flex-col justify-start">
@@ -161,11 +172,15 @@ export default function Overview({
                   </Table.Row>
                 )}
 
-                <Table.Row>
-                  <Table.RowHeaderCell>Study Cards</Table.RowHeaderCell>
-                  <Table.Cell className="text-center">5</Table.Cell>
-                  <Table.Cell></Table.Cell>
-                </Table.Row>
+                {mainDeck && (
+                  <Table.Row>
+                    <Table.RowHeaderCell>Study Cards</Table.RowHeaderCell>
+                    <Table.Cell className="text-center">
+                      {mainDeck.attempts}
+                    </Table.Cell>
+                    <Table.Cell></Table.Cell>
+                  </Table.Row>
+                )}
               </Table.Body>
             </Table.Root>
           </div>

@@ -6,6 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { fetchStudyCardsFromDeck } from "../decks/actions";
 import { toast } from "sonner";
+import useStore from "../store";
 
 interface IUseDeck {
   supabase: SupabaseClient;
@@ -33,10 +34,10 @@ export const useDeck = ({ deck_id, supabase, deck_uuid }: IUseDeck) => {
   });
 };
 
-export const useGetDeckMetaData = (
-  supabase: SupabaseClient,
-  deck_uuid: string
-) => {
+export const useGetDeckMetaData = (deck_uuid: string) => {
+  // @ts-ignore
+  const supabase = useStore((state) => state?.supabase);
+
   return useQuery({
     queryKey: ["getDeckMetaData", deck_uuid],
     queryFn: async () => {
@@ -47,6 +48,7 @@ export const useGetDeckMetaData = (
       console.log("error", error);
       toast("Failed to fetch deck, please try again later.");
     },
+    enabled: !!deck_uuid,
   });
 };
 
