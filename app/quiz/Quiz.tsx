@@ -181,7 +181,6 @@ export default function Quiz({
 
 // TODO: Show users average percentage on quiz test page.
 // TODO: Show Key points on project page.
-// TODO: Add practise counter for study cards.
 
 // BONUS:
 // TODO: Add delete button for Projects.

@@ -83,6 +83,7 @@ export default function Page({
           grade={parseFloat(project?.grade)}
           due_date={project?.due_date}
           project_id={project?.id}
+          key_points={project?.key_points}
           deck_uuid={userDeck && userDeck[0] ? userDeck[0].deck_uuid : null}
         />
 

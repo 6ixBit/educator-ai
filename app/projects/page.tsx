@@ -54,12 +54,6 @@ export default function Page() {
       return projectDate >= todaysDate;
     });
 
-  const { data, isLoading } = useAPIKey(userID);
-
-  useEffect(() => {
-    console.log("api key: ", data);
-  }, [data, isLoading]);
-
   return (
     <div className="flex flex-col md:flex-row flex-wrap mt-1 gap-4">
       <LoginModal

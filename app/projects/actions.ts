@@ -57,7 +57,7 @@ export const addQuizToDB = async (
   try {
     const { data, error } = await supabase
       .from("quiz")
-      .insert([{ questions, user_id, project_id }])
+      .insert([{ questions, user_uuid: user_id, project_id }])
       .select();
 
     if (error) return { status: "failure", info: error };
@@ -202,6 +202,36 @@ export const generateCaseStudy = async (
   }
 };
 
+export const generateKeyPoints = async (
+  context: string,
+  education_level: string
+) => {
+  const endpoint = ExternalAPI.getKeyPoints;
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        context: context,
+        education_level: education_level,
+      }),
+    });
+
+    const data = await response.json();
+
+    return { status: "success", data };
+  } catch (error) {
+    return {
+      status: "failure",
+      info: "Failed to generate key points.",
+      error: error,
+    };
+  }
+};
+
 export const addCaseStudyToDB = async (
   supabase: SupabaseClient,
   project_id: string,
@@ -218,6 +248,26 @@ export const addCaseStudyToDB = async (
     return data;
   } catch (error) {
     console.error("Error Adding Case Study: ", error);
+  }
+};
+
+export const addKeyPointsToDB = async (
+  supabase: SupabaseClient,
+  project_id: string,
+  key_points: []
+) => {
+  try {
+    const { data, error } = await supabase
+      .from("projects")
+      .update({ key_points })
+      .eq("id", project_id)
+      .select();
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Error Adding Key Points: ", error);
   }
 };
 

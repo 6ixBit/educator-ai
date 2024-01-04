@@ -27,6 +27,7 @@ interface IOverview {
   due_date: Date | string | undefined;
   deck_uuid?: string;
   project_id: string;
+  key_points: [];
 }
 
 export default function Overview({
@@ -38,6 +39,7 @@ export default function Overview({
   due_date,
   deck_uuid,
   project_id,
+  key_points,
 }: IOverview) {
   const intl = useIntl();
   const pathname = usePathname();
@@ -130,14 +132,19 @@ export default function Overview({
       <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 sm:gap-6">
         <div className="max h-40">
           <h1 className="text-slate-500 pb-2 text-lg font-bold">
-            {intl.formatMessage({ id: "section.teachersNotes" })}
+            {intl.formatMessage({ id: "section.summary" })}
           </h1>
-          <div className="bg-white rounded-lg p-4">
-            <h2 className="text-black">
-              On review of your report card and consideration of your grade, I
-              believe you are in a pretty good position to take an exam on this
-              topic.
-            </h2>
+          <div className="bg-white rounded-lg p-4 space-y-2">
+            {key_points && key_points.length > 0 ? (
+              key_points.map((point, index) => (
+                <div key={index} className="break-words">
+                  <h3 className="text-black font-semibold">{point.title}</h3>
+                  <p className="text-gray-600">{point.key_point}</p>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500">No key points available.</p>
+            )}
           </div>
         </div>
 
@@ -166,7 +173,7 @@ export default function Overview({
                     <Table.Cell className="text-center">
                       {mainQuiz.attempts}
                     </Table.Cell>
-                    <Table.Cell>
+                    <Table.Cell className="text-center">
                       {getAvgOfArray(mainQuiz.user_scores)}%
                     </Table.Cell>
                   </Table.Row>
@@ -187,7 +194,7 @@ export default function Overview({
         </div>
       </div>
 
-      <div className="mt-16">
+      {/* <div className="mt-16">
         <h1 className="text-slate-500 pb-2 text-lg font-bold">
           {intl.formatMessage({ id: "title.checklist" })}
         </h1>
@@ -224,7 +231,7 @@ export default function Overview({
             </div>
           )}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

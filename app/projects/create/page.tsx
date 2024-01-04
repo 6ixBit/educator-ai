@@ -5,9 +5,11 @@ import * as Form from "@radix-ui/react-form";
 import {
   addCaseStudyToDB,
   addDeckToDB,
+  addKeyPointsToDB,
   addProjectToDB,
   addStudyCardsToDB,
   generateCaseStudy,
+  generateKeyPoints,
   generateQuiz,
   generateStudyCards,
 } from "../actions";
@@ -93,6 +95,12 @@ export default function Page() {
     // CASE STUDY ------
     const caseStudy = await generateCaseStudy(body, level);
     await addCaseStudyToDB(supabase, project[0].id, caseStudy.question);
+
+    // KEY POINTS -----
+    const key_points = await generateKeyPoints(body, level);
+    await addKeyPointsToDB(supabase, project[0].id, key_points.data.key_points);
+
+    console.log("NEW key points: ", key_points.data.key_points);
 
     setLoading(false);
     router.push(`/projects/${project[0].project_uuid}`);
