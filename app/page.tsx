@@ -1,6 +1,7 @@
 "use client";
 
 import ArrowLogo from "@/components/icons/ArrowLogo";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 import CollapsableSection from "@/components/CollapsableSection";
 import DashboardButton from "@/components/DashboardButton";
 import HamburgerMenu from "@/components/HamburgerMenu";
@@ -8,12 +9,30 @@ import Image from "next/image";
 import Link from "next/link";
 import LogoutButton from "@/components/LogoutButton";
 import Navigation from "@/components/Navigation";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import { fetchUser } from "./actions";
 import { useQuery } from "react-query";
 import useStore from "./store";
 import useWindowSize from "@/hooks/useWindowSize";
 
 export const dynamic = "force-dynamic";
+
+const words = [
+  {
+    text: "Elevate",
+  },
+  {
+    text: "your",
+  },
+  {
+    text: "learning",
+  },
+
+  {
+    text: "Experience.",
+    className: "text-blue-500 dark:text-blue-500",
+  },
+];
 
 export default function Index() {
   // @ts-ignore
@@ -72,23 +91,21 @@ export default function Index() {
         </div>
       </Navigation>
 
+      <BackgroundBeams />
       <div className="animate-in flex flex-col gap-14 opacity-0 max-w-4xl px-3 py-16 lg:py-24 text-foreground">
         <div className="flex flex-col items-center mb-4 lg:mb-12">
-          <h1 className="text-4xl text-white font-sans font-semibold tracking-wide text-center">
-            Elevate Your Learning Experience
-          </h1>
-
+          <TypewriterEffect words={words} />
           <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent mt-3" />
           <p className="text-2xl lg:text-4xl mx-auto max-w-xl text-center mt-4 mb-8 text-sky-400 font-sans leading-snug	">
             Unlock Your Full Potential with AI-Generated Study Tools –
             Flashcards, Exams, Case Studies and more.
           </p>
-
           <Link href={loggedIn} className="w-full text-center">
             <button className="mt-[10px] box-border inline-flex h-[40px] w-1/2 sm:w-1/4 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-[15px] hover:from-pink-500 hover:to-yellow-500 leading-none text-white font-black shadow-blackA7 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none">
               Get started
             </button>
           </Link>
+          b
         </div>
 
         <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />

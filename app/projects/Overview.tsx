@@ -137,9 +137,13 @@ export default function Overview({
           <div className="bg-white rounded-lg p-4 space-y-2">
             {key_points && key_points.length > 0 ? (
               key_points.map((point, index) => (
-                <div key={index} className="break-words">
-                  <h3 className="text-black font-semibold">{point.title}</h3>
-                  <p className="text-gray-600">{point.key_point}</p>
+                <div key={index} className="break-words my-4">
+                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                    {point.title}
+                  </h4>
+                  <p className="leading-7 [&:not(:first-child)]:mt-2">
+                    {point.key_point}
+                  </p>
                 </div>
               ))
             ) : (

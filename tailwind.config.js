@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 const plugin = require("tailwindcss/plugin");
 const { blackA, mauve, violet } = require("@radix-ui/colors");
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
 
 module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx,mdx}', "./app/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
@@ -86,7 +89,9 @@ module.exports = {
     },
   },
   plugins: [
+    require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/typography"),
+    addVariablesForColors,
     plugin(({ addVariant }) => {
       addVariant("radix-side-top", '&[data-side="top"]');
       addVariant("radix-side-bottom", '&[data-side="bottom"]');
@@ -94,3 +99,15 @@ module.exports = {
     require("tailwindcss-animate")
   ],
 };
+
+
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}
