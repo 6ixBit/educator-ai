@@ -24,6 +24,7 @@ export default function ({
   const pathname = usePathname();
   const deck_uuid = pathname.split("/").pop() ?? "";
   const { userID } = useUserAuth();
+  // @ts-ignore
   const supabase = useStore((state) => state?.supabase);
   const { data: deck, isLoading: isDeckLoading } = useDeck({
     supabase,
@@ -40,10 +41,10 @@ export default function ({
     useGetDeckMetaData(deck_uuid);
 
   useEffect(() => {
-    if (deckMetaData && !isDeckMetaDataLoading) {
+    if (Array.isArray(deckMetaData) && deckMetaData.length > 0) {
       setDeckID(deckMetaData[0].id);
     }
-  }, [deck, isDeckMetaDataLoading]);
+  }, [deckMetaData, isDeckMetaDataLoading]);
 
   const handleFrontChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setFrontText(event?.target.value);

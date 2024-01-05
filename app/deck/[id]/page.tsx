@@ -27,6 +27,12 @@ type StudyCard = {
   [key: string]: any;
 };
 
+type DeckMetaData = {
+  name: string;
+  attempts: number;
+  [key: string]: any;
+};
+
 export default function Page({
   params: { id: deck_uuid },
 }: {
@@ -47,7 +53,7 @@ export default function Page({
     deck_uuid,
   });
 
-  const [deckMetaData, setDeckMetaData] = useState();
+  const [deckMetaData, setDeckMetaData] = useState<DeckMetaData>();
   const { mutate: incrementStudyAttempt } = useIncrementStudyAttempt();
   const {
     data,
@@ -56,7 +62,7 @@ export default function Page({
   } = useGetDeckMetaData(deck_uuid);
 
   useEffect(() => {
-    if (data && !isDeckMetaDataLoading) {
+    if (Array.isArray(data) && data.length > 0 && !isDeckMetaDataLoading) {
       setDeckMetaData(data[0]);
     }
   }, [deck, isDeckMetaDataLoading]);
@@ -115,7 +121,7 @@ export default function Page({
             onClick={() => {
               incrementStudyAttempt({
                 deck_uuid: deck_uuid,
-                current_attempts: deckMetaData.attempts,
+                current_attempts: deckMetaData?.attempts ?? 0,
               });
 
               router.push(`/deck/${deck_uuid}/practise`);

@@ -34,20 +34,19 @@ export default function Page() {
     if (data && !isDeckLoading) {
       setDeck(data);
 
-      if (data.length === 0) {
+      if (Array.isArray(data) && data.length === 0) {
         setIsDeckEmpty(true);
       }
     }
   }, [data]);
 
   const { data: metaData, isLoading: isMetaDataLoading } = useGetDeckMetaData(
-    supabase,
     deck && deck.length > 0 ? deck[0].deck_id : undefined
   );
 
   // GET META DATA
   useEffect(() => {
-    if (metaData && metaData.length > 0 && !isMetaDataLoading) {
+    if (Array.isArray(metaData) && metaData.length > 0 && !isMetaDataLoading) {
       setDeckName(metaData[0].name);
     }
   }, [metaData, isMetaDataLoading]);

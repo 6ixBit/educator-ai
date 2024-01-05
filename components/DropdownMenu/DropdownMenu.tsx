@@ -1,6 +1,6 @@
+// @ts-nocheck
 import "./styles.css";
 
-// @ts-nocheck
 import * as Select from "@radix-ui/react-select";
 
 import {
@@ -22,8 +22,8 @@ const SelectItem = React.forwardRef(
   ({ children, className, ...props }, forwardedRef) => {
     return (
       <Select.Item
-        className={classnames("SelectItem", className)}
         {...props}
+        className={classnames("SelectItem", className)}
         ref={forwardedRef}
       >
         <Select.ItemText>{children}</Select.ItemText>

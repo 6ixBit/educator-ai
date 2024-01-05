@@ -13,7 +13,7 @@ import { useUserAuth } from "../hooks";
 export default function Page() {
   const { userID } = useUserAuth();
   const { data, error, isLoading: isQuizLoading } = useGetAllQuizzes(userID);
-  const [quizzes, setQuizzes] = useState();
+  const [quizzes, setQuizzes] = useState<any>();
   const router = useRouter();
 
   useEffect(() => {

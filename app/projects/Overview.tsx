@@ -27,7 +27,7 @@ interface IOverview {
   due_date: Date | string | undefined;
   deck_uuid?: string;
   project_id: string;
-  key_points: [];
+  key_points: { title: string; key_point: string }[];
 }
 
 export default function Overview({
@@ -50,17 +50,18 @@ export default function Overview({
 
   const { data, error, isLoading } = useGetQuizForProject(project_id);
   const { data: loadedDeck, isLoading: isMainDeckLoading } =
+    // @ts-ignore
     useGetDeckMetaData(deck_uuid);
 
   useEffect(() => {
     if (data) {
-      setMainQuiz(data[0]);
+      setMainQuiz(Array.isArray(data) && data[0]);
     }
   }, [isLoading, data]);
 
   useEffect(() => {
     if (loadedDeck) {
-      setMainDeck(loadedDeck[0]);
+      setMainDeck(Array.isArray(loadedDeck) && loadedDeck[0]);
     }
   }, [isMainDeckLoading, loadedDeck]);
 

@@ -32,7 +32,7 @@ export default function Page({
           <GradeCircle value={fakeGrade} />
           <p className="text-black font-mono">Avg Grade</p>
         </div>
-        {data && (
+        {data && Array.isArray(data) && (
           <Quiz
             questions={data[0].questions}
             uuid={data[0].quiz_uuid}

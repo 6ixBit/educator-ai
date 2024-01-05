@@ -24,7 +24,9 @@ export const useDeck = ({ deck_id, supabase, deck_uuid }: IUseDeck) => {
     if (deck_uuid) {
       const resolvedDeckID = await getDeckMetaData(supabase, deck_uuid);
 
-      return fetchStudyCardsFromDeck(supabase, resolvedDeckID[0].id);
+      if (Array.isArray(resolvedDeckID) && resolvedDeckID.length > 0) {
+        return fetchStudyCardsFromDeck(supabase, resolvedDeckID[0].id);
+      }
     } else {
       return fetchStudyCardsFromDeck(supabase, deck_id || "");
     }

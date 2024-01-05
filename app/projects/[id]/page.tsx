@@ -38,7 +38,9 @@ export default function Page({
     }
   }, [project, isLoadingProject]);
 
-  const { data: mainDeck, isLoading } = useGetMainDeckForProject(projectID);
+  const { data: mainDeck, isLoading } = useGetMainDeckForProject(
+    projectID || undefined
+  );
 
   useEffect(() => {
     setUserDeck(mainDeck);
