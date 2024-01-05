@@ -10,9 +10,8 @@ import Link from "next/link";
 import LogoutButton from "@/components/LogoutButton";
 import Navigation from "@/components/Navigation";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
-import { fetchUser } from "./actions";
-import { useQuery } from "react-query";
 import useStore from "./store";
+import { useUserAuth } from "./hooks";
 import useWindowSize from "@/hooks/useWindowSize";
 
 export const dynamic = "force-dynamic";
@@ -40,12 +39,9 @@ export default function Index() {
 
   const { isMobile } = useWindowSize();
 
-  const { data: user } = useQuery({
-    queryKey: "userData",
-    queryFn: () => fetchUser(supabase),
-  });
+  const { userID } = useUserAuth();
 
-  const loggedIn = user ? "/projects" : "/login";
+  const loggedIn = userID ? "/projects" : "/login";
 
   return (
     <div className="w-full flex flex-col items-center bg-black">
@@ -58,9 +54,9 @@ export default function Index() {
           </div>
 
           <div className="flex items-center gap-4">
-            {user && <DashboardButton />}
+            {userID && <DashboardButton />}
 
-            {!user && (
+            {!userID && (
               <Link
                 href="/login"
                 className="py-1 px-3 rounded-md no-underline hover:bg-btn-background-hover bg-cyan-500 font-semibold"
@@ -105,13 +101,6 @@ export default function Index() {
               Get started
             </button>
           </Link>
-
-          {/* <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
-            <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
-              Get started
-            </span>
-          </button> */}
         </div>
 
         <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
