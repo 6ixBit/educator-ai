@@ -37,6 +37,7 @@ export default function Page() {
             variant="secondary"
             onClick={() => {
               console.log("Add quiz?");
+              router.push("/quiz/create");
             }}
           >
             Generate New Quiz
@@ -53,14 +54,15 @@ export default function Page() {
                 Your attempts
                 {/* {intl.formatMessage({ id: "cards.back" })} */}
               </Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>
-                {/* {intl.formatMessage({ id: "cards.actions" })} */}
-                Created on
-              </Table.ColumnHeaderCell>
 
               <Table.ColumnHeaderCell className="text-center">
                 {/* {intl.formatMessage({ id: "cards.actions" })} */}
                 Actions
+              </Table.ColumnHeaderCell>
+
+              <Table.ColumnHeaderCell>
+                {/* {intl.formatMessage({ id: "cards.actions" })} */}
+                Created on
               </Table.ColumnHeaderCell>
             </Table.Row>
           </Table.Header>
@@ -74,9 +76,6 @@ export default function Page() {
                   </Table.Cell>
                   <Table.Cell className="text-center">
                     {quiz.attempts}
-                  </Table.Cell>
-                  <Table.Cell className="">
-                    {formatDate(quiz.created_at)}
                   </Table.Cell>
 
                   <Table.Cell className="text-center">
@@ -103,6 +102,10 @@ export default function Page() {
                         View Project
                       </Button>
                     )}
+                  </Table.Cell>
+
+                  <Table.Cell className="">
+                    {formatDate(quiz.created_at)}
                   </Table.Cell>
                 </Table.Row>
               ))}
