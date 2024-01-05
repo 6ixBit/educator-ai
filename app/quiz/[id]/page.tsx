@@ -1,6 +1,7 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
+import GradeCircle from "@/components/grade-circle";
 import Quiz from "../Quiz";
 import { toast } from "sonner";
 import { useEffect } from "react";
@@ -12,6 +13,7 @@ export default function Page({
   params: { id: string };
 }) {
   const { data, error, isLoading } = useGetQuizByUUID(quiz_uuid);
+  const fakeGrade = 66;
 
   useEffect(() => {
     if (data) {
@@ -26,6 +28,10 @@ export default function Page({
   return (
     <div className="sm:pl-6 pl-2">
       <Card className="flex flex-col w-full  p-4 bg-white rounded-lg shadow-md mt-16">
+        <div className="flex flex-col gap-1">
+          <GradeCircle value={fakeGrade} />
+          <p className="text-black font-mono">Avg Grade</p>
+        </div>
         {data && (
           <Quiz
             questions={data[0].questions}
