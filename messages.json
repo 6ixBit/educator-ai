@@ -3,6 +3,7 @@
         "button.add.project" : "Add project",
         "button.search.text": "Search...",
         "button.submit.text": "Submit",
+        "button.generate.quiz": "Generate",
 
         "search.header.text": "What will you Learn today?",
 
