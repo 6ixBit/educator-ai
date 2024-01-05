@@ -72,7 +72,7 @@ export default function Page() {
                 },
                 {
                   name: "Study cards",
-                  url: "/studycards",
+                  url: "/decks",
                 },
                 {
                   name: "Quiz",

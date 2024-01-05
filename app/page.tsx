@@ -105,7 +105,13 @@ export default function Index() {
               Get started
             </button>
           </Link>
-          b
+
+          {/* <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+            <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+              Get started
+            </span>
+          </button> */}
         </div>
 
         <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
@@ -162,7 +168,7 @@ export default function Index() {
 
         <div className="px-4">
           <CollapsableSection title="How does Pro Tutor AI work?">
-            <p className="">
+            <p className="text-white text-lg font-bold">
               Simply upload your study material, and our AI will generate
               personalized study tools for you to work through.
             </p>
@@ -171,7 +177,7 @@ export default function Index() {
 
         <div className="px-4">
           <CollapsableSection title="What formats can I upload my study material in?">
-            <p className="">
+            <p className="text-white text-lg font-bold">
               You can upload your material in various formats: raw text, text
               files, or PDFs.
             </p>
@@ -180,20 +186,20 @@ export default function Index() {
 
         <div className="px-4">
           <CollapsableSection title="How long does the process take?">
-            <p className="">
+            <p className="text-white text-lg font-bold">
               The processing time depends on the size of the uploaded material,
               but it typically takes under a couple of minutes.
             </p>
           </CollapsableSection>
         </div>
 
-        <div className="flex justify-center text-center text-md mt-2">
+        <div className="flex justify-center text-center text-white text-md mt-2">
           <p>
             Built by{" "}
             <Link
               href="https://hamzacarew.vercel.app/"
               target="_blank"
-              className="font-bold"
+              className="font-bold text-white"
             >
               Hamza
             </Link>
