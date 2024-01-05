@@ -130,7 +130,7 @@ export default function Overview({
       </div>
 
       <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 sm:gap-6">
-        <div className="max h-40">
+        <div className="">
           <h1 className="text-slate-500 pb-2 text-lg font-bold">
             {intl.formatMessage({ id: "section.summary" })}
           </h1>
@@ -148,90 +148,92 @@ export default function Overview({
           </div>
         </div>
 
-        <div className="sm:mt-0 mt-16">
-          <h1 className="text-slate-500 pb-2 text-lg font-bold">
-            {intl.formatMessage({ id: "title.statistics" })}
-          </h1>
-          <div className="bg-white rounded-lg p-4">
-            <Table.Root>
-              <Table.Header>
-                <Table.Row>
-                  <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell>
-                    {intl.formatMessage({ id: "title.attempts" })}
-                  </Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell>
-                    {intl.formatMessage({ id: "title.avgscore" })}
-                  </Table.ColumnHeaderCell>
-                </Table.Row>
-              </Table.Header>
-
-              <Table.Body>
-                {mainQuiz && (
+        <div>
+          <div className="sm:mt-0 mt-16">
+            <h1 className="text-slate-500 pb-2 text-lg font-bold">
+              {intl.formatMessage({ id: "title.statistics" })}
+            </h1>
+            <div className="bg-white rounded-lg p-4">
+              <Table.Root>
+                <Table.Header>
                   <Table.Row>
-                    <Table.RowHeaderCell>Quizzes</Table.RowHeaderCell>
-                    <Table.Cell className="text-center">
-                      {mainQuiz.attempts}
-                    </Table.Cell>
-                    <Table.Cell className="text-center">
-                      {getAvgOfArray(mainQuiz.user_scores)}%
-                    </Table.Cell>
+                    <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell>
+                      {intl.formatMessage({ id: "title.attempts" })}
+                    </Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell>
+                      {intl.formatMessage({ id: "title.avgscore" })}
+                    </Table.ColumnHeaderCell>
                   </Table.Row>
-                )}
+                </Table.Header>
 
-                {mainDeck && (
-                  <Table.Row>
-                    <Table.RowHeaderCell>Study Cards</Table.RowHeaderCell>
-                    <Table.Cell className="text-center">
-                      {mainDeck.attempts}
-                    </Table.Cell>
-                    <Table.Cell></Table.Cell>
-                  </Table.Row>
-                )}
-              </Table.Body>
-            </Table.Root>
+                <Table.Body>
+                  {mainQuiz && (
+                    <Table.Row>
+                      <Table.RowHeaderCell>Quizzes</Table.RowHeaderCell>
+                      <Table.Cell className="text-center">
+                        {mainQuiz.attempts}
+                      </Table.Cell>
+                      <Table.Cell className="text-center">
+                        {getAvgOfArray(mainQuiz.user_scores)}%
+                      </Table.Cell>
+                    </Table.Row>
+                  )}
+
+                  {mainDeck && (
+                    <Table.Row>
+                      <Table.RowHeaderCell>Study Cards</Table.RowHeaderCell>
+                      <Table.Cell className="text-center">
+                        {mainDeck.attempts}
+                      </Table.Cell>
+                      <Table.Cell></Table.Cell>
+                    </Table.Row>
+                  )}
+                </Table.Body>
+              </Table.Root>
+            </div>
+          </div>
+
+          <div className="mt-16">
+            <h1 className="text-slate-500 pb-2 text-lg font-bold">
+              {intl.formatMessage({ id: "title.checklist" })}
+            </h1>
+
+            <div className="bg-white rounded-lg p-4">
+              {deck_uuid && (
+                <div className="flex justify-between items-center mb-2">
+                  <p className="text-black">
+                    {intl.formatMessage({ id: "button.flashcards" })}
+                  </p>
+                  <Button
+                    size="sm"
+                    onClick={() => router.push(`/deck/${deck_uuid}`)}
+                  >
+                    {intl.formatMessage({ id: "button.start" })}
+                  </Button>
+                </div>
+              )}
+
+              <Separator className="my-2" />
+
+              {mainQuiz && (
+                <div className="flex justify-between items-center mb-2">
+                  <p className="text-black">
+                    {intl.formatMessage({ id: "button.takequiz" })}
+                  </p>
+
+                  <Button
+                    size="sm"
+                    onClick={() => router.push(`/quiz/${mainQuiz.quiz_uuid}`)}
+                  >
+                    {intl.formatMessage({ id: "button.start" })}
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-
-      {/* <div className="mt-16">
-        <h1 className="text-slate-500 pb-2 text-lg font-bold">
-          {intl.formatMessage({ id: "title.checklist" })}
-        </h1>
-
-        <div className="bg-white rounded-lg p-4">
-          {deck_uuid && (
-            <div className="flex justify-between items-center mb-2">
-              <p className="text-black">
-                {intl.formatMessage({ id: "button.flashcards" })}
-              </p>
-              <Button
-                size="sm"
-                onClick={() => router.push(`/deck/${deck_uuid}`)}
-              >
-                {intl.formatMessage({ id: "button.start" })}
-              </Button>
-            </div>
-          )}
-
-          <Separator className="my-2" />
-
-          {mainQuiz && (
-            <div className="flex justify-between items-center mb-2">
-              <p className="text-black">
-                {intl.formatMessage({ id: "button.takequiz" })}
-              </p>
-
-              <Button
-                size="sm"
-                onClick={() => router.push(`/quiz/${mainQuiz.quiz_uuid}`)}
-              >
-                {intl.formatMessage({ id: "button.start" })}
-              </Button>
-            </div>
-          )}
-        </div>
-      </div> */}
     </div>
   );
 }
