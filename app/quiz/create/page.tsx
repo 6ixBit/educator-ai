@@ -43,7 +43,16 @@ export default function Page() {
       return;
     }
 
-    console.log("Form submitted with raw text.");
+    const formValues = event.target as any;
+    const textArea = formValues[0].value;
+
+    console.log("Text area: ", textArea);
+    console.log(difficulty);
+    console.log(questionCount);
+
+    // TODO: Send request to server
+
+    // setLoading(false);
   };
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -107,8 +116,8 @@ export default function Page() {
             </div>
           </Form.Field>
 
-          <div className="flex flex-row gap-4 justify-between px-0 sm:px-8 mt-7">
-            <div className="flex flex-col">
+          <div className="flex flex-col sm:mb-0 mb-4 max-w-lg  sm:flex-row gap-4 justify-between px-0 sm:px-8 mt-7">
+            <div className="flex flex-col max-w-lg">
               <p>Question Type</p>
               <DropDownMenu
                 placeholder="True or False"
