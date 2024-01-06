@@ -9,6 +9,7 @@
 
         "create.title.text": "Title",
         "create.error.valuemissing.title": "Please enter a title",
+        "create.error.valuemissing.quizcontent": "Please provide quiz content to proceed with generation",
         "create.error.valuemissing.content": "Please input some text content...",
         "create.title.placeholder": "The influence of AI",
         "create.body.text": "Content",

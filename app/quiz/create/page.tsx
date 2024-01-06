@@ -11,28 +11,42 @@ import {
 import { useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@mui/material";
 import ProgressBar from "@/components/ProgressBar";
+import { toast } from "sonner";
 import { useIntl } from "react-intl";
 
 export default function Page() {
+  const maxWordCount = 50_000;
   const intl = useIntl();
   const [loading, setLoading] = useState(false);
+  const [textAreaWordCount, setTextAreaWordCount] = useState(0);
 
-  // Create a reference to the hidden file input
   const fileInputRef = useRef(null);
-
-  // Function to trigger the file input click event
   const handleButtonClick = () => {
+    // @ts-ignore
     fileInputRef.current.click();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
+    event.preventDefault();
+
+    if (textAreaWordCount > maxWordCount) {
+      toast.error(
+        "Your content exceeds the character limit, please reduce it."
+      );
+      setLoading(false);
+      return;
+    }
+
     console.log("Form submitted with raw text.");
   };
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    console.log(event.target.value);
+    const words = event.target.value
+      .split(" ")
+      .filter((word: string) => word !== "");
+    setTextAreaWordCount(words.length);
   };
 
   return (
@@ -65,20 +79,28 @@ export default function Page() {
           />
         </div>
 
-        <Form.Root
-          className="w-10/12 sm:w-[500px] md:w-[500px] lg:w-[685px] mt-6"
-          onSubmit={handleSubmit}
-        >
+        <Form.Root className=" mt-6" onSubmit={handleSubmit}>
           <Form.Field className=" mb-[10px]" name="content">
             <Form.Control asChild>
               <textarea
                 className="box-border h-72 sm:h-80 text-black w-full p-6 sm:w-full shadow-blackA6 inline-flex appearance-none items-center justify-center rounded-[4px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6 resize-none"
-                placeholder="How did the Roman empire become so dominant?"
+                placeholder="Or enter content for question generation directly..."
                 required
                 disabled={loading}
                 onChange={handleTextChange}
               />
             </Form.Control>
+            {textAreaWordCount} / {maxWordCount.toLocaleString()} words
+            <div className="text-center">
+              <Form.Message
+                className="text-[13px] text-red-500 opacity-[0.8]"
+                match="valueMissing"
+              >
+                {intl.formatMessage({
+                  id: "create.error.valuemissing.quizcontent",
+                })}
+              </Form.Message>
+            </div>
           </Form.Field>
 
           <Form.Submit asChild>
