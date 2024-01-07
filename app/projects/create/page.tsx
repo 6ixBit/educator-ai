@@ -1,6 +1,7 @@
 "use client";
 
 import * as Form from "@radix-ui/react-form";
+import * as SVGLoaders from "svg-loaders-react";
 
 import {
   addCaseStudyToDB,
@@ -22,6 +23,7 @@ import ProgressBar from "@/components/ProgressBar";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@radix-ui/themes";
 import { addQuizToDB } from "../actions";
+import { formatBytes } from "@/lib/utils";
 import { toast } from "sonner";
 import { useIntl } from "react-intl";
 import { useRef } from "react";
@@ -107,16 +109,18 @@ export default function Page() {
     router.push(`/projects/${project[0].project_uuid}`);
   };
 
+  const [isPdfLoading, setIsPdfLoading] = useState(false);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const fileInputRef = useRef(null);
 
-  const handleSubmitPDF = () => {
+  const handleAddPDF = () => {
     // @ts-ignore
     fileInputRef.current.click();
-    console.log("pdf vals: ", fileInputRef.current);
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsPdfLoading(true);
+
     if (
       event.target.files &&
       event.target.files[0] &&
@@ -124,8 +128,8 @@ export default function Page() {
     ) {
       setPdfFile(event.target.files[0]);
       console.log("uploaded pdf: ", event.target.files[0]);
+      setIsPdfLoading(false);
     } else {
-      // Handle the case where the file is not a PDF
       toast.error("Please select a PDF file.");
     }
   };
@@ -161,7 +165,7 @@ export default function Page() {
         </h1>
 
         <div className="flex flex-row gap-1 justify-center mb-4">
-          <Button size="sm" onClick={handleSubmitPDF}>
+          <Button size="sm" onClick={handleAddPDF}>
             Upload a pdf
           </Button>
 
@@ -176,7 +180,9 @@ export default function Page() {
         </div>
 
         {pdfFile && <p className="text-black">{pdfFile.name}</p>}
-        {<p>Size: {pdfFile?.size}</p>}
+        {<p>{pdfFile && formatBytes(pdfFile?.size)}</p>}
+
+        {isPdfLoading && <SVGLoaders.SpinningCircles />}
 
         <strong className="py-3">or</strong>
 
