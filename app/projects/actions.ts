@@ -1,4 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
+import { toast } from "sonner";
 
 interface Card {
   front: string;
@@ -12,6 +13,8 @@ const ExternalAPI = {
   generateStudyCards: `${baseUrl}/api/studycards`,
   generateCaseStudy: `${baseUrl}/api/casestudy`,
   getKeyPoints: `${baseUrl}/api/keypoints`,
+
+  parsePdf: `${baseUrl}/api/pdf`,
 };
 
 export const fetchProjects = async (supabase: SupabaseClient, id: string) => {
@@ -304,3 +307,33 @@ export const getMainDeckForProject = async (
 
   return data;
 };
+
+export async function uploadPdf(file: File): Promise<void> {
+  const endpoint = ExternalAPI.parsePdf;
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      toast.success("PDF uploaded successfully.");
+      console.log("Pdf Upload succesful.");
+
+      return result;
+    } else {
+      // Handle server-side error
+      toast.error(result.message || "An error occurred on the server.");
+    }
+  } catch (error) {
+    // Handle client-side error
+    console.error("Error uploading file:", error);
+    toast.error("Error uploading file.");
+  }
+}

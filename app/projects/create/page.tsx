@@ -24,12 +24,14 @@ import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@radix-ui/themes";
 import { addQuizToDB } from "../actions";
 import { formatBytes } from "@/lib/utils";
+import { sendDeadlineReminderEmail } from "@/emails/actions";
 import { toast } from "sonner";
 import { useIntl } from "react-intl";
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import useStore from "@/app/store";
+import { useUploadPdf } from "../hooks";
 import { useUserAuth } from "@/app/hooks";
 
 export default function Page() {
@@ -112,6 +114,7 @@ export default function Page() {
   const [isPdfLoading, setIsPdfLoading] = useState(false);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const fileInputRef = useRef(null);
+  const { mutate: uploadPdf, isLoading, isError } = useUploadPdf();
 
   const handleAddPDF = () => {
     // @ts-ignore
@@ -120,6 +123,7 @@ export default function Page() {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsPdfLoading(true);
+    sendDeadlineReminderEmail("hamzacarew@gmail.com");
 
     if (
       event.target.files &&
@@ -128,6 +132,12 @@ export default function Page() {
     ) {
       setPdfFile(event.target.files[0]);
       console.log("uploaded pdf: ", event.target.files[0]);
+      uploadPdf(event.target.files[0]);
+
+      if (isError) {
+        console.log("pdf errors: ", isError);
+      }
+
       setIsPdfLoading(false);
     } else {
       toast.error("Please select a PDF file.");

@@ -2,6 +2,8 @@ import { fetchProjects, getMainDeckForProject } from "./actions";
 
 import { SupabaseClient } from "@supabase/supabase-js";
 import { toast } from "sonner";
+import { uploadPdf } from "./actions";
+import { useMutation } from "react-query";
 import { useQuery } from "react-query";
 import useStore from "../store";
 
@@ -74,3 +76,16 @@ export const useGetMainDeckForProject = (project_id: number | undefined) => {
     enabled: !!project_id,
   });
 };
+
+export function useUploadPdf() {
+  // @ts-ignore
+  return useMutation<any, Error, File>((file: File) => uploadPdf(file), {
+    onSuccess: () => {
+      toast.success("PDF uploaded successfully.");
+    },
+    onError: (error) => {
+      console.error("Error uploading file:", error);
+      toast.error("Error uploading file.");
+    },
+  });
+}
