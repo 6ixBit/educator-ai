@@ -1,6 +1,7 @@
 "use client";
 
 import * as Form from "@radix-ui/react-form";
+// @ts-ignore
 import * as SVGLoaders from "svg-loaders-react";
 
 import {
