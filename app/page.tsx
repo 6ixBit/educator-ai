@@ -101,6 +101,22 @@ export default function Index() {
               Get started
             </button>
           </Link>
+          <div className="flex flex-col items-center mt-6">
+            <div className="flex items-center">
+              <span>✔️</span>
+              <p className="ml-2">First benefit</p>
+            </div>
+            <div className="flex items-center">
+              <span>✔️</span>
+              <p className="ml-2">Second benefit</p>
+            </div>
+            <div className="flex items-center">
+              <span>✔️</span>
+              <p className="ml-2">Third benefit</p>
+            </div>
+          </div>
+
+          <p className="text-black">Trusted by ...</p>
         </div>
 
         <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
@@ -146,40 +162,59 @@ export default function Index() {
           </div>
         </div>
 
+        <div>
+          <h1
+            id="demo"
+            className="text-2xl text-white font-sans font-semibold text-center tracking-wide"
+          >
+            Demo Video
+          </h1>
+
+          <div className="px-4">
+            <CollapsableSection title="How does Pro Tutor AI work?">
+              <p className="text-white text-lg font-bold">
+                Simply upload your study material, and our AI will generate
+                personalized study tools for you to work through.
+              </p>
+            </CollapsableSection>
+          </div>
+        </div>
+
         <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
+        <div>
+          <h1
+            id="faq"
+            className="text-2xl text-white font-sans font-semibold text-center tracking-wide"
+          >
+            FAQ
+          </h1>
 
-        <h1
-          id="faq"
-          className="text-2xl text-white font-sans font-semibold text-center tracking-wide"
-        >
-          FAQ
-        </h1>
+          <div className="px-4">
+            <CollapsableSection title="How does Pro Tutor AI work?">
+              <p className="text-white text-lg font-bold">
+                Simply upload your study material, and our AI will generate
+                personalized study tools for you to work through.
+              </p>
+            </CollapsableSection>
+          </div>
 
-        <div className="px-4">
-          <CollapsableSection title="How does Pro Tutor AI work?">
-            <p className="text-white text-lg font-bold">
-              Simply upload your study material, and our AI will generate
-              personalized study tools for you to work through.
-            </p>
-          </CollapsableSection>
-        </div>
+          <div className="px-4">
+            <CollapsableSection title="What formats can I upload my study material in?">
+              <p className="text-white text-lg font-bold">
+                You can upload your material in various formats: raw text, text
+                files, or PDFs.
+              </p>
+            </CollapsableSection>
+          </div>
 
-        <div className="px-4">
-          <CollapsableSection title="What formats can I upload my study material in?">
-            <p className="text-white text-lg font-bold">
-              You can upload your material in various formats: raw text, text
-              files, or PDFs.
-            </p>
-          </CollapsableSection>
-        </div>
-
-        <div className="px-4">
-          <CollapsableSection title="How long does the process take?">
-            <p className="text-white text-lg font-bold">
-              The processing time depends on the size of the uploaded material,
-              but it typically takes under a couple of minutes.
-            </p>
-          </CollapsableSection>
+          <div className="px-4">
+            <CollapsableSection title="How long does the process take?">
+              <p className="text-white text-lg font-bold">
+                The processing time depends on the size of the uploaded
+                material, but it typically takes under a couple of minutes.
+              </p>
+            </CollapsableSection>
+          </div>
         </div>
 
         <div className="flex justify-center text-center text-white text-md mt-2">

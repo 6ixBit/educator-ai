@@ -89,13 +89,13 @@ export default function Page() {
         <div className="text-black pt-4">{deckName}</div>
         <div>{deck && !isDeckLoading && <FlashCards options={deck} />}</div>
         <div className="flex justify-center items-center gap-2 mt-8">
-          <Button
+          {/* <Button
             onClick={handleStart}
             className="bg-green-500 text-white"
             disabled={isDeckEmpty}
           >
             Start
-          </Button>
+          </Button> */}
           <Button onClick={handleRandomize} disabled={isDeckEmpty}>
             <RandomizeLogo />
             <p className="px-2">Randomize Order</p>
