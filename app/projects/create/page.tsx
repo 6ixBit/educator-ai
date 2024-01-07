@@ -24,6 +24,7 @@ import { Tooltip } from "@radix-ui/themes";
 import { addQuizToDB } from "../actions";
 import { toast } from "sonner";
 import { useIntl } from "react-intl";
+import { useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import useStore from "@/app/store";
@@ -106,6 +107,29 @@ export default function Page() {
     router.push(`/projects/${project[0].project_uuid}`);
   };
 
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const fileInputRef = useRef(null);
+
+  const handleSubmitPDF = () => {
+    // @ts-ignore
+    fileInputRef.current.click();
+    console.log("pdf vals: ", fileInputRef.current);
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (
+      event.target.files &&
+      event.target.files[0] &&
+      event.target.files[0].type === "application/pdf"
+    ) {
+      setPdfFile(event.target.files[0]);
+      console.log("uploaded pdf: ", event.target.files[0]);
+    } else {
+      // Handle the case where the file is not a PDF
+      toast.error("Please select a PDF file.");
+    }
+  };
+
   return (
     <>
       <div className="sm:px-7 px-1">
@@ -136,13 +160,25 @@ export default function Page() {
           Create a new project
         </h1>
 
-        {/* <div className="w-6/12 xl:w-7/12 2xl:w-3/12">
-        <Button className="w-full" radius="full" variant="surface">
-          Upload a PDF
-        </Button>
-      </div>
+        <div className="flex flex-row gap-1 justify-center mb-4">
+          <Button size="sm" onClick={handleSubmitPDF}>
+            Upload a pdf
+          </Button>
 
-      <strong className="py-3">or</strong> */}
+          <input
+            type="file"
+            id="file-upload"
+            accept="application/pdf"
+            style={{ display: "none" }}
+            ref={fileInputRef}
+            onChange={handleFileChange}
+          />
+        </div>
+
+        {pdfFile && <p className="text-black">{pdfFile.name}</p>}
+        {<p>Size: {pdfFile?.size}</p>}
+
+        <strong className="py-3">or</strong>
 
         <Form.Root
           className="w-10/12 sm:w-[500px] md:w-[500px] lg:w-[685px]"
