@@ -1,5 +1,7 @@
 "use client";
 
+import { Card, CardContent } from "@/components/ui/card";
+
 import ArrowLogo from "@/components/icons/ArrowLogo";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Button } from "@/components/ui/button";
@@ -58,13 +60,13 @@ export default function Index() {
             {!userID && (
               <Link
                 href="/login"
-                className="py-1 px-3 rounded-md no-underline hover:bg-btn-background-hover bg-cyan-500 font-semibold"
+                className="py-1 px-3 rounded-md no-underline hover:bg-btn-background-hover bg-cyan-500 font-semibold text-white"
               >
                 Login
               </Link>
             )}
 
-            {isMobile && (
+            {/* {isMobile && (
               <HamburgerMenu
                 items={[
                   {
@@ -81,14 +83,14 @@ export default function Index() {
                   },
                 ]}
               />
-            )}
+            )} */}
           </div>
         </div>
       </Navigation>
 
       <BackgroundBeams />
       <div className="animate-in flex flex-col gap-14 opacity-0 max-w-4xl px-3 py-16 lg:py-24 text-foreground">
-        <div className="flex flex-col items-center mb-4 lg:mb-12">
+        <div className="flex flex-col items-center mb-4 lg:mb-12 px-4">
           <TypewriterEffect words={words} />
           <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent mt-3" />
           <p className=" lg:text-4xl mx-auto max-w-xl text-center mt-4 mb-4 text-sky-400 font-sans leading-snug text-xl font-semibold tracking-tight">
@@ -120,22 +122,21 @@ export default function Index() {
           </div>
 
           <Link href={loggedIn} className="w-full text-center mt-5">
-            <button className="mt-[10px] box-border inline-flex h-[40px] w-1/2 sm:w-1/4 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-[15px] hover:from-pink-500 hover:to-yellow-500 leading-none text-white font-black shadow-blackA7 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none">
+            <button className="mt-[10px] box-border inline-flex h-[40px] w-full sm:w-1/2 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-[15px] hover:from-pink-500 hover:to-yellow-500 leading-none text-white font-black shadow-blackA7 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none">
               Get started
             </button>
           </Link>
-
           {/* <p className="text-white">Trusted by ...</p> */}
         </div>
 
-        <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
+        {/* <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" /> */}
 
         <h1 className="text-2xl text-white font-sans font-semibold text-center tracking-wide">
           Features
         </h1>
         <div className="flex flex-col gap-8 text-foreground">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {resources.map(({ title, subtitle, url, icon }) => (
+            {/* {resources.map(({ title, subtitle, url, icon }) => (
               <a
                 key={title}
                 className="relative flex flex-col group rounded-lg border p-6 hover:border-blue-500"
@@ -167,10 +168,70 @@ export default function Index() {
                   </div>
                 </div>
               </a>
-            ))}
+            ))} */}
+
+            <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-4">
+                  <CheckLogo />
+                  <h2 className="text-xl font-bold text-blue-400">
+                    Upload PDF or raw text
+                  </h2>
+                </div>
+                <p className="mt-4 text-gray-600 dark:text-gray-400">
+                  Use your current lecture notes or a large book and get study
+                  notes for it.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-4">
+                  <CheckLogo />
+                  <h2 className="text-xl font-bold text-blue-400">
+                    Teachers can generate quizzes for their classes
+                  </h2>
+                </div>
+                <p className="mt-4 text-gray-600 dark:text-gray-400">
+                  Generate multiple choice questions or true or false questions
+                  for students.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-4">
+                  <CheckLogo />
+                  <h2 className="text-xl font-bold text-blue-400">
+                    Manage all your study notes{" "}
+                  </h2>
+                </div>
+                <p className="mt-4 text-gray-600 dark:text-gray-400">
+                  Keep track of all your study notes, assign them due dates and
+                  get reminded when a date is approaching.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-4">
+                  <CheckLogo />
+                  <h2 className="text-xl font-bold text-blue-400">
+                    Manage all your study notes{" "}
+                  </h2>
+                </div>
+                <p className="mt-4 text-gray-600 dark:text-gray-400">
+                  Keep track of all your study notes, assign them due dates and
+                  get reminded when a date is approaching.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
-
+        {/* 
         <div>
           <h1
             id="demo"
@@ -188,12 +249,12 @@ export default function Index() {
             <source src="path_to_your_video.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-        </div>
+        </div> */}
 
         <div>
           <h1
             id="pricing"
-            className="text-2xl text-white font-sans font-semibold text-center tracking-wide mb-6"
+            className="text-2xl text-white font-sans font-semibold text-center tracking-wide mb-10"
           >
             Pricing
           </h1>
@@ -207,7 +268,7 @@ export default function Index() {
               <div className="flex justify-center">
                 <div className="flex flex-col items-center bg-blue-500 rounded-lg shadow-lg p-6 text-center space-y-4 w-full md:w-1/2 lg:w-1/3 dark:bg-blue-300">
                   <h3 className="text-2xl font-bold text-white">Pro Tutor +</h3>
-                  <div className="text-4xl font-bold text-white">$11.99/mo</div>
+                  <div className="text-4xl font-bold text-white">$7.99 /mo</div>
                   <ul className="space-y-2 text-blue-200">
                     <li>Unlimited projects</li>
                     <li>Generate 100+ questions from over 50k words</li>
