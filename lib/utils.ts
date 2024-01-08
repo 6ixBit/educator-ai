@@ -50,3 +50,38 @@ export function formatBytes(bytes: number, decimals = 2): string {
 
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 }
+
+interface QuestionObject {
+  question: string;
+  wrong_answers: string[];
+  correct_answer: string;
+}
+
+function toAikenFormat(questionObj: QuestionObject) {
+  const { question, wrong_answers, correct_answer } = questionObj;
+  let options = wrong_answers.map((answer, index) => {
+    return `${String.fromCharCode(65 + index)}. ${answer}`;
+  });
+
+  // Add the correct answer at a random position
+  const correctIndex = Math.floor(Math.random() * (wrong_answers.length + 1));
+  options.splice(
+    correctIndex,
+    0,
+    `${String.fromCharCode(65 + correctIndex)}. ${correct_answer}`
+  );
+
+  // Join the question, options, and the answer identifier for the correct answer
+  return `${question}\n${options.join("\n")}\nANSWER: ${String.fromCharCode(
+    65 + correctIndex
+  )}\n`;
+}
+
+// // Example usage:
+// const questionData = {
+//   question: "What is the capital of France?",
+//   wrong_answers: ["Berlin", "Madrid", "London"],
+//   correct_answer: "Paris"
+// };
+
+// console.log(toAikenFormat(questionData));
