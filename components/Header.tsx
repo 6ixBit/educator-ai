@@ -57,7 +57,7 @@ export default function Header({
           Back
         </Button>
       ) : (
-        <div className="relative w-1/3 bg-white rounded-lg">
+        <div className="relative w-7/12 bg-white rounded-lg">
           <Input
             className="w-full py-2 pl-10 pr-4 rounded-md bg-color"
             placeholder="Search..."

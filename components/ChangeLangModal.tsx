@@ -22,7 +22,7 @@ export default function ({ showModal, setShowModal }: IChangeLangModal) {
       onOpenChange={setShowModal}
       title="Change System Language"
       description={
-        <div className="pt-3 pl-3 text-center">
+        <div className="pt-3 pl-3 text-center z-30">
           <Select.Root
             // @ts-ignore
             defaultValue={state.getLanguage()}
@@ -35,9 +35,10 @@ export default function ({ showModal, setShowModal }: IChangeLangModal) {
           >
             <Select.Trigger variant="soft" />
 
-            <Select.Content>
+            <Select.Content className="z-40">
               {Object.entries(languageMapping).map(([key, value]) => (
                 <Select.Item
+                  className="z-50"
                   key={key}
                   value={key}
                   onClick={(event) => {

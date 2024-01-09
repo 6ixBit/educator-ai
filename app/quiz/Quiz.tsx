@@ -179,8 +179,6 @@ export default function Quiz({
   );
 }
 
-// TODO: Show users average percentage on quiz test page.
-
 // BONUS:
 // TODO: Add delete button for Projects.
 // TODO: Change color of flash cards back to green, handle large text scenario.

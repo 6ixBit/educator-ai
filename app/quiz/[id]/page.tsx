@@ -1,6 +1,7 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
+import { FourQuestionQuiz } from "../FourQuestionQuiz";
 import GradeCircle from "@/components/grade-circle";
 import Quiz from "../Quiz";
 import { toast } from "sonner";
@@ -27,18 +28,20 @@ export default function Page({
 
   return (
     <div className="sm:pl-6 pl-2">
-      <Card className="flex flex-col w-full  p-4 bg-white rounded-lg shadow-md mt-16">
-        <div className="flex flex-col gap-1">
+      <Card className=" w-full  p-4 bg-white rounded-lg shadow-md mt-16">
+        {/* <div className="flex flex-col gap-1">
           <GradeCircle value={fakeGrade} />
           <p className="text-black font-mono">Avg Grade</p>
-        </div>
+        </div> */}
         {data && Array.isArray(data) && (
-          <Quiz
-            questions={data[0].questions}
-            uuid={data[0].quiz_uuid}
-            attempts={data[0].attempts}
-            current_scores={data[0].user_scores || []}
-          />
+          // <Quiz
+          //   questions={data[0].questions}
+          //   uuid={data[0].quiz_uuid}
+          //   attempts={data[0].attempts}
+          //   current_scores={data[0].user_scores || []}
+          // />
+
+          <FourQuestionQuiz questions={data[0].questions} />
         )}
       </Card>
     </div>
