@@ -39,7 +39,7 @@ export default function Login() {
         />
         <div className="flex flex-col">
           <label
-            className="text-md text-white font-semibold"
+            className="text-md text-white font-semibold pb-2"
             htmlFor="password"
           >
             Password

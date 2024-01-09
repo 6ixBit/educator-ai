@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import CardList from "./CardList";
 import GradeCircle from "@/components/grade-circle";
 import HamburgerMenu from "@/components/HamburgerMenu";
+import Header from "@/components/Header";
 import LoginModal from "@/components/LoginModal";
 import SearchHeader from "@/components/SearchHeader";
 import Skeleton from "@mui/material/Skeleton";
 import { Table } from "@radix-ui/themes";
 import { formatDate } from "@/utility";
-import { useAPIKey } from "../hooks";
 import { useIntl } from "react-intl";
 import { useProject } from "./hooks";
 import { useRouter } from "next/navigation";
@@ -62,7 +62,7 @@ export default function Page() {
       />
 
       <div className="flex justify-center w-full flex-row gap-4 sm:gap-8 flex-baseline">
-        {isMobile && (
+        {/* {isMobile && (
           <div className="pl-4">
             <HamburgerMenu
               items={[
@@ -93,7 +93,7 @@ export default function Page() {
               </p>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
 
       <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md max-h-120 sm:max-h-160 overflow-y-scroll">
