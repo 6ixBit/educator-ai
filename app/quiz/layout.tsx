@@ -4,9 +4,8 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import { HomeLayout } from "@/components/home-layout";
 import LoginModal from "@/components/LoginModal";
-import { Separator } from "@/components/ui/separator";
-import { useRouter } from "next/navigation";
 import { useUserAuth } from "../hooks";
+import useWindowSize from "@/hooks/useWindowSize";
 
 export default function LearnLayout({
   children,
@@ -14,10 +13,11 @@ export default function LearnLayout({
   children: React.ReactNode;
 }) {
   const { showLoginModal, setShowLoginModal } = useUserAuth();
+  const { isMobile } = useWindowSize();
 
   return (
     <HomeLayout>
-      <Header hideSearchBar={true} />
+      {isMobile && <Header hideSearchBar={true} />}
       <LoginModal
         showLoginModal={showLoginModal}
         setShowLoginModal={setShowLoginModal}
