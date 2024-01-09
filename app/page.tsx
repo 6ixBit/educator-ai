@@ -18,6 +18,7 @@ import Link from "next/link";
 import LogoutButton from "@/components/LogoutButton";
 import Navigation from "@/components/Navigation";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
+import { useRouter } from "next/navigation";
 import useStore from "./store";
 import { useUserAuth } from "./hooks";
 import useWindowSize from "@/hooks/useWindowSize";
@@ -45,11 +46,13 @@ export default function Index() {
   const { isMobile } = useWindowSize();
 
   const { userID } = useUserAuth();
+  const router = useRouter();
 
   const loggedIn = userID ? "/projects" : "/login";
 
   return (
     <div className="w-full flex flex-col items-center bg-black">
+      <BackgroundBeams />
       <Navigation>
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm text-foreground">
           <div className="text-white text-lg font-bold flex flex-row items-center gap-3">
@@ -64,35 +67,16 @@ export default function Index() {
             {!userID && (
               <Link
                 href="/login"
-                className="py-1 px-3 rounded-md no-underline hover:bg-btn-background-hover bg-cyan-500 font-semibold text-white"
+                className="py-1 px-3 rounded-md no-underline hover:bg-btn-background-hover bg-cyan-500 font-semibold text-white cursor-pointer"
+                style={{ zIndex: 1 }}
               >
                 Login
               </Link>
             )}
-
-            {/* {isMobile && (
-              <HamburgerMenu
-                items={[
-                  {
-                    name: "Pricing",
-                    url: "#pricing",
-                  },
-                  {
-                    name: "FAQ",
-                    url: "#faq",
-                  },
-                  {
-                    name: "Contact",
-                    url: "#contact",
-                  },
-                ]}
-              />
-            )} */}
           </div>
         </div>
       </Navigation>
 
-      <BackgroundBeams />
       <div className="animate-in flex flex-col gap-14 opacity-0 max-w-4xl px-3 py-16 lg:py-24 text-foreground">
         <div className="flex flex-col items-center mb-4 lg:mb-12 px-4">
           <TypewriterEffect words={words} />
