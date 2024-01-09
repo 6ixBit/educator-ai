@@ -11,23 +11,51 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { QuizIcon } from "./icons/QuizIcon";
 import { SettingsIcon } from "./icons/SettingsIcon";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUserAuth } from "@/app/hooks";
 
-export default function Header() {
+export default function Header({ hideSearchBar }: { hideSearchBar?: boolean }) {
   const { userEmail } = useUserAuth();
   const [showChangeLangModal, setShowChangeLangModal] = useState(false);
+  const router = useRouter();
 
   return (
     <div className="flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200 rounded-lg">
-      <div className="relative w-1/3 bg-white rounded-lg">
-        <Input
-          className="w-full py-2 pl-10 pr-4 rounded-md bg-color"
-          placeholder="Search..."
-          type="search"
-        />
-        <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
-      </div>
+      {hideSearchBar ? (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => {
+            router.back();
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          Back
+        </Button>
+      ) : (
+        <div className="relative w-1/3 bg-white rounded-lg">
+          <Input
+            className="w-full py-2 pl-10 pr-4 rounded-md bg-color"
+            placeholder="Search..."
+            type="search"
+          />
+          <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
+        </div>
+      )}
       <div className="flex-1" />
       <Sheet>
         <SheetTrigger asChild>
