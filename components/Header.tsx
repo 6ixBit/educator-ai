@@ -15,10 +15,20 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUserAuth } from "@/app/hooks";
 
-export default function Header({ hideSearchBar }: { hideSearchBar?: boolean }) {
+export default function Header({
+  hideSearchBar,
+  handleSearch,
+}: {
+  hideSearchBar?: boolean;
+  handleSearch: (value: string) => void;
+}) {
   const { userEmail } = useUserAuth();
   const [showChangeLangModal, setShowChangeLangModal] = useState(false);
   const router = useRouter();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleSearch(event.target.value);
+  };
 
   return (
     <div className="flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200 rounded-lg">
@@ -52,6 +62,7 @@ export default function Header({ hideSearchBar }: { hideSearchBar?: boolean }) {
             className="w-full py-2 pl-10 pr-4 rounded-md bg-color"
             placeholder="Search..."
             type="search"
+            onChange={handleChange}
           />
           <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
         </div>

@@ -2,10 +2,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-import HamburgerMenu from "@/components/HamburgerMenu";
 import Header from "@/components/Header";
 import LoginModal from "@/components/LoginModal";
-import SearchHeader from "@/components/SearchHeader";
 import { Skeleton } from "@mui/material";
 import { fetchStudyCardsFromDeck } from "./actions";
 import { truncate } from "@/utility";
@@ -73,7 +71,7 @@ export default function Page() {
         setShowLoginModal={setShowLoginModal}
       />
 
-      <Header />
+      <Header handleSearch={handleSearch} />
 
       <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md mt-5">
         <CardHeader className="flex flex-row items-baseline justify-between pb-2">

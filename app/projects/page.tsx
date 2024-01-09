@@ -62,7 +62,7 @@ export default function Page() {
       />
 
       <div className="w-full">
-        <Header />
+        <Header handleSearch={handleSearch} />
       </div>
 
       <div className="flex justify-center w-full flex-row gap-4 sm:gap-8 flex-baseline">
