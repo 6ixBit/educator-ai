@@ -18,6 +18,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { DropDownMenu } from "@/components/DropdownMenu";
+import Header from "@/components/Header";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import ProgressBar from "@/components/ProgressBar";
@@ -147,7 +148,7 @@ export default function Page() {
 
   return (
     <>
-      <div className="sm:px-7 px-1">
+      {/* <div className="sm:px-7 px-1">
         <Link href="/projects">
           <Button variant="outline" size="sm">
             <svg
@@ -168,7 +169,9 @@ export default function Page() {
           </Button>
         </Link>
         <Separator className="mt-4" />
-      </div>
+      </div> */}
+
+      <Header hideSearchBar={true} />
 
       <div className="flex justify-center items-center flex-col">
         <h1 className="text-start font-bold text-3xl mb-12 mt-6 text-zinc-700">

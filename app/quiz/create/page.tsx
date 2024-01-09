@@ -64,7 +64,7 @@ export default function Page() {
 
   return (
     <div className="sm:pl-6 pl-2">
-      <Card className="flex flex-col w-full  p-4 bg-white rounded-lg shadow-md mt-16">
+      <Card className="flex flex-col w-full  p-4 bg-white rounded-lg shadow-md mt-8">
         <CardHeader className="flex items-center  justify-between pb-6">
           <CardTitle className="text-lg font-bold">Generate Quiz</CardTitle>
 

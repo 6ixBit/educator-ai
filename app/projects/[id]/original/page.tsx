@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import Header from "@/components/Header";
 import Link from "next/link";
 import { formatDate } from "@/utility";
 import { toast } from "sonner";
@@ -32,25 +33,7 @@ export default function Page() {
   return (
     <div>
       <div className="sm:px-7 px-1">
-        <Link href={`/projects/${project_uuid}`}>
-          <Button variant="outline" size="sm">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
-            >
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-            Back
-          </Button>
-        </Link>
+        <Header hideSearchBar={true} />
       </div>
 
       <div className="sm:px-7 px-1 pt-10">
