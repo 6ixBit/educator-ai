@@ -4,10 +4,14 @@ import { Card, CardContent } from "@/components/ui/card";
 
 import ArrowLogo from "@/components/icons/ArrowLogo";
 import { BackgroundBeams } from "@/components/ui/background-beams";
+import { BookLogo } from "@/components/icons/BookLogo";
 import { Button } from "@/components/ui/button";
 import CheckLogo from "@/components/icons/CheckLogo";
+import { ClipBoardLogo } from "@/components/icons/ClipBoardLogo";
 import CollapsableSection from "@/components/CollapsableSection";
 import DashboardButton from "@/components/DashboardButton";
+import { FileLogo } from "@/components/icons/FileLogo";
+import { FolderLogo } from "@/components/icons/FolderLogo";
 import HamburgerMenu from "@/components/HamburgerMenu";
 import Image from "next/image";
 import Link from "next/link";
@@ -173,7 +177,7 @@ export default function Index() {
             <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4">
-                  <CheckLogo />
+                  <FileLogo />
                   <h2 className="text-xl font-bold text-blue-400">
                     Upload PDF or raw text
                   </h2>
@@ -188,13 +192,13 @@ export default function Index() {
             <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4">
-                  <CheckLogo />
+                  <BookLogo />
                   <h2 className="text-xl font-bold text-blue-400">
                     Teachers can generate quizzes for their classes
                   </h2>
                 </div>
                 <p className="mt-4 text-gray-600 dark:text-gray-400">
-                  Generate multiple choice questions or true or false questions
+                  Generate multiple choice questions or true / false questions
                   for students.
                 </p>
               </CardContent>
@@ -203,7 +207,7 @@ export default function Index() {
             <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4">
-                  <CheckLogo />
+                  <FolderLogo />
                   <h2 className="text-xl font-bold text-blue-400">
                     Manage all your study notes{" "}
                   </h2>
@@ -218,14 +222,14 @@ export default function Index() {
             <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4">
-                  <CheckLogo />
+                  <ClipBoardLogo />
                   <h2 className="text-xl font-bold text-blue-400">
-                    Manage all your study notes{" "}
+                    Automatically summarize notes
                   </h2>
                 </div>
                 <p className="mt-4 text-gray-600 dark:text-gray-400">
-                  Keep track of all your study notes, assign them due dates and
-                  get reminded when a date is approaching.
+                  Digest your notes faster by having it summarized into key
+                  points.
                 </p>
               </CardContent>
             </Card>
@@ -258,7 +262,7 @@ export default function Index() {
           >
             Pricing
           </h1>
-          <section className="w-full py-12 md:py-24 lg:py-32 bg-blue-50">
+          <section className="w-full py-12 lg:py-16">
             <div className="container px-4 md:px-6">
               <div className="text-center space-y-3">
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight text-blue-900 dark:text-blue-100 pb-4">
@@ -266,14 +270,30 @@ export default function Index() {
                 </h2>
               </div>
               <div className="flex justify-center">
-                <div className="flex flex-col items-center bg-blue-500 rounded-lg shadow-lg p-6 text-center space-y-4 w-full md:w-1/2 lg:w-1/3 dark:bg-blue-300">
+                <div className="flex flex-col items-center bg-blue-500 rounded-lg shadow-lg p-6 text-center space-y-4 w-full md:w-1/2 lg:w-1/3">
                   <h3 className="text-2xl font-bold text-white">Pro Tutor +</h3>
                   <div className="text-4xl font-bold text-white">$7.99 /mo</div>
-                  <ul className="space-y-2 text-blue-200">
-                    <li>Unlimited projects</li>
-                    <li>Generate 100+ questions from over 50k words</li>
-                    <li>Priority Email Support</li>
-                    <li>Lifetime Updates</li>
+                  <ul className="space-y-2">
+                    <li className="grid grid-cols-[auto,1fr] gap-2 items-center">
+                      <CheckLogo stroke="#ffffff" />
+                      <span className="text-blue-200">Unlimited projects</span>
+                    </li>
+                    <li className="grid grid-cols-[auto,1fr] gap-2 items-center">
+                      <CheckLogo stroke="#ffffff" />
+                      <span className="text-blue-200">
+                        Generate 100+ questions from over 50k words
+                      </span>
+                    </li>
+                    <li className="grid grid-cols-[auto,1fr] gap-2 items-center">
+                      <CheckLogo stroke="#ffffff" />
+                      <span className="text-blue-200">
+                        Priority Email Support
+                      </span>
+                    </li>
+                    <li className="grid grid-cols-[auto,1fr] gap-2 items-center">
+                      <CheckLogo stroke="#ffffff" />
+                      <span className="text-blue-200">Lifetime Updates</span>
+                    </li>
                   </ul>
                   <Button className="mt-4 bg-white text-blue-500 hover:bg-gray-100 dark:text-blue-900 dark:hover:bg-blue-200">
                     Get Started
