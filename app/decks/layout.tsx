@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import { HomeLayout } from "@/components/home-layout";
 
 export default function LearnLayout({
@@ -5,5 +6,5 @@ export default function LearnLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <HomeLayout>{children}</HomeLayout>;
+  return <HomeLayout> {children}</HomeLayout>;
 }

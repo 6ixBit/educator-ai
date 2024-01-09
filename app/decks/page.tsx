@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import HamburgerMenu from "@/components/HamburgerMenu";
+import Header from "@/components/Header";
 import LoginModal from "@/components/LoginModal";
 import SearchHeader from "@/components/SearchHeader";
 import { Skeleton } from "@mui/material";
@@ -72,39 +73,7 @@ export default function Page() {
         setShowLoginModal={setShowLoginModal}
       />
 
-      <div className="flex flex-row">
-        {isMobile && (
-          <div className="pl-4">
-            <HamburgerMenu
-              items={[
-                {
-                  name: "Projects",
-                  url: "/projects",
-                },
-                {
-                  name: "Study cards",
-                  url: "/studycards",
-                },
-                {
-                  name: "Quiz",
-                  url: "/quiz",
-                },
-              ]}
-            />
-          </div>
-        )}
-        <div className=" w-full flex-col">
-          <SearchHeader handleSearch={handleSearch} />
-          {Array.isArray(filteredDecks) && (
-            <div className="font-sans text-slate-300 text-center p-2 h-6 flex-row mb-6">
-              <p className="text-blue-p px-1 text-center">
-                <b>{filteredDecks.length}</b>{" "}
-                {intl.formatMessage({ id: "decks.items" })}
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
+      <Header />
 
       <Card className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md mt-5">
         <CardHeader className="flex flex-row items-baseline justify-between pb-2">

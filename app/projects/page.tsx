@@ -61,6 +61,10 @@ export default function Page() {
         setShowLoginModal={setShowLoginModal}
       />
 
+      <div className="w-full">
+        <Header />
+      </div>
+
       <div className="flex justify-center w-full flex-row gap-4 sm:gap-8 flex-baseline">
         {/* {isMobile && (
           <div className="pl-4">
