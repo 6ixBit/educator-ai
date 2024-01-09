@@ -3,9 +3,13 @@
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 import { Button } from "./ui/button";
+import { CardIcon } from "./icons/CardIcon";
 import ChangeLangModal from "./ChangeLangModal";
+import { HomeIcon } from "./icons/HomeIcon";
+import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { QuizIcon } from "./icons/QuizIcon";
 import { SettingsIcon } from "./icons/SettingsIcon";
 import { useState } from "react";
 import { useUserAuth } from "@/app/hooks";
@@ -36,14 +40,30 @@ export default function Header() {
           className="bg-white w-64 space-y-4 pt-10 pr-4 pl-8 flex flex-col justify-between rounded-lg text-black"
           side="right"
         >
-          <div className="flex flex-col gap-2 pt-4">
-            <Link className="text-lg font-semibold" href="/projects">
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-1 mb-6">
+              <Image src="/logo.png" width={25} height={25} alt="ai logo" />
+              <span className="font-bold text-md">Pro Tutor AI</span>
+            </div>
+            <Link
+              className="text-lg font-semibold flex flex-row items-baseline"
+              href="/projects"
+            >
+              <HomeIcon className="w-4 h-4 mr-2" />
               Projects
             </Link>
-            <Link className="text-lg font-semibold" href="/decks">
+            <Link
+              className="text-lg font-semibold flex flex-row items-baseline"
+              href="/decks"
+            >
+              <CardIcon className="w-4 h-4 mr-2" />
               Study Cards
             </Link>
-            <Link className="text-lg font-semibold" href="/quiz">
+            <Link
+              className="text-lg font-semibold flex flex-row items-baseline"
+              href="/quiz"
+            >
+              <QuizIcon className="w-4 h-4 mr-2" />
               Quiz
             </Link>
           </div>
@@ -55,7 +75,7 @@ export default function Header() {
                 setShowChangeLangModal(true);
               }}
             >
-              <SettingsIcon className="w-4 h-4" />
+              <SettingsIcon className="w-5 h-5" />
               <p className="px-2">Change Languages</p>
             </Button>
             <span className="text-gray-600 pt-4">{userEmail}</span>
@@ -70,7 +90,7 @@ export default function Header() {
   );
 }
 
-function MenuIcon(props) {
+function MenuIcon(props: any) {
   return (
     <svg
       {...props}
@@ -91,7 +111,7 @@ function MenuIcon(props) {
   );
 }
 
-function SearchIcon(props) {
+function SearchIcon(props: any) {
   return (
     <svg
       {...props}
