@@ -2,7 +2,6 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 
-import ArrowLogo from "@/components/icons/ArrowLogo";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { BookLogo } from "@/components/icons/BookLogo";
 import { Button } from "@/components/ui/button";
@@ -12,14 +11,12 @@ import CollapsableSection from "@/components/CollapsableSection";
 import DashboardButton from "@/components/DashboardButton";
 import { FileLogo } from "@/components/icons/FileLogo";
 import { FolderLogo } from "@/components/icons/FolderLogo";
-import HamburgerMenu from "@/components/HamburgerMenu";
 import Image from "next/image";
 import Link from "next/link";
 import LogoutButton from "@/components/LogoutButton";
 import Navigation from "@/components/Navigation";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import { useRouter } from "next/navigation";
-import useStore from "./store";
 import { useUserAuth } from "./hooks";
 import useWindowSize from "@/hooks/useWindowSize";
 
@@ -68,7 +65,7 @@ export default function Index() {
               <Link
                 href="/login"
                 className="py-1 px-3 rounded-md no-underline hover:bg-btn-background-hover bg-cyan-500 font-semibold text-white cursor-pointer"
-                style={{ zIndex: 1 }}
+                style={{ zIndex: 2 }}
               >
                 Login
               </Link>
@@ -114,10 +111,7 @@ export default function Index() {
               Get started
             </button>
           </Link>
-          {/* <p className="text-white">Trusted by ...</p> */}
         </div>
-
-        {/* <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" /> */}
 
         <h1 className="text-2xl text-white font-sans font-semibold text-center tracking-wide">
           Features
