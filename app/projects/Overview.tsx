@@ -136,19 +136,25 @@ export default function Overview({
             {intl.formatMessage({ id: "section.summary" })}
           </h1>
           <div className="bg-white rounded-lg p-4 space-y-2">
-            {key_points && key_points.length > 0 ? (
-              key_points.map((point, index) => (
-                <div key={index} className="break-words my-4">
-                  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                    {point.title}
-                  </h4>
-                  <p className="leading-7 [&:not(:first-child)]:mt-2">
-                    {point.key_point}
-                  </p>
-                </div>
-              ))
+            {key_points && key_points.key_points ? (
+              Array.isArray(key_points.key_points) &&
+              key_points.key_points.length > 0 ? (
+                key_points.key_points.map((point, index) => (
+                  <div key={index} className="break-words my-4">
+                    <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                      {point.title}
+                    </h4>
+                    <p className="leading-7 [&:not(:first-child)]:mt-2">
+                      {point.key_point}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-gray-500">No key points available.</p>
+              )
             ) : (
-              <p className="text-gray-500">No key points available.</p>
+              // You can render a loading state or null if you don't want to show anything
+              <p className="text-gray-500">Loading key points...</p>
             )}
           </div>
         </div>

@@ -6,7 +6,9 @@ interface Card {
   back: string;
 }
 
-const baseUrl = "http://localhost:8080";
+// const baseUrl = "http://localhost:8080";
+const baseUrl = "https://protutor-ai-server.onrender.com";
+
 const ExternalAPI = {
   generateQuiz: `${baseUrl}/api/quiz`,
   gradeCaseStudy: `${baseUrl}/api/casestudy/grade`,
