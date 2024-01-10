@@ -22,9 +22,9 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [textAreaWordCount, setTextAreaWordCount] = useState(0);
 
-  const [questionType, setQuestionType] = useState();
-  const [difficulty, setDifficulty] = useState();
-  const [questionCount, setQuestionCount] = useState();
+  const [questionType, setQuestionType] = useState("true_or_false");
+  const [difficulty, setDifficulty] = useState("easy");
+  const [questionCount, setQuestionCount] = useState(5);
 
   const fileInputRef = useRef(null);
   const handleButtonClick = () => {
@@ -48,9 +48,9 @@ export default function Page() {
     const textArea = formValues[0].value;
 
     console.log("Text area: ", textArea);
-    console.log(difficulty);
-    console.log(questionCount);
-    console.log(questionType);
+    console.log("difficulty", difficulty);
+    console.log("count", questionCount);
+    console.log("question type: ", questionType);
 
     // TODO: Send request to server
 
