@@ -54,7 +54,7 @@ export default function Page({
       )}
 
       <div className="sm:px-7 px-1">
-        <Header hideSearchBar={true} />
+        <Header hideSearchBar={true} handleSearch={() => {}} />
       </div>
 
       <div className="grid grid-cols-1 px-1.5 sm:px-8 mt-8">

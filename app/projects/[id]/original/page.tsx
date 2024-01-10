@@ -33,7 +33,7 @@ export default function Page() {
   return (
     <div>
       <div className="sm:px-7 px-1">
-        <Header hideSearchBar={true} />
+        <Header hideSearchBar={true} handleSearch={() => {}} />
       </div>
 
       <div className="sm:px-7 px-1 pt-10">
