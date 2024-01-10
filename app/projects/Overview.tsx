@@ -27,7 +27,7 @@ interface IOverview {
   due_date: Date | string | undefined;
   deck_uuid?: string;
   project_id: string;
-  key_points: { title: string; key_point: string }[];
+  key_points: any;
 }
 
 export default function Overview({
@@ -139,7 +139,7 @@ export default function Overview({
             {key_points && key_points.key_points ? (
               Array.isArray(key_points.key_points) &&
               key_points.key_points.length > 0 ? (
-                key_points.key_points.map((point, index) => (
+                key_points.key_points.map((point: any, index: any) => (
                   <div key={index} className="break-words my-4">
                     <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
                       {point.title}
