@@ -1,12 +1,17 @@
 import { Button } from "@/components/ui/button";
 
-export function QuizRev({
-  handleRetry,
-  score,
-}: {
+interface QuizRevProps {
   handleRetry: () => void;
   score: number;
-}) {
+  results: {
+    question: string;
+    correctAnswer: string;
+    userAnswer: string;
+    isCorrect: boolean;
+  }[];
+}
+
+export function QuizRev({ handleRetry, score, results }: QuizRevProps) {
   return (
     <div className="max-w-2xl w-full sm:w-3/4 lg:w-1/2 xl:w-1/3 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
       <h1 className="text-2xl font-bold text-center mb-4 dark:text-gray-100">
@@ -17,38 +22,35 @@ export function QuizRev({
           Your Score:
         </h2>
         <div className="ml-2 text-3xl font-bold text-primary-500">
-          {score}/5
+          {score}/{results.length}
         </div>
       </div>
       <div className="space-y-6">
-        <div className="flex flex-col bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-          <h3 className="text-lg font-semibold mb-2 dark:text-gray-100">
-            Question 1
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300">
-            What is the capital of Australia?
-          </p>
-          <div className="mt-2 text-green-600 font-semibold">
-            Your answer: Canberra
+        {results.map((result, index) => (
+          <div
+            key={index}
+            className="flex flex-col bg-gray-50 dark:bg-gray-700 p-4 rounded-lg"
+          >
+            <h3 className="text-lg font-semibold mb-2 dark:text-gray-100">
+              Question {index + 1}
+            </h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              {result.question}
+            </p>
+            <div
+              className={`mt-2 font-semibold ${
+                result.isCorrect ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              Your answer: {result.userAnswer || "No answer provided"}
+            </div>
+            {!result.isCorrect && (
+              <div className="mt-1 text-sm text-gray-500">
+                Correct answer: {result.correctAnswer}
+              </div>
+            )}
           </div>
-          <div className="mt-1 text-sm text-gray-500">
-            Correct! Canberra is the capital of Australia.
-          </div>
-        </div>
-        <div className="flex flex-col bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-          <h3 className="text-lg font-semibold mb-2 dark:text-gray-100">
-            Question 2
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300">
-            Who wrote the novel '1984'?
-          </p>
-          <div className="mt-2 text-red-600 font-semibold">
-            Your answer: Aldous Huxley
-          </div>
-          <div className="mt-1 text-sm text-gray-500">
-            Incorrect. The novel '1984' was written by George Orwell.
-          </div>
-        </div>
+        ))}
       </div>
       <div className="mt-8 text-center">
         <p className="text-lg font-semibold mb-2 dark:text-gray-100">
@@ -57,7 +59,7 @@ export function QuizRev({
         <p className="text-gray-600 dark:text-gray-300">
           Keep practicing to improve your score!
         </p>
-        <Button className="mt-4" onClick={handleRetry}>
+        <Button className="mt-6" onClick={handleRetry}>
           Try Again
         </Button>
       </div>

@@ -34,14 +34,12 @@ export default function Page({
           <p className="text-black font-mono">Avg Grade</p>
         </div> */}
         {data && Array.isArray(data) && (
-          // <Quiz
-          //   questions={data[0].questions}
-          //   uuid={data[0].quiz_uuid}
-          //   attempts={data[0].attempts}
-          //   current_scores={data[0].user_scores || []}
-          // />
-
-          <FourQuestionQuiz questions={data[0].questions} />
+          <FourQuestionQuiz
+            uuid={data[0].quiz_uuid}
+            questions={data[0].questions}
+            current_scores={data[0].user_scores || []}
+            attempts={data[0].attempts}
+          />
         )}
       </Card>
     </div>
