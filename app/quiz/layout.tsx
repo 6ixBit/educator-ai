@@ -17,7 +17,7 @@ export default function LearnLayout({
 
   return (
     <HomeLayout>
-      {isMobile && <Header hideSearchBar={true} />}
+      {isMobile && <Header hideSearchBar={true} handleSearch={() => {}} />}
       <LoginModal
         showLoginModal={showLoginModal}
         setShowLoginModal={setShowLoginModal}

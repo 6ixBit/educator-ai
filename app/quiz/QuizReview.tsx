@@ -11,32 +11,26 @@ interface QuizRevProps {
   }[];
 }
 
-export function QuizRev({ handleRetry, score, results }: QuizRevProps) {
+export function QuizReview({ handleRetry, score, results }: QuizRevProps) {
+  const calcPercentage = (score: number, totalQuestions: number) => {
+    return (score / totalQuestions) * 100;
+  };
+
   return (
-    <div className="max-w-2xl w-full sm:w-3/4 lg:w-1/2 xl:w-1/3 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <h1 className="text-2xl font-bold text-center mb-4 dark:text-gray-100">
-        Quiz Review
-      </h1>
+    <div className="max-w-2xl w-full sm:w-3/4 lg:w-1/2 xl:w-1/3 bg-whit rounded-lg shadow-md p-6">
+      <h1 className="text-2xl font-bold text-center mb-4">Quiz Review</h1>
       <div className="flex items-center justify-center mb-8">
-        <h2 className="text-lg font-semibold dark:text-gray-100">
-          Your Score:
-        </h2>
+        <h2 className="text-lg font-semibold">Your Score:</h2>
         <div className="ml-2 text-3xl font-bold text-primary-500">
-          {score}/{results.length}
+          {score}/{results.length} <span className="mx-2">-</span>{" "}
+          {calcPercentage(score, results.length)}%
         </div>
       </div>
       <div className="space-y-6">
         {results.map((result, index) => (
-          <div
-            key={index}
-            className="flex flex-col bg-gray-50 dark:bg-gray-700 p-4 rounded-lg"
-          >
-            <h3 className="text-lg font-semibold mb-2 dark:text-gray-100">
-              Question {index + 1}
-            </h3>
-            <p className="text-gray-600 dark:text-gray-300">
-              {result.question}
-            </p>
+          <div key={index} className="flex flex-col bg-gray-50 p-4 rounded-lg">
+            <h3 className="text-lg font-semibold mb-2">Question {index + 1}</h3>
+            <p className="text-gray-600">{result.question}</p>
             <div
               className={`mt-2 font-semibold ${
                 result.isCorrect ? "text-green-600" : "text-red-600"
@@ -53,12 +47,10 @@ export function QuizRev({ handleRetry, score, results }: QuizRevProps) {
         ))}
       </div>
       <div className="mt-8 text-center">
-        <p className="text-lg font-semibold mb-2 dark:text-gray-100">
+        <p className="text-lg font-semibold mb-2">
           Great job! You're almost there.
         </p>
-        <p className="text-gray-600 dark:text-gray-300">
-          Keep practicing to improve your score!
-        </p>
+        <p className="text-gray-60">Keep practicing to improve your score!</p>
         <Button className="mt-6" onClick={handleRetry}>
           Try Again
         </Button>

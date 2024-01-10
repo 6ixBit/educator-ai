@@ -22,6 +22,7 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [textAreaWordCount, setTextAreaWordCount] = useState(0);
 
+  const [questionType, setQuestionType] = useState();
   const [difficulty, setDifficulty] = useState();
   const [questionCount, setQuestionCount] = useState();
 
@@ -49,6 +50,7 @@ export default function Page() {
     console.log("Text area: ", textArea);
     console.log(difficulty);
     console.log(questionCount);
+    console.log(questionType);
 
     // TODO: Send request to server
 
@@ -66,7 +68,9 @@ export default function Page() {
     <div className="sm:pl-6 pl-2">
       <Card className="flex flex-col w-full  p-4 bg-white rounded-lg shadow-md mt-8">
         <CardHeader className="flex items-center  justify-between pb-6">
-          <CardTitle className="text-lg font-bold">Generate Quiz</CardTitle>
+          <CardTitle className="text-2xl  tracking-tighter font-bold ">
+            Generate Quiz
+          </CardTitle>
 
           <CardDescription className=" px-4 sm:px-16">
             You can generate quizzes from here and have them exist as standalone
@@ -74,15 +78,25 @@ export default function Page() {
           </CardDescription>
         </CardHeader>
 
-        <div className="flex flex-row gap-1 justify-center mb-4">
-          <Button size="sm" onClick={handleButtonClick}>
-            Upload a text file
-          </Button>
-
-          <Button size="sm" onClick={handleButtonClick}>
-            Upload a pdf
-          </Button>
-
+        <div className="flex justify-center">
+          <div className="grid grid-cols-2 gap-14">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-9/12 flex text-center justify-between items-center bg-green-500 text-white"
+              onClick={handleButtonClick}
+            >
+              Upload PDF
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-9/12 flex justify-between items-center bg-yellow-500 text-white"
+              onClick={handleButtonClick}
+            >
+              Upload Text File
+            </Button>
+          </div>
           <input
             type="file"
             id="file-upload"
@@ -92,7 +106,13 @@ export default function Page() {
           />
         </div>
 
-        <Form.Root className=" mt-6" onSubmit={handleSubmit}>
+        <div className="flex items-center justify-center my-8 px-6">
+          <hr className="border-gray-300 w-full" />
+          <span className="px-2 text-gray-500 bg-white">OR</span>
+          <hr className="border-gray-300 w-full" />
+        </div>
+
+        <Form.Root className=" mt-4" onSubmit={handleSubmit}>
           <Form.Field className=" mb-[10px] px-8" name="content">
             <Form.Control asChild>
               <textarea
@@ -103,7 +123,9 @@ export default function Page() {
                 onChange={handleTextChange}
               />
             </Form.Control>
-            {textAreaWordCount} / {maxWordCount.toLocaleString()} words
+            <div className="text-right">
+              {textAreaWordCount} / {maxWordCount.toLocaleString()} words
+            </div>
             <div className="text-center">
               <Form.Message
                 className="text-[13px] text-red-500 opacity-[0.8]"
@@ -116,9 +138,9 @@ export default function Page() {
             </div>
           </Form.Field>
 
-          <div className="flex flex-col sm:mb-0 mb-4 max-w-lg  sm:flex-row gap-4 justify-between px-0 sm:px-8 mt-7">
-            <div className="flex flex-col max-w-lg">
-              <p>Question Type</p>
+          <div className="flex flex-col sm:mb-0 mb-4 w-full gap-4 justify-between px-0 sm:px-8 mt-7">
+            <div className="flex flex-col w-11/12 sm:w-full">
+              <p className="mb-2">Question Type</p>
               <DropDownMenu
                 placeholder="True or False"
                 options={[
@@ -126,13 +148,13 @@ export default function Page() {
                   { value: "mcq", label: "Multiple Choice Question" },
                 ]}
                 onValueChange={(value) => {
-                  setDifficulty(value);
+                  setQuestionType(value);
                 }}
               />
             </div>
 
-            <div className="flex flex-col">
-              <p>Difficulty</p>
+            <div className="flex flex-col w-11/12 sm:w-full">
+              <p className="mb-2">Difficulty</p>
               <DropDownMenu
                 placeholder="Easy"
                 options={[
@@ -146,8 +168,8 @@ export default function Page() {
               />
             </div>
 
-            <div className="flex flex-col">
-              <p>Count</p>
+            <div className="flex flex-col w-11/12 sm:w-full">
+              <p className="mb-2">Count</p>
               <DropDownMenu
                 placeholder="5"
                 options={[
@@ -178,15 +200,21 @@ export default function Page() {
               />
             </div>
           </div>
+
           <Form.Submit asChild>
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-6 w-full">
               {loading ? (
                 <div className="w-9/12 mt-2">
                   <ProgressBar initialProgress={10} end={!loading} />
                 </div>
               ) : (
-                <Button variant="submit_blue" disabled={loading}>
-                  {intl.formatMessage({ id: "button.generate.quiz" })}
+                <Button
+                  disabled={loading}
+                  className=" mt-6 bg-gradient-to-r from-sky-500 to-purple-300 sm:w-10/12 text-center"
+                >
+                  <p className="text-white">
+                    {intl.formatMessage({ id: "button.generate.quiz" })}
+                  </p>
                 </Button>
               )}
             </div>

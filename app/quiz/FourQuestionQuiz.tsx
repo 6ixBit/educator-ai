@@ -2,7 +2,7 @@ import { useAddQuizPercentageScore, useIncrementQuizAttempt } from "./hooks";
 import { useEffect, useState } from "react";
 
 import { IQuestion } from "./types";
-import { QuizRev } from "./NewQuizReview";
+import { QuizReview } from "./QuizReview";
 
 interface IQuiz {
   questions: IQuestion[];
@@ -96,7 +96,7 @@ export function FourQuestionQuiz({
 
     return (
       <div className="flex justify-center">
-        <QuizRev handleRetry={handleRetry} score={score} results={results} />
+        <QuizReview handleRetry={handleRetry} score={score} results={results} />
       </div>
     );
   }

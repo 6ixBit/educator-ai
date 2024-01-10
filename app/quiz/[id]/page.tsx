@@ -3,7 +3,6 @@
 import { Card } from "@/components/ui/card";
 import { FourQuestionQuiz } from "../FourQuestionQuiz";
 import GradeCircle from "@/components/grade-circle";
-import Quiz from "../Quiz";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import { useGetQuizByUUID } from "../hooks";
@@ -28,7 +27,7 @@ export default function Page({
 
   return (
     <div className="sm:pl-6 pl-2">
-      <Card className=" w-full  p-4 bg-white rounded-lg shadow-md mt-16">
+      <Card className=" w-full  p-4 bg-white rounded-lg shadow-md mt-8 sm:mt-16">
         {/* <div className="flex flex-col gap-1">
           <GradeCircle value={fakeGrade} />
           <p className="text-black font-mono">Avg Grade</p>
