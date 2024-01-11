@@ -186,7 +186,7 @@ export default function Overview({
                         {mainQuiz.attempts}
                       </Table.Cell>
                       <Table.Cell className="text-center">
-                        {getAvgOfArray(mainQuiz.user_scores)}%
+                        {getAvgOfArray(mainQuiz.user_scores).toFixed(2)}%
                       </Table.Cell>
                     </Table.Row>
                   )}

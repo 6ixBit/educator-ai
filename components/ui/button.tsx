@@ -25,6 +25,7 @@ const buttonVariants = cva(
           "rounded text-center mt-8 p-4 py-2 text-white mb-2 bg-gradient-to-r from-blue-500 to-purple-500",
         submit_blue:
           "box-border w-1/2 text-black shadow-blackA4 hover:bg-lime-300 inline-flex h-[35px] items-center justify-center rounded-full bg-login-btn px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]",
+        practise: "w-[90px] text-white bg-black",
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -1,3 +1,4 @@
+import { ExternalAPI } from "../projects/actions";
 import { SupabaseClient } from "@supabase/supabase-js";
 
 export const GetQuizForProject = async (
@@ -82,4 +83,28 @@ export const addQuizPercentageScore = async (
   }
 
   return data;
+};
+
+export const generateTrueOrFalseQuestions = async (
+  context: string,
+  difficulty: string,
+  questionCount: number
+) => {
+  const response = await fetch(ExternalAPI.generateTrueOrFalseQuiz, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      context: context,
+      difficulty: difficulty,
+      questionCount: questionCount,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  return await response.json();
 };

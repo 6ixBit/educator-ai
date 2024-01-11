@@ -13,7 +13,9 @@ import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { DropDownMenu } from "@/components/DropdownMenu";
 import ProgressBar from "@/components/ProgressBar";
+import { generateTrueOrFalseQuestions } from "../actions";
 import { toast } from "sonner";
+import { useGenerateTrueOrFalseQuestions } from "../hooks";
 import { useIntl } from "react-intl";
 
 export default function Page() {
@@ -47,14 +49,14 @@ export default function Page() {
     const formValues = event.target as any;
     const textArea = formValues[0].value;
 
-    console.log("Text area: ", textArea);
-    console.log("difficulty", difficulty);
-    console.log("count", questionCount);
-    console.log("question type: ", questionType);
+    generateTrueOrFalseQuestions(textArea, difficulty, questionCount).then(
+      (res) => {
+        console.log("RES: ", res);
+        return res;
+      }
+    );
 
-    // TODO: Send request to server
-
-    // setLoading(false);
+    setLoading(false);
   };
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

@@ -3,6 +3,7 @@ import {
   GetQuizByUUID,
   GetQuizForProject,
   addQuizPercentageScore,
+  generateTrueOrFalseQuestions,
   incrementQuizAttempt,
 } from "./actions";
 import { useMutation, useQuery } from "react-query";
@@ -19,6 +20,23 @@ export const useGetQuizForProject = (project_id: string) => {
     queryKey: "getQuizForProject",
     queryFn: () => GetQuizForProject(supabase, project_id),
     enabled: !!project_id,
+    onError: (error) => {
+      toast.error(
+        "Failed to fetch quiz for this project, please try again later."
+      );
+    },
+  });
+};
+
+export const useGenerateTrueOrFalseQuestions = (
+  context: string,
+  difficulty: string,
+  questionCount: number
+) => {
+  return useQuery({
+    queryKey: "getQuizForProject",
+    queryFn: () =>
+      generateTrueOrFalseQuestions(context, difficulty, questionCount),
     onError: (error) => {
       toast.error(
         "Failed to fetch quiz for this project, please try again later."
