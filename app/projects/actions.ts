@@ -58,13 +58,23 @@ export const addProjectToDB = async (
 export const addQuizToDB = async (
   supabase: SupabaseClient,
   questions: any,
-  project_id: string,
-  user_id: string
+  user_id: string,
+  project_id?: string,
+  question_type?: string
 ) => {
   try {
+    const insertData = project_id
+      ? {
+          questions,
+          user_uuid: user_id,
+          project_id,
+          question_type: question_type || "",
+        }
+      : { questions, user_uuid: user_id, question_type: question_type || "" };
+
     const { data, error } = await supabase
       .from("quiz")
-      .insert([{ questions, user_uuid: user_id, project_id }])
+      .insert([insertData])
       .select();
 
     if (error) return { status: "failure", info: error };

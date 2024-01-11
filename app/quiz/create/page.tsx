@@ -13,18 +13,25 @@ import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { DropDownMenu } from "@/components/DropdownMenu";
 import ProgressBar from "@/components/ProgressBar";
+import { addQuizToDB } from "@/app/projects/actions";
 import { generateTrueOrFalseQuestions } from "../actions";
 import { toast } from "sonner";
 import { useGenerateTrueOrFalseQuestions } from "../hooks";
 import { useIntl } from "react-intl";
+import useStore from "@/app/store";
+import { useUserAuth } from "@/app/hooks";
 
 export default function Page() {
   const maxWordCount = 50_000;
   const intl = useIntl();
   const [loading, setLoading] = useState(false);
   const [textAreaWordCount, setTextAreaWordCount] = useState(0);
+  const { userID } = useUserAuth();
 
-  const [questionType, setQuestionType] = useState("true_or_false");
+  // @ts-ignore
+  const supabase = useStore((state) => state?.supabase);
+
+  const [questionType, setQuestionType] = useState("tof");
   const [difficulty, setDifficulty] = useState("easy");
   const [questionCount, setQuestionCount] = useState(5);
 
@@ -51,11 +58,18 @@ export default function Page() {
 
     generateTrueOrFalseQuestions(textArea, difficulty, questionCount).then(
       (res) => {
-        console.log("RES: ", res);
+        addQuizToDB(
+          supabase,
+          res.result.questions,
+          userID,
+          undefined,
+          "tof"
+        ).then((data) => {
+          console.log("data: ", data);
+        });
         return res;
       }
     );
-
     setLoading(false);
   };
 
